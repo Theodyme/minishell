@@ -1,0 +1,72 @@
+
+# **HISTORIQUE ET LECTURE DE PROMPT.**
+
+Il existe dans les libraries 'history' et 'readline' des fonctions et des types permettant de lire des informations depuis le prompt
+et de les stocker dans un historique. Pour cela, on a besoin de la structure qui suit;
+
+       typedef void * histdata_t;
+
+       typedef struct _hist_entry {
+         char *line;		/*contient la ligne lue.*/
+         char *timestamp;	/*contient le timestamp de la ligne lue.*/
+         histdata_t data;	/*contient une donnee initialement set a NULL.*/
+       } HIST_ENTRY;
+
+qu on pourra declarer comme suit;
+
+       HIST_ENTRY ** the_history_list;
+
+Les fonctions de la librairie 'readline' s executent avec des variables particulieres, dont:
+char * rl_line_buffer			Le buffer de readline.
+
+Ce sont les ressources qu on utiliserait a priori pour l affichage du prompt. L historique permettra de recuperer les commandes deja
+entrees avec la fleche du haut.
+
+
+# **FONCTIONS.**
+
+		char *       readline (const char *prompt);
+LIBS:			stdio.h
+				readline/readline.h
+				readline/history.h
+USAGE:			renvoie sous forme de char * une ligne saisie dans le prompt, sans \n a la fin.
+RETOUR:			si PROMPT est NULL, la fonction renverra NULL. (?)
+				si PROMPT est une ligne vide, la fonction renverra une ligne vide.
+				si PROMPT est un EOF et que la ligne est vide, la fonction renverra une ligne vide.
+
+/!\ cette fonction est a utiliser en accord avec 'add_history' pour pouvoir avoir acces aux differentes lignes lues.
+
+
+		void 		add_history (const char *string);
+LIBS:			readline/history.h
+USAGE:		 	ajoute STRING a l historique. la valeur associee par defaut est set a NULL.
+RETOUR:			void.
+
+
+		void		rl_clear_history (void);
+LIBS:			readline/readline.h
+USAGE:			efface toutes les entrees de l historique.
+NOTE:			la difference avec 'clear_history' (ici interdite) est que 'rl_clear_history' efface egalement les donnees
+				que readline sauvegarde dans l historique.
+RETOUR:			void.
+
+
+		void		rl_redisplay (void);
+LIBS:			readline/readline.h
+USAGE:		 	actualise l affichage de 'rl_line_buffer'.
+RETOUR:			void.
+
+
+		void 		rl_replace_line (const char *text, int clear_undo);
+LIBS:			readline/readline.h
+USAGE:		 	remplace le contenu de 'rl_line_buffer' avec TEXT.
+NOTE:			CLEAR_UNDO ne nous concerne pas puisque nous n avons pas le droit aux fonctions permettant d exploiter cette
+				fonctionnalite de la librairie.
+				la liste undo associee avec la line actuelle est effacee.
+RETOUR:			void.
+
+
+		int			rl_on_new_line (void);
+LIBS:			readline/readline.h
+USAGE:		 	indique a la fonction update (rl_redisplay ?) que 'readline' est passe a une nouvelle ligne vide.
+RETOUR:			void.
