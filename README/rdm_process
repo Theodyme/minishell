@@ -1,4 +1,4 @@
-# **FONCTIONS WAIT**
+/*						WAITING PROCESS					*/
 
 			pid_t		wait(int *wstatus);
 LIBS:			sys/wait.h
@@ -28,7 +28,15 @@ NOTE:			l appel 					wait3(status, options, rusage);
 				est equivalent a l appel	waitpid(pid, status, options);
 
 
-# **FONCTIONS SUR LES SIGNAUX**
+/*						SUR LES SIGNAUX					*/
+
+       A child created via fork(2) inherits a copy of its parents
+       signal dispositions.  During an execve(2), the dispositions of
+       handled signals are reset to the default; the dispositions of
+       ignored signals are left unchanged.
+
+
+/*						FONCTIONS						*/
 
 /!\ il est recommande dans les man de privilegier sigaction() a signal() en raison d un comportement pouvant varier entre
 les differentes versions UNIX et linux.
