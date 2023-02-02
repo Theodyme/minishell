@@ -30,6 +30,8 @@ char	*ft_strcpy(char *dest, const char *src);
 void	ft_add_history(char *line);
 
 int 	ft_count_quote(char *str);
-int     ft_quote(char *str, t_token *head);
+
+int 	ft_readlst(t_token *lst);
 
 char    *ft_expand(char *line);
+

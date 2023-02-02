@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:45:17 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/02 13:45:18 by flplace          ###   ########.fr       */
+/*   Updated: 2023/02/02 17:52:42 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int main(int ac, char **av)
 		else
 			write(1, "Error: Unmatched quote\n", 23);
 		ft_add_history(line);
-
 	}
 	return 0;
 }
