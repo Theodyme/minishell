@@ -37,6 +37,7 @@ int	ft_count_quote(char *str)
 	return (v);
 }
 
+
 int ft_readlst(t_token *lst)
 {
 	if (!lst)
@@ -51,8 +52,7 @@ int ft_readlst(t_token *lst)
 	}
 	printf("\n\n");
 	return (0);
-}
-
+}	
 
 
 /*
@@ -64,6 +64,7 @@ int main()
 	//lst = ft_lstnew(ft_strdup(""));
 
 	char *str = ft_strdup("'Hel'lo W\"orl'd");
+	
 
 	char *str1 = ft_strdup("hello world");
 	char *str2 = ft_strdup("hel\'lo wor\'ld");

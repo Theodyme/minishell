@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.py": "python",
+        "exception": "c",
+        "new": "c"
+    }
+}

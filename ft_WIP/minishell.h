@@ -19,6 +19,7 @@ typedef struct s_token
     struct s_token *next;
 } t_token;
 
+
 /*			lib utils				*/
 void 	*ft_calloc(size_t count, size_t size);
 void	*ft_memset(void *b, int c, size_t len);
@@ -28,6 +29,7 @@ size_t	ft_strlen(const char *str);
 char	*ft_strcpy(char *dest, const char *src);
 
 void	ft_add_history(char *line);
+
 
 int 	ft_count_quote(char *str);
 int     ft_quote(char *str, t_token *head);
