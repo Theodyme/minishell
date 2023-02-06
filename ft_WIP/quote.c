@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:50:46 by mabimich          #+#    #+#             */
-/*   Updated: 2023/02/02 13:52:48 by flplace          ###   ########.fr       */
+/*   Updated: 2023/02/06 18:22:39 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,24 @@ int	ft_count_quote(char *str)
 				return (-1);
 		}
 	}
-
 	return (v);
 }
 
-int ft_readlst(t_token *lst)
-{
-	if (!lst)
-		return (1);
-	if (lst->str && lst->next)
-		lst = lst->next;
-	printf("lst->str:");
-	while (lst)
-	{
-		printf("|%s|", lst->str);
-		lst = lst->next;
-	}
-	printf("\n\n");
-	return (0);
-}
+// int ft_readlst(t_token *lst)
+// {
+// 	if (!lst)
+// 		return (1);
+// 	if (lst->str && lst->next)
+// 		lst = lst->next;
+// 	printf("lst->str:");
+// 	while (lst)
+// 	{
+// 		printf("|%s|", lst->str);
+// 		lst = lst->next;
+// 	}
+// 	printf("\n\n");
+// 	return (0);
+// }
 
 
 

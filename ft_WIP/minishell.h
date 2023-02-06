@@ -12,12 +12,34 @@ enum TOKEN_TYPE
     REDIR
 };
 
+typedef struct s_list
+{
+	void	*content;
+    struct t_list	*next;
+} t_list;
+
+//						token type
+//		type:	type de token, a distinguer pour le process global de tokenisation
+//		str:	contenu sous forme de string du token (commande, string a traiter, etc )
+
 typedef struct s_token
 {
-    enum TOKEN_TYPE type;
-    char *str;
-    struct s_token *next;
+    enum TOKEN_TYPE	type;
+    char			*str;
 } t_token;
+
+//						env type
+//		id:		identifiant de la variable
+//		vars:	variables sous formes de liste chainee.
+
+typedef struct s_env
+{
+	char	*id;
+    struct t_list	*vars;
+} t_env;
+
+
+/*			env building			*/
 
 /*			lib utils				*/
 void 	*ft_calloc(size_t count, size_t size);
@@ -31,7 +53,10 @@ void	ft_add_history(char *line);
 
 int 	ft_count_quote(char *str);
 
-int 	ft_readlst(t_token *lst);
+// int 	ft_readlst(t_token *lst);
 
 char    *ft_expand(char *line);
+
+/*						*/
+void	*ft_lstlast(void *lst);
 
