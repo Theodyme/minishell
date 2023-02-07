@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:50:46 by mabimich          #+#    #+#             */
-/*   Updated: 2023/02/06 18:22:39 by flplace          ###   ########.fr       */
+/*   Updated: 2023/02/07 12:49:20 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	ft_count_quote(char *str)
 // }
 
 
-
 /*
 
 int main()
@@ -63,6 +62,7 @@ int main()
 	//lst = ft_lstnew(ft_strdup(""));
 
 	char *str = ft_strdup("'Hel'lo W\"orl'd");
+
 
 	char *str1 = ft_strdup("hello world");
 	char *str2 = ft_strdup("hel\'lo wor\'ld");

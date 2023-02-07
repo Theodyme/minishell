@@ -1,0 +1,4 @@
+*.o
+.env
+a.out
+minishell

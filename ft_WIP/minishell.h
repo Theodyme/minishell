@@ -51,6 +51,7 @@ char	*ft_strcpy(char *dest, const char *src);
 
 void	ft_add_history(char *line);
 
+
 int 	ft_count_quote(char *str);
 
 // int 	ft_readlst(t_token *lst);

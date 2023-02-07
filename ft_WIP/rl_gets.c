@@ -54,7 +54,7 @@ char *ft_expand(char *line)
 
 		//		printf("%c|%c\n", *ptr1, *ptr2);
 		//		printf("%c|%c\n", *ptr1, *ptr2);
-		printf("%i|%c|%c\n", in_quote(&ptr1, &ptr2), *ptr1, *ptr2);
+		printf("%c|%c|%i\n", *ptr1, *ptr2, in_quote(&ptr1, &ptr2) );
 		//in_quote(ptr1, ptr2);
 	}
 	return (line);
