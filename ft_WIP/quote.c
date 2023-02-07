@@ -36,6 +36,32 @@ int	ft_count_quote(char *str)
 	return (v);
 }
 
+int	ft_quotelen(char *str)
+{
+	int		i;
+	int		v;
+	char	c;
+
+	i = -1;
+	v = 0;
+	while (str[++i])
+	{
+		if (str[i] == '\'' || str[i] == '"')
+		{
+			c = str[i++];
+			while (str[i] && str[i] != c)
+				i++;
+			if (str[i] == c)
+				v++;
+			else
+				return (-1);
+		}
+		else
+			return (-1);
+	}
+	return (v);
+}
+
 // int ft_readlst(t_token *lst)
 // {
 // 	if (!lst)
