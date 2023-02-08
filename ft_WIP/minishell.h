@@ -7,8 +7,9 @@
 
 enum TOKEN_TYPE
 {
-    QUOTE,
     WORD, // commande ou argument
+    QUOTE,
+    DQUOTE,
     PIPE, // |
     REDIR_IN, // <
     REDIR_OUT, // >
@@ -21,7 +22,7 @@ typedef struct s_list
 {
 	char	        *content;
     struct t_list	*next;
-} t_list;
+}   t_list;
 
 //						token type
 //		type:	type de token, a distinguer pour le process global de tokenisation
@@ -32,7 +33,7 @@ typedef struct s_token
     enum TOKEN_TYPE	type;
     char			*str;
     struct s_token	*next;
-} t_token;
+}   t_token;
 
 //						env type
 //		id:		identifiant de la variable
@@ -40,10 +41,10 @@ typedef struct s_token
 
 typedef struct s_env
 {
-    char            *name;
-    struct  t_list   *vars;
-    struct  s_env    *next;
-} t_env;
+    char			*key;
+    struct  t_list	*value;
+    struct  s_env	*next;
+}   t_env;
 
 /*			env building			*/
 
@@ -66,10 +67,12 @@ int     ft_quotelen(char *str);
 
 // int 	ft_readlst(t_token *lst);
 
-char    *ft_expand(char *line);
 
 /*						*/
 void	*ft_lstlast(void *lst);
 
 
 t_token	*ft_specialtoken2(int *i, char *line, t_token *token);
+
+/*               EXPAND              */
+int    ft_expand(t_token *lst, t_env *env);

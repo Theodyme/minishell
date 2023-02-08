@@ -27,10 +27,17 @@ int	ft_isspecial(char c)
 	return (0);
 }
 
+int	ft_isquote(char c)
+{
+	if (c == '\'' || c == '\"')
+		return (1);
+	return (0);
+}
+
 t_token	*ft_specialtoken1(int *i, char *line, t_token *token)
 {
 	*i += 1;
-	if (line[0] == '|' && line[1] && line[1] != '|')
+	if (line[0] == '|')
 	{
 		token->type = PIPE;
 		token->str = ft_strdup("|");
@@ -41,7 +48,7 @@ t_token	*ft_specialtoken1(int *i, char *line, t_token *token)
 		token->str = ft_strdup(">>");
 		*i += 1;
 	}
-	else if (line[0] == '>' && line[1] && line[1] != '>')
+	else if (line[0] == '>')
 	{
 		token->type = REDIR_OUT;
 		token->str = ft_strdup(">");
@@ -59,7 +66,7 @@ t_token	*ft_specialtoken2(int *i, char *line, t_token *token)
 		token->str = ft_strdup("<<");
 		*i += 1;
 	}
-	else if (line[0] == '<' && line[1] && line[1] != '<')
+	else if (line[0] == '<')
 	{
 		token->type = REDIR_IN;
 		token->str = ft_strdup("<");
@@ -72,7 +79,6 @@ int	ft_trim_blank(char *line)
 	int i;
 
 	i = 0;
-	printf("Trim blank: %s\n", line);
 	while (line[i] && ft_isblank(line[i]))
 		i += 1;
 	return (i);
@@ -83,7 +89,7 @@ int	ft_wordlen(char *line)
 	int i;
 
 	i = 0;
-	while (line[i] && !ft_isblank(line[i]) && !ft_isspecial(line[i]))
+	while (line[i] && !ft_isblank(line[i]) && !ft_isspecial(line[i]) && !ft_isquote(line[i]))
 		i++;
 	return (i);
 }
@@ -101,6 +107,12 @@ void	ft_free_lst(t_token *head)
 	}
 }
 
+t_token *ft_quotetoken(char *line, t_token *token)
+{
+	token->type = QUOTE;
+	token->str = ft_strndup(line, ft_quotelen(line));
+	return (token);
+}
 
 t_token	*ft_tokenize(char *line)
 {
@@ -118,9 +130,12 @@ t_token	*ft_tokenize(char *line)
 		i += ft_trim_blank(line + i);
 		if (line[i] == '\'' || line[i] == '\"')
 		{
-			tmp->type = QUOTE;
-			tmp->str = ft_strndup(line + i, ft_quotelen(line + i));
-			i += ft_quotelen(line + i);
+			if (line[i] == '\'')
+				tmp->type = QUOTE;
+			else
+				tmp->type = DQUOTE;
+			tmp->str = ft_strndup(line + i + 1, ft_quotelen(line + i) - 2);
+			i += ft_quotelen(line + i) + 2;
 		}
 		else if (line[i] && ft_isspecial(line[i]))
 			tmp = ft_specialtoken1(&i, line + i, tmp);
@@ -134,7 +149,6 @@ t_token	*ft_tokenize(char *line)
 		if (!tmp->next)
 			return (ft_free_lst(head), NULL);
 		tmp = tmp->next;
-		sleep(1);
 	}
 	return (head);
 }
@@ -178,8 +192,9 @@ int main(int ac, char **av)
 			//ft_quote(line, head);
 		}
 		else
-			write(1, "Error: Unmatched quote\n", 23);
+			write(2, "Error: Unmatched quote\n", 23);
 		ft_add_history(line);
+		write(1, "\n", 1);
 	}
-	return 0;
+	return (0);
 }

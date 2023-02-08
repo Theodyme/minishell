@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:52:16 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/07 20:55:43 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/02/08 16:54:50 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ char *ft_strndup(const char *src, size_t n)
 	str = (char *)ft_calloc(sizeof(*str), (n + 1));
 	if (str == NULL)
 		return (NULL);
-	ft_strlcpy(str, src, n);
+	ft_strlcpy(str, src, n + 1);
 	return (str);
 }
