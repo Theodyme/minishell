@@ -21,6 +21,7 @@ SRCS	=	lib/ft_calloc.c \
 			quote.c \
 			expand.c \
 			rl_gets.c \
+			wip.c \
 			main.c
 OBJ		=	${SRCS:.c=.o}
 HEADER	=   minishell.h
