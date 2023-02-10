@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:43:10 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/10 15:09:31 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/02/10 15:40:49 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ size_t	ft_strlen(const char *str)
 		l++;
 	return (l);
 }
-size_t	ft_strclen(char *str, char c)
+size_t	ft_strclen(const char *str, char c)
 {
 	size_t	i;
 

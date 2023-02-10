@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/10 14:43:39 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/02/10 15:34:37 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,22 @@
 
 enum TOKEN_TYPE
 {
-    WORD, // commande ou argument
-    QUOTE,
-    DQUOTE,
-    PIPE, // |
-    REDIR_IN, // <
-    REDIR_OUT, // >
-    APPEND, // >>
-    HEREDOC, // <<
-    DELIMITER,
-    ENV
+	WORD, // commande ou argument
+	QUOTE,
+	DQUOTE,
+	PIPE, // |
+	REDIR_IN, // <
+	REDIR_OUT, // >
+	APPEND, // >>
+	HEREDOC, // <<
+	DELIMITER,
+	ENV
 };
 
 typedef struct s_list
 {
 	char	        *content;
-    struct t_list	*next;
+	struct t_list	*next;
 }   t_list;
 
 //						token type
@@ -43,9 +43,9 @@ typedef struct s_list
 
 typedef struct s_token
 {
-    enum TOKEN_TYPE	type;
-    char			*str;
-    struct s_token	*next;
+	enum TOKEN_TYPE	type;
+	char			*str;
+	struct s_token	*next;
 }   t_token;
 
 //						env type
@@ -54,9 +54,9 @@ typedef struct s_token
 
 typedef struct s_env
 {
-    char			*key;
-    char			*value;
-    struct s_env	*next;
+	char			*key;
+	char			*value;
+	struct s_env	*next;
 }   t_env;
 
 /*			env building			*/
@@ -77,6 +77,8 @@ char    *ft_strndup(const char *src, size_t n);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 
 size_t	ft_strlen(const char *str);
+size_t  ft_strclen(const char *str, char c);
+
 char	*ft_strcpy(char *dest, const char *src);
 
 void		ft_add_history(char *line);
@@ -102,7 +104,7 @@ int     ft_wordlen(char *line);
 int     ft_wordlen_with_dollar(char *line);
 
 char	*ft_strchr(const char *s, int c);
-void		env_printer(t_env **envt);
+void	env_printer(t_env **envt);
 
 t_token	*ft_specialtoken2(int *i, char *line, t_token *token);
 
@@ -114,3 +116,6 @@ int     ft_wordlen(char *line);
 int     ft_wordlen_with_dollar(char *line);
 
 char	*ft_strchr(const char *s, int c);
+
+int     ft_getenv(char *key, t_env *env);
+t_token	*ft_tokenize(char *line);
