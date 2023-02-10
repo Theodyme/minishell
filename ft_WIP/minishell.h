@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/10 11:14:22 by flplace          ###   ########.fr       */
+/*   Updated: 2023/02/10 14:04:18 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ typedef struct s_env
 
 
 /*			env building			*/
-void	ft_env_reader(char **envp, t_env **envt);
-t_env	*ft_lstadd_env(char *str, t_env **envt);
-char	*ft_split_value(char *str);
-char	*ft_split_key(char *str);
-t_env	*ft_envlast(t_env *lst);
+int			ft_env_reader(char **envp, t_env **envt);
+t_env		*ft_lstadd_env(char *str, t_env **envt);
+char		*ft_split_value(char *str);
+char		*ft_split_key(char *str);
+t_env		*ft_envlast(t_env *lst);
 
 
 

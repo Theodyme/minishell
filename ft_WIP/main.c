@@ -25,6 +25,11 @@ int main(int ac, char **av, char **envp)
 	// if (!head)
 		// return 1;
 	ft_env_reader(envp, &envt);
+	if (!envt)
+	{
+		write(1, "Error: Couldn't get env variables\n", 34);
+		return 1;
+	}
 	while (true)
 	{
 		line = readline(ft_strdup("$> "));
@@ -37,7 +42,7 @@ int main(int ac, char **av, char **envp)
 		}
 		if (ft_strcmp(line, "env") == 0)
 			env_printer(&envt);
-		if (ft_count_quote(line) != -1)
+		else if (ft_count_quote(line) != -1)
 			line = ft_expand(line);
 		else
 			write(1, "Error: Unmatched quote\n", 23);

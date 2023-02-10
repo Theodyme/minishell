@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:58:45 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/10 11:22:27 by flplace          ###   ########.fr       */
+/*   Updated: 2023/02/10 14:01:56 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,15 +98,16 @@ t_env	*ft_lstadd_env(char *str, t_env **envt)
 /*			maillon de la liste chainee nouvellement	*/
 /*			creee.										*/
 
-void	ft_env_reader(char **envp, t_env **envt)
+int	ft_env_reader(char **envp, t_env **envt)
 {
 	int		i;
 
 	i = -1;
 	while(envp[++i])
 	{
-		// printf("envp = %s\n", envp[i]);
 		ft_lstadd_env(envp[i], envt);
+		if (ft_envlast(*envt) == NULL)
+			return (1);
 	}
-	return ;
+	return (0);
 }
