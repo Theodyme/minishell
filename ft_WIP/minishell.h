@@ -15,7 +15,8 @@ enum TOKEN_TYPE
     REDIR_OUT, // >
     APPEND, // >>
     HEREDOC, // <<
-    DELIMITER
+    DELIMITER,
+    ENV
 };
 
 typedef struct s_list
@@ -42,8 +43,8 @@ typedef struct s_token
 typedef struct s_env
 {
     char			*key;
-    struct  t_list	*value;
-    struct  s_env	*next;
+    char			*value;
+    struct s_env	*next;
 }   t_env;
 
 /*			env building			*/
@@ -75,4 +76,10 @@ void	*ft_lstlast(void *lst);
 t_token	*ft_specialtoken2(int *i, char *line, t_token *token);
 
 /*               EXPAND              */
-int    ft_expand(t_token *lst, t_env *env);
+int     ft_expand(t_token *tkn, t_env *env);
+int     ft_trim_blank(char *line);
+
+int     ft_wordlen(char *line);
+int     ft_wordlen_with_dollar(char *line);
+
+char	*ft_strchr(const char *s, int c);

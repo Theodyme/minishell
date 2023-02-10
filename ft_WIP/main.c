@@ -15,7 +15,7 @@
 
 int	ft_isblank(char c)
 {
-	if (c == ' ' || c == '\t')
+	if (c == ' ' || c == '\t' || c == '\n')
 		return (1);
 	return (0);
 }
@@ -89,7 +89,20 @@ int	ft_wordlen(char *line)
 	int i;
 
 	i = 0;
-	while (line[i] && !ft_isblank(line[i]) && !ft_isspecial(line[i]) && !ft_isquote(line[i]))
+	while (line[i] && !ft_isblank(line[i]) && !ft_isspecial(line[i])
+		&& !ft_isquote(line[i]))
+		i++;
+	return (i);
+}
+
+
+int ft_wordlen_with_dollar(char *line)
+{
+	int i;
+
+	i = 0;
+	while (line[i] && !ft_isblank(line[i]) && !ft_isspecial(line[i])
+		&& !ft_isquote(line[i]) && line[i] != '$')
 		i++;
 	return (i);
 }
@@ -135,7 +148,8 @@ t_token	*ft_tokenize(char *line)
 			else
 				tmp->type = DQUOTE;
 			tmp->str = ft_strndup(line + i + 1, ft_quotelen(line + i) - 2);
-			i += ft_quotelen(line + i) + 2;
+			i += ft_quotelen(line + i);
+
 		}
 		else if (line[i] && ft_isspecial(line[i]))
 			tmp = ft_specialtoken1(&i, line + i, tmp);
@@ -165,13 +179,45 @@ void	ft_print_token(t_token *head)
 	}
 }
 
-int main(int ac, char **av)
+void	ft_print_env(t_env *head)
 {
-	char *line = NULL;
+	t_env *tmp;
+
+	tmp = head;
+	while (tmp->next)
+	{
+		printf("%s=%s\n", tmp->key, tmp->value);
+		tmp = tmp->next;
+	}
+}
+/*
+void	ft_testmodif(t_token *head)
+{
+	t_token *tmp;
+
+	tmp = head;
+	while (tmp->next)
+	{
+		if (tmp->type == WORD)
+		{
+			free(tmp->str);
+			tmp->str = ft_strdup("test");
+		}
+		tmp = tmp->next;
+	}
+}*/
+
+
+int main(int ac, char **av, char **env)
+{
+	char	*line = NULL;
+	t_env	*l_env;
 	t_token *head;
 	
 	if (ac != 1 && av)
 		return (write(2, "Error: Wrong number of arguments\n", 33), 1);
+	
+	//ft_print_env(l_env);
 	while (true)
 	{
 		line = readline(ft_strdup("$> "));
@@ -187,8 +233,9 @@ int main(int ac, char **av)
 			head = ft_tokenize(line);
 			if (!head)
 				return (write(2, "Error: Tokenization failed\n", 27), 1);
+		//	ft_testmodif(head);
 			ft_print_token(head);
-		//	line = ft_expand(line);
+			ft_expand(head, l_env);
 			//ft_quote(line, head);
 		}
 		else

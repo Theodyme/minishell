@@ -15,7 +15,9 @@ SRCS	=	lib/ft_calloc.c \
 			lib/ft_strdup.c \
 			lib/ft_strlen.c\
 			lib/ft_strcpy.c \
+			lib/ft_strchr.c \
 			quote.c \
+			expand.c \
 			rl_gets.c \
 			main.c
 OBJ		=	${SRCS:.c=.o}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:43:10 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/02 13:50:02 by flplace          ###   ########.fr       */
+/*   Updated: 2023/02/09 19:23:46 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,13 @@ size_t	ft_strlen(const char *str)
 	while (str && str[l] != '\0')
 		l++;
 	return (l);
+}
+size_t	ft_strclen(char *str, char c)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i] && str[i] != c)
+		i++;
+	return (i);
 }

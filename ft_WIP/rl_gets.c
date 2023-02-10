@@ -34,9 +34,9 @@ int in_quote(char **ptr1, char **ptr2)
 	return (0);
 }
 
+/*
 
-
-char *ft_expand(char *line)
+char *ft_expand_old(char *line)
 {
 	//	char	*tmp;
 	char *ptr1;
@@ -59,3 +59,4 @@ char *ft_expand(char *line)
 	}
 	return (line);
 }
+*/
