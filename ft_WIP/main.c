@@ -13,16 +13,18 @@
 
 #include "minishell.h"
 
-int main(int ac, char **av)
+int main(int ac, char **av, char **envp)
 {
-	char *line = NULL;
-	t_token *head;
+	char 	*line = NULL;
+	t_env	*envt = NULL;
+	// t_token *head;
 
 	if (ac != 1 && av)
 		return (write(2, "Error: Wrong number of arguments\n", 33), 1);
-	head = ft_calloc(1, sizeof(t_token));
-	if (!head)
-		return 1;
+	// head = ft_calloc(1, sizeof(t_token));
+	// if (!head)
+		// return 1;
+	ft_env_reader(envp, &envt);
 	while (true)
 	{
 		line = readline(ft_strdup("$> "));
@@ -33,11 +35,10 @@ int main(int ac, char **av)
 			free(line);
 			break ;
 		}
+		if (ft_strcmp(line, "env") == 0)
+			env_printer(&envt);
 		if (ft_count_quote(line) != -1)
-		{
 			line = ft_expand(line);
-			//ft_quote(line, head);
-		}
 		else
 			write(1, "Error: Unmatched quote\n", 23);
 		ft_add_history(line);

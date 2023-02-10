@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   test_printer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 13:43:10 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/08 19:15:39 by flplace          ###   ########.fr       */
+/*   Created: 2023/02/09 15:41:16 by flplace           #+#    #+#             */
+/*   Updated: 2023/02/10 11:22:31 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
-size_t	ft_strlen(const char *str)
+void	env_printer(t_env **envt)
 {
-	int	l;
+	t_env	*parse;
 
-	l = 0;
-	while (str && str[l] != '\0')
-		l++;
-	return (l);
-}
-
-size_t    ft_strclen(char *str, char c)
-{
-    size_t    i;
-
-    i = 0;
-    while (str[i] && str[i] != c)
-        i++;
-    return (i);
+	parse = (*envt);
+	// printf("parse = %p, envt = %p\n", parse, envt);
+	while (parse->next)
+	{
+		printf("envt printer:\nkey = '%s',\nvalue = '%s'\n", parse->key, parse->value);
+		parse = parse->next;
+	}
+	return ;
 }
