@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
+/*   Updated: 2023/02/10 14:43:39 by mabimich         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <readline/readline.h>
@@ -48,6 +60,13 @@ typedef struct s_env
 }   t_env;
 
 /*			env building			*/
+int			ft_env_reader(char **envp, t_env **envt);
+t_env		*ft_lstadd_env(char *str, t_env **envt);
+char		*ft_split_value(char *str);
+char		*ft_split_key(char *str);
+t_env		*ft_envlast(t_env *lst);
+
+
 
 /*			lib utils				*/
 void 	*ft_calloc(size_t count, size_t size);
@@ -60,7 +79,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlen(const char *str);
 char	*ft_strcpy(char *dest, const char *src);
 
-void	ft_add_history(char *line);
+void		ft_add_history(char *line);
 
 
 int 	ft_count_quote(char *str);
@@ -70,8 +89,20 @@ int     ft_quotelen(char *str);
 
 
 /*						*/
-void	*ft_lstlast(void *lst);
 
+void		env_printer(t_env **envt);
+
+t_token	*ft_specialtoken2(int *i, char *line, t_token *token);
+
+/*               EXPAND              */
+int     ft_expand(t_token *tkn, t_env *env);
+int     ft_trim_blank(char *line);
+
+int     ft_wordlen(char *line);
+int     ft_wordlen_with_dollar(char *line);
+
+char	*ft_strchr(const char *s, int c);
+void		env_printer(t_env **envt);
 
 t_token	*ft_specialtoken2(int *i, char *line, t_token *token);
 

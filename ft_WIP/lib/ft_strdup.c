@@ -6,13 +6,13 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:52:16 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/09 21:31:55 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/02/10 14:49:54 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*ft_strdup(const char *src)
+char    *ft_strdup(const char *src)
 {
 	int		l;
 	char	*str;
@@ -24,6 +24,32 @@ char	*ft_strdup(const char *src)
 	if (str == NULL)
 		return (NULL);
 	str = ft_strcpy(str, src);
+	return (str);
+}
+
+char *ft_strndup(const char *src, size_t n)
+{
+    char *str;
+
+    if (src == NULL)
+        return (NULL);
+    str = (char *)ft_calloc(sizeof(*str), (n + 1));
+    if (str == NULL)
+        return (NULL);
+    ft_strlcpy(str, src, n + 1);
+    return (str);
+}
+
+char *ft_strndup(const char *src, size_t n)
+{
+	char *str;
+
+	if (src == NULL)
+		return (NULL);
+	str = (char *)ft_calloc(sizeof(*str), (n + 1));
+	if (str == NULL)
+		return (NULL);
+	ft_strlcpy(str, src, n + 1);
 	return (str);
 }
 
