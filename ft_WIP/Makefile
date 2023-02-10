@@ -19,6 +19,7 @@ SRCS	=	lib/ft_calloc.c \
 			test_printer.c \
 			env_cpy.c \
 			quote.c \
+			expand.c \
 			rl_gets.c \
 			main.c
 OBJ		=	${SRCS:.c=.o}

@@ -43,10 +43,15 @@ int main(int ac, char **av, char **envp)
 		if (ft_strcmp(line, "env") == 0)
 			env_printer(&envt);
 		else if (ft_count_quote(line) != -1)
-			line = ft_expand(line);
+			head = ft_tokenize(line);
+		if (!head)
+			return (write(2, "Error: Tokenization failed\n", 27), 1);
+		//	ft_testmodif(head);
+		ft_expand(head, envt);
 		else
-			write(1, "Error: Unmatched quote\n", 23);
+			write(2, "Error: Unmatched quote\n", 23);
 		ft_add_history(line);
+		write(1, "\n", 1);
 	}
-	return 0;
+	return (0);
 }

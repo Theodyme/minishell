@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:52:16 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/08 19:15:37 by flplace          ###   ########.fr       */
+/*   Updated: 2023/02/10 15:10:38 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 char    *ft_strdup(const char *src)
 {
-    int        l;
-    char    *str;
+	int		l;
+	char	*str;
 
-    if (src == NULL)
-        return (NULL);
-    l = ft_strlen((char *)src);
-    str = (char *)ft_calloc(sizeof(*str), (l + 1));
-    if (str == NULL)
-        return (NULL);
-    str = ft_strcpy(str, src);
-    return (str);
+	if (src == NULL)
+		return (NULL);
+	l = ft_strlen((char *)src);
+	str = (char *)ft_calloc(sizeof(*str), (l + 1));
+	if (str == NULL)
+		return (NULL);
+	str = ft_strcpy(str, src);
+	return (str);
 }
 
 char *ft_strndup(const char *src, size_t n)
@@ -38,4 +38,17 @@ char *ft_strndup(const char *src, size_t n)
         return (NULL);
     ft_strlcpy(str, src, n + 1);
     return (str);
+}
+
+char *ft_strndup(const char *src, size_t n)
+{
+	char *str;
+
+	if (src == NULL)
+		return (NULL);
+	str = (char *)ft_calloc(sizeof(*str), (n + 1));
+	if (str == NULL)
+		return (NULL);
+	ft_strlcpy(str, src, n + 1);
+	return (str);
 }
