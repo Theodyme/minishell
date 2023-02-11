@@ -41,7 +41,9 @@ int main(int ac, char **av, char **envp)
 			break ;
 		}
 		if (ft_strcmp(line, "env") == 0)
-			env_printer(&envt);
+			ft_bltin_env(&envt);
+		else if (ft_strcmp(line, "pwd") == 0)
+			ft_bltin_pwd(&envt);
 		else if (ft_count_quote(line) != -1)
 			head = ft_tokenize(line);
 		else

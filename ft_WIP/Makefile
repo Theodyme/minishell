@@ -9,14 +9,16 @@ END_COLOR	:= \033[0;39m
 # **************************************************************************** #
 # VARIABLES
 
-SRCS	=	lib/ft_calloc.c \
+SRCS	=	builtin/env.c \
+			builtin/pwd.c \
+			builtin/bltin_utils.c \
+			lib/ft_calloc.c \
 			lib/ft_memset.c \
 			lib/ft_strcmp.c\
 			lib/ft_strdup.c \
 			lib/ft_strlen.c\
 			lib/ft_strcpy.c \
 			lib/ft_strlcpy.c \
-			test_printer.c \
 			env_cpy.c \
 			quote.c \
 			expand.c \

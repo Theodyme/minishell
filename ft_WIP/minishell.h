@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/10 15:34:37 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:32:00 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,30 +69,36 @@ t_env		*ft_envlast(t_env *lst);
 
 
 /*			lib utils				*/
-void 	*ft_calloc(size_t count, size_t size);
-void	*ft_memset(void *b, int c, size_t len);
-int 	ft_strcmp(const char *s1, const char *s2);
-char	*ft_strdup(const char *src);
-char    *ft_strndup(const char *src, size_t n);
-size_t	ft_strlcpy(char *dst, const char *src, size_t size);
+void 		*ft_calloc(size_t count, size_t size);
+void		*ft_memset(void *b, int c, size_t len);
+int 		ft_strcmp(const char *s1, const char *s2);
+char		*ft_strdup(const char *src);
+char		*ft_strndup(const char *src, size_t n);
+size_t		ft_strlcpy(char *dst, const char *src, size_t size);
+size_t		ft_strlen(const char *str);
+size_t		ft_strclen(const char *str, char c);
+char		*ft_strcpy(char *dest, const char *src);
 
-size_t	ft_strlen(const char *str);
-size_t  ft_strclen(const char *str, char c);
+/*			builtins				*/
+void		ft_bltin_env(t_env **envt);
+void		ft_bltin_pwd(t_env **envt);
+t_env		*ft_bltin_unset(t_env **envt, char *needle);
 
-char	*ft_strcpy(char *dest, const char *src);
+/*			builtins utils			*/
+t_env		*ft_key_finder(t_env **envt, char *needle);
+int			ft_key_remove(t_env *rm);
+
 
 void		ft_add_history(char *line);
 
 
-int 	ft_count_quote(char *str);
-int     ft_quotelen(char *str);
+int 		ft_count_quote(char *str);
+int			ft_quotelen(char *str);
 
 // int 	ft_readlst(t_token *lst);
 
 
 /*						*/
-
-void		env_printer(t_env **envt);
 
 t_token	*ft_specialtoken2(int *i, char *line, t_token *token);
 
