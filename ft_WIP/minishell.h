@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/10 17:32:00 by flplace          ###   ########.fr       */
+/*   Updated: 2023/02/11 14:33:09 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,13 @@ char		*ft_strcpy(char *dest, const char *src);
 /*			builtins				*/
 void		ft_bltin_env(t_env **envt);
 void		ft_bltin_pwd(t_env **envt);
-t_env		*ft_bltin_unset(t_env **envt, char *needle);
+t_env		*ft_bltin_unset(t_env **envt, char *key);
+int			ft_bltin_export(t_env **envt, char *key, char *value);
 
 /*			builtins utils			*/
 t_env		*ft_key_finder(t_env **envt, char *needle);
 int			ft_key_remove(t_env *rm);
+t_env		*ft_key_add(t_env **envt, char *key, char *value);
 
 
 void		ft_add_history(char *line);

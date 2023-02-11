@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:45:48 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/11 13:53:49 by flplace          ###   ########.fr       */
+/*   Updated: 2023/02/11 14:35:57 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ t_env	*ft_key_finder(t_env **envt, char *needle)
 	return (parse);
 }
 
+//		int		ft_key_remove(t_env *rm)
+//
+// 			free le node passe en parametre.
+//
+// 			verifie si le free s'est bien passe, sinon renvoie 1.
+
 int		ft_key_remove(t_env *rm)
 {
 	free(rm->key);
@@ -44,4 +50,34 @@ int		ft_key_remove(t_env *rm)
 	if (rm)
 		return (1);
 	return (0);
+}
+
+//		t_env		*ft_key_add(t_env **envt, char *key, char *value)
+//
+// 			ajoute une cle a la liste des var. environnement.
+// 			la nouvelle cle respecte la syntaxe key=value selon les variables
+// 			passees en parametre.
+// 			si la liste env est vide, ajoute la cle comme unique node.
+//
+// 			renvoie l'adresse du nouveau node ajoute.
+
+t_env		*ft_key_add(t_env **envt, char *key, char *value)
+{
+	t_env	*new;
+	t_env	*last;
+
+	new = (t_env *)malloc(sizeof(t_env));
+	if (new == NULL)
+		return (NULL);
+	new->key = ft_strdup(key);
+	new->value = ft_strdup(value);
+	new->next = NULL;
+	if (!(*envt))
+	{
+		*envt = new;
+		return (new);
+	}
+	last = ft_envlast(*envt);
+	last->next = new;
+	return (new);
 }
