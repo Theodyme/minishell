@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:45:48 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/10 17:31:37 by flplace          ###   ########.fr       */
+/*   Updated: 2023/02/11 13:53:49 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		ft_key_remove(t_env *rm)
 	free(rm->value);
 	free(rm);
 	rm = NULL;
-	if (rm->key || rm->value || rm)
+	if (rm)
 		return (1);
 	return (0);
 }

@@ -11,6 +11,7 @@ END_COLOR	:= \033[0;39m
 
 SRCS	=	builtin/env.c \
 			builtin/pwd.c \
+			builtin/unset.c \
 			builtin/bltin_utils.c \
 			lib/ft_calloc.c \
 			lib/ft_memset.c \

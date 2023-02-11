@@ -6,12 +6,11 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:04:30 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/10 17:05:21 by flplace          ###   ########.fr       */
+/*   Updated: 2023/02/11 11:56:40 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 
 void		ft_bltin_pwd(t_env **envt)
 {

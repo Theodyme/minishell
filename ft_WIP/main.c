@@ -44,12 +44,14 @@ int main(int ac, char **av, char **envp)
 			ft_bltin_env(&envt);
 		else if (ft_strcmp(line, "pwd") == 0)
 			ft_bltin_pwd(&envt);
+		else if (ft_strcmp(line, "unset") == 0)
+			ft_bltin_unset(&envt, "hello");
 		else if (ft_count_quote(line) != -1)
 			head = ft_tokenize(line);
 		else
 			write(2, "Error: Unmatched quote\n", 23);
-		if (!head)
-			return (write(2, "Error: Tokenization failed\n", 27), 1);
+		// if (!head)
+		// 	return (write(2, "Error: Tokenization failed\n", 27), 1);
 		//	ft_testmodif(head);
 		//ft_expand(head, envt);
 		ft_add_history(line);
