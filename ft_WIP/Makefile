@@ -14,6 +14,7 @@ SRCS	=	builtin/env.c \
 			builtin/unset.c \
 			builtin/bltin_utils.c \
 			lib/ft_calloc.c \
+			lib/ft_lstlast.c \
 			lib/ft_memset.c \
 			lib/ft_strcmp.c\
 			lib/ft_strdup.c \

@@ -6,19 +6,30 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:58:45 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/10 14:01:56 by flplace          ###   ########.fr       */
+/*   Updated: 2023/02/17 17:26:31 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env	*ft_envlast(t_env *lst)
+/*		 void	ft_clear_env(t_env *envt)				*/
+/*														*/
+/*			free la double liste chainee de vars.		*/
+/*			env de facon recursive.						*/
+
+void	ft_clear_env(t_env *envt)
 {
-	if (!lst)
-		return (NULL);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
+	if (envt == NULL)
+		return ;
+	ft_clear_env(envt->next);
+	free(envt->key);
+	envt->key = NULL;
+	free(envt->value);
+	envt->value = NULL;
+	free(envt);
+	envt->next = NULL;
+	envt = NULL;
+	return ;
 }
 
 /*		char	*ft_split_key(char *str)				*/
@@ -102,12 +113,14 @@ int	ft_env_reader(char **envp, t_env **envt)
 {
 	int		i;
 
-	i = -1;
-	while(envp[++i])
+	i = 0;
+	while(envp[i])
 	{
 		ft_lstadd_env(envp[i], envt);
+		printf("adding key %s\n", ft_envlast(*envt)->key);
 		if (ft_envlast(*envt) == NULL)
 			return (1);
+		i++;
 	}
 	return (0);
 }

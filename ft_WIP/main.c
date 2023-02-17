@@ -17,6 +17,7 @@ int main(int ac, char **av, char **envp)
 {
 	char 	*line = NULL;
 	t_env	*envt = NULL;
+
 	t_token	*head;
 
 	if (ac != 1 && av)
@@ -41,11 +42,20 @@ int main(int ac, char **av, char **envp)
 			break ;
 		}
 		if (ft_strcmp(line, "env") == 0)
-			ft_bltin_env(&envt);
+		{
+			if (envt)
+				ft_bltin_env(&envt);
+			else
+				printf("env error: nothing to print.\n");
+		}
 		else if (ft_strcmp(line, "pwd") == 0)
 			ft_bltin_pwd(&envt);
 		else if (ft_strcmp(line, "unset") == 0)
-			ft_bltin_unset(&envt, "hello");
+			ft_bltin_unset(&envt, "USE");
+		else if (ft_strcmp(line, "unset2") == 0)
+			ft_bltin_unset(&envt, "USER0");
+		else if (ft_strcmp(line, "clear") == 0)
+			ft_clear_env(envt);
 		else if (ft_count_quote(line) != -1)
 			head = ft_tokenize(line);
 		else

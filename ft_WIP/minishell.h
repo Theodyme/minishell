@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/11 14:33:09 by flplace          ###   ########.fr       */
+/*   Updated: 2023/02/15 17:26:34 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,6 @@ enum TOKEN_TYPE
 	DELIMITER,
 	ENV
 };
-
-typedef struct s_list
-{
-	char	        *content;
-	struct t_list	*next;
-}   t_list;
 
 //						token type
 //		type:	type de token, a distinguer pour le process global de tokenisation
@@ -65,8 +59,7 @@ t_env		*ft_lstadd_env(char *str, t_env **envt);
 char		*ft_split_value(char *str);
 char		*ft_split_key(char *str);
 t_env		*ft_envlast(t_env *lst);
-
-
+void		ft_clear_env(t_env *envt);
 
 /*			lib utils				*/
 void 		*ft_calloc(size_t count, size_t size);
@@ -80,10 +73,15 @@ size_t		ft_strclen(const char *str, char c);
 char		*ft_strcpy(char *dest, const char *src);
 
 /*			builtins				*/
+
+
+/*			builtins				*/
 void		ft_bltin_env(t_env **envt);
 void		ft_bltin_pwd(t_env **envt);
 t_env		*ft_bltin_unset(t_env **envt, char *key);
 int			ft_bltin_export(t_env **envt, char *key, char *value);
+void		ft_bltin_echo(char *echo, int flag, int fdout);
+void		ft_bltin_cd(t_env **envt, char *cd);
 
 /*			builtins utils			*/
 t_env		*ft_key_finder(t_env **envt, char *needle);
@@ -110,20 +108,6 @@ int     ft_trim_blank(char *line);
 
 int     ft_wordlen(char *line);
 int     ft_wordlen_with_dollar(char *line);
-
-char	*ft_strchr(const char *s, int c);
-void	env_printer(t_env **envt);
-
-t_token	*ft_specialtoken2(int *i, char *line, t_token *token);
-
-/*               EXPAND              */
-int     ft_expand(t_token *tkn, t_env *env);
-int     ft_trim_blank(char *line);
-
-int     ft_wordlen(char *line);
-int     ft_wordlen_with_dollar(char *line);
-
-char	*ft_strchr(const char *s, int c);
 
 int     ft_getenv(char *key, t_env *env);
 t_token	*ft_tokenize(char *line);
