@@ -24,44 +24,53 @@ t_token *ft_fill_expanded(t_token *tkn, char *str)
 
 }
 
-// ft_strtok de moins de 25 lignes
-char *ft_strtok(char *str, char delim)
+int	is_charset(char c, char *charset)
 {
-	static char *save;
-	char        *ptr;
-	char        *tmp;
+	int i;
 
-	if (str)
-		save = str;
-	if (!save)
-		return (NULL);
-	ptr = save;
-	printf("str = %s, delim = %c, save = %s, ptr = %s\n", str, delim, save, ptr);
-	while (*ptr && *ptr != delim)
+	i = 0;
+	while (charset[i])
 	{
-		printf("ptr++");
-		ptr++;
+		if (c == charset[i])
+			return (1);
+		i++;
 	}
-	printf("save=%s| ptr-save=%li", save, ptr-save);
-	tmp = ft_strndup(save, ptr - save);
-	if (*ptr)
-		save = ptr + 1;
-	else
-		save = NULL;
-	printf("\ntmp = %s\n", tmp);
-	return (tmp);
+	return (0);
 }
 
-size_t	ft_count_dollar(char *str)
+char *ft_strtok(char *str, char *delim)
+{
+    static char *save;
+    char        *ptr;
+    char        *tmp;
+
+    if (str)
+        save = str;
+    if (!save || !*save)
+        return (NULL);
+    ptr = save;
+    if (*ptr && is_charset(*ptr, delim))
+	 	ptr++;
+    while (*ptr && !is_charset(*ptr, delim))
+        ptr++;
+    tmp = ft_strndup(save, ptr - save);
+    if (*ptr)
+        save = ptr;
+    else
+        save = NULL;
+    return (tmp);
+}
+
+size_t	ft_count_part(char *str)
 {
 	size_t	i;
 	size_t	v;
 	
-	i = 0;
+	i = 0;	
 	v = 0;
 	while(str[i])
 	{
-		if (str[i] == '$')
+		if (is_charset(str[i], "$"))
 			v++;
 		i++;
 	}
@@ -90,7 +99,7 @@ int ft_expand_dollar_inword(t_token *tkn, t_env *env) // DECOUPER EN MOTS *PUIS*
 	t_token *save_next;
 	int	i;
 
-	i = ft_count_dollar(tkn->str);
+	i = ft_count_part(tkn->str);
 //    char    *key;
 	char    *tmp_str;
 	(void)env;
@@ -102,14 +111,14 @@ int ft_expand_dollar_inword(t_token *tkn, t_env *env) // DECOUPER EN MOTS *PUIS*
 	if (tkn->str[0] == '$' && i--)
 		tkn->type = DOLLAR;
 	
-	tkn->str = ft_strtok(tmp_str, '$');
+	tkn->str = ft_strtok(tmp_str, "$");
 	printf("i_dollar=%d, tkn_str = %s\n", i, tkn->str);
 	while(i--)
 	{		
 		tkn->next = ft_calloc(1, sizeof(t_token));
 		tkn = tkn->next;
 		tkn->type = DOLLAR;
-		tkn->str  = ft_strtok(NULL, '$');
+		tkn->str  = ft_strtok(NULL, "$");
 		printf("end_loop, tmp_str = %s\n", tkn->str);
 	}
 	//   free(key);

@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/10 21:11:09 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/02/22 19:57:04 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlen(const char *str);
 size_t  ft_strclen(const char *str, char c);
 
-char *ft_strtok(char *str, char delim);
+char *ft_strtok(char *str, char *delim);
 
 
 char	*ft_strcpy(char *dest, const char *src);
