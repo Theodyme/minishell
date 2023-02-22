@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/10 15:34:37 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/02/10 21:11:09 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ enum TOKEN_TYPE
 	APPEND, // >>
 	HEREDOC, // <<
 	DELIMITER,
-	ENV
+	DOLLAR
 };
 
 typedef struct s_list
@@ -79,6 +79,9 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlen(const char *str);
 size_t  ft_strclen(const char *str, char c);
 
+char *ft_strtok(char *str, char delim);
+
+
 char	*ft_strcpy(char *dest, const char *src);
 
 void		ft_add_history(char *line);
@@ -108,14 +111,12 @@ void	env_printer(t_env **envt);
 
 t_token	*ft_specialtoken2(int *i, char *line, t_token *token);
 
-/*               EXPAND              */
-int     ft_expand(t_token *tkn, t_env *env);
-int     ft_trim_blank(char *line);
-
-int     ft_wordlen(char *line);
-int     ft_wordlen_with_dollar(char *line);
-
 char	*ft_strchr(const char *s, int c);
 
 int     ft_getenv(char *key, t_env *env);
 t_token	*ft_tokenize(char *line);
+
+
+/*				test functions				*/
+
+void	ft_print_token(t_token *head);

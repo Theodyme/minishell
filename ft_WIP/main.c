@@ -27,7 +27,7 @@ int main(int ac, char **av, char **envp)
 	ft_env_reader(envp, &envt);
 	if (!envt)
 	{
-		write(1, "Error: Couldn't get env variables\n", 34);
+		write(2, "Error: Couldn't get env variables\n", 34);
 		return 1;
 	}
 	while (true)
@@ -41,15 +41,20 @@ int main(int ac, char **av, char **envp)
 			break ;
 		}
 		if (ft_strcmp(line, "env") == 0)
-			env_printer(&envt);
-		else if (ft_count_quote(line) != -1)
+		{
+			env_printer(&envt);	
+			free(line);
+			break ;
+		}
+		if (ft_count_quote(line) != -1)
 			head = ft_tokenize(line);
 		else
 			write(2, "Error: Unmatched quote\n", 23);
+		ft_print_token(head);
 		if (!head)
 			return (write(2, "Error: Tokenization failed\n", 27), 1);
 		//	ft_testmodif(head);
-		//ft_expand(head, envt);
+		ft_expand(head, envt);
 		ft_add_history(line);
 		write(1, "\n", 1);
 	}

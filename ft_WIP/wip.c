@@ -21,6 +21,16 @@ int	ft_isquote(char c)
 	return (0);
 }
 
+int	ft_trim_blank(char *line)
+{
+	int i;
+
+	i = 0;
+	while (line[i] && ft_isblank(line[i]))
+		i += 1;
+	return (i);
+}
+
 t_token	*ft_specialtoken1(int *i, char *line, t_token *token)
 {
 	*i += 1;
@@ -61,16 +71,6 @@ t_token	*ft_specialtoken2(int *i, char *line, t_token *token)
 	return (token);
 }
 
-int	ft_trim_blank(char *line)
-{
-	int i;
-
-	i = 0;
-	while (line[i] && ft_isblank(line[i]))
-		i += 1;
-	return (i);
-}
-
 int	ft_wordlen(char *line)
 {
 	int i;
@@ -81,9 +81,8 @@ int	ft_wordlen(char *line)
 		i++;
 	return (i);
 }
-
-
-int ft_wordlen_with_dollar(char *line)
+/*
+int ft_expand_dollar_inword(char *line)
 {
 	int i;
 
@@ -92,7 +91,7 @@ int ft_wordlen_with_dollar(char *line)
 		&& !ft_isquote(line[i]) && line[i] != '$')
 		i++;
 	return (i);
-}
+}*/
 
 void	ft_free_lst(t_token *head)
 {

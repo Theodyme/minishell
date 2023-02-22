@@ -1,136 +1,151 @@
 #include "minishell.h"
 
-// t_token *ft_fill_expanded(t_token *tkn, char *str)
-// {
-//     int i;
-//     t_token *tmp;
+t_token *ft_fill_expanded(t_token *tkn, char *str)
+{
+    int i;
+    t_token *tmp;
 
-//     i = 0;
-//     tmp = tkn;
-//     free(tkn->str);
-//     while (str[i])
-//     {
-//         i += ft_trim_blank(str + i);
-// 		tmp->type = WORD;
-// 		tmp->str = ft_strndup(str + i, ft_wordlen(str + i));
-// 		i += ft_wordlen(str + i);
-//         tmp->next = ft_calloc(1, sizeof(t_token));
-// 		if (!tmp->next)
-// 			return (NULL);
-//         tmp = tmp->next;
-//     }
-//     tmp->next = tkn->next;
-//     return (tkn);
+    i = 0;
+    tmp = tkn;
+    free(tkn->str);
+    while (str[i])
+    {
+        i += ft_trim_blank(str + i);
+		tmp->type = WORD;
+		tmp->str = ft_strndup(str + i, ft_wordlen(str + i));
+		i += ft_wordlen(str + i);
+        tmp->next = ft_calloc(1, sizeof(t_token));
+		if (!tmp->next)
+			return (NULL);
+        tmp = tmp->next;
+    }
+    tmp->next = tkn->next;
+    return (tkn);
 
-// }
+}
 
-// int ft_expand_dollar_inword(t_token *tkn, t_env *env) // DECOUPER EN MOTS *PUIS* EXPAND quand il y a un $
-// { // puis encore plus tard 
+// ft_strtok de moins de 25 lignes
+char *ft_strtok(char *str, char delim)
+{
+	static char *save;
+	char        *ptr;
+	char        *tmp;
 
-//      /*   if (tkn->str[1] == '?')
-//     {
-//         tkn->str = ft_itoa(env->status);
-//         return (1);
-//     }
-//     else if (tkn->str[1] == '$')
-//     {
-//         tkn->str = ft_itoa(env->pid);
-//         return (1);
-//     }
-//     else if (tkn->str[1] == '!')
-//     {
-//         tkn->str = ft_itoa(env->pid);
-//         return (1);
-//     }*/
+	if (str)
+		save = str;
+	if (!save)
+		return (NULL);
+	ptr = save;
+	printf("str = %s, delim = %c, save = %s, ptr = %s\n", str, delim, save, ptr);
+	while (*ptr && *ptr != delim)
+	{
+		printf("ptr++");
+		ptr++;
+	}
+	printf("save=%s| ptr-save=%li", save, ptr-save);
+	tmp = ft_strndup(save, ptr - save);
+	if (*ptr)
+		save = ptr + 1;
+	else
+		save = NULL;
+	printf("\ntmp = %s\n", tmp);
+	return (tmp);
+}
 
-//     t_token *save;
-//     char    *key;
-//     char    *tmp_str;
-//     char    *ptr1;
-//     char    *ptr2;
+size_t	ft_count_dollar(char *str)
+{
+	size_t	i;
+	size_t	v;
+	
+	i = 0;
+	v = 0;
+	while(str[i])
+	{
+		if (str[i] == '$')
+			v++;
+		i++;
+	}
+	return (v);
+}
 
-//     tmp_str = tkn->str;
-// 	ptr1 = tmp_str;
-//     ptr2 = tmp_str;
-//     save = tkn->next;
-    
+int ft_expand_dollar_inword(t_token *tkn, t_env *env) // DECOUPER EN MOTS *PUIS* EXPAND quand il y a un $
+{ // puis encore plus tard 
 
-//     free(tkn->str);
-//     while(*ptr2)
-//     {
-//         if (tmp_str[0] == '$')
-//         {
-//             key = ft_strndup(ptr2, ft_wordlen_with_dollar(ptr2));
-//             if (ft_getenv(key, env))
-//             {
-//                 tkn->str = ft_strdup(ft_getenv(key, env));
-//                 tkn->next = ft_fill_expanded(tkn, ptr2);
-//                 return (1);
-//             }
-//             else
-//             {
-//                 tkn->str = ft_strdup("");
-//                 tkn->next = ft_fill_expanded(tkn, ptr2);
-//                 return (1);
-//             }
-//         }
-//         while (*ptr2 && *ptr2 != '$')
-//             ptr2++;
-//         tkn->str = ft_strndup(ptr1, ptr2 - ptr1);
-//         tkn->next = ft_calloc(1, sizeof(t_token));
-//         if (!tkn->next)
-//             return (1);
-//         tkn = tkn->next;
-//         if (*ptr2 == '$')
-//         {
-//             ptr2++;
-//             key = ft_strndup(ptr2, ft_wordlen_with_dollar(ptr2));
-//             if (ft_getenv(key, env))
-//             {
-//                 tkn->str = ft_strdup(ft_getenv(key, env));
-//                 tkn->next = ft_fill_expanded(tkn, ptr2);
-//                 return (1);
-//             }
-//             else
-//             {
-//                 tkn->str = ft_strdup("");
-//                 tkn->next = ft_fill_expanded(tkn, ptr2);
-//                 return (1);
-//             }
-//         }
-//         else
-//         {
-//             tkn->next = ft_calloc(1, sizeof(t_token));
-//             if (!tkn->next)
-//                 return (0);
-//             tkn = tkn->next;
-//         }
-//         ptr1 = ptr2;
-//     }
-//     free(key);
-//     free(tmp);
+	/*   if (tkn->str[1] == '?')
+	{
+		tkn->str = ft_itoa(env->status);
+		return (1);
+	}
+	else if (tkn->str[1] == '$')
+	{
+		tkn->str = ft_itoa(env->pid);
+		return (1);
+	}
+	else if (tkn->str[1] == '!')
+	{
+		tkn->str = ft_itoa(env->pid);
+		return (1);
+	}*/
 
-//     return (0);
-// }
+	t_token *save_next;
+	int	i;
 
-// /*
-// ** ft_expand is the function that will expand the tokens
-// ** it expands tokens of type WORD or DQUOTE in which there is a '$'
-// ** Function is general purpose will allow expansion of more things in more contexts
-// */
+	i = ft_count_dollar(tkn->str);
+//    char    *key;
+	char    *tmp_str;
+	(void)env;
 
-// int ft_expand(t_token *tkn, t_env *env)
-// {
-//     t_token *tmp;
+	tmp_str = tkn->str;
+	save_next = tkn->next;
+//	printf("tmp_str====>%s|\ntkn_str--->%s|\n", tmp_str, tkn->str);
+//	printf("NEXT_str = %s|\n", tkn->next->str);
+	if (tkn->str[0] == '$' && i--)
+		tkn->type = DOLLAR;
+	
+	tkn->str = ft_strtok(tmp_str, '$');
+	printf("i_dollar=%d, tkn_str = %s\n", i, tkn->str);
+	while(i--)
+	{		
+		tkn->next = ft_calloc(1, sizeof(t_token));
+		tkn = tkn->next;
+		tkn->type = DOLLAR;
+		tkn->str  = ft_strtok(NULL, '$');
+		printf("end_loop, tmp_str = %s\n", tkn->str);
+	}
+	//   free(key);
+	free(tmp_str);
+	tkn->next = save_next;
+	printf("end_function\n");
+	return (0);
+}
 
-//     tmp = tkn;
-//     while (tmp)
-//     {
-//         if (tmp->type == WORD && tmp->str, '$')
-//             ft_expand_dollar_inword(tmp, env);
-//         else if (tmp->type == DQUOTE && tmp->str, '$')
-//             ft_expand_dollar_inquote(tmp, env);
-//         tmp = tmp->next;
-//     }
-//     return (1);
-// }
+/*
+** ft_expand is the function that will expand the tokens
+** it expands tokens of type WORD or DQUOTE in which there is a '$'
+** Function is general purpose will allow expansion of more things in more contexts
+*/
+
+int ft_expand(t_token *tkn, t_env *env)
+{
+    t_token *tmp;
+
+    tmp = tkn;
+    while (tmp)
+    {
+        if (tmp->type == WORD && ft_strchr(tmp->str, '$'))
+            if(ft_expand_dollar_inword(tmp, env))
+                return (0);
+        // else if (tmp->type == DQUOTE && tmp->str, '$')
+        //     if(ft_expand_dollar_inquote(tmp, env))
+        //         return (1);
+
+		
+        tmp = tmp->next;
+		printf("end_while in ft_expand\n");
+	}
+	ft_print_token(tkn);
+    return (0);
+}
+
+// il coupe en $ et en ~ et extend les $ mais pas les ~ sauf si c'est le premier char
+// attention si rien apres le $ ca expand pas
