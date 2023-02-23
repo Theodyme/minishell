@@ -17,6 +17,7 @@ SRCS	=	lib/ft_calloc.c \
 			lib/ft_strcpy.c \
 			lib/ft_strlcpy.c \
 			lib/ft_strchr.c \
+			lib/ft_itoa.c \
 			test_printer.c \
 			env_cpy.c \
 			quote.c \

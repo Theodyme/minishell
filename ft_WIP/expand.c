@@ -51,6 +51,8 @@ char *ft_strtok(char *str, char *delim)
     ptr = save;
     if (*ptr && is_charset(*ptr, delim))
 	 	ptr++;
+	if (*ptr && is_charset(*ptr, delim))
+	 	ptr++;
     while (*ptr && !is_charset(*ptr, delim))
         ptr++;
     tmp = ft_strndup(save, ptr - save);
@@ -65,16 +67,54 @@ size_t	ft_count_part(char *str)
 {
 	size_t	i;
 	size_t	v;
-	
-	i = 0;	
+
+	i = 0;
 	v = 0;
 	while(str[i])
 	{
-		if (is_charset(str[i], "$"))
+		if (is_charset(str[i], "$") && str[i + 1] && !is_charset(str[i + 1], "$"))
 			v++;
 		i++;
 	}
 	return (v);
+}
+
+char	*ft_getvalue(char *key, t_env *env)
+{
+	char	*value;
+
+	while (env)
+	{
+		printf("key: %s, env->key: %s\n", key, env->key);
+		if (!ft_strcmp(key, env->key))
+		{
+			value = ft_strdup(env->value);
+			break ;
+		}
+		env = env->next;
+	}
+	if (!env)
+		value = ft_strdup("");
+	return (value);
+}
+
+char	*fill_env(char *str, t_env *env)
+{
+	char	*dent;
+	char	*out;
+
+	dent = str;
+	if (*str != '$')
+		out = strdup("");
+	str++;
+	if (*str == '?')
+		out = ft_itoa(7777777);
+	else if (*str == '$')
+		out = ft_itoa(9999999);
+	else
+		out = ft_getvalue(str, env);
+	free(dent);
+	return (out);
 }
 
 int ft_expand_dollar_inword(t_token *tkn, t_env *env) // DECOUPER EN MOTS *PUIS* EXPAND quand il y a un $
@@ -112,13 +152,21 @@ int ft_expand_dollar_inword(t_token *tkn, t_env *env) // DECOUPER EN MOTS *PUIS*
 		tkn->type = DOLLAR;
 	
 	tkn->str = ft_strtok(tmp_str, "$");
+	if (tkn->type == DOLLAR)
+		tkn->str = fill_env(tkn->str, env);
 	printf("i_dollar=%d, tkn_str = %s\n", i, tkn->str);
-	while(i--)
-	{		
+	while(i-- >= 0)
+	{	
+		printf("start_loop\n");
 		tkn->next = ft_calloc(1, sizeof(t_token));
+		printf("test_loop0");
 		tkn = tkn->next;
+		printf("test_loop1");
 		tkn->type = DOLLAR;
+		printf("test_loop2");
 		tkn->str  = ft_strtok(NULL, "$");
+		printf("test_loop3");
+		tkn->str = fill_env(tkn->str, env);
 		printf("end_loop, tmp_str = %s\n", tkn->str);
 	}
 	//   free(key);
