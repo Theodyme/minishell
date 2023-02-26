@@ -93,7 +93,7 @@ int ft_expand_dollar_inword(char *line)
 	return (i);
 }*/
 
-void	ft_free_lst(t_token *head)
+void	ft_free_lst_token(t_token *head)
 {
 	t_token *tmp;
 
@@ -147,7 +147,7 @@ t_token	*ft_tokenize(char *line)
 		}
 		tmp->next = ft_calloc(1, sizeof(t_token));
 		if (!tmp->next)
-			return (ft_free_lst(head), NULL);
+			return (ft_free_lst_token(head), NULL);
 		tmp = tmp->next;
 	}
 	return (head);

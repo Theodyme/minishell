@@ -2,25 +2,25 @@
 
 t_token *ft_fill_expanded(t_token *tkn, char *str)
 {
-    int i;
-    t_token *tmp;
+	int i;
+	t_token *tmp;
 
-    i = 0;
-    tmp = tkn;
-    free(tkn->str);
-    while (str[i])
-    {
-        i += ft_trim_blank(str + i);
+	i = 0;
+	tmp = tkn;
+	free(tkn->str);
+	while (str[i])
+	{
+		i += ft_trim_blank(str + i);
 		tmp->type = WORD;
 		tmp->str = ft_strndup(str + i, ft_wordlen(str + i));
 		i += ft_wordlen(str + i);
-        tmp->next = ft_calloc(1, sizeof(t_token));
+		tmp->next = ft_calloc(1, sizeof(t_token));
 		if (!tmp->next)
 			return (NULL);
-        tmp = tmp->next;
-    }
-    tmp->next = tkn->next;
-    return (tkn);
+		tmp = tmp->next;
+	}
+	tmp->next = tkn->next;
+	return (tkn);
 
 }
 
@@ -40,29 +40,33 @@ int	is_charset(char c, char *charset)
 
 char *ft_strtok(char *str, char *delim)
 {
-    static char *save;
-    char        *ptr;
-    char        *tmp;
+	static char *save;
+	char        *ptr;
+	char        *tmp;
 
-    if (str)
-        save = str;
-    if (!save || !*save)
-        return (NULL);
-    ptr = save;
-    if (*ptr && is_charset(*ptr, delim))
-	 	ptr++;
-	if (*ptr && is_charset(*ptr, delim))
-	 	ptr++;
-    while (*ptr && !is_charset(*ptr, delim))
-        ptr++;
-    tmp = ft_strndup(save, ptr - save);
-    if (*ptr)
-        save = ptr;
-    else
-        save = NULL;
-    return (tmp);
+	if (str)
+		save = str;
+	if (!save || !*save)
+		return (NULL);
+	ptr = save;
+	if (*ptr && is_charset(*ptr, delim) && *(ptr + 1) && is_charset(*(ptr + 1), "$?"))
+		ptr += 2;
+	else
+	{
+		if (*ptr && is_charset(*ptr, delim))
+			ptr++;
+		while (*ptr && !is_charset(*ptr, delim))
+			ptr++;
+	}
+	tmp = ft_strndup(save, ptr - save);
+		if (*ptr)
+		save = ptr;
+	else
+		save = NULL;
+	return (tmp);
 }
 
+// Marche avec les mots /!\ mais pas avec les quotes : segfault + peut compter 1 en moins avec des espaces
 size_t	ft_count_part(char *str)
 {
 	size_t	i;
@@ -70,12 +74,44 @@ size_t	ft_count_part(char *str)
 
 	i = 0;
 	v = 0;
+	if (!str)
+		return (0);
+	if (str[i] != '$')
+	{
+		v++;
+		printf(".,.,.,\n");
+	}
 	while(str[i])
 	{
-		if (is_charset(str[i], "$") && str[i + 1] && !is_charset(str[i + 1], "$"))
+		//il faut remettre des i++ hors des if
+		if (is_charset(str[i], "$") && str[i + 1]  && is_charset(str[i + 1], " \t\n")  && ++i)
+		{
+			printf("++++\n");
 			v++;
+			if (str[i] && !is_charset(str[i], "$"))
+			{
+				printf("****\n");
+				v++;
+			}	
+		}
+		else if (is_charset(str[i], "$") && str[i + 1]  && is_charset(str[i + 1], "$? \t") && ++i  && ++i)
+		{
+			printf("____\n");
+			v++;
+			if (str[i] && !is_charset(str[i], "$"))
+			{
+				printf("----\n");
+				v++;
+			}	
+		}
+		if (is_charset(str[i], "$"))
+		{
+			printf("======\n");
+			v++;
+		}
 		i++;
 	}
+	printf("=====> v = %zu\n", v);
 	return (v);
 }
 
@@ -83,10 +119,8 @@ char	*ft_getvalue(char *key, t_env *env)
 {
 	char	*value;
 
-	printf("start ft_getvalue\n");
 	while (env)
 	{
-		printf("key: %s, env->key: %s\n", key, env->key);
 		if (!ft_strcmp(key, env->key))
 		{
 			value = ft_strdup(env->value);
@@ -96,7 +130,6 @@ char	*ft_getvalue(char *key, t_env *env)
 	}
 	if (!env)
 		value = ft_strdup("");
-	printf("end ft_getvalue\n");
 	return (value);
 }
 
@@ -106,73 +139,45 @@ char	*fill_env(char *str, t_env *env)
 	char	*out;
 
 	dent = str;
+	out = NULL;
 	if (*str != '$')
-		out = strdup("");
-	printf("dent: %s\n", dent);
+		out = strdup(str);
 	str++;
-	if (*str == '?')
+	if (!out && !(*str))
+		out = strdup("$");
+	if (!out && *str == '?')
 		out = ft_itoa(7777777);
-	else if (*str == '$')
+	if (!out && *str == '$')
 		out = ft_itoa(9999999);
-	else
+	else if (!out)
 		out = ft_getvalue(str, env);
-	printf("dent2: %s\n", dent);
 	free(dent);
 	return (out);
 }
-
-int ft_expand_dollar_inword(t_token *tkn, t_env *env) // DECOUPER EN MOTS *PUIS* EXPAND quand il y a un $
-{ // puis encore plus tard 
-
-	/*   if (tkn->str[1] == '?')
-	{
-		tkn->str = ft_itoa(env->status);
-		return (1);
-	}
-	else if (tkn->str[1] == '$')
-	{
-		tkn->str = ft_itoa(env->pid);
-		return (1);
-	}
-	else if (tkn->str[1] == '!')
-	{
-		tkn->str = ft_itoa(env->pid);
-		return (1);
-	}*/
-
-	t_token *save_next;
-	int	i;
+// DECOUPER EN MOTS *PUIS* EXPAND quand il y a un $
+int ft_expand_dollar_inword(t_token *tkn, t_env *env) 
+{ 
+	t_token	*save_next;
+	char	**tab;
+	char    *tmp_str;
+	size_t	i;
+	size_t	j;
 
 	i = ft_count_part(tkn->str);
-//    char    *key;
-	char    *tmp_str;
-	(void)env;
-
+	j = 0;
+	tab = ft_calloc(i + 1, sizeof(char *));
 	tmp_str = tkn->str;
 	save_next = tkn->next;
-//	printf("tmp_str====>%s|\ntkn_str--->%s|\n", tmp_str, tkn->str);
-//	printf("NEXT_str = %s|\n", tkn->next->str);
-	if (tkn->str[0] == '$' && i--)
-		tkn->type = DOLLAR;
-	
-	tkn->str = ft_strtok(tmp_str, "$");
-	if (tkn->type == DOLLAR)
-		tkn->str = fill_env(tkn->str, env);
-	printf("i_dollar=%d, tkn_str = %s\n", i, tkn->str);
-	while(i-- > 0)
+	tab[j] = ft_strtok(tmp_str, "$");
+	tab[j] = fill_env(tab[j], env);
+	while(++j < i)
 	{	
-		tkn->next = ft_calloc(1, sizeof(t_token));
-		tkn = tkn->next;
-		tkn->type = DOLLAR;
-		tkn->str  = ft_strtok(NULL, "$");
-		printf("test_loop3\n");
-		tkn->str = fill_env(tkn->str, env);
-		printf("end_loop, tmp_str = %s\n", tkn->str);
+		tab[j] = ft_strtok(NULL, "$");
+		tab[j] = fill_env(tab[j], env);
 	}
-	//   free(key);
 	free(tmp_str);
+	tkn->str = ft_strjoin_tab(tab);
 	tkn->next = save_next;
-	printf("end_function\n");
 	return (0);
 }
 
@@ -184,24 +189,26 @@ int ft_expand_dollar_inword(t_token *tkn, t_env *env) // DECOUPER EN MOTS *PUIS*
 
 int ft_expand(t_token *tkn, t_env *env)
 {
-    t_token *tmp;
+	t_token *tmp;
 
-    tmp = tkn;
-    while (tmp)
-    {
-        if (tmp->type == WORD && ft_strchr(tmp->str, '$'))
-            if(ft_expand_dollar_inword(tmp, env))
-                return (0);
-        // else if (tmp->type == DQUOTE && tmp->str, '$')
-        //     if(ft_expand_dollar_inquote(tmp, env))
-        //         return (1);
-
-		
-        tmp = tmp->next;
-		printf("end_while in ft_expand\n");
+	tmp = tkn;
+	while (tmp)
+	{
+		if (tmp->type == WORD && ft_strchr(tmp->str, '$'))
+		{
+			if(ft_expand_dollar_inword(tmp, env))
+				return (0);
+		}
+		else if (tmp->type == DQUOTE && ft_strchr(tmp->str, '$'))
+		{
+			if(ft_expand_dollar_inword(tmp, env))
+		        return (1);
+		}
+		tmp = tmp->next;
 	}
+	printf("\n=====> ft_expand\n");
 	ft_print_token(tkn);
-    return (0);
+	return (0);
 }
 
 // il coupe en $ et en ~ et extend les $ mais pas les ~ sauf si c'est le premier char

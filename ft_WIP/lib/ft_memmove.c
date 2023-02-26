@@ -1,26 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_printer.c                                     :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/09 15:41:16 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/26 22:29:27 by mabimich         ###   ########.fr       */
+/*   Created: 2023/02/02 13:42:26 by flplace           #+#    #+#             */
+/*   Updated: 2023/02/26 20:55:29 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void	env_printer(t_env **envt)
+void	*ft_memmove(void *dst, const void *src, size_t n)
 {
-	t_env	*parse;
+	unsigned char	*srcc;
+	unsigned char	*dstc;
+	size_t			i;
 
-	parse = (*envt);
-	while (parse->next)
+	i = 0;
+	if (dst == NULL || src == NULL)
+		return (dst);
+	srcc = (unsigned char *)src;
+	dstc = (unsigned char *)dst;
+	if (srcc < dstc)
+		while (n--)
+			dstc [n] = srcc[n];
+	else
 	{
-		printf("key = '%s',\nvalue = '%s'\n\n", parse->key, parse->value);
-		parse = parse->next;
+		while (i < n)
+		{
+			dstc[i] = srcc[i];
+			i++;
+		}
 	}
-	return ;
+	return (dst);
 }
