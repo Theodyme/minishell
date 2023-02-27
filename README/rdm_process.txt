@@ -1,4 +1,5 @@
-/*						WAITING PROCESS					*/
+# ---------------------------------------------------------------------------- #
+# ------------------------------ WAITING PROCESS ----------------------------- #
 
 			pid_t		wait(int *wstatus);
 LIBS:			sys/wait.h
@@ -28,7 +29,7 @@ NOTE:			l appel 					wait3(status, options, rusage);
 				est equivalent a l appel	waitpid(pid, status, options);
 
 
-/*						SUR LES SIGNAUX					*/
+# ------------------------------ SUR LES SIGNAUX ----------------------------- #
 
        A child created via fork(2) inherits a copy of its parents
        signal dispositions.  During an execve(2), the dispositions of
@@ -36,7 +37,7 @@ NOTE:			l appel 					wait3(status, options, rusage);
        ignored signals are left unchanged.
 
 
-/*						FONCTIONS						*/
+# --------------------------------- FONCTIONS -------------------------------- #
 
 /!\ il est recommande dans les man de privilegier sigaction() a signal() en raison d un comportement pouvant varier entre
 les differentes versions UNIX et linux.
@@ -56,11 +57,15 @@ ne soit appelee avec SIGNUM pour argument. Dans le cas ou le signal est bloque, 
 Les signaux 'SIGKILL' et 'SIGSTOP' ne peuvent pas etre ignores ou interceptes.
 
 
-/*			A REVERIFIER JE COMPRENDS RIEN ALED			*/
+# -------------------- A REVERIFIER JE COMPRENDS RIEN ALED ------------------- #
+
 			int				sigaction(int signum, const struct sigaction *restrict act, struct sigaction *restrict oldact);
 LIBS:			signal.h
 USAGE:			equivalent a signal(). (?)
 				si ACT est non-nul, la nouvelle action pour le signal signum en dependra.
 				si OLDACT est non-nul, l action precedente est sauvegardee dans OLDACT.
 RETOUR:
-/********************************************************/
+
+# ---------------------------------------------------------------------------- #
+
+

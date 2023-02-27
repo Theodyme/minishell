@@ -6,18 +6,18 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:41:12 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/13 15:51:03 by flplace          ###   ########.fr       */
+/*   Updated: 2023/02/23 16:26:32 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-//		void	ft_bltin_cd(t_env **envt, char *cd)
+// void	ft_bltin_cd(t_cmd_div *div, t_env **envt)
 //
 
 //
 
-void	ft_bltin_cd(t_env **envt, char *cd)
+void	ft_bltin_cd(t_cmd_div *div)
 {
 
 

@@ -13,7 +13,34 @@
 
 #include "minishell.h"
 
-int main(int ac, char **av, char **envp)
+void ft_bltin_tester(char *line, t_env **envt)
+{
+	t_cmd_div	*div = NULL;
+
+	if (ft_strcmp(line, "env") == 0)
+	{
+		if (envt)
+			ft_bltin_env(div);
+		else
+			printf("env error: nothing to print.\n");
+	}
+	else if (ft_strcmp(line, "pwd") == 0)
+		ft_bltin_pwd(div);
+	else if (ft_strcmp(line, "unset USER") == 0)
+		ft_bltin_unset(div);
+	else if (ft_strcmp(line, "unset USE") == 0)
+		ft_bltin_unset(div);
+	else if (ft_strcmp(line, "unset USER0") == 0)
+		ft_bltin_unset(div);
+	else if (ft_strcmp(line, "unset HELLO") == 0)
+		ft_bltin_unset(div);
+	else if (ft_strcmp(line, "unset LAST") == 0)
+		ft_bltin_unset(div);
+	else if (ft_strcmp(line, "clear") == 0)
+		ft_clear_env(div->envt);
+}
+
+int	main(int ac, char **av, char **envp)
 {
 	char 	*line = NULL;
 	t_env	*envt = NULL;
@@ -41,22 +68,9 @@ int main(int ac, char **av, char **envp)
 			free(line);
 			break ;
 		}
-		if (ft_strcmp(line, "env") == 0)
-		{
-			if (envt)
-				ft_bltin_env(&envt);
-			else
-				printf("env error: nothing to print.\n");
-		}
-		else if (ft_strcmp(line, "pwd") == 0)
-			ft_bltin_pwd(&envt);
-		else if (ft_strcmp(line, "unset") == 0)
-			ft_bltin_unset(&envt, "USE");
-		else if (ft_strcmp(line, "unset2") == 0)
-			ft_bltin_unset(&envt, "USER0");
-		else if (ft_strcmp(line, "clear") == 0)
-			ft_clear_env(envt);
-		else if (ft_count_quote(line) != -1)
+		else
+			ft_bltin_tester(line, &envt);
+		if (ft_count_quote(line) != -1)
 			head = ft_tokenize(line);
 		else
 			write(2, "Error: Unmatched quote\n", 23);

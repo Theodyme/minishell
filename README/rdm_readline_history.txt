@@ -1,5 +1,5 @@
-/********************************************************/
-/*			HISTORIQUE ET LECTURE DE PROMPT				*/
+# ---------------------------------------------------------------------------- #
+# ---------------------- HISTORIQUE ET LECTURE DE PROMPT --------------------- #
 
 Il existe dans les libraries 'history' et 'readline' des fonctions et des types permettant de lire des informations depuis le prompt
 et de les stocker dans un historique. Pour cela, on a besoin de la structure qui suit;
@@ -22,8 +22,8 @@ char * rl_line_buffer			Le buffer de readline.
 Ce sont les ressources qu on utiliserait a priori pour l affichage du prompt. L historique permettra de recuperer les commandes deja
 entrees avec la fleche du haut.
 
-/********************************************************/
-/*						FONCTIONS.						*/
+# ---------------------------------------------------------------------------- #
+# -------------------------------- FONCTIONS. -------------------------------- #
 
 		char *       readline (const char *prompt);
 LIBS:			stdio.h
@@ -70,3 +70,5 @@ RETOUR:			void.
 LIBS:			readline/readline.h
 USAGE:		 	indique a la fonction update (rl_redisplay ?) que 'readline' est passe a une nouvelle ligne vide.
 RETOUR:			void.
+
+# ---------------------------------------------------------------------------- #

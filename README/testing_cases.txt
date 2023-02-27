@@ -1,0 +1,22 @@
+# ---------------------------------------------------------------------------- #
+# ------------------------------ TESTING CASES. ------------------------------ #
+
+to do:
+
+	- tab de pointeurs sur fonctions pour les builtins
+	- printing of export
+	- function that convert from linked list to char **
+
+
+what if:
+
+	- ! YOU CANT UNSET PWD
+	- export "ok           ok" needs to be: "ok ok"
+	- export on its own
+
+
+unset specifics:
+
+	- unset the first var
+	- unset something that doesnt exist
+	- unset something that doesnt exist but has the start of a real var (ex: unset USE instant of USER)
