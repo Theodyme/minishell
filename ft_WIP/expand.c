@@ -66,7 +66,6 @@ char *ft_strtok(char *str, char *delim)
 	return (tmp);
 }
 
-// Marche avec les mots /!\ mais pas avec les quotes : segfault + peut compter 1 en moins avec des espaces
 size_t	ft_count_part(char *str)
 {
 	size_t	i;
@@ -76,42 +75,23 @@ size_t	ft_count_part(char *str)
 	v = 0;
 	if (!str)
 		return (0);
-	if (str[i] != '$')
+	while (str[i])
 	{
 		v++;
-		printf(".,.,.,\n");
-	}
-	while(str[i])
-	{
-		//il faut remettre des i++ hors des if
-		if (is_charset(str[i], "$") && str[i + 1]  && is_charset(str[i + 1], " \t\n")  && ++i)
-		{
-			printf("++++\n");
-			v++;
-			if (str[i] && !is_charset(str[i], "$"))
-			{
-				printf("****\n");
-				v++;
-			}	
-		}
-		else if (is_charset(str[i], "$") && str[i + 1]  && is_charset(str[i + 1], "$? \t") && ++i  && ++i)
-		{
-			printf("____\n");
-			v++;
-			if (str[i] && !is_charset(str[i], "$"))
-			{
-				printf("----\n");
-				v++;
-			}	
-		}
 		if (is_charset(str[i], "$"))
 		{
-			printf("======\n");
-			v++;
+			i++;
+			if (str[i] && is_charset(str[i], "$?"))
+				i++;
+			else if (str[i] && !is_charset(str[i], "$? \n\t"))
+				while (str[i] && !is_charset(str[i], "$ \t\n"))
+					i++;
 		}
-		i++;
+		else
+			while (str[i] && !is_charset(str[i], "$"))
+				i++;
 	}
-	printf("=====> v = %zu\n", v);
+	printf("\t--> v = %zu\n", v);
 	return (v);
 }
 
