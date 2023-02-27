@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/26 22:03:03 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/02/27 21:35:17 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ enum TOKEN_TYPE
 	APPEND, // >>
 	HEREDOC, // <<
 	DELIMITER,
-	DOLLAR
 };
 
 typedef struct s_list
@@ -81,7 +80,7 @@ size_t	ft_strclen(const char *str, char c);
 
 char	*ft_itoa(int n);
 
-char	*ft_strtok(char *str, char *delim);
+char	*ft_strtok_minishell(char *str, char *delim);
 
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strjoin_tab(char **tab);

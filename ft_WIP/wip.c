@@ -81,17 +81,6 @@ int	ft_wordlen(char *line)
 		i++;
 	return (i);
 }
-/*
-int ft_expand_dollar_inword(char *line)
-{
-	int i;
-
-	i = 0;
-	while (line[i] && !ft_isblank(line[i]) && !ft_isspecial(line[i])
-		&& !ft_isquote(line[i]) && line[i] != '$')
-		i++;
-	return (i);
-}*/
 
 void	ft_free_lst_token(t_token *head)
 {
@@ -160,7 +149,7 @@ void	ft_print_token(t_token *head)
 	tmp = head;
 	while (tmp)
 	{
-		printf("type: %d, str: %s\n", tmp->type, tmp->str);
+		printf("type: %d, str: |%s|\n", tmp->type, tmp->str);
 		tmp = tmp->next;
 	}
 }

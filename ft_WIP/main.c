@@ -49,7 +49,10 @@ int main(int ac, char **av, char **envp)
 	*/	if (ft_count_quote(line) != -1)
 			head = ft_tokenize(line);
 		else
+		{
 			write(2, "Error: Unmatched quote\n", 23);
+			continue ;
+		}
 		printf("Tokenization done\n");
 		ft_print_token(head);
 		if (!head)

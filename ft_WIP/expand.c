@@ -1,9 +1,9 @@
 #include "minishell.h"
 
-t_token *ft_fill_expanded(t_token *tkn, char *str)
+t_token	*ft_fill_expanded(t_token *tkn, char *str)
 {
-	int i;
-	t_token *tmp;
+	int		i;
+	t_token	*tmp;
 
 	i = 0;
 	tmp = tkn;
@@ -21,12 +21,11 @@ t_token *ft_fill_expanded(t_token *tkn, char *str)
 	}
 	tmp->next = tkn->next;
 	return (tkn);
-
 }
 
 int	is_charset(char c, char *charset)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (charset[i])
@@ -38,32 +37,33 @@ int	is_charset(char c, char *charset)
 	return (0);
 }
 
-char *ft_strtok(char *str, char *delim)
+char	*ft_strtok_minishell(char *str, char *delim)
 {
-	static char *save;
-	char        *ptr;
-	char        *tmp;
+	static char	*save;
+	char		*ptr;
 
 	if (str)
 		save = str;
 	if (!save || !*save)
 		return (NULL);
 	ptr = save;
-	if (*ptr && is_charset(*ptr, delim) && *(ptr + 1) && is_charset(*(ptr + 1), "$?"))
-		ptr += 2;
-	else
+	if (is_charset(*ptr, delim))
 	{
-		if (*ptr && is_charset(*ptr, delim))
+		ptr++;
+		if (*ptr && is_charset(*ptr, "$?"))
 			ptr++;
+		else if (*ptr && !is_charset(*ptr, "$? \n\t"))
+			while (*ptr && !is_charset(*ptr, "$ \t\n\'\""))
+				ptr++;
+	}
+	else
 		while (*ptr && !is_charset(*ptr, delim))
 			ptr++;
-	}
-	tmp = ft_strndup(save, ptr - save);
-		if (*ptr)
+	if (*ptr)
 		save = ptr;
 	else
 		save = NULL;
-	return (tmp);
+	return (ft_strndup(save, ptr - save));
 }
 
 size_t	ft_count_part(char *str)
@@ -84,7 +84,7 @@ size_t	ft_count_part(char *str)
 			if (str[i] && is_charset(str[i], "$?"))
 				i++;
 			else if (str[i] && !is_charset(str[i], "$? \n\t"))
-				while (str[i] && !is_charset(str[i], "$ \t\n"))
+				while (str[i] && !is_charset(str[i], "$ \t\n\'\""))
 					i++;
 		}
 		else
@@ -120,6 +120,8 @@ char	*fill_env(char *str, t_env *env)
 
 	dent = str;
 	out = NULL;
+	if (!str)
+		return (NULL);
 	if (*str != '$')
 		out = strdup(str);
 	str++;
@@ -134,12 +136,13 @@ char	*fill_env(char *str, t_env *env)
 	free(dent);
 	return (out);
 }
+
 // DECOUPER EN MOTS *PUIS* EXPAND quand il y a un $
-int ft_expand_dollar_inword(t_token *tkn, t_env *env) 
-{ 
+int	ft_expand_dollar(t_token *tkn, t_env *env)
+{
 	t_token	*save_next;
 	char	**tab;
-	char    *tmp_str;
+	char	*tmp_str;
 	size_t	i;
 	size_t	j;
 
@@ -148,17 +151,20 @@ int ft_expand_dollar_inword(t_token *tkn, t_env *env)
 	tab = ft_calloc(i + 1, sizeof(char *));
 	tmp_str = tkn->str;
 	save_next = tkn->next;
-	tab[j] = ft_strtok(tmp_str, "$");
+	tab[j] = ft_strtok_minishell(tmp_str, "$");
 	tab[j] = fill_env(tab[j], env);
-	while(++j < i)
+	if (!tab[j])
+		return (1); // add free
+	while (++j < i)
 	{	
-		tab[j] = ft_strtok(NULL, "$");
+		tab[j] = ft_strtok_minishell(NULL, "$");
 		tab[j] = fill_env(tab[j], env);
+		if (!tab[j])
+			return (1); // add free
 	}
 	free(tmp_str);
 	tkn->str = ft_strjoin_tab(tab);
-	tkn->next = save_next;
-	return (0);
+	return (tkn->next = save_next, 0);
 }
 
 /*
@@ -167,22 +173,22 @@ int ft_expand_dollar_inword(t_token *tkn, t_env *env)
 ** Function is general purpose will allow expansion of more things in more contexts
 */
 
-int ft_expand(t_token *tkn, t_env *env)
+int	ft_expand(t_token *tkn, t_env *env)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	tmp = tkn;
 	while (tmp)
 	{
 		if (tmp->type == WORD && ft_strchr(tmp->str, '$'))
 		{
-			if(ft_expand_dollar_inword(tmp, env))
-				return (0);
+			if (ft_expand_dollar(tmp, env))
+				return (1);
 		}
 		else if (tmp->type == DQUOTE && ft_strchr(tmp->str, '$'))
 		{
-			if(ft_expand_dollar_inword(tmp, env))
-		        return (1);
+			if (ft_expand_dollar(tmp, env))
+				return (1);
 		}
 		tmp = tmp->next;
 	}
@@ -190,6 +196,3 @@ int ft_expand(t_token *tkn, t_env *env)
 	ft_print_token(tkn);
 	return (0);
 }
-
-// il coupe en $ et en ~ et extend les $ mais pas les ~ sauf si c'est le premier char
-// attention si rien apres le $ ca expand pas
