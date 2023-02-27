@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:58:45 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/24 12:09:13 by flplace          ###   ########.fr       */
+/*   Updated: 2023/02/27 14:55:44 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@ void	ft_clear_env(t_env *envt)
 	if (envt == NULL)
 		return ;
 	ft_clear_env(envt->next);
-	free(envt->key);
+	// free(envt->key);
 	envt->key = NULL;
-	free(envt->value);
+	// free(envt->value);
 	envt->value = NULL;
-	free(envt);
+	// if (envt->next)
 	envt->next = NULL;
+	free(envt);
 	envt = NULL;
 	return ;
 }

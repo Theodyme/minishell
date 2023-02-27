@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/24 11:54:30 by flplace          ###   ########.fr       */
+/*   Updated: 2023/02/27 14:22:32 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ t_token		*ft_tokenize(char *line);
 
 /* -------------------------------- TO DELETE ------------------------------- */
 
-void		ft_bltin_tester(char *line, t_env **envt);
+void		ft_bltin_tester(char **line, t_env **envt);
 
 /* ------------------------------ TO REORGANIZE ----------------------------- */
 

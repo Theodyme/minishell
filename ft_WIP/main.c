@@ -13,31 +13,36 @@
 
 #include "minishell.h"
 
-void ft_bltin_tester(char *line, t_env **envt)
+void ft_bltin_tester(char **line, t_env **envt)
 {
-	t_cmd_div	*div = NULL;
+	t_cmd_div	*div;
 
-	if (ft_strcmp(line, "env") == 0)
+	div = (t_cmd_div *)malloc(sizeof(t_cmd_div));
+	div->envt = *envt;
+	if (ft_strcmp(*line, "env") == 0)
 	{
 		if (envt)
 			ft_bltin_env(div);
 		else
 			printf("env error: nothing to print.\n");
 	}
-	else if (ft_strcmp(line, "pwd") == 0)
+	else if (ft_strcmp(*line, "pwd") == 0)
 		ft_bltin_pwd(div);
-	else if (ft_strcmp(line, "unset USER") == 0)
+	else if (ft_strcmp(*line, "unset USER") == 0)
 		ft_bltin_unset(div);
-	else if (ft_strcmp(line, "unset USE") == 0)
+	else if (ft_strcmp(*line, "unset USE") == 0)
 		ft_bltin_unset(div);
-	else if (ft_strcmp(line, "unset USER0") == 0)
+	else if (ft_strcmp(*line, "unset USER0") == 0)
 		ft_bltin_unset(div);
-	else if (ft_strcmp(line, "unset HELLO") == 0)
+	else if (ft_strcmp(*line, "unset HELLO") == 0)
 		ft_bltin_unset(div);
-	else if (ft_strcmp(line, "unset LAST") == 0)
+	else if (ft_strcmp(*line, "unset LAST") == 0)
 		ft_bltin_unset(div);
-	else if (ft_strcmp(line, "clear") == 0)
+	else if (ft_strcmp(*line, "clear") == 0)
+	{
 		ft_clear_env(div->envt);
+		*envt = NULL;
+	}
 }
 
 int	main(int ac, char **av, char **envp)
@@ -69,7 +74,7 @@ int	main(int ac, char **av, char **envp)
 			break ;
 		}
 		else
-			ft_bltin_tester(line, &envt);
+			ft_bltin_tester(&line, &envt);
 		if (ft_count_quote(line) != -1)
 			head = ft_tokenize(line);
 		else
