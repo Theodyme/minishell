@@ -13,11 +13,45 @@
 
 #include "minishell.h"
 
-int main(int ac, char **av, char **envp)
+void ft_bltin_tester(char **line, t_env **envt)
+{
+	t_cmd_div	*div;
+
+	div = (t_cmd_div *)malloc(sizeof(t_cmd_div));
+	div->envt = *envt;
+	if (ft_strcmp(*line, "env") == 0)
+	{
+		if (envt)
+			ft_bltin_env(div);
+		else
+			printf("env error: nothing to print.\n");
+	}
+	else if (ft_strcmp(*line, "pwd") == 0)
+		ft_bltin_pwd(div);
+	else if (ft_strcmp(*line, "unset USER") == 0)
+		ft_bltin_unset(div);
+	else if (ft_strcmp(*line, "unset USE") == 0)
+		ft_bltin_unset(div);
+	else if (ft_strcmp(*line, "unset USER0") == 0)
+		ft_bltin_unset(div);
+	else if (ft_strcmp(*line, "unset HELLO") == 0)
+		ft_bltin_unset(div);
+	else if (ft_strcmp(*line, "unset LAST") == 0)
+		ft_bltin_unset(div);
+	else if (ft_strcmp(*line, "clear") == 0)
+	{
+		ft_clear_env(div->envt);
+		*envt = NULL;
+	}
+	free(div);
+}
+
+int	main(int ac, char **av, char **envp)
 {
 	char 	*line = NULL;
 	t_env	*envt = NULL;
-	t_token	*head;
+
+	// t_token	*head;
 
 	if (ac != 1 && av)
 		return (write(2, "Error: Wrong number of arguments\n", 33), 1);
@@ -41,6 +75,7 @@ int main(int ac, char **av, char **envp)
 			ft_free_lst_env(envt);
 			break ;
 		}
+<<<<<<< HEAD
 	/*	if (ft_strcmp(line, "env") == 0)
 		{
 			env_printer(&envt);	
@@ -57,6 +92,18 @@ int main(int ac, char **av, char **envp)
 		ft_print_token(head);
 		if (!head)
 			return (write(2, "Error: Tokenization failed\n", 27), 1);
+=======
+		else
+			ft_bltin_tester(&line, &envt);
+		// if (ft_count_quote(line) != -1)
+		// 	head = ft_tokenize(line);
+		// else
+		// 	write(2, "Error: Unmatched quote\n", 23);
+		// if (!head)
+		// 	return (write(2, "Error: Tokenization failed\n", 27), 1);
+		//	ft_testmodif(head);
+		//ft_expand(head, envt);
+>>>>>>> master
 		ft_add_history(line);
 		ft_expand(head, envt);
 		ft_free_lst_token(head);

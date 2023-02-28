@@ -6,28 +6,39 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:58:45 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/26 22:52:08 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/02/28 17:02:34 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env	*ft_envlast(t_env *lst)
+/* --------------------- void	ft_clear_env(t_env *envt) --------------------- */
+/*
+**		free la double liste chainee de vars.
+**		nv de facon recursive.
+*/
+
+void	ft_clear_env(t_env *envt)
 {
-	if (!lst)
-		return (NULL);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
+	if (envt == NULL)
+		return ;
+	ft_clear_env(envt->next);
+	// free(envt->key);
+	envt->key = NULL;
+	// free(envt->value);
+	envt->value = NULL;
+	// if (envt->next)
+	envt->next = NULL;
+	free(envt);
+	envt = NULL;
+	return ;
 }
 
-/*		char	*ft_split_key(char *str)				*/
-/*														*/
-/*			recupere toute la partie avant le signe =	*/
-/*			et la renvoie.								*/
-/*														*/
-/*			renvoie la valeur de key sous forme de		*/
-/*			string.										*/
+/* ---------------------- char	*ft_split_key(char *str) --------------------- */
+/*
+** 		recupere toute la partie avant le signe = et la renvoie.
+** 		renvoie la valeur de key sous forme de string.
+*/
 
 char	*ft_split_key(char *str)
 {
@@ -40,13 +51,11 @@ char	*ft_split_key(char *str)
 	return (key);
 }
 
-/*		char	*ft_split_value(char *str)				*/
-/*														*/
-/*			recupere toute la partie apres le signe =	*/
-/*			et la renvoie.								*/
-/*														*/
-/*			renvoie la valeur de value sous forme de	*/
-/*			string.										*/
+/* --------------------- char	*ft_split_value(char *str) -------------------- */
+/*
+**		recupere toute la partie apres le signe = et la renvoie.
+**		renvoie la valeur de value sous forme de string.
+*/
 
 char	*ft_split_value(char *str)
 {
@@ -60,11 +69,11 @@ char	*ft_split_value(char *str)
 	return (value);
 }
 
-/*		t_env	*ft_lstadd_env(char *str)				*/
-/*														*/
-/*			cree un nouveau maillon de type env.		*/
-/*			et le complete avec les valeurs de key et	*/
-/*			value.										*/
+/* --------------------- t_env	*ft_lstadd_env(char *str) -------------------- */
+/*
+**		cree un nouveau maillon de type env. et le complete avec les valeurs de
+**		key et value.
+*/
 
 t_env	*ft_lstadd_env(char *str, t_env **envt)
 {
@@ -87,27 +96,27 @@ t_env	*ft_lstadd_env(char *str, t_env **envt)
 	return (new);
 }
 
-/*		t_env	*env_reader(char **env)					*/
-/*														*/
-/*			parcourt avec i la variable env.			*/
-/*			pour chaque iteration, appelle la			*/
-/*			creation d'un nouveau maillon contenant		*/
-/*			NAME et la liste VALUES.					*/
-/*														*/
-/*			renvoie un pointeur vers le premier			*/
-/*			maillon de la liste chainee nouvellement	*/
-/*			creee.										*/
+/* ---------------------- t_env	*env_reader(char **env) --------------------- */
+/*
+**		parcourt avec i la variable env. pour chaque iteration, appelle la
+**		creation d'un nouveau maillon contenant NAME et la liste VALUES.
+**
+**		renvoie un pointeur vers le premier maillon de la liste chainee
+**		nouvellement creee.
+*/
 
 int	ft_env_reader(char **envp, t_env **envt)
 {
 	int		i;
 
-	i = -1;
-	while(envp[++i])
+	i = 0;
+	while(envp[i])
 	{
 		ft_lstadd_env(envp[i], envt);
+		printf("adding key %s\n", ft_envlast(*envt)->key);
 		if (ft_envlast(*envt) == NULL)
 			return (1);
+		i++;
 	}
 	return (0);
 }

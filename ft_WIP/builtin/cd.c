@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 13:51:38 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/15 17:29:57 by flplace          ###   ########.fr       */
+/*   Created: 2023/02/13 15:41:12 by flplace           #+#    #+#             */
+/*   Updated: 2023/02/23 16:26:32 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// t_list	*ft_lstlast(t_list *lst)
-// {
-// 	while (lst && lst->next)
-// 	{
-// 		lst = lst->next;
-// 	}
-// 	return (lst);
-// }
+// void	ft_bltin_cd(t_cmd_div *div, t_env **envt)
+//
 
-t_env	*ft_envlast(t_env *lst)
+//
+
+void	ft_bltin_cd(t_cmd_div *div)
 {
-	if (!lst)
-		return (NULL);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
+
+
 }

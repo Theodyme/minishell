@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 13:51:38 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/15 17:29:57 by flplace          ###   ########.fr       */
+/*   Created: 2023/02/13 10:54:46 by flplace           #+#    #+#             */
+/*   Updated: 2023/02/24 12:10:20 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// t_list	*ft_lstlast(t_list *lst)
-// {
-// 	while (lst && lst->next)
-// 	{
-// 		lst = lst->next;
-// 	}
-// 	return (lst);
-// }
+/* -------------- void	ft_bltin_echo(t_env **envt, char *echo) -------------- */
+//
+//			NEEDS TO PRINT IN THE RIGHT FD !
+// 			Also: if -n, musn't add a newline at the end of the printed string,
+//			so chek the flag.
+//
+// 			May need env variable if you're printing one ??
 
-t_env	*ft_envlast(t_env *lst)
+void	ft_bltin_echo(char *echo, int flag, int fdout)
 {
-	if (!lst)
-		return (NULL);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
+
+
 }

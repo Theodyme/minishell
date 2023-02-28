@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/27 21:35:17 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/02/28 17:00:10 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,26 +30,11 @@ enum TOKEN_TYPE
 	DELIMITER,
 };
 
-typedef struct s_list
-{
-	char	        *content;
-	struct s_list	*next;
-}   t_list;
-
-//						token type
-//		type:	type de token, a distinguer pour le process global de tokenisation
-//		str:	contenu sous forme de string du token (commande, string a traiter, etc )
-
-typedef struct s_token
-{
-	enum TOKEN_TYPE	type;
-	char			*str;
-	struct s_token	*next;
-}   t_token;
-
-//						env type
-//		id:		identifiant de la variable
-//		vars:	variables sous formes de liste chainee.
+/* -------------------------------- env type -------------------------------- */
+/*
+** 		id:		identifiant de la variable
+** 		vars:	variables sous formes de liste chainee.
+*/
 
 typedef struct s_env
 {
@@ -58,14 +43,80 @@ typedef struct s_env
 	struct s_env	*next;
 }   t_env;
 
-/*			env building			*/
+/* ------------------------------- token type ------------------------------- 	*/
+/*
+** 		type:	type de token, a distinguer pour le process global de tokenisation
+** 		str:	contenu sous forme de string du token (commande, string a traiter, etc)
+*/
+
+typedef struct s_token
+{
+	enum TOKEN_TYPE	type;
+	char			*str;
+	struct s_token	*next;
+}   t_token;
+
+/* -------------------------- command division type ------------------------- */
+/*
+**  POUR LES REDIRECTIONS !! : ajouter une liste chainee de redirections dans la struct div
+*/
+
+typedef struct s_cmd_div
+{
+    char     *cmd;
+    char     **args;
+    t_env	*envt;
+    int      input;
+    int      output;
+    struct s_cmd_div    *next;
+}   t_cmd_div;
+
+/* ------------------------------ env building ------------------------------ */
+
 int			ft_env_reader(char **envp, t_env **envt);
 t_env		*ft_lstadd_env(char *str, t_env **envt);
 char		*ft_split_value(char *str);
 char		*ft_split_key(char *str);
 t_env		*ft_envlast(t_env *lst);
+void		ft_clear_env(t_env *envt);
 
+/* -------------------------------- lib utils ------------------------------- */
 
+void 		*ft_calloc(size_t count, size_t size);
+void		*ft_memset(void *b, int c, size_t len);
+int 		ft_strcmp(const char *s1, const char *s2);
+char		*ft_strdup(const char *src);
+char		*ft_strndup(const char *src, size_t n);
+size_t		ft_strlcpy(char *dst, const char *src, size_t size);
+size_t		ft_strlen(const char *str);
+size_t		ft_strclen(const char *str, char c);
+char		*ft_strcpy(char *dest, const char *src);
+
+/* -------------------------------- builtins -------------------------------- */
+
+void		ft_bltin_env(t_cmd_div *div);
+void		ft_bltin_pwd(t_cmd_div *div);
+t_env		*ft_bltin_unset(t_cmd_div *div);
+int			ft_bltin_export(t_cmd_div *div);
+void		ft_bltin_echo(char *echo, int flag, int fdout);
+void		ft_bltin_cd(t_cmd_div *div);
+
+/* ----------------------------- builtins utils ----------------------------- */
+
+t_env		*ft_key_finder(t_env **envt, char *needle);
+int			ft_key_remove(t_env *rm);
+t_env		*ft_key_add(t_env **envt, char *key, char *value);
+
+/* --------------------------------- EXPAND --------------------------------- */
+
+int			ft_expand(t_token *tkn, t_env *env);
+int			ft_trim_blank(char *line);
+
+int			ft_wordlen(char *line);
+int			ft_wordlen_with_dollar(char *line);
+
+int			ft_getenv(char *key, t_env *env);
+t_token		*ft_tokenize(char *line);
 
 /*			lib utils				*/
 void 	*ft_calloc(size_t count, size_t size);
@@ -75,6 +126,8 @@ char	*ft_strdup(const char *src);
 char	*ft_strndup(const char *src, size_t n);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 
+
+void		ft_bltin_tester(char **line, t_env **envt);
 size_t	ft_strlen(const char *str);
 size_t	ft_strclen(const char *str, char c);
 
@@ -86,7 +139,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strjoin_tab(char **tab);
 void	*ft_memmove(void *dst, const void *src, size_t n);
 
-char	*ft_strcpy(char *dest, const char *src);
+/* ------------------------------ TO REORGANIZE ----------------------------- */
 
 void	ft_add_history(char *line);
 
@@ -100,22 +153,7 @@ void	ft_free_lst_env(t_env *head);
 
 // int 	ft_readlst(t_token *lst);
 
-
-/*						*/
-
-void		env_printer(t_env **envt);
-
-t_token	*ft_specialtoken2(int *i, char *line, t_token *token);
-
-/*               EXPAND              */
-int     ft_expand(t_token *tkn, t_env *env);
-int     ft_trim_blank(char *line);
-
-int     ft_wordlen(char *line);
-int     ft_wordlen_with_dollar(char *line);
-
-char	*ft_strchr(const char *s, int c);
-void	env_printer(t_env **envt);
+/* -------------------------------------------------------------------------- */
 
 t_token	*ft_specialtoken2(int *i, char *line, t_token *token);
 
