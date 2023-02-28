@@ -51,7 +51,7 @@ int	main(int ac, char **av, char **envp)
 	char 	*line = NULL;
 	t_env	*envt = NULL;
 
-	// t_token	*head;
+	t_token	*head;
 
 	if (ac != 1 && av)
 		return (write(2, "Error: Wrong number of arguments\n", 33), 1);
@@ -75,13 +75,9 @@ int	main(int ac, char **av, char **envp)
 			ft_free_lst_env(envt);
 			break ;
 		}
-<<<<<<< HEAD
-	/*	if (ft_strcmp(line, "env") == 0)
-		{
-			env_printer(&envt);	
-			free(line);
-		}
-	*/	if (ft_count_quote(line) != -1)
+		else
+			ft_bltin_tester(&line, &envt);
+		if (ft_count_quote(line) != -1)
 			head = ft_tokenize(line);
 		else
 		{
@@ -92,20 +88,8 @@ int	main(int ac, char **av, char **envp)
 		ft_print_token(head);
 		if (!head)
 			return (write(2, "Error: Tokenization failed\n", 27), 1);
-=======
-		else
-			ft_bltin_tester(&line, &envt);
-		// if (ft_count_quote(line) != -1)
-		// 	head = ft_tokenize(line);
-		// else
-		// 	write(2, "Error: Unmatched quote\n", 23);
-		// if (!head)
-		// 	return (write(2, "Error: Tokenization failed\n", 27), 1);
-		//	ft_testmodif(head);
-		//ft_expand(head, envt);
->>>>>>> master
-		ft_add_history(line);
 		ft_expand(head, envt);
+		ft_add_history(line);
 		ft_free_lst_token(head);
 		write(1, "\n", 1);
 	}

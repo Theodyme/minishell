@@ -159,7 +159,7 @@ int	ft_expand_dollar(t_token *tkn, t_env *env)
 	{	
 		tab[j] = ft_strtok_minishell(NULL, "$");
 		tab[j] = fill_env(tab[j], env);
-		if (!tab[j])
+		if ((i > j + 1) && !tab[j])
 			return (1); // add free
 	}
 	free(tmp_str);
@@ -182,11 +182,13 @@ int	ft_expand(t_token *tkn, t_env *env)
 	{
 		if (tmp->type == WORD && ft_strchr(tmp->str, '$'))
 		{
+			printf("WORD: %s\n", tmp->str);
 			if (ft_expand_dollar(tmp, env))
 				return (1);
 		}
 		else if (tmp->type == DQUOTE && ft_strchr(tmp->str, '$'))
 		{
+			printf("DQUOTE: %s\n", tmp->str);
 			if (ft_expand_dollar(tmp, env))
 				return (1);
 		}

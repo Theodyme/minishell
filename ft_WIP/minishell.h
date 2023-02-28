@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/28 17:00:10 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/02/28 17:01:03 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,16 +118,9 @@ int			ft_wordlen_with_dollar(char *line);
 int			ft_getenv(char *key, t_env *env);
 t_token		*ft_tokenize(char *line);
 
-/*			lib utils				*/
-void 	*ft_calloc(size_t count, size_t size);
-void	*ft_memset(void *b, int c, size_t len);
-int 	ft_strcmp(const char *s1, const char *s2);
-char	*ft_strdup(const char *src);
-char	*ft_strndup(const char *src, size_t n);
-size_t	ft_strlcpy(char *dst, const char *src, size_t size);
-
 
 void		ft_bltin_tester(char **line, t_env **envt);
+
 size_t	ft_strlen(const char *str);
 size_t	ft_strclen(const char *str, char c);
 
