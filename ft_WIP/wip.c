@@ -23,7 +23,7 @@ int	ft_isquote(char c)
 
 int	ft_trim_blank(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line[i] && ft_isblank(line[i]))
@@ -73,7 +73,7 @@ t_token	*ft_specialtoken2(int *i, char *line, t_token *token)
 
 int	ft_wordlen(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line[i] && !ft_isblank(line[i]) && !ft_isspecial(line[i])
@@ -84,7 +84,7 @@ int	ft_wordlen(char *line)
 
 void	ft_free_lst_token(t_token *head)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	while (head)
 	{
@@ -95,10 +95,22 @@ void	ft_free_lst_token(t_token *head)
 	}
 }
 
-t_token *ft_quotetoken(char *line, t_token *token)
+t_token	*ft_quotetoken(int *i, char *line, t_token *token)
 {
-	token->type = QUOTE;
-	token->str = ft_strndup(line, ft_quotelen(line));
+	if (line[*i] == '\'')
+		token->type = QUOTE;
+	else
+		token->type = DQUOTE;
+	token->str = ft_strndup(line + 1, ft_quotelen(line) - 2);
+	*i += ft_quotelen(line);
+	return (token);
+}
+
+t_token	*ft_wordtoken(int *i, char *line, t_token *token)
+{
+	token->type = WORD;
+	token->str = ft_strndup(line, ft_wordlen(line));
+	*i += ft_wordlen(line);
 	return (token);
 }
 
@@ -117,23 +129,11 @@ t_token	*ft_tokenize(char *line)
 	{
 		i += ft_trim_blank(line + i);
 		if (line[i] == '\'' || line[i] == '\"')
-		{
-			if (line[i] == '\'')
-				tmp->type = QUOTE;
-			else
-				tmp->type = DQUOTE;
-			tmp->str = ft_strndup(line + i + 1, ft_quotelen(line + i) - 2);
-			i += ft_quotelen(line + i);
-
-		}
+			tmp = ft_quotetoken(&i, line + i, tmp);
 		else if (line[i] && ft_isspecial(line[i]))
 			tmp = ft_specialtoken1(&i, line + i, tmp);
 		else
-		{
-			tmp->type = WORD;
-			tmp->str = ft_strndup(line + i, ft_wordlen(line + i));
-			i += ft_wordlen(line + i);
-		}
+			tmp = ft_wordtoken(&i, line + i, tmp);
 		tmp->next = ft_calloc(1, sizeof(t_token));
 		if (!tmp->next)
 			return (ft_free_lst_token(head), NULL);
@@ -144,7 +144,7 @@ t_token	*ft_tokenize(char *line)
 
 void	ft_print_token(t_token *head)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	tmp = head;
 	while (tmp)
@@ -156,7 +156,7 @@ void	ft_print_token(t_token *head)
 
 void	ft_print_env(t_env *head)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	tmp = head;
 	while (tmp->next)
@@ -165,20 +165,3 @@ void	ft_print_env(t_env *head)
 		tmp = tmp->next;
 	}
 }
-/*
-void	ft_testmodif(t_token *head)
-{
-	t_token *tmp;
-
-	tmp = head;
-	while (tmp->next)
-	{
-		if (tmp->type == WORD)
-		{
-			free(tmp->str);
-			tmp->str = ft_strdup("test");
-		}
-		tmp = tmp->next;
-	}
-}*/
-

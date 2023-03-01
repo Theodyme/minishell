@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:58:45 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/28 17:02:34 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/01 15:06:06 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	ft_env_reader(char **envp, t_env **envt)
 	while(envp[i])
 	{
 		ft_lstadd_env(envp[i], envt);
-		printf("adding key %s\n", ft_envlast(*envt)->key);
+	//	printf("adding key %s\n", ft_envlast(*envt)->key);
 		if (ft_envlast(*envt) == NULL)
 			return (1);
 		i++;

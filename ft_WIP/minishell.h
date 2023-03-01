@@ -6,16 +6,22 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/28 17:01:03 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/01 18:51:21 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <unistd.h>
-#include <stdbool.h>
+#ifndef MINISHELL_H
+# define MINISHELL_H
+
+# include <stdlib.h>
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <unistd.h>
+# include <stdbool.h>
+
+#define ALPHA "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_" 
+#define ALPHANUM "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"
 
 enum TOKEN_TYPE
 {
@@ -91,6 +97,9 @@ size_t		ft_strlcpy(char *dst, const char *src, size_t size);
 size_t		ft_strlen(const char *str);
 size_t		ft_strclen(const char *str, char c);
 char		*ft_strcpy(char *dest, const char *src);
+int			ft_is_charset(char c, char *charset);
+char		*ft_strjoin_tab(char **tab);
+void		ft_free_tab_str(char **tab, int max);
 
 /* -------------------------------- builtins -------------------------------- */
 
@@ -159,3 +168,5 @@ t_token	*ft_tokenize(char *line);
 /*				test functions				*/
 
 void	ft_print_token(t_token *head);
+
+#endif

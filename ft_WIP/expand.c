@@ -23,47 +23,32 @@ t_token	*ft_fill_expanded(t_token *tkn, char *str)
 	return (tkn);
 }
 
-int	is_charset(char c, char *charset)
-{
-	int	i;
-
-	i = 0;
-	while (charset[i])
-	{
-		if (c == charset[i])
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 char	*ft_strtok_minishell(char *str, char *delim)
 {
 	static char	*save;
 	char		*ptr;
+	char		*tmp;
 
 	if (str)
 		save = str;
 	if (!save || !*save)
 		return (NULL);
 	ptr = save;
-	if (is_charset(*ptr, delim))
+	if (ft_is_charset(*ptr, delim))
 	{
 		ptr++;
-		if (*ptr && is_charset(*ptr, "$?"))
+		if (*ptr && ft_is_charset(*ptr, "$?"))
 			ptr++;
-		else if (*ptr && !is_charset(*ptr, "$? \n\t"))
-			while (*ptr && !is_charset(*ptr, "$ \t\n\'\""))
+		else if (*ptr && ft_is_charset(*ptr, ALPHA) && ptr++)
+			while (*ptr && ft_is_charset(*ptr, ALPHANUM))
 				ptr++;
 	}
 	else
-		while (*ptr && !is_charset(*ptr, delim))
+		while (*ptr && !ft_is_charset(*ptr, delim))
 			ptr++;
-	if (*ptr)
-		save = ptr;
-	else
-		save = NULL;
-	return (ft_strndup(save, ptr - save));
+	tmp = ft_strndup(save, ptr - save);
+	save = ptr;
+	return (tmp);
 }
 
 size_t	ft_count_part(char *str)
@@ -78,17 +63,17 @@ size_t	ft_count_part(char *str)
 	while (str[i])
 	{
 		v++;
-		if (is_charset(str[i], "$"))
+		if (ft_is_charset(str[i], "$"))
 		{
 			i++;
-			if (str[i] && is_charset(str[i], "$?"))
+			if (str[i] && ft_is_charset(str[i], "$?"))
 				i++;
-			else if (str[i] && !is_charset(str[i], "$? \n\t"))
-				while (str[i] && !is_charset(str[i], "$ \t\n\'\""))
+			else if (str[i] && ft_is_charset(str[i], ALPHA) && i++)
+				while (str[i] && ft_is_charset(str[i], ALPHANUM))
 					i++;
 		}
 		else
-			while (str[i] && !is_charset(str[i], "$"))
+			while (str[i] && !ft_is_charset(str[i], "$"))
 				i++;
 	}
 	printf("\t--> v = %zu\n", v);
@@ -129,15 +114,12 @@ char	*fill_env(char *str, t_env *env)
 		out = strdup("$");
 	if (!out && *str == '?')
 		out = ft_itoa(7777777);
-	if (!out && *str == '$')
-		out = ft_itoa(9999999);
 	else if (!out)
 		out = ft_getvalue(str, env);
 	free(dent);
 	return (out);
 }
 
-// DECOUPER EN MOTS *PUIS* EXPAND quand il y a un $
 int	ft_expand_dollar(t_token *tkn, t_env *env)
 {
 	t_token	*save_next;
@@ -154,13 +136,13 @@ int	ft_expand_dollar(t_token *tkn, t_env *env)
 	tab[j] = ft_strtok_minishell(tmp_str, "$");
 	tab[j] = fill_env(tab[j], env);
 	if (!tab[j])
-		return (1); // add free
+		return (free(tab), 1);
 	while (++j < i)
 	{	
 		tab[j] = ft_strtok_minishell(NULL, "$");
 		tab[j] = fill_env(tab[j], env);
 		if ((i > j + 1) && !tab[j])
-			return (1); // add free
+			return (ft_free_tab_str(tab, j), 1);
 	}
 	free(tmp_str);
 	tkn->str = ft_strjoin_tab(tab);

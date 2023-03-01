@@ -6,7 +6,7 @@
 #    By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 11:54:49 by flplace           #+#    #+#              #
-#    Updated: 2023/02/28 17:08:27 by mabimich         ###   ########.fr        #
+#    Updated: 2023/03/01 18:55:48 by mabimich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,8 @@ SRCS	=	builtin/env.c \
 			lib/ft_strjoin.c \
 			lib/ft_strjoin_tab.c \
 			lib/ft_memmove.c \
+			lib/ft_is_charset.c \
+			lib/ft_free_tab_str.c \
 			env_cpy.c \
 			quote.c \
 			expand.c \
