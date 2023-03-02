@@ -63,7 +63,7 @@ int	main(int ac, char **av, char **envp)
 	}
 	while (true)
 	{
-		line = readline(ft_strdup("$> "));
+		line = readline("$> ");
 		if (!line)
 			break ;
 		if (ft_strcmp(line, "exit") == 0)

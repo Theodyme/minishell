@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/01 18:51:21 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/02 18:57:43 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #define ALPHA "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_" 
 #define ALPHANUM "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"
 
+
 enum TOKEN_TYPE
 {
 	WORD, // commande ou argument
@@ -34,6 +35,7 @@ enum TOKEN_TYPE
 	APPEND, // >>
 	HEREDOC, // <<
 	DELIMITER,
+	BLANK
 };
 
 /* -------------------------------- env type -------------------------------- */
@@ -69,12 +71,12 @@ typedef struct s_token
 
 typedef struct s_cmd_div
 {
-    char     *cmd;
-    char     **args;
-    t_env	*envt;
-    int      input;
-    int      output;
-    struct s_cmd_div    *next;
+    char				*cmd;
+    char				**args;
+    t_env				*envt;
+    int					input;
+    int					output;
+    struct s_cmd_div	*next;
 }   t_cmd_div;
 
 /* ------------------------------ env building ------------------------------ */

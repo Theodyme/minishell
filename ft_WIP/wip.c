@@ -2,7 +2,7 @@
 
 int	ft_isblank(char c)
 {
-	if (c == ' ' || c == '\t' || c == '\n')
+	if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r')
 		return (1);
 	return (0);
 }
@@ -82,6 +82,16 @@ int	ft_wordlen(char *line)
 	return (i);
 }
 
+int	ft_spacelen(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] && ft_isblank(line[i]))
+		i++;
+	return (i);
+}
+
 void	ft_free_lst_token(t_token *head)
 {
 	t_token	*tmp;
@@ -97,7 +107,7 @@ void	ft_free_lst_token(t_token *head)
 
 t_token	*ft_quotetoken(int *i, char *line, t_token *token)
 {
-	if (line[*i] == '\'')
+	if (line[0] == '\'')
 		token->type = QUOTE;
 	else
 		token->type = DQUOTE;
@@ -114,6 +124,14 @@ t_token	*ft_wordtoken(int *i, char *line, t_token *token)
 	return (token);
 }
 
+t_token	*ft_blanktoken(int *i, char *line, t_token *token)
+{
+	token->type = BLANK;
+	token->str = strdup(" ");
+	*i += ft_spacelen(line);
+	return (token);
+}
+
 t_token	*ft_tokenize(char *line)
 {
 	t_token	*head;
@@ -127,8 +145,9 @@ t_token	*ft_tokenize(char *line)
 	tmp = head;
 	while (line[i])
 	{
-		i += ft_trim_blank(line + i);
-		if (line[i] == '\'' || line[i] == '\"')
+		if (ft_isblank(line[i]))
+			tmp = ft_blanktoken(&i, line + i, tmp);
+		else if (line[i] == '\'' || line[i] == '\"')
 			tmp = ft_quotetoken(&i, line + i, tmp);
 		else if (line[i] && ft_isspecial(line[i]))
 			tmp = ft_specialtoken1(&i, line + i, tmp);
