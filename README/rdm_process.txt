@@ -31,11 +31,10 @@ NOTE:			l appel 					wait3(status, options, rusage);
 
 # ------------------------------ SUR LES SIGNAUX ----------------------------- #
 
-       A child created via fork(2) inherits a copy of its parents
-       signal dispositions.  During an execve(2), the dispositions of
-       handled signals are reset to the default; the dispositions of
-       ignored signals are left unchanged.
-
+		A child created via fork(2) inherits a copy of its parents
+		signal dispositions.  During an execve(2), the dispositions of
+		handled signals are reset to the default; the dispositions of
+		ignored signals are left unchanged.
 
 # --------------------------------- FONCTIONS -------------------------------- #
 

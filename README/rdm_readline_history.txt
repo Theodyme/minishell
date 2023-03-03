@@ -4,17 +4,17 @@
 Il existe dans les libraries 'history' et 'readline' des fonctions et des types permettant de lire des informations depuis le prompt
 et de les stocker dans un historique. Pour cela, on a besoin de la structure qui suit;
 
-       typedef void * histdata_t;
+		typedef void * histdata_t;
 
-       typedef struct _hist_entry {
-         char *line;		/*contient la ligne lue.*/
-         char *timestamp;	/*contient le timestamp de la ligne lue.*/
-         histdata_t data;	/*contient une donnee initialement set a NULL.*/
-       } HIST_ENTRY;
+		typedef struct _hist_entry {
+			char *line;		/*contient la ligne lue.*/
+			char *timestamp;	/*contient le timestamp de la ligne lue.*/
+			histdata_t data;	/*contient une donnee initialement set a NULL.*/
+		} HIST_ENTRY;
 
 qu on pourra declarer comme suit;
 
-       HIST_ENTRY ** the_history_list;
+		HIST_ENTRY ** the_history_list;
 
 Les fonctions de la librairie 'readline' s executent avec des variables particulieres, dont:
 char * rl_line_buffer			Le buffer de readline.
@@ -39,7 +39,7 @@ RETOUR:			si PROMPT est NULL, la fonction renverra NULL. (?)
 
 		void 		add_history (const char *string);
 LIBS:			readline/history.h
-USAGE:		 	ajoute STRING a l historique. la valeur associee par defaut est set a NULL.
+USAGE:			ajoute STRING a l historique. la valeur associee par defaut est set a NULL.
 RETOUR:			void.
 
 
@@ -59,7 +59,7 @@ RETOUR:			void.
 
 		void 		rl_replace_line (const char *text, int clear_undo);
 LIBS:			readline/readline.h
-USAGE:		 	remplace le contenu de 'rl_line_buffer' avec TEXT.
+USAGE:			remplace le contenu de 'rl_line_buffer' avec TEXT.
 NOTE:			CLEAR_UNDO ne nous concerne pas puisque nous n avons pas le droit aux fonctions permettant d exploiter cette
 				fonctionnalite de la librairie.
 				la liste undo associee avec la line actuelle est effacee.
@@ -68,7 +68,7 @@ RETOUR:			void.
 
 		int			rl_on_new_line (void);
 LIBS:			readline/readline.h
-USAGE:		 	indique a la fonction update (rl_redisplay ?) que 'readline' est passe a une nouvelle ligne vide.
+USAGE:			indique a la fonction update (rl_redisplay ?) que 'readline' est passe a une nouvelle ligne vide.
 RETOUR:			void.
 
 # ---------------------------------------------------------------------------- #
