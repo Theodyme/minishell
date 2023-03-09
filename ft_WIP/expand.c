@@ -122,7 +122,6 @@ char	*fill_env(char *str, t_env *env)
 
 int	ft_expand_dollar(t_token *tkn, t_env *env)
 {
-	t_token	*save_next;
 	char	**tab;
 	char	*tmp_str;
 	size_t	i;
@@ -132,7 +131,6 @@ int	ft_expand_dollar(t_token *tkn, t_env *env)
 	j = 0;
 	tab = ft_calloc(i + 1, sizeof(char *));
 	tmp_str = tkn->str;
-	save_next = tkn->next;
 	tab[j] = ft_strtok_minishell(tmp_str, "$");
 	tab[j] = fill_env(tab[j], env);
 	if (!tab[j])
@@ -146,7 +144,42 @@ int	ft_expand_dollar(t_token *tkn, t_env *env)
 	}
 	free(tmp_str);
 	tkn->str = ft_strjoin_tab(tab);
-	return (tkn->next = save_next, 0);
+	if (!tkn->str)
+		return (ft_free_tab_str(tab, j), 1);
+	return (0);
+}
+
+void	ft_quote_to_word(t_token *tkn)
+{
+	t_token	*tmp;
+
+	tmp = tkn;
+	while (tmp)
+	{
+		if (tmp->type == QUOTE || tmp->type == DQUOTE)
+			tmp->type = WORD;
+		tmp = tmp->next;
+	}
+}
+
+void	ft_merge_word(t_token *tkn)
+{
+	t_token	*tmp;
+	t_token	*save_next;
+
+	tmp = tkn;
+	while (tmp)
+	{
+		if (tmp->type == WORD && tmp->next && tmp->next->type == WORD)
+		{
+			save_next = tmp->next->next;
+			tmp->str = ft_strjoin_free(tmp->str, tmp->next->str);
+			free(tmp->next);
+			tmp->next = save_next;
+		}
+		else
+			tmp = tmp->next;
+	}
 }
 
 /*
@@ -167,7 +200,7 @@ int	ft_expand(t_token *tkn, t_env *env)
 			printf("WORD: %s\n", tmp->str);
 			if (ft_expand_dollar(tmp, env))
 				return (1);
-		}
+		}// merge au dessus et en dessous
 		else if (tmp->type == DQUOTE && ft_strchr(tmp->str, '$'))
 		{
 			printf("DQUOTE: %s\n", tmp->str);
@@ -176,6 +209,8 @@ int	ft_expand(t_token *tkn, t_env *env)
 		}
 		tmp = tmp->next;
 	}
+	ft_quote_to_word(tkn);
+	ft_merge_word(tkn);
 	printf("\n=====> ft_expand\n");
 	ft_print_token(tkn);
 	return (0);

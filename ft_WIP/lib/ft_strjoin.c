@@ -18,3 +18,13 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	((char *)new_s)[len1 + len2] = '\0';
 	return ((char *)new_s);
 }
+
+char	*ft_strjoin_free(char *s1, char *s2)
+{
+	char	*new_s;
+
+	new_s = ft_strjoin(s1, s2);
+	free(s1);
+	free(s2);
+	return (new_s);
+}
