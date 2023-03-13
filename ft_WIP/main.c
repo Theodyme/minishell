@@ -16,33 +16,50 @@
 void ft_bltin_tester(char **line, t_env **envt)
 {
 	t_cmd_div	*div;
+	int			i;
+	const t_fn	bltin[7] = {
+	{.cmd = "echo", .function = &ft_bltin_echo},
+	{.cmd = "cd", .function = &ft_bltin_cd},
+	{.cmd = "pwd", .function = &ft_bltin_pwd},
+	{.cmd = "export", .function = &ft_bltin_export},
+	{.cmd = "unset", .function = &ft_bltin_unset},
+	{.cmd = "env", .function = &ft_bltin_env},
+	{.cmd = "exit", .function = &ft_bltin_exit}, // A AJOUTER
+	}
 
+	i = 0;
 	div = (t_cmd_div *)malloc(sizeof(t_cmd_div));
 	div->envt = *envt;
-	if (ft_strcmp(*line, "env") == 0)
-	{
-		if (envt)
-			ft_bltin_env(div);
-		else
-			printf("env error: nothing to print.\n");
-	}
-	else if (ft_strcmp(*line, "pwd") == 0)
-		ft_bltin_pwd(div);
-	else if (ft_strcmp(*line, "unset USER") == 0)
-		ft_bltin_unset(div);
-	else if (ft_strcmp(*line, "unset USE") == 0)
-		ft_bltin_unset(div);
-	else if (ft_strcmp(*line, "unset USER0") == 0)
-		ft_bltin_unset(div);
-	else if (ft_strcmp(*line, "unset HELLO") == 0)
-		ft_bltin_unset(div);
-	else if (ft_strcmp(*line, "unset LAST") == 0)
-		ft_bltin_unset(div);
-	else if (ft_strcmp(*line, "clear") == 0)
-	{
-		ft_clear_env(div->envt);
-		*envt = NULL;
-	}
+	while(ft_strcmp(bltin[i].cmd, div->cmd) != 0 && bltin[i].cmd)
+		i++;
+	if (ft_strcmp(bltin[i].cmd, "\0") != 0)
+		return (bltin[i].blt_fn(div));
+	return (0);
+
+	// if (ft_strcmp(*line, "env") == 0)
+	// {
+	// 	if (envt)
+	// 		ft_bltin_env(div);
+	// 	else
+	// 		printf("env error: nothing to print.\n");
+	// }
+	// else if (ft_strcmp(*line, "pwd") == 0)
+	// 	ft_bltin_pwd(div);
+	// else if (ft_strcmp(*line, "unset USER") == 0)
+	// 	ft_bltin_unset(div);
+	// else if (ft_strcmp(*line, "unset USE") == 0)
+	// 	ft_bltin_unset(div);
+	// else if (ft_strcmp(*line, "unset USER0") == 0)
+	// 	ft_bltin_unset(div);
+	// else if (ft_strcmp(*line, "unset HELLO") == 0)
+	// 	ft_bltin_unset(div);
+	// else if (ft_strcmp(*line, "unset LAST") == 0)
+	// 	ft_bltin_unset(div);
+	// else if (ft_strcmp(*line, "clear") == 0)
+	// {
+	// 	ft_clear_env(div->envt);
+	// 	*envt = NULL;
+	// }
 	free(div);
 }
 

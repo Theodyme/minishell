@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/02 18:57:43 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/03 12:48:39 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,14 @@
 # include <unistd.h>
 # include <stdbool.h>
 
-#define ALPHA "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_" 
+#define ALPHA "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_"
 #define ALPHANUM "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"
 
+/* -------------- function prototype for the array of pointers -------------- */
+
+typedef int	(*t_type)(t_cmd_div *div);
+
+/* -------------------------------------------------------------------------- */
 
 enum TOKEN_TYPE
 {
@@ -37,6 +42,14 @@ enum TOKEN_TYPE
 	DELIMITER,
 	BLANK
 };
+
+/* -------------------- array of function pointers struct ------------------- */
+
+typedef struct t_fn
+{
+	char	*cmd;
+	t_type	blt_fn;
+}		t_fn;
 
 /* -------------------------------- env type -------------------------------- */
 /*
@@ -92,25 +105,32 @@ void		ft_clear_env(t_env *envt);
 
 void 		*ft_calloc(size_t count, size_t size);
 void		*ft_memset(void *b, int c, size_t len);
+void		*ft_memmove(void *dst, const void *src, size_t n);
 int 		ft_strcmp(const char *s1, const char *s2);
 char		*ft_strdup(const char *src);
 char		*ft_strndup(const char *src, size_t n);
+char		*ft_strjoin(char const *s1, char const *s2);
 size_t		ft_strlcpy(char *dst, const char *src, size_t size);
 size_t		ft_strlen(const char *str);
+char		*ft_strchr(const char *s, int c);
 size_t		ft_strclen(const char *str, char c);
 char		*ft_strcpy(char *dest, const char *src);
 int			ft_is_charset(char c, char *charset);
 char		*ft_strjoin_tab(char **tab);
 void		ft_free_tab_str(char **tab, int max);
+char		*ft_itoa(int n);
 
 /* -------------------------------- builtins -------------------------------- */
 
-void		ft_bltin_env(t_cmd_div *div);
-void		ft_bltin_pwd(t_cmd_div *div);
-t_env		*ft_bltin_unset(t_cmd_div *div);
+void		ft_bltin_tester(char **line, t_env **envt);
+
+int			ft_bltin_echo(t_cmd_div *div);
+int			ft_bltin_cd(t_cmd_div *div);
+int			ft_bltin_pwd(t_cmd_div *div);
 int			ft_bltin_export(t_cmd_div *div);
-void		ft_bltin_echo(char *echo, int flag, int fdout);
-void		ft_bltin_cd(t_cmd_div *div);
+int			ft_bltin_unset(t_cmd_div *div);
+int			ft_bltin_env(t_cmd_div *div);
+int			ft_bltin_exit(t_cmd_div *div);
 
 /* ----------------------------- builtins utils ----------------------------- */
 
@@ -130,45 +150,35 @@ int			ft_getenv(char *key, t_env *env);
 t_token		*ft_tokenize(char *line);
 
 
-void		ft_bltin_tester(char **line, t_env **envt);
+char		*ft_strtok_minishell(char *str, char *delim);
 
-size_t	ft_strlen(const char *str);
-size_t	ft_strclen(const char *str, char c);
-
-char	*ft_itoa(int n);
-
-char	*ft_strtok_minishell(char *str, char *delim);
-
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strjoin_tab(char **tab);
-void	*ft_memmove(void *dst, const void *src, size_t n);
+char		*ft_strjoin_tab(char **tab);
 
 /* ------------------------------ TO REORGANIZE ----------------------------- */
 
-void	ft_add_history(char *line);
+void		ft_add_history(char *line);
 
 
-int 	ft_count_quote(char *str);
-int     ft_quotelen(char *str);
+int 		ft_count_quote(char *str);
+int			ft_quotelen(char *str);
 
-void	ft_free_lst_token(t_token *head);
-void	ft_free_lst_env(t_env *head);
+void		ft_free_lst_token(t_token *head);
+void		ft_free_lst_env(t_env *head);
 
 
 // int 	ft_readlst(t_token *lst);
 
 /* -------------------------------------------------------------------------- */
 
-t_token	*ft_specialtoken2(int *i, char *line, t_token *token);
+t_token		*ft_specialtoken2(int *i, char *line, t_token *token);
 
-char	*ft_strchr(const char *s, int c);
 
-int     ft_getenv(char *key, t_env *env);
-t_token	*ft_tokenize(char *line);
+int			ft_getenv(char *key, t_env *env);
+t_token		*ft_tokenize(char *line);
 
 
 /*				test functions				*/
 
-void	ft_print_token(t_token *head);
+void		ft_print_token(t_token *head);
 
 #endif

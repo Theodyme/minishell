@@ -6,13 +6,13 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:58:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/27 15:26:21 by flplace          ###   ########.fr       */
+/*   Updated: 2023/03/03 12:48:49 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_bltin_env(t_cmd_div *div)
+int	ft_bltin_env(t_cmd_div *div)
 {
 	t_env	*parse = NULL;
 
