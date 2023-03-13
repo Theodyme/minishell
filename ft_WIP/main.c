@@ -18,14 +18,14 @@ void ft_bltin_tester(char **line, t_env **envt)
 	t_cmd_div	*div;
 	int			i;
 	const t_fn	bltin[7] = {
-	{.cmd = "echo", .function = &ft_bltin_echo},
-	{.cmd = "cd", .function = &ft_bltin_cd},
-	{.cmd = "pwd", .function = &ft_bltin_pwd},
-	{.cmd = "export", .function = &ft_bltin_export},
-	{.cmd = "unset", .function = &ft_bltin_unset},
-	{.cmd = "env", .function = &ft_bltin_env},
-	{.cmd = "exit", .function = &ft_bltin_exit}, // A AJOUTER
-	}
+	{.cmd = "echo", .blt_fn = &ft_bltin_echo},
+	{.cmd = "cd", .blt_fn = &ft_bltin_cd},
+	{.cmd = "pwd", .blt_fn = &ft_bltin_pwd},
+	{.cmd = "export", .blt_fn = &ft_bltin_export},
+	{.cmd = "unset", .blt_fn = &ft_bltin_unset},
+	{.cmd = "env", .blt_fn = &ft_bltin_env},
+	{.cmd = "exit", .blt_fn = &ft_bltin_exit}, // A AJOUTER
+	};
 
 	i = 0;
 	div = (t_cmd_div *)malloc(sizeof(t_cmd_div));

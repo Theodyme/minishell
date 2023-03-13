@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/03 12:48:39 by flplace          ###   ########.fr       */
+/*   Updated: 2023/03/13 16:27:49 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,9 @@ char		*ft_strchr(const char *s, int c);
 size_t		ft_strclen(const char *str, char c);
 char		*ft_strcpy(char *dest, const char *src);
 int			ft_is_charset(char c, char *charset);
+char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_strjoin_tab(char **tab);
+char		*ft_strjoin_free(char *s1, char *s2);
 void		ft_free_tab_str(char **tab, int max);
 char		*ft_itoa(int n);
 
@@ -152,6 +154,15 @@ t_token		*ft_tokenize(char *line);
 
 char		*ft_strtok_minishell(char *str, char *delim);
 
+size_t	ft_strlen(const char *str);
+size_t	ft_strclen(const char *str, char c);
+
+char	*ft_itoa(int n);
+
+char	*ft_strtok_minishell(char *str, char *delim);
+
+
+void	*ft_memmove(void *dst, const void *src, size_t n);
 char		*ft_strjoin_tab(char **tab);
 
 /* ------------------------------ TO REORGANIZE ----------------------------- */
