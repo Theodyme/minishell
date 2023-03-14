@@ -6,13 +6,13 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 15:41:16 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/28 17:03:15 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:54:13 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void		ft_bltin_pwd(t_cmd_div *div)
+void		ft_bltin_pwd(t_cmd *div)
 {
 	t_env	*pwd;
 

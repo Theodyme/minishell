@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:58:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/27 15:26:21 by flplace          ###   ########.fr       */
+/*   Updated: 2023/03/10 16:54:04 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_bltin_env(t_cmd_div *div)
+void	ft_bltin_env(t_cmd *div)
 {
 	t_env	*parse = NULL;
 

@@ -6,7 +6,7 @@
 #    By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 11:54:49 by flplace           #+#    #+#              #
-#    Updated: 2023/03/01 18:55:48 by mabimich         ###   ########.fr        #
+#    Updated: 2023/03/14 15:22:22 by mabimich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRCS	=	builtin/env.c \
 			quote.c \
 			expand.c \
 			rl_gets.c \
+			parser.c \
 			wip.c \
 			main.c
 OBJ		=	${SRCS:.c=.o}

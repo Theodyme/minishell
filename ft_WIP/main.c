@@ -15,9 +15,9 @@
 
 void ft_bltin_tester(char **line, t_env **envt)
 {
-	t_cmd_div	*div;
+	t_cmd	*div;
 
-	div = (t_cmd_div *)malloc(sizeof(t_cmd_div));
+	div = (t_cmd *)malloc(sizeof(t_cmd));
 	div->envt = *envt;
 	if (ft_strcmp(*line, "env") == 0)
 	{
@@ -86,6 +86,8 @@ int	main(int ac, char **av, char **envp)
 		if (!head)
 			return (write(2, "Error: Tokenization failed\n", 27), 1);
 		ft_expand(head, envt);
+		if (ft_parser(head) == 1)
+			continue ;
 		ft_add_history(line);
 		ft_free_lst_token(head);
 		write(1, "\n", 1);

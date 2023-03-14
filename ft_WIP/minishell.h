@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/09 15:17:00 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/14 17:22:20 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,20 +64,34 @@ typedef struct s_token
 	struct s_token	*next;
 }   t_token;
 
+
+typedef struct s_redir
+{
+	enum TOKEN_TYPE	type;
+	char			*file;
+	struct s_redir	*next;
+}   t_redir;
+
+typedef struct s_arg
+{
+	char			*str;
+	struct s_arg	*next;
+}   t_arg;
+
 /* -------------------------- command division type ------------------------- */
 /*
 **  POUR LES REDIRECTIONS !! : ajouter une liste chainee de redirections dans la struct div
 */
 
-typedef struct s_cmd_div
+typedef struct s_cmd
 {
-    char				*cmd;
+    char				*name;
     char				**args;
+	struct s_redir		*redir;
     t_env				*envt;
-    int					input;
-    int					output;
-    struct s_cmd_div	*next;
-}   t_cmd_div;
+    struct s_cmd		*next;
+	struct s_arg		*args_list;
+}   t_cmd;
 
 /* ------------------------------ env building ------------------------------ */
 
@@ -107,12 +121,12 @@ void		ft_free_tab_str(char **tab, int max);
 
 /* -------------------------------- builtins -------------------------------- */
 
-void		ft_bltin_env(t_cmd_div *div);
-void		ft_bltin_pwd(t_cmd_div *div);
-t_env		*ft_bltin_unset(t_cmd_div *div);
-int			ft_bltin_export(t_cmd_div *div);
+void		ft_bltin_env(t_cmd *div);
+void		ft_bltin_pwd(t_cmd *div);
+t_env		*ft_bltin_unset(t_cmd *div);
+int			ft_bltin_export(t_cmd *div);
 void		ft_bltin_echo(char *echo, int flag, int fdout);
-void		ft_bltin_cd(t_cmd_div *div);
+void		ft_bltin_cd(t_cmd *div);
 
 /* ----------------------------- builtins utils ----------------------------- */
 
@@ -131,6 +145,14 @@ int			ft_wordlen_with_dollar(char *line);
 int			ft_getenv(char *key, t_env *env);
 t_token		*ft_tokenize(char *line);
 
+
+/* --------------------------------- PARSER --------------------------------- */
+
+int 		ft_parser(t_token *tkn);
+int			ft_check_syntax(t_token *tkn);
+int			ft_is_redir(t_token *tkn);
+
+/* ---------------------------------  --------------------------------- */
 
 void		ft_bltin_tester(char **line, t_env **envt);
 
