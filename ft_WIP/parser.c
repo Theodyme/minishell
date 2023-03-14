@@ -1,5 +1,17 @@
 #include "minishell.h"
 
+void	ft_print_array(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i])
+	{
+		printf("array[%d]: %s\n", i, array[i]);
+		i++;
+	}
+}
+
 void	ft_print_cmd(t_cmd *cmd)
 {
 	t_arg	*tmp;
@@ -21,6 +33,7 @@ void	ft_print_cmd(t_cmd *cmd)
 			printf("redirect type: %d --> file: %s\n", tmp2->type, tmp2->file);
 			tmp2 = tmp2->next;
 		}
+		ft_print_array(cmd->args);
 		cmd = cmd->next;
 		printf("_______________________\n");
 	}
@@ -153,6 +166,38 @@ int	ft_check_syntax(t_token *token)
 	return (0);
 }
 
+int	ft_argslist_to_array(t_cmd *cmd)
+{
+	t_arg	*tmp;
+	int		i;
+
+	while (cmd)
+	{
+		tmp = cmd->args_list;
+		i = 0;
+		while (tmp && i++)
+			tmp = tmp->next;
+		cmd->args = ft_calloc(i + 1, sizeof(char *));
+		if (!cmd->args)
+			return (1);
+		cmd->args[0] = ft_strdup(cmd->name);
+		if (!cmd->args[0])
+			return (1);
+		tmp = cmd->args_list;
+		i = 0;
+		while (tmp)
+		{
+			cmd->args[i] = ft_strdup(tmp->str);
+			if (!cmd->args[i])
+				return (1);
+			i++;
+			tmp = tmp->next;
+		}
+		cmd = cmd->next;
+	}
+	return (0);
+}
+
 int	ft_parser(t_token *token)
 {
 	t_cmd	*cmd;
@@ -163,6 +208,7 @@ int	ft_parser(t_token *token)
 	if (ft_check_syntax(token))
 		return (1);
 	ft_token_to_cmd(token, cmd);
+	ft_argslist_to_array(cmd);
 	ft_print_cmd(cmd);
 	return (0);
 }
