@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/15 16:39:31 by flplace          ###   ########.fr       */
+/*   Updated: 2023/03/15 17:04:28 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,35 +169,15 @@ int			ft_wordlen_with_dollar(char *line);
 int			ft_getenv(char *key, t_env *env);
 t_token		*ft_tokenize(char *line);
 
-
 /* --------------------------------- PARSER --------------------------------- */
 
-int 		ft_parser(t_token *tkn);
+t_cmd 		*ft_parser(t_token *tkn);
 int			ft_check_syntax(t_token *tkn);
 int			ft_is_redir(t_token *tkn);
 
 /* ---------------------------------  --------------------------------- */
-
-/* --------------------------------- PARSER --------------------------------- */
-
-int 		ft_parser(t_token *tkn);
-int			ft_check_syntax(t_token *tkn);
-int			ft_is_redir(t_token *tkn);
-
-/* ---------------------------------  --------------------------------- */
-
-char		*ft_strtok_minishell(char **line, char *delim);
-
-size_t	ft_strlen(const char *str);
-size_t	ft_strclen(const char *str, char c);
-
-char	*ft_itoa(int n);
 
 char	*ft_strtok_minishell(char *str, char *delim);
-
-
-void	*ft_memmove(void *dst, const void *src, size_t n);
-char		*ft_strjoin_tab(char **tab);
 
 /* ------------------------------ TO REORGANIZE ----------------------------- */
 

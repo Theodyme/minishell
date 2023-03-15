@@ -14,9 +14,11 @@ void	ft_print_array(char **array)
 
 void	ft_print_cmd(t_cmd *cmd)
 {
+	t_cmd	*start;
 	t_arg	*tmp;
 	t_redir	*tmp2;
 
+	start = cmd;
 	printf("_____PRINTING CMD______\n");
 	while (cmd)
 	{
@@ -37,6 +39,7 @@ void	ft_print_cmd(t_cmd *cmd)
 		cmd = cmd->next;
 		printf("_______________________\n");
 	}
+	cmd = start;
 }
 
 int	ft_add_redir(t_redir *redir, t_token *token)
@@ -198,17 +201,17 @@ int	ft_argslist_to_array(t_cmd *cmd)
 	return (0);
 }
 
-int	ft_parser(t_token *token)
+t_cmd	*ft_parser(t_token *token)
 {
-	t_cmd	*cmd;
+	t_cmd	*cmd = NULL;
 
 	cmd = ft_calloc(1, sizeof(t_cmd));
 	if (!cmd)
-		return (1);
+		return (NULL);
 	if (ft_check_syntax(token))
-		return (1);
+		return (NULL);
 	ft_token_to_cmd(token, cmd);
 	ft_argslist_to_array(cmd);
 	ft_print_cmd(cmd);
-	return (0);
+	return (cmd);
 }

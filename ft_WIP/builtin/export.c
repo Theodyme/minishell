@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:13:33 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/15 16:37:18 by flplace          ###   ########.fr       */
+/*   Updated: 2023/03/15 16:43:02 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 ** 		controle que la copie s'est bien passee, sinon retourne 1.
 */
 
-int		ft_bltin_export(t_cmd *cmd)
 int		ft_bltin_export(t_cmd *cmd)
 {
 	t_env	*tmp;

@@ -30,35 +30,11 @@ int ft_bltin_tester(t_cmd *cmd)
 	cmd = (t_cmd*)malloc(sizeof(t_cmd));
 	while(ft_strcmp(bltin[i].call, cmd->name) != 0 && bltin[i].call)
 		i++;
+	if (ft_strcmp(cmd->name, "exit") == 0)
+		return (1);
 	if (ft_strcmp(bltin[i].call, "\0") != 0)
 		return (bltin[i].blt_fn(cmd));
 	return (0);
-
-	// if (ft_strcmp(*line, "env") == 0)
-	// {
-	// 	if (envt)
-	// 		ft_bltin_env(div);
-	// 	else
-	// 		printf("env error: nothing to print.\n");
-	// }
-	// else if (ft_strcmp(*line, "pwd") == 0)
-	// 	ft_bltin_pwd(div);
-	// else if (ft_strcmp(*line, "unset USER") == 0)
-	// 	ft_bltin_unset(div);
-	// else if (ft_strcmp(*line, "unset USE") == 0)
-	// 	ft_bltin_unset(div);
-	// else if (ft_strcmp(*line, "unset USER0") == 0)
-	// 	ft_bltin_unset(div);
-	// else if (ft_strcmp(*line, "unset HELLO") == 0)
-	// 	ft_bltin_unset(div);
-	// else if (ft_strcmp(*line, "unset LAST") == 0)
-	// 	ft_bltin_unset(div);
-	// else if (ft_strcmp(*line, "clear") == 0)
-	// {
-	// 	ft_clear_env(div->envt);
-	// 	*envt = NULL;
-	// }
-	free(div);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -82,14 +58,12 @@ int	main(int ac, char **av, char **envp)
 		line = readline("$> ");
 		if (!line)
 			break ;
-		if (ft_strcmp(line, "exit") == 0)
-		{
-			free(line);
-			ft_free_lst_env(envt);
-			break ;
-		}
-		else
-			ft_bltin_tester(cmd);
+		// if (ft_strcmp(line, "exit") == 0)
+		// {
+		// 	free(line);
+		// 	ft_free_lst_env(envt);
+		// 	break ;
+		// }
 		if (ft_count_quote(line) != -1)
 			head = ft_tokenize(line);
 		else
@@ -102,9 +76,16 @@ int	main(int ac, char **av, char **envp)
 		if (!head)
 			return (write(2, "Error: Tokenization failed\n", 27), 1);
 		ft_expand(head, envt);
-		if (ft_parser(head) == 1)
+		cmd = ft_parser(head);
+		if (cmd)
 			continue ;
 		ft_add_history(line);
+		if (ft_bltin_tester(cmd) == 1)
+		{
+			free(line);
+			ft_free_lst_env(envt);
+			break ;
+		}
 		ft_free_lst_token(head);
 		write(1, "\n", 1);
 	}
