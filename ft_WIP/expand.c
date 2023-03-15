@@ -182,6 +182,28 @@ void	ft_merge_word(t_token *tkn)
 	}
 }
 
+void	ft_remove_blank(t_token *tkn)
+{
+	t_token	*tmp;
+	t_token	*save_next;
+
+	tmp = tkn;
+	while (tmp)
+	{
+		if (tmp->next && tmp->next->type == BLANK)
+		{
+			save_next = tmp->next->next;
+			if (tmp->next->str)
+				free(tmp->next->str);
+			if (tmp->next)
+				free(tmp->next);
+			tmp->next = save_next;
+		}
+		else
+			tmp = tmp->next;
+	}
+}
+
 /*
 ** ft_expand is the function that will expand the tokens
 ** it expands tokens of type WORD or DQUOTE in which there is a '$'
@@ -211,6 +233,7 @@ int	ft_expand(t_token *tkn, t_env *env)
 	}
 	ft_quote_to_word(tkn);
 	ft_merge_word(tkn);
+	ft_remove_blank(tkn);
 	printf("\n=====> ft_expand\n");
 	ft_print_token(tkn);
 	return (0);

@@ -6,7 +6,7 @@
 #    By: flplace <flplace@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 11:54:49 by flplace           #+#    #+#              #
-#    Updated: 2023/03/15 15:56:53 by flplace          ###   ########.fr        #
+#    Updated: 2023/03/15 16:38:20 by flplace          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ SRCS	=	builtin/echo.c \
 			quote.c \
 			expand.c \
 			rl_gets.c \
+			parser.c \
 			wip.c \
 			main.c
 OBJ		=	${SRCS:.c=.o}

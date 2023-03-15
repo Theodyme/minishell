@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/15 15:36:29 by flplace          ###   ########.fr       */
+/*   Updated: 2023/03/15 16:39:31 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 
+#define ALPHA "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_"
 #define ALPHA "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_"
 #define ALPHANUM "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"
 
@@ -64,6 +65,20 @@ typedef struct s_token
 	char			*str;
 	struct s_token	*next;
 }   t_token;
+
+
+typedef struct s_redir
+{
+	enum TOKEN_TYPE	type;
+	char			*file;
+	struct s_redir	*next;
+}   t_redir;
+
+typedef struct s_arg
+{
+	char			*str;
+	struct s_arg	*next;
+}   t_arg;
 
 /* -------------------------- command division type ------------------------- */
 /*
@@ -155,7 +170,23 @@ int			ft_getenv(char *key, t_env *env);
 t_token		*ft_tokenize(char *line);
 
 
-char		*ft_strtok_minishell(char *str, char *delim);
+/* --------------------------------- PARSER --------------------------------- */
+
+int 		ft_parser(t_token *tkn);
+int			ft_check_syntax(t_token *tkn);
+int			ft_is_redir(t_token *tkn);
+
+/* ---------------------------------  --------------------------------- */
+
+/* --------------------------------- PARSER --------------------------------- */
+
+int 		ft_parser(t_token *tkn);
+int			ft_check_syntax(t_token *tkn);
+int			ft_is_redir(t_token *tkn);
+
+/* ---------------------------------  --------------------------------- */
+
+char		*ft_strtok_minishell(char **line, char *delim);
 
 size_t	ft_strlen(const char *str);
 size_t	ft_strclen(const char *str, char c);

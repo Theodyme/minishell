@@ -51,7 +51,7 @@ t_token *ft_specialtoken1(int *i, char *line, t_token *token)
 		token->str = ft_strdup(">");
 	}
 	else
-		token = ft_specialtoken1(i, line, token);
+		token = ft_specialtoken2(i, line, token);
 	return (token);
 }
 
