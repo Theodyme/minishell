@@ -6,22 +6,22 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:58:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/03 12:48:49 by flplace          ###   ########.fr       */
+/*   Updated: 2023/03/15 15:25:22 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_bltin_env(t_cmd_div *div)
+int	ft_bltin_env(t_cmd *cmd)
 {
 	t_env	*parse = NULL;
 
 	// printf("node %p, %s=%s, next %p\n", div->envt, div->envt->key, div->envt->value, div->envt->next);
-	parse = div->envt;
+	parse = cmd->envt;
 	if (parse == NULL)
 	{
 		printf("env error: nothing to print.\n");
-		return ;
+		return (1);
 	}
 	while (parse->next)
 	{
@@ -29,5 +29,5 @@ int	ft_bltin_env(t_cmd_div *div)
 		parse = parse->next;
 	}
 	printf("%s=%s\n", parse->key, parse->value);
-	return ;
+	return (0);
 }

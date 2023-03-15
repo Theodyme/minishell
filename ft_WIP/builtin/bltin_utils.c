@@ -6,11 +6,28 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:45:48 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/24 12:09:17 by flplace          ###   ########.fr       */
+/*   Updated: 2023/03/14 18:08:19 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int		ft_key_freer(char *key, char *value)
+{
+		free(key);
+		free(value);
+		return (0);
+}
+
+int		ft_array_cntr(char **array)
+{
+	int i;
+
+	i = 0;
+	while (array)
+		i++;
+	return (i);
+}
 
 /* ------------ t_env	*ft_key_finder(t_env **envt, char *needle) ------------ */
 /*

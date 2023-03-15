@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:41:12 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/23 16:26:32 by flplace          ###   ########.fr       */
+/*   Updated: 2023/03/15 15:57:33 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 //
 
-void	ft_bltin_cd(t_cmd_div *div)
+int	ft_bltin_cd(t_cmd *cmd)
 {
-
-
+	(void)cmd;
+	return (1);
 }

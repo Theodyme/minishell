@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+         #
+#    By: flplace <flplace@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 11:54:49 by flplace           #+#    #+#              #
-#    Updated: 2023/03/01 18:55:48 by mabimich         ###   ########.fr        #
+#    Updated: 2023/03/15 15:56:53 by flplace          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,9 +21,13 @@ END_COLOR	:= \033[0;39m
 # **************************************************************************** #
 # VARIABLES
 
-SRCS	=	builtin/env.c \
+SRCS	=	builtin/echo.c \
+			builtin/cd.c \
 			builtin/pwd.c \
+			builtin/export.c \
 			builtin/unset.c \
+			builtin/env.c \
+			builtin/exit.c \
 			builtin/bltin_utils.c \
 			lib/ft_calloc.c \
 			lib/ft_lstlast.c \

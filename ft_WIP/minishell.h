@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/13 16:27:49 by flplace          ###   ########.fr       */
+/*   Updated: 2023/03/15 15:36:29 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,6 @@
 
 #define ALPHA "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_"
 #define ALPHANUM "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"
-
-/* -------------- function prototype for the array of pointers -------------- */
-
-typedef int	(*t_type)(t_cmd_div *div);
 
 /* -------------------------------------------------------------------------- */
 
@@ -43,17 +39,9 @@ enum TOKEN_TYPE
 	BLANK
 };
 
-/* -------------------- array of function pointers struct ------------------- */
-
-typedef struct t_fn
-{
-	char	*cmd;
-	t_type	blt_fn;
-}		t_fn;
-
 /* -------------------------------- env type -------------------------------- */
 /*
-** 		id:		identifiant de la variable
+** 		key:		identifiant de la variable
 ** 		vars:	variables sous formes de liste chainee.
 */
 
@@ -82,15 +70,27 @@ typedef struct s_token
 **  POUR LES REDIRECTIONS !! : ajouter une liste chainee de redirections dans la struct div
 */
 
-typedef struct s_cmd_div
+typedef struct s_cmd
 {
-    char				*cmd;
-    char				**args;
-    t_env				*envt;
-    int					input;
-    int					output;
-    struct s_cmd_div	*next;
-}   t_cmd_div;
+    char			*name;
+    char			**args;
+    struct s_redir	*redir;
+    t_env			*envt;
+    struct s_cmd	*next;
+    struct s_arg	*args_list;
+}   t_cmd;
+
+/* -------------- function prototype for the array of pointers -------------- */
+
+typedef int	(*t_bltin)(t_cmd *cmd);
+
+/* -------------------- array of function pointers struct ------------------- */
+
+typedef struct t_fn
+{
+	char	*call;
+	t_bltin	blt_fn;
+}		t_fn;
 
 /* ------------------------------ env building ------------------------------ */
 
@@ -124,21 +124,24 @@ char		*ft_itoa(int n);
 
 /* -------------------------------- builtins -------------------------------- */
 
-void		ft_bltin_tester(char **line, t_env **envt);
+int			ft_bltin_tester(t_cmd *cmd)
+;
 
-int			ft_bltin_echo(t_cmd_div *div);
-int			ft_bltin_cd(t_cmd_div *div);
-int			ft_bltin_pwd(t_cmd_div *div);
-int			ft_bltin_export(t_cmd_div *div);
-int			ft_bltin_unset(t_cmd_div *div);
-int			ft_bltin_env(t_cmd_div *div);
-int			ft_bltin_exit(t_cmd_div *div);
+int			ft_bltin_echo(t_cmd *cmd);
+int			ft_bltin_cd(t_cmd *cmd);
+int			ft_bltin_pwd(t_cmd *cmd);
+int			ft_bltin_export(t_cmd *cmd);
+int			ft_bltin_unset(t_cmd *cmd);
+int			ft_bltin_env(t_cmd *cmd);
+int			ft_bltin_exit(t_cmd *cmd);
 
 /* ----------------------------- builtins utils ----------------------------- */
 
-t_env		*ft_key_finder(t_env **envt, char *needle);
-int			ft_key_remove(t_env *rm);
+int			ft_array_cntr(char **array);
 t_env		*ft_key_add(t_env **envt, char *key, char *value);
+t_env		*ft_key_finder(t_env **envt, char *needle);
+int			ft_key_freer(char *key, char *value);
+int			ft_key_remove(t_env *rm);
 
 /* --------------------------------- EXPAND --------------------------------- */
 

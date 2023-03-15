@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_cpy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:58:45 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/01 15:06:06 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/13 17:41:00 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,8 @@ void	ft_clear_env(t_env *envt)
 	if (envt == NULL)
 		return ;
 	ft_clear_env(envt->next);
-	// free(envt->key);
 	envt->key = NULL;
-	// free(envt->value);
 	envt->value = NULL;
-	// if (envt->next)
 	envt->next = NULL;
 	free(envt);
 	envt = NULL;
@@ -113,13 +110,13 @@ int	ft_env_reader(char **envp, t_env **envt)
 	while(envp[i])
 	{
 		ft_lstadd_env(envp[i], envt);
-	//	printf("adding key %s\n", ft_envlast(*envt)->key);
 		if (ft_envlast(*envt) == NULL)
 			return (1);
 		i++;
 	}
 	return (0);
 }
+
 void	ft_free_lst_env(t_env *head)
 {
 	t_env	*tmp;

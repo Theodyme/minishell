@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:54:46 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/24 12:10:20 by flplace          ###   ########.fr       */
+/*   Updated: 2023/03/15 15:57:06 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 //
 // 			May need env variable if you're printing one ??
 
-void	ft_bltin_echo(char *echo, int flag, int fdout)
+int			ft_bltin_echo(t_cmd *cmd)
 {
-
-
+	(void)cmd;
+	return (1);
 }

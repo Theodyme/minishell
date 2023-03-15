@@ -6,26 +6,25 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:05:59 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/03 12:49:10 by flplace          ###   ########.fr       */
+/*   Updated: 2023/03/14 18:06:24 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		ft_bltin_unset(t_cmd_div *div)
+int		ft_bltin_unset(t_cmd *cmd)
 {
 	t_env	*parse;
 	t_env	*rm;
 	char	*key;
 
-	(void)div;
-	parse = div->envt;
-	key = ft_strdup(div->args[1]);
+	parse = cmd->envt;
+	key = ft_strdup(cmd->args[1]);
 	if (ft_strcmp(parse->key, key) == 0)
 	{
-		div->envt = parse->next;
+		cmd->envt = parse->next;
 		rm = parse;
-		parse = div->envt;
+		parse = cmd->envt;
 	}
 	else
 	{

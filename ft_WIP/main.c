@@ -13,27 +13,25 @@
 
 #include "minishell.h"
 
-void ft_bltin_tester(char **line, t_env **envt)
+int ft_bltin_tester(t_cmd *cmd)
 {
-	t_cmd_div	*div;
 	int			i;
 	const t_fn	bltin[7] = {
-	{.cmd = "echo", .blt_fn = &ft_bltin_echo},
-	{.cmd = "cd", .blt_fn = &ft_bltin_cd},
-	{.cmd = "pwd", .blt_fn = &ft_bltin_pwd},
-	{.cmd = "export", .blt_fn = &ft_bltin_export},
-	{.cmd = "unset", .blt_fn = &ft_bltin_unset},
-	{.cmd = "env", .blt_fn = &ft_bltin_env},
-	{.cmd = "exit", .blt_fn = &ft_bltin_exit}, // A AJOUTER
+	{.call = "echo", .blt_fn = &ft_bltin_echo},
+	{.call = "cd", .blt_fn = &ft_bltin_cd},
+	{.call = "pwd", .blt_fn = &ft_bltin_pwd},
+	{.call = "export", .blt_fn = &ft_bltin_export},
+	{.call = "unset", .blt_fn = &ft_bltin_unset},
+	{.call = "env", .blt_fn = &ft_bltin_env},
+	{.call = "exit", .blt_fn = &ft_bltin_exit}, // A AJOUTER
 	};
 
 	i = 0;
-	div = (t_cmd_div *)malloc(sizeof(t_cmd_div));
-	div->envt = *envt;
-	while(ft_strcmp(bltin[i].cmd, div->cmd) != 0 && bltin[i].cmd)
+	cmd = (t_cmd*)malloc(sizeof(t_cmd));
+	while(ft_strcmp(bltin[i].call, cmd->name) != 0 && bltin[i].call)
 		i++;
-	if (ft_strcmp(bltin[i].cmd, "\0") != 0)
-		return (bltin[i].blt_fn(div));
+	if (ft_strcmp(bltin[i].call, "\0") != 0)
+		return (bltin[i].blt_fn(cmd));
 	return (0);
 
 	// if (ft_strcmp(*line, "env") == 0)
@@ -67,6 +65,7 @@ int	main(int ac, char **av, char **envp)
 {
 	char 	*line = NULL;
 	t_env	*envt = NULL;
+	t_cmd	*cmd = NULL;
 
 	t_token	*head;
 
@@ -90,7 +89,7 @@ int	main(int ac, char **av, char **envp)
 			break ;
 		}
 		else
-			ft_bltin_tester(&line, &envt);
+			ft_bltin_tester(cmd);
 		if (ft_count_quote(line) != -1)
 			head = ft_tokenize(line);
 		else
