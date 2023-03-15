@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/14 17:22:20 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/15 16:23:29 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 
-#define ALPHA "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_" 
+#define ALPHA "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_"
 #define ALPHANUM "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"
 
 
@@ -124,7 +124,7 @@ void		ft_free_tab_str(char **tab, int max);
 void		ft_bltin_env(t_cmd *div);
 void		ft_bltin_pwd(t_cmd *div);
 t_env		*ft_bltin_unset(t_cmd *div);
-int			ft_bltin_export(t_cmd *div);
+int			ft_bltin_export(t_cmd *cmd);
 void		ft_bltin_echo(char *echo, int flag, int fdout);
 void		ft_bltin_cd(t_cmd *div);
 
