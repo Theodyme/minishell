@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/15 16:39:31 by flplace          ###   ########.fr       */
+/*   Updated: 2023/03/15 16:42:04 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <unistd.h>
 # include <stdbool.h>
 
-#define ALPHA "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_"
 #define ALPHA "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_"
 #define ALPHANUM "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"
 
@@ -186,15 +185,12 @@ int			ft_is_redir(t_token *tkn);
 
 /* ---------------------------------  --------------------------------- */
 
-char		*ft_strtok_minishell(char **line, char *delim);
+char	*ft_strtok_minishell(char *str, char *delim);
 
 size_t	ft_strlen(const char *str);
 size_t	ft_strclen(const char *str, char c);
 
 char	*ft_itoa(int n);
-
-char	*ft_strtok_minishell(char *str, char *delim);
-
 
 void	*ft_memmove(void *dst, const void *src, size_t n);
 char		*ft_strjoin_tab(char **tab);
