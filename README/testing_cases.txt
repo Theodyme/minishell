@@ -21,4 +21,8 @@ unset specifics:
 	- unset something that doesnt exist
 	- unset something that doesnt exist but has the start of a real var (ex: unset USE instant of USER)
 
+echo specifics:
+
+	- multiples > only fill the last file but erase the previous it passes through
+
 Check leaks.
