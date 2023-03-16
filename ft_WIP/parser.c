@@ -5,7 +5,7 @@ void	ft_print_array(char **array)
 	int	i;
 
 	i = 0;
-	while (array[i])
+	while (array && array[i])
 	{
 		printf("array[%d]: %s\n", i, array[i]);
 		i++;
@@ -14,9 +14,11 @@ void	ft_print_array(char **array)
 
 void	ft_print_cmd(t_cmd *cmd)
 {
+	t_cmd	*start;
 	t_arg	*tmp;
 	t_redir	*tmp2;
 
+	start = cmd;
 	printf("_____PRINTING CMD______\n");
 	while (cmd)
 	{
@@ -37,6 +39,7 @@ void	ft_print_cmd(t_cmd *cmd)
 		cmd = cmd->next;
 		printf("_______________________\n");
 	}
+	cmd = start;
 }
 
 int	ft_add_redir(t_redir *redir, t_token *token)
@@ -56,8 +59,6 @@ int	ft_add_redir(t_redir *redir, t_token *token)
 		return (free(tmp), 1);
 	return (0);
 }
-
-
 
 int	ft_redir(t_token *token, t_cmd *cmd)
 {
@@ -96,6 +97,7 @@ int	ft_fill_cmd(t_cmd *cmd, t_token *tkn)
 {
 	while (tkn && tkn->type != PIPE)
 	{
+		printf("inside fill_cmd; for token = %s\n", tkn->str);
 		if (tkn->type == WORD && !cmd->name)
 		{
 			cmd->name = ft_strdup(tkn->str);
@@ -180,14 +182,15 @@ int	ft_argslist_to_array(t_cmd *cmd)
 		cmd->args = ft_calloc(i + 1, sizeof(char *));
 		if (!cmd->args)
 			return (1);
-		cmd->args[0] = ft_strdup(cmd->name);
-		if (!cmd->args[0])
-			return (1);
+		// cmd->args[0] = ft_strdup(cmd->name);
+		// if (!cmd->args[0])
+		// 	return (1);
 		tmp = cmd->args_list;
 		i = 0;
 		while (tmp)
 		{
-			cmd->args[i] = ft_strdup(tmp->str);
+			// cmd->args[i] = ft_strdup(tmp->str);
+			ft_strcpy(tmp->str, cmd->args[i]);
 			if (!cmd->args[i])
 				return (1);
 			i++;
@@ -198,17 +201,17 @@ int	ft_argslist_to_array(t_cmd *cmd)
 	return (0);
 }
 
-int	ft_parser(t_token *token)
+t_cmd	*ft_parser(t_token *token)
 {
-	t_cmd	*cmd;
+	t_cmd	*cmd = NULL;
 
 	cmd = ft_calloc(1, sizeof(t_cmd));
 	if (!cmd)
-		return (1);
+		return (NULL);
 	if (ft_check_syntax(token))
-		return (1);
+		return (NULL);
 	ft_token_to_cmd(token, cmd);
 	ft_argslist_to_array(cmd);
 	ft_print_cmd(cmd);
-	return (0);
+	return (cmd);
 }
