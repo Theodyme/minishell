@@ -79,13 +79,13 @@ int	main(int ac, char **av, char **envp)
 		cmd = ft_parser(head);
 		if (cmd)
 			continue ;
-		ft_add_history(line);
 		if (ft_bltin_tester(cmd) == 1)
 		{
 			free(line);
 			ft_free_lst_env(envt);
 			break ;
 		}
+		ft_add_history(line);
 		ft_free_lst_token(head);
 		write(1, "\n", 1);
 	}

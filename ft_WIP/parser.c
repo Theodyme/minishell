@@ -5,7 +5,7 @@ void	ft_print_array(char **array)
 	int	i;
 
 	i = 0;
-	while (array[i])
+	while (array && array[i])
 	{
 		printf("array[%d]: %s\n", i, array[i]);
 		i++;
@@ -60,8 +60,6 @@ int	ft_add_redir(t_redir *redir, t_token *token)
 	return (0);
 }
 
-
-
 int	ft_redir(t_token *token, t_cmd *cmd)
 {
 	if (token->type != REDIR_IN && token->type != REDIR_OUT && token->type != APPEND)
@@ -99,6 +97,7 @@ int	ft_fill_cmd(t_cmd *cmd, t_token *tkn)
 {
 	while (tkn && tkn->type != PIPE)
 	{
+		printf("inside fill_cmd; for token = %s\n", tkn->str);
 		if (tkn->type == WORD && !cmd->name)
 		{
 			cmd->name = ft_strdup(tkn->str);
@@ -183,9 +182,9 @@ int	ft_argslist_to_array(t_cmd *cmd)
 		cmd->args = ft_calloc(i + 1, sizeof(char *));
 		if (!cmd->args)
 			return (1);
-		cmd->args[0] = ft_strdup(cmd->name);
-		if (!cmd->args[0])
-			return (1);
+		// cmd->args[0] = ft_strdup(cmd->name);
+		// if (!cmd->args[0])
+		// 	return (1);
 		tmp = cmd->args_list;
 		i = 0;
 		while (tmp)
