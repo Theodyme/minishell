@@ -189,7 +189,8 @@ int	ft_argslist_to_array(t_cmd *cmd)
 		i = 0;
 		while (tmp)
 		{
-			cmd->args[i] = ft_strdup(tmp->str);
+			// cmd->args[i] = ft_strdup(tmp->str);
+			ft_strcpy(tmp->str, cmd->args[i]);
 			if (!cmd->args[i])
 				return (1);
 			i++;
