@@ -172,26 +172,3 @@ t_token *ft_tokenize(char *line)
 	return (head);
 }
 
-void ft_print_token(t_token *head)
-{
-	t_token *tmp;
-
-	tmp = head;
-	while (tmp)
-	{
-		printf("type: %d, str: |%s|\n", tmp->type, tmp->str);
-		tmp = tmp->next;
-	}
-}
-
-void ft_print_env(t_env *head)
-{
-	t_env *tmp;
-
-	tmp = head;
-	while (tmp->next)
-	{
-		printf("%s=%s\n", tmp->key, tmp->value);
-		tmp = tmp->next;
-	}
-}

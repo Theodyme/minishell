@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/16 14:27:15 by flplace          ###   ########.fr       */
+/*   Updated: 2023/03/16 16:50:21 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,8 +138,7 @@ char		*ft_itoa(int n);
 
 /* -------------------------------- builtins -------------------------------- */
 
-int			ft_bltin_tester(t_cmd *cmd)
-;
+int			ft_bltin_tester(t_cmd *cmd);
 
 int			ft_bltin_echo(t_cmd *cmd);
 int			ft_bltin_cd(t_cmd *cmd);
@@ -176,7 +175,7 @@ int			ft_is_redir(t_token *tkn);
 
 /* ---------------------------------  --------------------------------- */
 
-char	*ft_strtok_minishell(char *str, char *delim);
+char		*ft_strtok_minishell(char *str, char *delim);
 
 /* ------------------------------ TO REORGANIZE ----------------------------- */
 
@@ -201,8 +200,12 @@ int			ft_getenv(char *key, t_env *env);
 t_token		*ft_tokenize(char *line);
 
 
-/*				test functions				*/
+/*				print test functions				*/
 
 void		ft_print_token(t_token *head);
+void		ft_print_env(t_env *head);
+void		ft_print_array(char **array);
+void		ft_print_cmd(t_cmd *cmd);
+
 
 #endif

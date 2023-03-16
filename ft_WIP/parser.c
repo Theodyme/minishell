@@ -1,47 +1,5 @@
 #include "minishell.h"
 
-void	ft_print_array(char **array)
-{
-	int	i;
-
-	i = 0;
-	while (array && array[i])
-	{
-		printf("array[%d]: %s\n", i, array[i]);
-		i++;
-	}
-}
-
-void	ft_print_cmd(t_cmd *cmd)
-{
-	t_cmd	*start;
-	t_arg	*tmp;
-	t_redir	*tmp2;
-
-	start = cmd;
-	printf("_____PRINTING CMD______\n");
-	while (cmd)
-	{
-		printf("name: %s\n", cmd->name);
-		tmp = cmd->args_list;
-		while (tmp)
-		{
-			printf("arg: %s\n", tmp->str);
-			tmp = tmp->next;
-		}
-		tmp2 = cmd->redir;
-		while (tmp2)
-		{
-			printf("redirect type: %d --> file: %s\n", tmp2->type, tmp2->file);
-			tmp2 = tmp2->next;
-		}
-		ft_print_array(cmd->args);
-		cmd = cmd->next;
-		printf("_______________________\n");
-	}
-	cmd = start;
-}
-
 int	ft_add_redir(t_redir *redir, t_token *token)
 {
 	t_redir	*tmp;
@@ -92,28 +50,34 @@ int	ft_add_arg(t_arg *arg, char *str)
 		return (free(tmp->next), 1);
 	return (0);
 }
+int	ft_create_arg(t_arg **arg)
+{
+	if (!(*arg))
+		*arg = ft_calloc(1, sizeof(t_arg));
+	if (!(*arg))
+		return (1);
+	return (0);
+}
 
 int	ft_fill_cmd(t_cmd *cmd, t_token *tkn)
 {
 	while (tkn && tkn->type != PIPE)
 	{
-		printf("inside fill_cmd; for token = %s\n", tkn->str);
-		if (tkn->type == WORD && !cmd->name)
+		if (tkn->type == WORD)
 		{
-			cmd->name = ft_strdup(tkn->str);
 			if (!cmd->name)
-				return (1);
-		}
-		else if (tkn->type == WORD && cmd->name)
-		{
-			if (!cmd->args_list)
 			{
-				cmd->args_list = ft_calloc(1, sizeof(t_arg));
-				if (!cmd->args_list)
+				cmd->name = ft_strdup(tkn->str);
+				if (!cmd->name) 
 					return (1);
 			}
-			if (ft_add_arg(cmd->args_list, tkn->str))
-				return (printf("Error: ft_add_arg failed\n"), 1);
+			else
+			{
+				if (ft_create_arg(&(cmd->args_list)))
+					return (printf("Error: ft_create_arg failed\n"), 1);
+				else if (ft_add_arg(cmd->args_list, tkn->str))
+					return (printf("Error: ft_add_arg failed\n"), 1);
+			}
 		}
 		else if (!ft_redir(tkn, cmd))
 			tkn = tkn->next;
@@ -182,15 +146,11 @@ int	ft_argslist_to_array(t_cmd *cmd)
 		cmd->args = ft_calloc(i + 1, sizeof(char *));
 		if (!cmd->args)
 			return (1);
-		// cmd->args[0] = ft_strdup(cmd->name);
-		// if (!cmd->args[0])
-		// 	return (1);
 		tmp = cmd->args_list;
 		i = 0;
 		while (tmp)
 		{
-			// cmd->args[i] = ft_strdup(tmp->str);
-			ft_strcpy(tmp->str, cmd->args[i]);
+			cmd->args[i] = ft_strdup(tmp->str);
 			if (!cmd->args[i])
 				return (1);
 			i++;
@@ -203,7 +163,7 @@ int	ft_argslist_to_array(t_cmd *cmd)
 
 t_cmd	*ft_parser(t_token *token)
 {
-	t_cmd	*cmd = NULL;
+	t_cmd	*cmd;
 
 	cmd = ft_calloc(1, sizeof(t_cmd));
 	if (!cmd)

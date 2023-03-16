@@ -23,7 +23,7 @@ int ft_bltin_tester(t_cmd *cmd)
 	{.call = "export", .blt_fn = &ft_bltin_export},
 	{.call = "unset", .blt_fn = &ft_bltin_unset},
 	{.call = "env", .blt_fn = &ft_bltin_env},
-	{.call = "exit", .blt_fn = &ft_bltin_exit}, // A AJOUTER
+	{.call = "exit", .blt_fn = &ft_bltin_exit},
 	};
 
 	i = 0;
@@ -58,12 +58,12 @@ int	main(int ac, char **av, char **envp)
 		line = readline("$> ");
 		if (!line)
 			break ;
-		// if (ft_strcmp(line, "exit") == 0)
-		// {
-		// 	free(line);
-		// 	ft_free_lst_env(envt);
-		// 	break ;
-		// }
+		if (ft_strcmp(line, "exit") == 0)
+		{
+			free(line);
+			ft_free_lst_env(envt);
+			break ;
+		}
 		if (ft_count_quote(line) != -1)
 			head = ft_tokenize(line);
 		else
