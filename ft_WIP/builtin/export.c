@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:13:33 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/16 14:27:33 by flplace          ###   ########.fr       */
+/*   Updated: 2023/03/17 14:37:29 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 **
 ** 		print export ?
 ** 		si ca existe, modifier
-** 		si export est tout seul, trie par ordre alphabetique?
+** 		si export est tout seul, trie par ordre C_ALPHAbetique?
 ** 		controle que la copie s'est bien passee, sinon retourne 1.
 */
 

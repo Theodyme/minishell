@@ -150,6 +150,7 @@ t_token *ft_tokenize(char *line)
 	if (!head)
 		return (NULL);
 	tmp = head;
+	line = ft_strtrim(line, C_BLANK);
 	while (line[i])
 	{
 		if (ft_isblank(line[i]))
@@ -167,7 +168,6 @@ t_token *ft_tokenize(char *line)
 				return (ft_free_lst_token(head), NULL);
 			tmp = tmp->next;
 		}
-
 	}
 	return (head);
 }

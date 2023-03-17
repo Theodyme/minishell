@@ -77,14 +77,12 @@ int	main(int ac, char **av, char **envp)
 			return (write(2, "Error: Tokenization failed\n", 27), 1);
 		ft_expand(head, envt);
 		cmd = ft_parser(head);
-		if (cmd)
-			continue ;
-		if (ft_bltin_tester(cmd) == 1)
-		{
-			free(line);
-			ft_free_lst_env(envt);
-			break ;
-		}
+		// if (ft_bltin_tester(cmd) == 1)
+		// {
+		// 	free(line);
+		// 	ft_free_lst_env(envt);
+		// 	break ;
+		// }
 		ft_add_history(line);
 		ft_free_lst_token(head);
 		write(1, "\n", 1);

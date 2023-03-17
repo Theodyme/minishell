@@ -6,7 +6,7 @@
 #    By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 11:54:49 by flplace           #+#    #+#              #
-#    Updated: 2023/03/16 15:48:44 by mabimich         ###   ########.fr        #
+#    Updated: 2023/03/17 16:48:04 by mabimich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,13 +42,16 @@ SRCS	=	builtin/echo.c \
 			lib/ft_strjoin.c \
 			lib/ft_strjoin_tab.c \
 			lib/ft_memmove.c \
-			lib/ft_is_charset.c \
+			lib/ft_is_in_charset.c \
 			lib/ft_free_tab_str.c \
+			lib/ft_strtrim.c \
+			lib/ft_substr.c \
 			env_cpy.c \
 			quote.c \
 			expand.c \
 			rl_gets.c \
 			parser.c \
+			fill_cmd.c \
 			wip.c \
 			ft_print_test.c \
 			main.c

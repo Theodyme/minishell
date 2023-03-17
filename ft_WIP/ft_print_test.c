@@ -11,38 +11,30 @@ void	ft_print_array(char **array)
 		i++;
 	}
 }
+
 void	ft_print_cmd(t_cmd *cmd)
 {
-	t_cmd	*start;
-	//t_arg	*tmp;
-	t_redir	*tmp2;
+	t_redir	*tmp;
 
-	start = cmd;
 	printf("_____PRINTING CMD______\n");
 	while (cmd)
 	{
 		printf("name: %s\n", cmd->name);
-		//tmp = cmd->args_list;
-		// while (tmp)
-		// {
-		// 	printf("arg: %s\n", tmp->str);
-		// 	tmp = tmp->next;
-		// }
-		tmp2 = cmd->redir;
-		while (tmp2)
+		tmp = cmd->redir;
+		while (tmp)
 		{
-			printf("redirect type: %d --> file: %s\n", tmp2->type, tmp2->file);
-			tmp2 = tmp2->next;
+			printf("redirect type: %d --> file: %s\n", tmp->type, tmp->file);
+			tmp = tmp->next;
 		}
 		ft_print_array(cmd->args);
 		cmd = cmd->next;
 		printf("_______________________\n");
 	}
-	cmd = start;
 }
-void ft_print_token(t_token *head)
+
+void	ft_print_token(t_token *head)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	tmp = head;
 	while (tmp)
@@ -52,9 +44,9 @@ void ft_print_token(t_token *head)
 	}
 }
 
-void ft_print_env(t_env *head)
+void	ft_print_env(t_env *head)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	tmp = head;
 	while (tmp->next)
