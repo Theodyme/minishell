@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/17 16:46:42 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/17 17:07:52 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 /* -------------------------------- builtins -------------------------------- */
 
-int ft_bltin_tester(t_cmd *cmd);
+int			ft_bltin_tester(t_cmd **cmd);
 
 int ft_bltin_echo(t_cmd *cmd);
 int ft_bltin_cd(t_cmd *cmd);

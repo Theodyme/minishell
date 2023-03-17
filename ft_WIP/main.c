@@ -13,10 +13,10 @@
 
 #include "minishell.h"
 
-int ft_bltin_tester(t_cmd *cmd)
+int ft_bltin_tester(t_cmd **cmd)
 {
 	int			i;
-	const t_fn	bltin[7] = {
+	const t_fn	bltin[8] = {
 	{.call = "echo", .blt_fn = &ft_bltin_echo},
 	{.call = "cd", .blt_fn = &ft_bltin_cd},
 	{.call = "pwd", .blt_fn = &ft_bltin_pwd},
@@ -27,13 +27,19 @@ int ft_bltin_tester(t_cmd *cmd)
 	};
 
 	i = 0;
-	cmd = (t_cmd*)malloc(sizeof(t_cmd));
-	while(ft_strcmp(bltin[i].call, cmd->name) != 0 && bltin[i].call)
+	printf("Welcome to builtin tester!\n\n");
+	if (!(*cmd)->name)
+		return (0);
+	while(bltin[i].call&& ft_strcmp(bltin[i].call, (*cmd)->name) != 0)
+	{
+		// printf("comparing %s and %s...\n", (*cmd)->name, bltin[i].call);
 		i++;
-	if (ft_strcmp(cmd->name, "exit") == 0)
+	}
+	// printf("found %s...\n", bltin[i].call);
+	if (ft_strcmp((*cmd)->name, "exit") == 0)
 		return (1);
-	if (ft_strcmp(bltin[i].call, "\0") != 0)
-		return (bltin[i].blt_fn(cmd));
+	if (bltin[i].call)
+		bltin[i].blt_fn(*cmd);
 	return (0);
 }
 
@@ -58,12 +64,12 @@ int	main(int ac, char **av, char **envp)
 		line = readline("$> ");
 		if (!line)
 			break ;
-		if (ft_strcmp(line, "exit") == 0)
-		{
-			free(line);
-			ft_free_lst_env(envt);
-			break ;
-		}
+		// if (ft_strcmp(line, "exit") == 0)
+		// {
+		// 	free(line);
+		// 	ft_free_lst_env(envt);
+		// 	break ;
+		// }
 		if (ft_count_quote(line) != -1)
 			head = ft_tokenize(line);
 		else
@@ -76,13 +82,16 @@ int	main(int ac, char **av, char **envp)
 		if (!head)
 			return (write(2, "Error: Tokenization failed\n", 27), 1);
 		ft_expand(head, envt);
-		cmd = ft_parser(head);
-		// if (ft_bltin_tester(cmd) == 1)
-		// {
-		// 	free(line);
-		// 	ft_free_lst_env(envt);
-		// 	break ;
-		// }
+		ft_parser(head, &cmd);
+		if (!cmd)
+			continue ;
+		cmd->envt = envt;
+		if (ft_bltin_tester(&cmd) == 1)
+		{
+			free(line);
+			ft_free_lst_env(envt);
+			break ;
+		}
 		ft_add_history(line);
 		ft_free_lst_token(head);
 		write(1, "\n", 1);
