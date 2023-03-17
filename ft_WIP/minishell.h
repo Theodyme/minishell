@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/17 17:07:52 by flplace          ###   ########.fr       */
+/*   Updated: 2023/03/17 17:13:38 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ t_token *ft_tokenize(char *line);
 
 /* --------------------------------- PARSER --------------------------------- */
 
-t_cmd *ft_parser(t_token *tkn);
+void	ft_parser(t_token *token, t_cmd **cmd);
 int ft_check_syntax(t_token *tkn);
 int ft_is_redir(t_token *tkn);
 

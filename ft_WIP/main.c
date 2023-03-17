@@ -64,12 +64,6 @@ int	main(int ac, char **av, char **envp)
 		line = readline("$> ");
 		if (!line)
 			break ;
-		// if (ft_strcmp(line, "exit") == 0)
-		// {
-		// 	free(line);
-		// 	ft_free_lst_env(envt);
-		// 	break ;
-		// }
 		if (ft_count_quote(line) != -1)
 			head = ft_tokenize(line);
 		else
