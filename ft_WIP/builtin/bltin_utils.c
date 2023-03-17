@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:45:48 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/14 18:08:19 by flplace          ###   ########.fr       */
+/*   Updated: 2023/03/17 22:20:54 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,23 @@ t_env	*ft_key_finder(t_env **envt, char *needle)
 		return (NULL);
 	return (parse);
 }
+
+char	*ft_key_finder2(t_env **envt, char *needle)
+{
+	t_env	*parse;
+
+	parse = (*envt);
+	while (parse->next)
+	{
+		if (ft_strcmp(parse->key, needle) == 0)
+			break ;
+		parse = parse->next;
+	}
+	if (parse->next == NULL)
+		return (NULL);
+	return (parse->value);
+}
+
 
 /* ---------------------- int	ft_key_remove(t_env *rm) --------------------- */
 /*

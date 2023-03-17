@@ -37,14 +37,29 @@ int ft_bltin_tester(t_cmd *cmd)
 	return (0);
 }
 
+void print_status()
+{
+	if (status == 0)
+		printf("OK\n");
+	else
+		printf("KO\n");
+	printf("Status: %d\n", status);
+}
+
+int status = 0;
+
 int	main(int ac, char **av, char **envp)
 {
-	char 	*line = NULL;
+	char	*line = NULL;
 	t_env	*envt = NULL;
 	t_cmd	*cmd = NULL;
 
 	t_token	*head;
 
+	int status = 0;
+
+	status++;
+	print_status();
 	if (ac != 1 && av)
 		return (write(2, "Error: Wrong number of arguments\n", 33), 1);
 	ft_env_reader(envp, &envt);
@@ -77,6 +92,8 @@ int	main(int ac, char **av, char **envp)
 			return (write(2, "Error: Tokenization failed\n", 27), 1);
 		ft_expand(head, envt);
 		cmd = ft_parser(head);
+		if (ft_exec(cmd) == 1)
+			continue ;
 		// if (ft_bltin_tester(cmd) == 1)
 		// {
 		// 	free(line);

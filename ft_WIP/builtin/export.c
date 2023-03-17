@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:13:33 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/17 14:37:29 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/17 20:21:32 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ int		ft_bltin_export(t_cmd *cmd)
 	char	*key;
 	char	*value;
 
-	if (ft_array_cntr(cmd->args) != 1)
+	if (ft_array_cntr(cmd->argv) != 1)
 		return (1);
-	key = ft_split_key(cmd->args[0]);
-	value = ft_split_value(cmd->args[0]);
+	key = ft_split_key(cmd->argv[0]);
+	value = ft_split_value(cmd->argv[0]);
 	needle = ft_key_finder(&(cmd->envt), key);
 	if (!needle)
 	{

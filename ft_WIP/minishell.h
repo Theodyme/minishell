@@ -6,25 +6,31 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/17 16:46:42 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/17 22:34:41 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
-#define MINISHELL_H
+# define MINISHELL_H
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <unistd.h>
-#include <stdbool.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <unistd.h>
+# include <stdbool.h>
+# include <errno.h>
+# include <fcntl.h>
+# include <sys/wait.h>
 
-#define C_ALPHA "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_"
-#define C_ALPHANUM "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"
-#define C_BLANK "\t\r\v\f\n "
 
-/* -------------------------------------------------------------------------- */
+
+# define C_ALPHA "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_"
+# define C_ALPHANUM "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"
+# define C_BLANK "\t\r\v\f\n "
+
+
+extern int status;
 
 enum TOKEN_TYPE
 {
@@ -86,13 +92,17 @@ typedef struct s_arg
 
 typedef struct s_cmd
 {
-	char *name;
-	char **args;
-	struct s_redir *redir;
-	t_env *envt;
-	struct s_cmd *next;
-	struct s_arg *args_list;
-} t_cmd;
+	char			*name;
+	char			**argv;
+	struct s_arg	*args_list;
+	struct s_redir	*redir;
+	t_env			*envt;
+	char 			**envp;
+	pid_t			pid;
+	int				fd[2];
+	char			*name_file[2];
+	struct s_cmd	*next;
+}	t_cmd;
 
 /* -------------- function prototype for the array of pointers -------------- */
 
@@ -104,7 +114,7 @@ typedef struct t_fn
 {
 	char *call;
 	t_bltin blt_fn;
-} t_fn;
+}	t_fn;
 
 /* ------------------------------ env building ------------------------------ */
 
@@ -138,6 +148,15 @@ char	*ft_itoa(int n);
 char	*ft_strtrim_free(char *s1, char const *set);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_2strjoin_with_free(char *s1, char *s2, size_t val);
+char	*ft_3strjoin_with_free(char *s1, char *s2, char *s3, size_t val);
+void	ft_msg(char *s1, char *s2);
+void	ft_putstr_fd(char const *str, int fd);
+void	ft_putendl_fd(char const *s, int fd);
+char	*ft_pick(char const *s, char c, size_t p);
+char	**ft_split(char const *s, char c);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+void	free_tab_with_1blank(char **tab, char *str);
 
 /* -------------------------------- builtins -------------------------------- */
 
@@ -156,6 +175,7 @@ int ft_bltin_exit(t_cmd *cmd);
 int ft_array_cntr(char **array);
 t_env *ft_key_add(t_env **envt, char *key, char *value);
 t_env *ft_key_finder(t_env **envt, char *needle);
+
 int ft_key_freer(char *key, char *value);
 int ft_key_remove(t_env *rm);
 
@@ -185,10 +205,27 @@ int	ft_add_arg(t_arg *arg, char *str);
 int	ft_redir(t_token *token, t_cmd *cmd);
 int	ft_add_redir(t_redir *redir, t_token *token);
 
+/* --------------------------------- GET_PATH ------------------------------ */
+char	*verif_paths(char **paths, char *cmd);
+char	*get_path(char *cmd, char **envp);
+
 
 /* ---------------------------------  --------------------------------- */
 
 char *ft_strtok_minishell(char *str, char *delim);
+
+
+/* --------------------------------- EXEC --------------------------------- */
+
+int	ft_exec(t_cmd *cmd);
+
+/* --------------------------------- EXIT --------------------------------- */
+
+void	dispatch_exit(t_cmd *cmd, int code);
+void	dispatch_exit2(t_cmd *cmd, int code);
+void	close_pipes(t_cmd *cmd, int e);
+
+
 
 /* ------------------------------ TO REORGANIZE ----------------------------- */
 

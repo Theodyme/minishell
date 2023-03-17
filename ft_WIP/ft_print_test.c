@@ -26,7 +26,7 @@ void	ft_print_cmd(t_cmd *cmd)
 			printf("redirect type: %d --> file: %s\n", tmp->type, tmp->file);
 			tmp = tmp->next;
 		}
-		ft_print_array(cmd->args);
+		ft_print_array(cmd->argv);
 		cmd = cmd->next;
 		printf("_______________________\n");
 	}

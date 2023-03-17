@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:05:59 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/15 16:37:53 by flplace          ###   ########.fr       */
+/*   Updated: 2023/03/17 20:21:32 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		ft_bltin_unset(t_cmd *cmd)
 	char	*key;
 
 	parse = cmd->envt;
-	key = ft_strdup(cmd->args[1]);
+	key = ft_strdup(cmd->argv[1]);
 	if (ft_strcmp(parse->key, key) == 0)
 	{
 		cmd->envt = parse->next;

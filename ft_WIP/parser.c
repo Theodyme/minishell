@@ -55,15 +55,44 @@ int	ft_argslist_to_array(t_cmd *cmd)
 		i = 0;
 		while (tmp && ++i)
 			tmp = tmp->next;
-		cmd->args = ft_calloc(i + 1, sizeof(char *));
-		if (!cmd->args)
+		cmd->argv = ft_calloc(i + 1, sizeof(char *));
+		if (!cmd->argv)
 			return (1);
 		tmp = cmd->args_list;
 		i = 0;
 		while (tmp && tmp->next)
 		{
-			cmd->args[i] = ft_strdup(tmp->str);
-			if (!cmd->args[i])
+			cmd->argv[i] = ft_strdup(tmp->str);
+			if (!cmd->argv[i])
+				return (1);
+			i++;
+			tmp = tmp->next;
+		}
+		cmd = cmd->next;
+	}
+	return (0);
+}
+
+int ft_envlist_to_array(t_cmd *cmd)
+{
+	t_env	*tmp;
+	int		i;
+
+	while (cmd)
+	{
+		tmp = cmd->envt;
+		i = 0;
+		while (tmp && ++i)
+			tmp = tmp->next;
+		cmd->envp = ft_calloc(i + 1, sizeof(char *));
+		if (!cmd->envp)
+			return (1);
+		tmp = cmd->envt;
+		i = 0;
+		while (tmp && tmp->next)
+		{
+			cmd->envp[i] = ft_3strjoin_with_free(tmp->value, "=", tmp->key, 0);
+			if (!cmd->envp[i])
 				return (1);
 			i++;
 			tmp = tmp->next;
@@ -84,6 +113,7 @@ t_cmd	*ft_parser(t_token *token)
 		return (NULL);
 	ft_token_to_cmd(token, cmd);
 	ft_argslist_to_array(cmd);
+	ft_envlist_to_array(cmd);
 	ft_print_cmd(cmd);
 	return (cmd);
 }
