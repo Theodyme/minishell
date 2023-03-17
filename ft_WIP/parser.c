@@ -68,7 +68,7 @@ int	ft_fill_cmd(t_cmd *cmd, t_token *tkn)
 			if (!cmd->name)
 			{
 				cmd->name = ft_strdup(tkn->str);
-				if (!cmd->name) 
+				if (!cmd->name)
 					return (1);
 			}
 			else
@@ -161,17 +161,15 @@ int	ft_argslist_to_array(t_cmd *cmd)
 	return (0);
 }
 
-t_cmd	*ft_parser(t_token *token)
+void	ft_parser(t_token *token, t_cmd **cmd)
 {
-	t_cmd	*cmd;
-
-	cmd = ft_calloc(1, sizeof(t_cmd));
-	if (!cmd)
-		return (NULL);
+	*cmd = ft_calloc(1, sizeof(t_cmd));
+	if (!*cmd)
+		return ;
 	if (ft_check_syntax(token))
-		return (NULL);
-	ft_token_to_cmd(token, cmd);
-	ft_argslist_to_array(cmd);
-	ft_print_cmd(cmd);
-	return (cmd);
+		return ;
+	ft_token_to_cmd(token, *cmd);
+	ft_argslist_to_array(*cmd);
+	ft_print_cmd(*cmd);
+	return ;
 }

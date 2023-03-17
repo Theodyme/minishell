@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/16 16:50:21 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/17 15:03:37 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ char		*ft_itoa(int n);
 
 /* -------------------------------- builtins -------------------------------- */
 
-int			ft_bltin_tester(t_cmd *cmd);
+int			ft_bltin_tester(t_cmd **cmd);
 
 int			ft_bltin_echo(t_cmd *cmd);
 int			ft_bltin_cd(t_cmd *cmd);
@@ -169,7 +169,7 @@ t_token		*ft_tokenize(char *line);
 
 /* --------------------------------- PARSER --------------------------------- */
 
-t_cmd 		*ft_parser(t_token *tkn);
+void		ft_parser(t_token *tkn, t_cmd **cmd);
 int			ft_check_syntax(t_token *tkn);
 int			ft_is_redir(t_token *tkn);
 
