@@ -43,6 +43,20 @@ int ft_bltin_tester(t_cmd **cmd)
 	return (0);
 }
 
+void	ft_setting_env(t_env *envt, t_cmd *cmd)
+{
+	t_cmd	*tmp;
+
+	if(!envt)
+		return ;
+	tmp = cmd;
+	while(tmp)
+	{
+		tmp->envt = envt;
+		tmp = tmp->next;
+	}
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char 	*line = NULL;
