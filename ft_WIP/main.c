@@ -62,6 +62,7 @@ int	main(int ac, char **av, char **envp)
 	char 	*line = NULL;
 	t_env	*envt = NULL;
 	t_cmd	*cmd = NULL;
+	t_cmd	*tmp = NULL;
 
 	t_token	*head;
 
@@ -93,12 +94,17 @@ int	main(int ac, char **av, char **envp)
 		ft_parser(head, &cmd);
 		if (!cmd)
 			continue ;
-		cmd->envt = envt;
-		if (ft_bltin_tester(&cmd) == 1)
+		ft_setting_env(envt, cmd);
+		tmp = cmd;
+		while (tmp)
 		{
-			free(line);
-			ft_free_lst_env(envt);
-			break ;
+			if (ft_bltin_tester(&tmp) == 1)
+			{
+				free(line);
+				ft_free_lst_env(envt);
+				break ;
+			}
+			tmp = tmp->next;
 		}
 		ft_add_history(line);
 		ft_free_lst_token(head);
