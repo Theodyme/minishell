@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:28:34 by mabimich          #+#    #+#             */
-/*   Updated: 2023/03/17 22:52:31 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/20 19:56:15 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,37 @@
 ** l'entrée et la sortie standard.
 */
 
+void ft_check_fd(t_cmd *cmd)
+{
+	t_cmd *tmp;
+	t_cmd *head;
+
+	tmp = cmd;
+	head = cmd->head;
+	if (ft_strcmp(cmd->name, "ls") == 0)
+		sleep(1);
+	if (ft_strcmp(cmd->name, "wc") == 0)
+		sleep(2);
+	while (head)
+	{
+		printf("head->name=%s, head->fd[0]=%d, head->fd[1]=%d\n", head->name, head->fd[0], head->fd[1]);
+		head = head->next;
+	}
+	printf("\n");
+}
+
 void ft_dup(t_cmd *cmd)
 {
-	while (cmd)
-	{
-		if (cmd->fd[0] == -1)
-			dispatch_exit(cmd, 555);
-		else if (cmd->fd[1] == -1)
-			dispatch_exit(cmd, 666);
-		dup2(cmd->fd[0], STDIN_FILENO);
-		dup2(cmd->fd[1], STDOUT_FILENO);
-		cmd = cmd->next;
-	}
+	ft_check_fd(cmd);
+	printf("DUP\nchild: cmd->name=%s, fd[0]=%d, fd[1]=%d\n", cmd->name, cmd->fd[0], cmd->fd[1]);
+	if (cmd->fd[0] == -1)
+		dispatch_exit(cmd, 555);
+	else if (cmd->fd[1] == -1)
+		dispatch_exit(cmd, 666);
+	dup2(cmd->fd[0], STDIN_FILENO);
+	dup2(cmd->fd[1], STDOUT_FILENO);
+	printf("DUP DONE for cmd->name=%s\n", cmd->name);
+	sleep(10);
 }
 
 /*
@@ -83,12 +102,17 @@ void open_pipes(t_cmd *cmd)
 		tmp = tmp->next;
 	}
 	tmp = cmd;
-	while (tmp)
+	while (tmp->next)
 	{
 		tmp->fd[0] = tmp->fd[1];
-		tmp->fd[1] = tmp->next->fd[1];
+		tmp->fd[1] = tmp->next->fd[0];
 		tmp = tmp->next;
 	}
+	tmp->fd[1] = STDOUT_FILENO;
+	// tmp = cmd;
+	// printf("CHECK_FD: tmp->fd[0]=%d, tmp->fd[1]=%d\n", tmp->fd[0], tmp->fd[1]);
+	// tmp = tmp->next;
+	// printf("CHECK_FD: tmp->fd[0]=%d, tmp->fd[1]=%d\n", tmp->fd[0], tmp->fd[1]);
 }
 /*
 ** Child : fonction exécutée par chaque processus enfant
@@ -104,19 +128,56 @@ void open_pipes(t_cmd *cmd)
 ** Le code de sortie est 127 si la commande n'est pas trouvée.
 */
 
+int ft_envlist_to_array(t_cmd *cmd);
+
+void close_pipes2(t_cmd *cmd, int i)
+{
+	t_cmd *tmp;
+	int j = 0;
+
+	tmp = cmd->head;
+	while (tmp)
+	{
+		if (tmp->fd[0] != -1 && tmp->fd[0] != cmd->fd[0] && tmp->fd[0] != cmd->fd[1])
+		{
+			fprintf(stderr," __%d %d__%s garde ouvert: tmp->fd[0]=%d\n", i, j, cmd->name, cmd->fd[0]);
+			fprintf(stderr, "close: tmp->fd[0]=%d\n", tmp->fd[0]);
+			close(tmp->fd[0]);
+		}	
+		if (tmp->fd[1] != -1 && tmp->fd[1] != cmd->fd[1] && tmp->fd[1] != cmd->fd[0])
+		{
+			fprintf(stderr, "__%d %d__%s garde ouvert: tmp->fd[1]=%d\n", i, j, cmd->name, cmd->fd[1]);
+			fprintf(stderr, "close: tmp->fd[1]=%d\n", tmp->fd[1]);
+			close(tmp->fd[1]);
+		}
+		tmp = tmp->next;
+		j++;
+	}
+	fprintf(stderr, "\n");
+}
+
 void child(t_cmd *cmd)
 {
+	ft_envlist_to_array(cmd);
 
+	// printf("child: cmd->name=%s, cmd->envp=%s\n", cmd->name, cmd->envp[1]);
+	fprintf(stderr, "cmd->name: %s, pid=%d, ppid=%d\n", cmd->name, getpid(), getppid());
+	sleep(10);
 	ft_dup(cmd);
-	if (cmd->fd[0] != -1)
-		close(cmd->fd[0]);
-	if (cmd->fd[1] != -1)
-		close(cmd->fd[1]);
-	close_pipes(cmd, -1);
-	printf("cmd->envp=%s\n", cmd->envp[0]);
+	fprintf(stderr, "cmd->fds:%d, %d\n", cmd->fd[0], cmd->fd[1]);
+	// if (cmd->fd[0] != -1)
+	// 	close(cmd->fd[0]);
+	// if (cmd->fd[1] != -1)
+	// 	close(cmd->fd[1]);
+	if (cmd->fd[0] == -1 || cmd->fd[1] == -1)
+		fprintf(stderr, "ERROR: cmd->fd[0]=%d, cmd->fd[1]=%d\n", cmd->fd[0], cmd->fd[1]);
+	sleep(10);
+	close_pipes2(cmd, 42);
+	sleep(10);
+	// printf("before get_path: cmd->name=%s, cmd->envp=%s\n", cmd->name, cmd->envp[0]);
 	if (cmd->name)
 		cmd->name = get_path(cmd->name, cmd->envp);
-	printf("cmd->name = %s, cmd->argv[0] = %s\n", cmd->name, cmd->argv[0]);
+	// printf("ret after get_path:cmd->name = %s, cmd->argv[0] = %s\n", cmd->name, cmd->argv[0]);
 	if (cmd->name)
 		execve(cmd->name, cmd->argv, cmd->envp);
 	ft_msg("Command not found", cmd->name);
@@ -127,8 +188,10 @@ void child(t_cmd *cmd)
 
 void init_fd(t_cmd *cmd)
 {
+	if (!cmd->next)
+		return;
 	open_pipes(cmd);
-	open_files(cmd);
+	//open_files(cmd);
 }
 
 int ft_exec(t_cmd *cmd)
@@ -138,18 +201,27 @@ int ft_exec(t_cmd *cmd)
 	if (!cmd)
 		return (1);
 	tmp = cmd;
+	printf("BEFORE INIT_FD\n");
+	printf("%d\n", getpid());
+	ft_print_cmd(cmd);
+	sleep(15);
 	init_fd(tmp);
-	// 	while (tmp && tmp->pid[i]) utilisez avec pid[i] = FULL;
-	while (tmp)
+	sleep(5);
+	ft_print_cmd(cmd);
+	while (tmp && tmp->pid)
 	{
 		tmp->pid = fork();
 		if (tmp->pid == -1)
 			dispatch_exit(tmp, 8);
-		printf("t------mp->envp: %s\n", tmp->envp[0]);
+		if (tmp->pid == 0)
+			printf("CHILD");
+		else
+			printf("PARENT");
 		if (!tmp->pid)
 			child(tmp);
 		tmp = tmp->next;
 	}
-	dispatch_exit(tmp, 777);
+	//ft_print_cmd(cmd);
+	dispatch_exit(cmd, 777);
 	return (0);
 }

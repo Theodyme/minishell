@@ -1,13 +1,20 @@
 #include "minishell.h"
 
-int	ft_token_to_cmd(t_token *head, t_cmd *cmd)
+int	ft_token_to_cmd(t_token *head, t_cmd *cmd, t_env *envt)
 {
 	t_token	*tmp;
+	t_cmd	*head_cmd;
 
 	tmp = head;
+	head_cmd = cmd;
 	while (tmp)
 	{
+		cmd->envt = envt;
+		cmd->head = head_cmd;
+		printf("cmd->name = %s\n", cmd->name);
 		ft_fill_cmd(cmd, tmp);
+		printf("__cmd->name = %s\n", cmd->name);
+		sleep(1);
 		while (tmp->next && tmp->type != PIPE)
 			tmp = tmp->next;
 		if (tmp->type == PIPE)
@@ -78,31 +85,42 @@ int ft_envlist_to_array(t_cmd *cmd)
 	t_env	*tmp;
 	int		i;
 
-	while (cmd)
+	printf("CHECK envt: %s\n", cmd->envt->key);
+	tmp = cmd->envt;
+	i = 0;
+	while (tmp && ++i)
+		tmp = tmp->next;
+	cmd->envp = ft_calloc(i + 1, sizeof(char *));
+	if (!cmd->envp)
+		return (1);
+	tmp = cmd->envt;
+	i = 0;
+	while (tmp)
 	{
-		tmp = cmd->envt;
-		i = 0;
-		while (tmp && ++i)
-			tmp = tmp->next;
-		cmd->envp = ft_calloc(i + 1, sizeof(char *));
-		if (!cmd->envp)
+		cmd->envp[i] = ft_3strjoin_with_free(tmp->key, "=", tmp->value, 0);
+		if (!cmd->envp[i])
 			return (1);
-		tmp = cmd->envt;
-		i = 0;
-		while (tmp && tmp->next)
-		{
-			cmd->envp[i] = ft_3strjoin_with_free(tmp->value, "=", tmp->key, 0);
-			if (!cmd->envp[i])
-				return (1);
-			i++;
-			tmp = tmp->next;
-		}
-		cmd = cmd->next;
+		i++;
+		tmp = tmp->next;
 	}
+	printf("print envp in envlist_to_array\n cmd->name %s ;cmd->envp[1]= %s\n", cmd->name, cmd->envp[1]);
 	return (0);
 }
 
-t_cmd	*ft_parser(t_token *token)
+void ft_print_linked_list(t_env *head)
+{//inutile?
+	t_env	*tmp;
+
+	tmp = head;
+	while (tmp)
+	{
+		printf("key: %s\n", tmp->key);
+		printf("value: %s\n", tmp->value);
+		tmp = tmp->next;
+	}
+}
+
+t_cmd	*ft_parser(t_token *token, t_env *envt)
 {
 	t_cmd	*cmd;
 
@@ -111,9 +129,13 @@ t_cmd	*ft_parser(t_token *token)
 		return (NULL);
 	if (ft_check_syntax(token))
 		return (NULL);
-	ft_token_to_cmd(token, cmd);
+	ft_token_to_cmd(token, cmd, envt);
 	ft_argslist_to_array(cmd);
-	ft_envlist_to_array(cmd);
-	ft_print_cmd(cmd);
+	
+	// printf("print envt\n");
+	// ft_print_linked_list(cmd->envt);
+	// printf("print envp\n");
+	// ft_print_array(cmd->envp);
+	//ft_print_cmd(cmd);
 	return (cmd);
 }

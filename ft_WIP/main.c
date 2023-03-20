@@ -91,7 +91,7 @@ int	main(int ac, char **av, char **envp)
 		if (!head)
 			return (write(2, "Error: Tokenization failed\n", 27), 1);
 		ft_expand(head, envt);
-		cmd = ft_parser(head);
+		cmd = ft_parser(head, envt);
 		if (ft_exec(cmd) == 1)
 			continue ;
 		// if (ft_bltin_tester(cmd) == 1)

@@ -6,12 +6,11 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:21:19 by mabimich          #+#    #+#             */
-/*   Updated: 2023/03/17 22:47:54 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/20 19:57:43 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 /*
 ** verif_paths : vérifie si les chemins des commandes sont valides
@@ -22,16 +21,15 @@
 ** Elle retourne le chemin valide, ou NULL si aucun chemin n'est valide.
 */
 
-char	*verif_paths(char **paths, char *cmd)
+char *verif_paths(char **paths, char *cmd)
 {
-	int		i;
-	char	*out;
+	int i;
+	char *out;
 
 	out = NULL;
 	i = -1;
 	if (!paths)
 		return (printf("paths is NULL/n"), NULL);
-	printf("p23232aths[0] = %s\n", paths[0]);
 	while (paths && paths[++i])
 	{
 		if (!access(paths[i], F_OK | X_OK) && !out)
@@ -56,17 +54,16 @@ char	*verif_paths(char **paths, char *cmd)
 ** Elle retourne le chemin de la commande, ou NULL si le chemin n'est pas trouvé.
 */
 
-char	*get_path(char *cmd, char **envp)
+char *get_path(char *cmd, char **envp)
 {
-	int		i;
-	char	**paths;
-	char	*tmp;
+	int i;
+	char **paths;
+	char *tmp;
 
-	printf("0000000000000000000000cmd = %s\n", cmd);
 	i = -1;
 	while (envp && envp[++i])
 		if (!ft_strncmp(envp[i], "PATH=", 5))
-			break ;
+			break;
 	if (!envp || !envp[i] || ft_strncmp(envp[i], "PATH=", 5))
 		return (NULL);
 	tmp = ft_pick(envp[i], '=', 1);

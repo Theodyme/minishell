@@ -72,6 +72,7 @@ int	ft_fill_cmd(t_cmd *cmd, t_token *tkn)
 			if (!cmd->name)
 			{
 				cmd->name = ft_strdup(tkn->str);
+				cmd->pid = -1;
 				if (!cmd->name)
 					return (1);
 			}

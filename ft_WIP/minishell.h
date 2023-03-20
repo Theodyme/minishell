@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/17 22:34:41 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/20 18:49:08 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct s_cmd
 	pid_t			pid;
 	int				fd[2];
 	char			*name_file[2];
+	struct s_cmd	*head;
 	struct s_cmd	*next;
 }	t_cmd;
 
@@ -193,7 +194,7 @@ t_token *ft_tokenize(char *line);
 
 /* --------------------------------- PARSER --------------------------------- */
 
-t_cmd *ft_parser(t_token *tkn);
+t_cmd *ft_parser(t_token *tkn, t_env *envt);
 int ft_check_syntax(t_token *tkn);
 int ft_is_redir(t_token *tkn);
 

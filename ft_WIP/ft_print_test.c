@@ -14,8 +14,10 @@ void	ft_print_array(char **array)
 
 void	ft_print_cmd(t_cmd *cmd)
 {
+	int		i;
 	t_redir	*tmp;
 
+	i = 0;
 	printf("_____PRINTING CMD______\n");
 	while (cmd)
 	{
@@ -28,7 +30,7 @@ void	ft_print_cmd(t_cmd *cmd)
 		}
 		ft_print_array(cmd->argv);
 		cmd = cmd->next;
-		printf("_______________________\n");
+		printf("__________%d_____________\n",i++);
 	}
 }
 
