@@ -1,0 +1,14 @@
+{
+	"configurations":
+	[
+		{
+			"type": "cppdbg",
+			"request": "launch",
+			"name": "Launch Program lldb",
+			"program": "${workspaceRoot}/minishell",
+			"cwd": "${workspaceRoot}",
+			"stopAtEntry": false,
+			"externalConsole": true,
+		},
+	]
+}

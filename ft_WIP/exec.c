@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:28:34 by mabimich          #+#    #+#             */
-/*   Updated: 2023/03/20 19:56:15 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/21 21:38:40 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void ft_dup(t_cmd *cmd)
 	dup2(cmd->fd[0], STDIN_FILENO);
 	dup2(cmd->fd[1], STDOUT_FILENO);
 	printf("DUP DONE for cmd->name=%s\n", cmd->name);
-	sleep(10);
+	//sleep(10);
 }
 
 /*
@@ -133,27 +133,37 @@ int ft_envlist_to_array(t_cmd *cmd);
 void close_pipes2(t_cmd *cmd, int i)
 {
 	t_cmd *tmp;
-	int j = 0;
+	// int j = 0;
 
 	tmp = cmd->head;
+	close(3);
+	close(4);
+	return ; ///////////////////////////////////////////////////
 	while (tmp)
 	{
-		if (tmp->fd[0] != -1 && tmp->fd[0] != cmd->fd[0] && tmp->fd[0] != cmd->fd[1])
-		{
-			fprintf(stderr," __%d %d__%s garde ouvert: tmp->fd[0]=%d\n", i, j, cmd->name, cmd->fd[0]);
-			fprintf(stderr, "close: tmp->fd[0]=%d\n", tmp->fd[0]);
-			close(tmp->fd[0]);
-		}	
-		if (tmp->fd[1] != -1 && tmp->fd[1] != cmd->fd[1] && tmp->fd[1] != cmd->fd[0])
-		{
-			fprintf(stderr, "__%d %d__%s garde ouvert: tmp->fd[1]=%d\n", i, j, cmd->name, cmd->fd[1]);
-			fprintf(stderr, "close: tmp->fd[1]=%d\n", tmp->fd[1]);
+		fprintf(stderr, "%d: close_pipes2: tmp->name=%s, tmp->fd[0]=%d, tmp->fd[1]=%d____\n", getpid(), tmp->name, tmp->fd[0], tmp->fd[1]);
+		if (tmp->fd[0] == -1 && tmp->fd[1] == -1)
+			fprintf(stderr, "+ERROR:tmp->fd[0] == -1 && tmp->fd[1] == -1\n");
+		if (cmd->fd[0] == -1 && cmd->fd[1] == -1)
+			fprintf(stderr, "+ERROR:cmd->fd[0] == -1 && cmd->fd[1] == -1\n");
+		if (cmd->fd[0] == -1 && cmd->fd[1] != -1)
 			close(tmp->fd[1]);
-		}
+		// if (tmp->fd[0] != -1 && tmp->fd[0] != cmd->fd[0] && tmp->fd[0] != cmd->fd[1])
+		// {
+		// 	fprintf(stderr," __%d %d__%s garde ouvert: tmp->fd[0]=%d\n", i, j, cmd->name, cmd->fd[0]);
+		// 	fprintf(stderr, "close: tmp->fd[0]=%d\n", tmp->fd[0]);
+		// 	close(tmp->fd[0]);
+		// }	
+		// if (tmp->fd[1] != -1 && tmp->fd[1] != cmd->fd[1] && tmp->fd[1] != cmd->fd[0])
+		// {
+		// 	fprintf(stderr, "__%d %d__%s garde ouvert: tmp->fd[1]=%d\n", i, j, cmd->name, cmd->fd[1]);
+		// 	fprintf(stderr, "close: tmp->fd[1]=%d\n", tmp->fd[1]);
+		// 	close(tmp->fd[1]);
+		// }
 		tmp = tmp->next;
-		j++;
+		i++;
 	}
-	fprintf(stderr, "\n");
+	fprintf(stderr, "end closing pipe\n");
 }
 
 void child(t_cmd *cmd)
@@ -162,7 +172,7 @@ void child(t_cmd *cmd)
 
 	// printf("child: cmd->name=%s, cmd->envp=%s\n", cmd->name, cmd->envp[1]);
 	fprintf(stderr, "cmd->name: %s, pid=%d, ppid=%d\n", cmd->name, getpid(), getppid());
-	sleep(10);
+//	sleep(10);
 	ft_dup(cmd);
 	fprintf(stderr, "cmd->fds:%d, %d\n", cmd->fd[0], cmd->fd[1]);
 	// if (cmd->fd[0] != -1)
@@ -171,13 +181,14 @@ void child(t_cmd *cmd)
 	// 	close(cmd->fd[1]);
 	if (cmd->fd[0] == -1 || cmd->fd[1] == -1)
 		fprintf(stderr, "ERROR: cmd->fd[0]=%d, cmd->fd[1]=%d\n", cmd->fd[0], cmd->fd[1]);
-	sleep(10);
+	//sleep(10);
 	close_pipes2(cmd, 42);
-	sleep(10);
+	//sleep(10);
 	// printf("before get_path: cmd->name=%s, cmd->envp=%s\n", cmd->name, cmd->envp[0]);
 	if (cmd->name)
 		cmd->name = get_path(cmd->name, cmd->envp);
 	// printf("ret after get_path:cmd->name = %s, cmd->argv[0] = %s\n", cmd->name, cmd->argv[0]);
+	//sleep(20);
 	if (cmd->name)
 		execve(cmd->name, cmd->argv, cmd->envp);
 	ft_msg("Command not found", cmd->name);
@@ -206,7 +217,7 @@ int ft_exec(t_cmd *cmd)
 	ft_print_cmd(cmd);
 	sleep(15);
 	init_fd(tmp);
-	sleep(5);
+	//sleep(5);
 	ft_print_cmd(cmd);
 	while (tmp && tmp->pid)
 	{
@@ -214,9 +225,9 @@ int ft_exec(t_cmd *cmd)
 		if (tmp->pid == -1)
 			dispatch_exit(tmp, 8);
 		if (tmp->pid == 0)
-			printf("CHILD");
+			printf("CHILD\n");
 		else
-			printf("PARENT");
+			printf("PARENT\n");
 		if (!tmp->pid)
 			child(tmp);
 		tmp = tmp->next;

@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/03/20 19:12:12 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/21 20:54:53 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,14 +120,14 @@ void	dispatch_exit(t_cmd *cmd, int code)
 	i = -1;
 	if (code == 0)
 		code = 7;
-	if (code >= 10 && !(code % 10))
-		close_pipes2(cmd, 0);
+	// if (code >= 10 && !(code % 10))
+	// 	close_pipes2(cmd, 0);
 	// if (cmd->hd_file && waitpid(cmd->pid, NULL, 0))
 	// 	unlink(cmd->hd_file);
 	// if (data->hd_file)
 	// 	free(data->hd_file);
-	if (code == 777)
-		sleep(20);
+	// if (code == 777)
+	// 	sleep(20);
 	fprintf(stderr,"_DISPATCH_EXIT_\n");
 	fprintf(stderr,"_code = %d\n", code);
 	if (cmd && cmd->name)
