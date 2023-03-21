@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/20 18:49:08 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:33:20 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,12 +119,13 @@ typedef struct t_fn
 
 /* ------------------------------ env building ------------------------------ */
 
-int ft_env_reader(char **envp, t_env **envt);
-t_env *ft_lstadd_env(char *str, t_env **envt);
-char *ft_split_value(char *str);
-char *ft_split_key(char *str);
-t_env *ft_envlast(t_env *lst);
-void ft_clear_env(t_env *envt);
+int		ft_env_reader(char **envp, t_env **envt);
+t_env	*ft_lstadd_env(char *str, t_env **envt);
+char	*ft_split_value(char *str);
+char	*ft_split_key(char *str);
+t_env	*ft_envlast(t_env *lst);
+void	ft_clear_env(t_env *envt);
+void	ft_setting_env(t_env *envt, t_cmd *cmd);
 
 /* -------------------------------- lib utils ------------------------------- */
 
@@ -161,15 +162,15 @@ void	free_tab_with_1blank(char **tab, char *str);
 
 /* -------------------------------- builtins -------------------------------- */
 
-int ft_bltin_tester(t_cmd *cmd);
+int		ft_bltin_tester(t_cmd **cmd);
 
-int ft_bltin_echo(t_cmd *cmd);
-int ft_bltin_cd(t_cmd *cmd);
-int ft_bltin_pwd(t_cmd *cmd);
-int ft_bltin_export(t_cmd *cmd);
-int ft_bltin_unset(t_cmd *cmd);
-int ft_bltin_env(t_cmd *cmd);
-int ft_bltin_exit(t_cmd *cmd);
+int		ft_bltin_echo(t_cmd *cmd);
+int		ft_bltin_cd(t_cmd *cmd);
+int		ft_bltin_pwd(t_cmd *cmd);
+int		ft_bltin_export(t_cmd *cmd);
+int		ft_bltin_unset(t_cmd *cmd);
+int		ft_bltin_env(t_cmd *cmd);
+int		ft_bltin_exit(t_cmd *cmd);
 
 /* ----------------------------- builtins utils ----------------------------- */
 
