@@ -27,15 +27,10 @@ int		ft_bltin_tester(t_cmd **cmd)
 	};
 
 	i = 0;
-	printf("Welcome to builtin tester!\n\n");
 	if (!(*cmd)->name)
 		return (0);
 	while(bltin[i].call&& ft_strcmp(bltin[i].call, (*cmd)->name) != 0)
-	{
-		// printf("comparing %s and %s...\n", (*cmd)->name, bltin[i].call);
 		i++;
-	}
-	// printf("found %s...\n", bltin[i].call);
 	if (ft_strcmp((*cmd)->name, "exit") == 0)
 		return (1);
 	if (bltin[i].call)
@@ -80,7 +75,7 @@ int		main(int ac, char **av, char **envp)
 	int status = 0;
 
 	status++;
-	print_status();
+	// print_status();
 	if (ac != 1 && av)
 		return (write(2, "Error: Wrong number of arguments\n", 33), 1);
 	ft_env_reader(envp, &envt);
