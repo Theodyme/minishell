@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:28:34 by mabimich          #+#    #+#             */
-/*   Updated: 2023/03/22 18:42:23 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/22 18:59:21 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,10 +201,10 @@ int ft_exec(t_cmd *cmd)
 		tmp = tmp->next;
 	}
 	//ft_print_cmd(cmd);
-	fprintf(stderr, "___%d___\n", getpid());
-	sleep(20);
+	// fprintf(stderr, "___%d___\n", getpid());
+	// sleep(20);
 	dispatch_exit(cmd, 777);
-	fprintf(stderr, "_=_%d_=_\n", getpid());
-	sleep(20);
+	// fprintf(stderr, "_=_%d_=_\n", getpid());
+	// sleep(20);
 	return (0);
 }
