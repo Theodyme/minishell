@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:05:59 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/17 16:26:44 by flplace          ###   ########.fr       */
+/*   Updated: 2023/03/22 11:41:52 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int		ft_bltin_unset(t_cmd *cmd)
 
 	parse = cmd->envt;
 	key = ft_strdup(cmd->args[0]);
-	printf("key = %s\n", key);
-	printf("parse->key = %s\n", parse->key);
+	if (ft_strcmp(key, "PWD") == 0)
+		return (1);
 	if (ft_strcmp(parse->key, key) == 0)
 	{
 		cmd->envt = parse->next;

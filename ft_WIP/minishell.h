@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/17 17:13:38 by flplace          ###   ########.fr       */
+/*   Updated: 2023/03/21 16:25:36 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,17 @@ typedef struct s_arg
 
 typedef struct s_cmd
 {
-	char *name;
-	char **args;
-	struct s_redir *redir;
-	t_env *envt;
-	struct s_cmd *next;
-	struct s_arg *args_list;
-} t_cmd;
+	char			*name;
+	char			**args;
+	struct s_arg	*args_list;
+	struct s_redir	*redir;
+	t_env			*envt;
+	pid_t			pid;
+	int				fd[2];
+	char			*name_file[2];
+	struct s_cmd	*head;
+	struct s_cmd	*next;
+}	t_cmd;
 
 /* -------------- function prototype for the array of pointers -------------- */
 

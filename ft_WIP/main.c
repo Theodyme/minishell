@@ -27,15 +27,10 @@ int ft_bltin_tester(t_cmd **cmd)
 	};
 
 	i = 0;
-	printf("Welcome to builtin tester!\n\n");
 	if (!(*cmd)->name)
 		return (0);
 	while(bltin[i].call&& ft_strcmp(bltin[i].call, (*cmd)->name) != 0)
-	{
-		// printf("comparing %s and %s...\n", (*cmd)->name, bltin[i].call);
 		i++;
-	}
-	// printf("found %s...\n", bltin[i].call);
 	if (ft_strcmp((*cmd)->name, "exit") == 0)
 		return (1);
 	if (bltin[i].call)
@@ -96,16 +91,22 @@ int	main(int ac, char **av, char **envp)
 			continue ;
 		ft_setting_env(envt, cmd);
 		tmp = cmd;
-		while (tmp)
-		{
-			if (ft_bltin_tester(&tmp) == 1)
+		// while (tmp)
+		// {
+		// 	if (ft_bltin_tester(&tmp) == 1)
+		// 	{
+		// 		free(line);
+		// 		ft_free_lst_env(envt);
+		// 		break ;
+		// 	}
+		// 	tmp = tmp->next;
+		// }
+		if (ft_bltin_tester(&tmp) == 1)
 			{
 				free(line);
 				ft_free_lst_env(envt);
 				break ;
 			}
-			tmp = tmp->next;
-		}
 		ft_add_history(line);
 		ft_free_lst_token(head);
 		write(1, "\n", 1);

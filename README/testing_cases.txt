@@ -3,23 +3,23 @@
 
 to do:
 
-	- tab de pointeurs sur fonctions pour les builtins
+	X tab de pointeurs sur fonctions pour les builtins
 	- printing of export
-	- function that convert from linked list to char **
+	X function that convert from linked list to char **
 
 
 what if:
 
-	- ! YOU CANT UNSET PWD
+	X ! YOU CANT UNSET PWD
 	- export "ok           ok" needs to be: "ok ok"
 	- export on its own
 
 
 unset specifics:
 
-	- unset the first var
-	- unset something that doesnt exist
-	- unset something that doesnt exist but has the start of a real var (ex: unset USE instant of USER)
+	X unset the first var
+	X unset something that doesnt exist
+	X unset something that doesnt exist but has the start of a real var (ex: unset USE instant of USER)
 
 echo specifics:
 
