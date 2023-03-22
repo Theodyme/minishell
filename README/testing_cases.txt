@@ -23,6 +23,18 @@ unset specifics:
 
 echo specifics:
 
-	- multiples > only fill the last file but erase the previous it passes through
+	- multiples		only fill the last file but erase the previous it passes through
+
+cd specifics:
+in usage:		int chdir(const char *path);
+
+	- cd 			switch to home
+	- cd .			stay there (but chdir nonetheless?)
+	- cd ~username	switch to username's home
+	- cd dir		switch to dir subdirectory (/user/tmp)
+	- cd /dir		switch to dir directory (/tmp)
+	- cd ..			switch up one directory
+	- cd -			switch to previous location
+					(cd . will register as a new location)
 
 Check leaks.
