@@ -30,7 +30,7 @@ void	ft_print_cmd(t_cmd *cmd)
 		}
 		ft_print_array(cmd->argv);
 		cmd = cmd->next;
-		printf("__________%d_____________\n",i++);
+		printf("__________%d_____________\n\n",i++);
 	}
 }
 

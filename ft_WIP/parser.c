@@ -11,10 +11,7 @@ int	ft_token_to_cmd(t_token *head, t_cmd *cmd, t_env *envt)
 	{
 		cmd->envt = envt;
 		cmd->head = head_cmd;
-		printf("cmd->name = %s\n", cmd->name);
 		ft_fill_cmd(cmd, tmp);
-		printf("__cmd->name = %s\n", cmd->name);
-		sleep(1);
 		while (tmp->next && tmp->type != PIPE)
 			tmp = tmp->next;
 		if (tmp->type == PIPE)
@@ -85,7 +82,7 @@ int ft_envlist_to_array(t_cmd *cmd)
 	t_env	*tmp;
 	int		i;
 
-	printf("CHECK envt: %s\n", cmd->envt->key);
+	//printf("CHECK envt: %s\n", cmd->envt->key);
 	tmp = cmd->envt;
 	i = 0;
 	while (tmp && ++i)
@@ -103,7 +100,7 @@ int ft_envlist_to_array(t_cmd *cmd)
 		i++;
 		tmp = tmp->next;
 	}
-	printf("print envp in envlist_to_array\n cmd->name %s ;cmd->envp[1]= %s\n", cmd->name, cmd->envp[1]);
+	//printf("print envp in envlist_to_array\n cmd->name %s ;cmd->envp[1]= %s\n", cmd->name, cmd->envp[1]);
 	return (0);
 }
 

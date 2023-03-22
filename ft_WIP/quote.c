@@ -51,7 +51,6 @@ int	ft_quotelen(char *str)
 		if (str[i] && str[i] == c)
 			return (i + 1);
 	}
-	sleep(1);
 	return (-1);
 }
 

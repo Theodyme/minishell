@@ -102,8 +102,8 @@ int		main(int ac, char **av, char **envp)
 			write(2, "Error: Unmatched quote\n", 23);
 			continue ;
 		}
-		printf("Tokenization done\n");
-		ft_print_token(head);
+		//printf("Tokenization done\n");
+		//ft_print_token(head);
 		if (!head)
 			return (write(2, "Error: Tokenization failed\n", 27), 1);
 		ft_expand(head, envt);
@@ -120,8 +120,9 @@ int		main(int ac, char **av, char **envp)
 			}
 			tmp = tmp->next;
 		}
-		if (ft_exec(cmd) == 1)
-			continue ;
+		// if (ft_exec(cmd) == 1)
+		//	continue ;
+		ft_exec(cmd);
 		ft_add_history(line);
 		ft_free_lst_token(head);
 		write(1, "\n", 1);

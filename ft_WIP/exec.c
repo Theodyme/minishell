@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:28:34 by mabimich          #+#    #+#             */
-/*   Updated: 2023/03/21 21:38:40 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/22 18:42:23 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,6 @@ void ft_check_fd(t_cmd *cmd)
 
 	tmp = cmd;
 	head = cmd->head;
-	if (ft_strcmp(cmd->name, "ls") == 0)
-		sleep(1);
-	if (ft_strcmp(cmd->name, "wc") == 0)
-		sleep(2);
 	while (head)
 	{
 		printf("head->name=%s, head->fd[0]=%d, head->fd[1]=%d\n", head->name, head->fd[0], head->fd[1]);
@@ -47,16 +43,14 @@ void ft_check_fd(t_cmd *cmd)
 
 void ft_dup(t_cmd *cmd)
 {
-	ft_check_fd(cmd);
-	printf("DUP\nchild: cmd->name=%s, fd[0]=%d, fd[1]=%d\n", cmd->name, cmd->fd[0], cmd->fd[1]);
+	//ft_check_fd(cmd);
 	if (cmd->fd[0] == -1)
 		dispatch_exit(cmd, 555);
 	else if (cmd->fd[1] == -1)
 		dispatch_exit(cmd, 666);
 	dup2(cmd->fd[0], STDIN_FILENO);
 	dup2(cmd->fd[1], STDOUT_FILENO);
-	printf("DUP DONE for cmd->name=%s\n", cmd->name);
-	//sleep(10);
+
 }
 
 /*
@@ -75,6 +69,7 @@ int open_files(t_cmd *cmd)
 
 	tmp = cmd;
 	redir = tmp->redir;
+	// printf fd[0] et fd[1] avant ouverture
 	while (cmd && redir)
 	{
 		if (redir->type == REDIR_IN)
@@ -83,7 +78,7 @@ int open_files(t_cmd *cmd)
 			cmd->fd[1] = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		else if (redir->type == APPEND)
 			cmd->fd[1] = open(redir->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		cmd = cmd->next;
+		redir = redir->next;
 	}
 	return (0);
 }
@@ -104,15 +99,10 @@ void open_pipes(t_cmd *cmd)
 	tmp = cmd;
 	while (tmp->next)
 	{
-		tmp->fd[0] = tmp->fd[1];
-		tmp->fd[1] = tmp->next->fd[0];
+		tmp->fd[1] = tmp->next->fd[1];
 		tmp = tmp->next;
 	}
 	tmp->fd[1] = STDOUT_FILENO;
-	// tmp = cmd;
-	// printf("CHECK_FD: tmp->fd[0]=%d, tmp->fd[1]=%d\n", tmp->fd[0], tmp->fd[1]);
-	// tmp = tmp->next;
-	// printf("CHECK_FD: tmp->fd[0]=%d, tmp->fd[1]=%d\n", tmp->fd[0], tmp->fd[1]);
 }
 /*
 ** Child : fonction exécutée par chaque processus enfant
@@ -133,62 +123,42 @@ int ft_envlist_to_array(t_cmd *cmd);
 void close_pipes2(t_cmd *cmd, int i)
 {
 	t_cmd *tmp;
-	// int j = 0;
 
 	tmp = cmd->head;
-	close(3);
-	close(4);
-	return ; ///////////////////////////////////////////////////
+	if (!tmp->next)
+		return ;
 	while (tmp)
 	{
 		fprintf(stderr, "%d: close_pipes2: tmp->name=%s, tmp->fd[0]=%d, tmp->fd[1]=%d____\n", getpid(), tmp->name, tmp->fd[0], tmp->fd[1]);
-		if (tmp->fd[0] == -1 && tmp->fd[1] == -1)
-			fprintf(stderr, "+ERROR:tmp->fd[0] == -1 && tmp->fd[1] == -1\n");
-		if (cmd->fd[0] == -1 && cmd->fd[1] == -1)
-			fprintf(stderr, "+ERROR:cmd->fd[0] == -1 && cmd->fd[1] == -1\n");
-		if (cmd->fd[0] == -1 && cmd->fd[1] != -1)
-			close(tmp->fd[1]);
-		// if (tmp->fd[0] != -1 && tmp->fd[0] != cmd->fd[0] && tmp->fd[0] != cmd->fd[1])
-		// {
-		// 	fprintf(stderr," __%d %d__%s garde ouvert: tmp->fd[0]=%d\n", i, j, cmd->name, cmd->fd[0]);
-		// 	fprintf(stderr, "close: tmp->fd[0]=%d\n", tmp->fd[0]);
-		// 	close(tmp->fd[0]);
-		// }	
-		// if (tmp->fd[1] != -1 && tmp->fd[1] != cmd->fd[1] && tmp->fd[1] != cmd->fd[0])
-		// {
-		// 	fprintf(stderr, "__%d %d__%s garde ouvert: tmp->fd[1]=%d\n", i, j, cmd->name, cmd->fd[1]);
-		// 	fprintf(stderr, "close: tmp->fd[1]=%d\n", tmp->fd[1]);
-		// 	close(tmp->fd[1]);
-		// }
-		tmp = tmp->next;
+		if (tmp->fd[0] != STDIN_FILENO)
+		{
+			fprintf(stderr, "%d: close_pipes2: close(tmp->fd[0]:%d)\n", getpid(), tmp->fd[0]);
+			close(tmp->fd[0]);
+		}
+		if (tmp->fd[1] != STDOUT_FILENO)
+		{
+			fprintf(stderr, "%d: close_pipes2: close(tmp->fd[1]:%d)\n", getpid(), tmp->fd[1]);
+			close (tmp->fd[1]);
+		}
 		i++;
+		tmp = tmp->next;
 	}
-	fprintf(stderr, "end closing pipe\n");
+	// fprintf(stderr, "end closing pipe\n");
 }
 
 void child(t_cmd *cmd)
 {
 	ft_envlist_to_array(cmd);
-
-	// printf("child: cmd->name=%s, cmd->envp=%s\n", cmd->name, cmd->envp[1]);
-	fprintf(stderr, "cmd->name: %s, pid=%d, ppid=%d\n", cmd->name, getpid(), getppid());
-//	sleep(10);
+	// fprintf(stderr, "____OPEN FILES from %d\n", getpid());
+	open_files(cmd);
+	// fprintf(stderr, "cmd->name: %s, pid=%d, ppid=%d\n", cmd->name, getpid(), getppid());
 	ft_dup(cmd);
-	fprintf(stderr, "cmd->fds:%d, %d\n", cmd->fd[0], cmd->fd[1]);
-	// if (cmd->fd[0] != -1)
-	// 	close(cmd->fd[0]);
-	// if (cmd->fd[1] != -1)
-	// 	close(cmd->fd[1]);
+	// fprintf(stderr, "cmd->fds:%d, %d\n", cmd->fd[0], cmd->fd[1]);
 	if (cmd->fd[0] == -1 || cmd->fd[1] == -1)
 		fprintf(stderr, "ERROR: cmd->fd[0]=%d, cmd->fd[1]=%d\n", cmd->fd[0], cmd->fd[1]);
-	//sleep(10);
 	close_pipes2(cmd, 42);
-	//sleep(10);
-	// printf("before get_path: cmd->name=%s, cmd->envp=%s\n", cmd->name, cmd->envp[0]);
 	if (cmd->name)
 		cmd->name = get_path(cmd->name, cmd->envp);
-	// printf("ret after get_path:cmd->name = %s, cmd->argv[0] = %s\n", cmd->name, cmd->argv[0]);
-	//sleep(20);
 	if (cmd->name)
 		execve(cmd->name, cmd->argv, cmd->envp);
 	ft_msg("Command not found", cmd->name);
@@ -200,9 +170,11 @@ void child(t_cmd *cmd)
 void init_fd(t_cmd *cmd)
 {
 	if (!cmd->next)
+	{
+		open_files(cmd);
 		return;
+	}
 	open_pipes(cmd);
-	//open_files(cmd);
 }
 
 int ft_exec(t_cmd *cmd)
@@ -212,12 +184,8 @@ int ft_exec(t_cmd *cmd)
 	if (!cmd)
 		return (1);
 	tmp = cmd;
-	printf("BEFORE INIT_FD\n");
-	printf("%d\n", getpid());
-	ft_print_cmd(cmd);
-	sleep(15);
+
 	init_fd(tmp);
-	//sleep(5);
 	ft_print_cmd(cmd);
 	while (tmp && tmp->pid)
 	{
@@ -225,14 +193,18 @@ int ft_exec(t_cmd *cmd)
 		if (tmp->pid == -1)
 			dispatch_exit(tmp, 8);
 		if (tmp->pid == 0)
-			printf("CHILD\n");
+			fprintf(stderr, "CHILD   %d\n", getpid());
 		else
-			printf("PARENT\n");
+			fprintf(stderr, "PARENT  %d\n", getpid());
 		if (!tmp->pid)
 			child(tmp);
 		tmp = tmp->next;
 	}
 	//ft_print_cmd(cmd);
+	fprintf(stderr, "___%d___\n", getpid());
+	sleep(20);
 	dispatch_exit(cmd, 777);
+	fprintf(stderr, "_=_%d_=_\n", getpid());
+	sleep(20);
 	return (0);
 }

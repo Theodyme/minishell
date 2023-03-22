@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/03/21 20:54:53 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/22 17:52:15 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,14 @@ void	dispatch_exit2(t_cmd *cmd, int code)
 	// 	free(cmd);
 	// data = NULL;
 	cmd = NULL;
-	close(0);
-	close(1);
-	close(2);
+	// close(0);
+	// close(1);
+	// close(2);
 	if (code == 127)
 		exit(code);
 	if (code == 666)
 		exit(1);
-	exit(WEXITSTATUS(status));
+	//exit(WEXITSTATUS(status));
 }
 
 /*
@@ -128,22 +128,22 @@ void	dispatch_exit(t_cmd *cmd, int code)
 	// 	free(data->hd_file);
 	// if (code == 777)
 	// 	sleep(20);
-	fprintf(stderr,"_DISPATCH_EXIT_\n");
-	fprintf(stderr,"_code = %d\n", code);
-	if (cmd && cmd->name)
-		fprintf(stderr,"_cmd->pid = %s\n", cmd->name);
-	else
-		fprintf(stderr,"NO_NAME\n");
-	if (getpid())
-		fprintf(stderr,"_cmd->pid = %d\n", getpid());
+	// fprintf(stderr,"_DISPATCH_EXIT_\n");
+	// fprintf(stderr,"_code = %d\n", code);
+	// if (cmd && cmd->name)
+	// 	fprintf(stderr,"_cmd->pid = %s\n", cmd->name);
+	// else
+	// 	fprintf(stderr,"NO_NAME\n");
+	// if (getpid())
+	// 	fprintf(stderr,"_cmd->pid = %d\n", getpid());
 	//printf address cmd:
-	fprintf(stderr,"__cmd = %p\n", cmd);
+	//fprintf(stderr,"__cmd = %p\n", cmd);
 	if (!(code % 111))
 	{
 		//while (code == 777 && cmd && cmd->pid)
 		while (code == 777 && cmd && cmd->pid != -1)
 		{
-			fprintf(stderr, "...waiting for %s: %d\n", cmd->name, cmd->pid);
+		//	fprintf(stderr, "...waiting for %s: %d\n", cmd->name, cmd->pid);
 			close_pipes2(cmd, 1);
 			if (cmd->pid != -1)
 				waitpid(cmd->pid, &status, 0);

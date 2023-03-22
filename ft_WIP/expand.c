@@ -76,7 +76,7 @@ size_t ft_count_part(char *str)
 			while (str[i] && !ft_is_in_charset(str[i], "$"))
 				i++;
 	}
-	printf("\t--> v = %zu\n", v);
+	printf("\t--> v = %zu\n", v); // not print?
 	return (v);
 }
 
@@ -234,7 +234,7 @@ int ft_expand(t_token *tkn, t_env *env)
 	ft_quote_to_word(tkn);
 	ft_merge_word(tkn);
 	ft_remove_blank(tkn);
-	printf("\n=====> ft_expand\n");
-	ft_print_token(tkn);
+	// printf("\n=====> ft_expand\n");
+	// ft_print_token(tkn);
 	return (0);
 }
