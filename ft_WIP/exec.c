@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:28:34 by mabimich          #+#    #+#             */
-/*   Updated: 2023/03/22 18:59:21 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/22 20:55:38 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ int open_files(t_cmd *cmd)
 	while (cmd && redir)
 	{
 		if (redir->type == REDIR_IN)
-			cmd->fd[0] = open(redir->file, O_RDONLY, 0644);
+			cmd->fd[1] = open(redir->file, O_RDONLY, 0644);
 		else if (redir->type == REDIR_OUT)
-			cmd->fd[1] = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			cmd->fd[0] = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		else if (redir->type == APPEND)
-			cmd->fd[1] = open(redir->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			cmd->fd[0] = open(redir->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		redir = redir->next;
 	}
 	return (0);

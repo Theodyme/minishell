@@ -8,7 +8,7 @@
 			"program": "${workspaceRoot}/minishell",
 			"cwd": "${workspaceRoot}",
 			"stopAtEntry": false,
-			"externalConsole": false,
+			"externalConsole": false
         }
 	]
 }

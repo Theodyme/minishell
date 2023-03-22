@@ -5,11 +5,13 @@ void	ft_print_array(char **array)
 	int	i;
 
 	i = 0;
+	printf("_PRINT ARRAY_\n");
 	while (array && array[i])
 	{
 		printf("array[%d]: %s\n", i, array[i]);
 		i++;
 	}
+	printf("\n");
 }
 
 void	ft_print_cmd(t_cmd *cmd)

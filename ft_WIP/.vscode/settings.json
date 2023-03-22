@@ -3,6 +3,7 @@
 		"*.py": "python",
 		"minishell.h": "c",
 		"pipex.h": "c",
-		"fcntl.h": "c"
+		"fcntl.h": "c",
+		"typeinfo": "c"
 	}
 }

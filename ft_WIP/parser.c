@@ -57,14 +57,14 @@ int	ft_argslist_to_array(t_cmd *cmd)
 	{
 		tmp = cmd->args_list;
 		i = 0;
-		while (tmp && ++i)
+		while (tmp && tmp->next && ++i)
 			tmp = tmp->next;
 		cmd->argv = ft_calloc(i + 1, sizeof(char *));
 		if (!cmd->argv)
 			return (1);
 		tmp = cmd->args_list;
 		i = 0;
-		while (tmp && tmp->next)
+		while (tmp && tmp->str)
 		{
 			cmd->argv[i] = ft_strdup(tmp->str);
 			if (!cmd->argv[i])
