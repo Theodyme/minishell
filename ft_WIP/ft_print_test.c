@@ -20,7 +20,9 @@ void	ft_print_cmd(t_cmd *cmd)
 	t_redir	*tmp;
 
 	i = 0;
-	printf("_____PRINTING CMD______\n");
+	printf("_____PRINTING CMD______\n"); //check ici un truc //
+	// doesnt work	$cou | ls
+
 	while (cmd)
 	{
 		printf("name: %s\n", cmd->name);

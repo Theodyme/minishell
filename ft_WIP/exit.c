@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/03/22 17:52:15 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/23 19:51:39 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void	ft_msg(char *s1, char *s2)
 	char	*tmp;
 	char	*out;
 
-	tmp = ft_3strjoin_with_free("Error: ", s1, ": ", 0);
+	tmp = ft_3strjoin_with_free("Bash: ", s1, ": ", 0);
 	if (!tmp)
 		return ;
 	out = ft_3strjoin_with_free(tmp, s2, "\n", 100);
-	ft_putendl_fd(out, 2);
+	ft_putstr_fd(out, 2);
 	free(out);
 }
 

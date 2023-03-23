@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-void	free_tab_with_1blank(char **tab, char *str)
+void	free_tab_with_1blank(char **tab)
 {
 	size_t	i;
 
@@ -10,6 +10,4 @@ void	free_tab_with_1blank(char **tab, char *str)
 	while (tab && tab[++i])
 		free(tab[i]);
 	free(tab);
-	if (str)
-		free(str);
 }

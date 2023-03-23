@@ -67,23 +67,20 @@ int	ft_fill_cmd(t_cmd *cmd, t_token *tkn)
 {
 	while (tkn && tkn->type != PIPE)
 	{
-		if (tkn->type == WORD)
+		if (tkn->type == WORD && !cmd->name)
 		{
+			cmd->name = ft_strdup(tkn->str);
 			if (!cmd->name)
-			{
-				cmd->name = ft_strdup(tkn->str);
-				if (!cmd->name)
-					return (1);
-				cmd->pid = -1;
-				cmd->args_list = ft_calloc(1, sizeof(t_arg));
-				if (!cmd->args_list)
-					return (printf("Error: ft_create_arg failed\n"), 1);
-				else if (ft_add_arg(cmd->args_list, tkn->str))
-					return (printf("Error: ft_add_arg failed\n"), 1);
-			}
+				return (1);
+			cmd->pid = -1;
+			cmd->args_list = ft_calloc(1, sizeof(t_arg));
+			if (!cmd->args_list)
+				return (printf("Error: ft_create_arg failed\n"), 1);
 			else if (ft_add_arg(cmd->args_list, tkn->str))
-					return (printf("Error: ft_add_arg failed\n"), 1);
+				return (printf("Error: ft_add_arg failed\n"), 1);
 		}
+		else if (tkn->type == WORD && ft_add_arg(cmd->args_list, tkn->str))
+				return (printf("Error: ft_add_arg failed\n"), 1);
 		else if (!ft_redir(tkn, cmd))
 			tkn = tkn->next;
 		else

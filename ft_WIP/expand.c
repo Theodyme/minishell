@@ -37,7 +37,7 @@ char *ft_strtok_minishell(char *str, char *delim)
 	if (ft_is_in_charset(*ptr, delim))
 	{
 		ptr++;
-		if (*ptr && ft_is_in_charset(*ptr, "$?"))
+		if (*ptr && ft_is_in_charset(*ptr, "0123456789?$"))
 			ptr++;
 		else if (*ptr && ft_is_in_charset(*ptr, C_ALPHA) && ptr++)
 			while (*ptr && ft_is_in_charset(*ptr, C_ALPHANUM))
@@ -66,7 +66,7 @@ size_t ft_count_part(char *str)
 		if (ft_is_in_charset(str[i], "$"))
 		{
 			i++;
-			if (str[i] && ft_is_in_charset(str[i], "$?"))
+			if (str[i] && ft_is_in_charset(str[i], "0123456789?$"))
 				i++;
 			else if (str[i] && ft_is_in_charset(str[i], C_ALPHA) && i++)
 				while (str[i] && ft_is_in_charset(str[i], C_ALPHANUM))
@@ -105,6 +105,7 @@ char *fill_env(char *str, t_env *env)
 
 	dent = str;
 	out = NULL;
+	printf("\t--> str = %s\n", str); // not print?
 	if (!str)
 		return (NULL);
 	if (*str != '$')
@@ -113,7 +114,7 @@ char *fill_env(char *str, t_env *env)
 	if (!out && !(*str))
 		out = strdup("$");
 	if (!out && *str == '?')
-		out = ft_itoa(7777777);
+		out = ft_itoa(status);
 	else if (!out)
 		out = ft_getvalue(str, env);
 	free(dent);
@@ -219,13 +220,13 @@ int ft_expand(t_token *tkn, t_env *env)
 	{
 		if (tmp->type == WORD && ft_strchr(tmp->str, '$'))
 		{
-			printf("WORD: %s\n", tmp->str);
+		//	printf("WORD: %s\n", tmp->str);
 			if (ft_expand_dollar(tmp, env))
 				return (1);
 		} // merge au dessus et en dessous
 		else if (tmp->type == DQUOTE && ft_strchr(tmp->str, '$'))
 		{
-			printf("DQUOTE: %s\n", tmp->str);
+		//	printf("DQUOTE: %s\n", tmp->str);
 			if (ft_expand_dollar(tmp, env))
 				return (1);
 		}

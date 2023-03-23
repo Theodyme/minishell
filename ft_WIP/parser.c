@@ -9,6 +9,8 @@ int	ft_token_to_cmd(t_token *head, t_cmd *cmd, t_env *envt)
 	head_cmd = cmd;
 	while (tmp)
 	{
+		while (tmp && tmp->type == WORD && !(*tmp->str))
+			tmp = tmp->next;
 		cmd->envt = envt;
 		cmd->head = head_cmd;
 		ft_fill_cmd(cmd, tmp);
@@ -31,17 +33,21 @@ int	ft_check_syntax(t_token *token)
 	t_token	*tmp;
 
 	tmp = token;
+	if (!tmp)
+		return (printf("syntax error\n"), 1);
+	if (tmp->type == PIPE)
+		return (printf("syntax error near unexpected token `%s'\n", tmp->str), 1);
 	while (tmp)
 	{
 		if (tmp->type == REDIR_IN || tmp->type == REDIR_OUT || tmp->type == APPEND)
 		{
 			if (!tmp->next || tmp->next->type != WORD)
-				return (printf("Error1: unexpected token type: %d\n", tmp->type), 1);
+				return (printf("syntax error near unexpected token `%s'\n", tmp->str), 1);
 		}
 		else if (tmp->type == PIPE)
 		{
 			if (!tmp->next || tmp->next->type == PIPE)
-				return (printf("Error2: unexpected token type: %d\n", tmp->type), 1);
+				return (printf("syntax error near unexpected token `%s'\n", tmp->str), 1);
 		}
 		tmp = tmp->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:28:34 by mabimich          #+#    #+#             */
-/*   Updated: 2023/03/22 20:55:38 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/23 19:43:11 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,15 +129,14 @@ void close_pipes2(t_cmd *cmd, int i)
 		return ;
 	while (tmp)
 	{
-		fprintf(stderr, "%d: close_pipes2: tmp->name=%s, tmp->fd[0]=%d, tmp->fd[1]=%d____\n", getpid(), tmp->name, tmp->fd[0], tmp->fd[1]);
+		// fprintf(stderr, "%d: close_pipes2: tmp->name=%s, tmp->fd[0]=%d, tmp->fd[1]=%d____\n", getpid(), tmp->name, tmp->fd[0], tmp->fd[1]);
 		if (tmp->fd[0] != STDIN_FILENO)
 		{
-			fprintf(stderr, "%d: close_pipes2: close(tmp->fd[0]:%d)\n", getpid(), tmp->fd[0]);
 			close(tmp->fd[0]);
 		}
 		if (tmp->fd[1] != STDOUT_FILENO)
 		{
-			fprintf(stderr, "%d: close_pipes2: close(tmp->fd[1]:%d)\n", getpid(), tmp->fd[1]);
+			// fprintf(stderr, "%d: close_pipes2: close(tmp->fd[1]:%d)\n", getpid(), tmp->fd[1]);
 			close (tmp->fd[1]);
 		}
 		i++;
@@ -148,6 +147,9 @@ void close_pipes2(t_cmd *cmd, int i)
 
 void child(t_cmd *cmd)
 {
+	char *path;
+
+	path = NULL;
 	ft_envlist_to_array(cmd);
 	// fprintf(stderr, "____OPEN FILES from %d\n", getpid());
 	open_files(cmd);
@@ -158,9 +160,9 @@ void child(t_cmd *cmd)
 		fprintf(stderr, "ERROR: cmd->fd[0]=%d, cmd->fd[1]=%d\n", cmd->fd[0], cmd->fd[1]);
 	close_pipes2(cmd, 42);
 	if (cmd->name)
-		cmd->name = get_path(cmd->name, cmd->envp);
-	if (cmd->name)
-		execve(cmd->name, cmd->argv, cmd->envp);
+		path = get_path(cmd->name, cmd->envp);
+	if (path)
+		execve(path, cmd->argv, cmd->envp);
 	ft_msg("Command not found", cmd->name);
 	if (cmd->argv)
 		ft_free_tab_str(cmd->argv, -1);
@@ -186,16 +188,15 @@ int ft_exec(t_cmd *cmd)
 	tmp = cmd;
 
 	init_fd(tmp);
-	ft_print_cmd(cmd);
 	while (tmp && tmp->pid)
 	{
 		tmp->pid = fork();
 		if (tmp->pid == -1)
 			dispatch_exit(tmp, 8);
-		if (tmp->pid == 0)
-			fprintf(stderr, "CHILD   %d\n", getpid());
-		else
-			fprintf(stderr, "PARENT  %d\n", getpid());
+		// if (tmp->pid == 0)
+		// 	fprintf(stderr, "CHILD   %d\n", getpid());
+		// else
+		// 	fprintf(stderr, "PARENT  %d\n", getpid());
 		if (!tmp->pid)
 			child(tmp);
 		tmp = tmp->next;

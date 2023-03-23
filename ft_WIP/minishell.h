@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/21 14:33:20 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/23 19:33:51 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ void	ft_putendl_fd(char const *s, int fd);
 char	*ft_pick(char const *s, char c, size_t p);
 char	**ft_split(char const *s, char c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
-void	free_tab_with_1blank(char **tab, char *str);
+void	free_tab_with_1blank(char **tab);
 
 /* -------------------------------- builtins -------------------------------- */
 
