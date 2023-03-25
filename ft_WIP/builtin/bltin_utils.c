@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:45:48 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/17 14:59:09 by flplace          ###   ########.fr       */
+/*   Updated: 2023/03/24 11:42:41 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,17 @@ t_env	*ft_key_finder(t_env **envt, char *needle)
 	t_env	*parse;
 
 	parse = (*envt);
+	// printf("looking for %s key...\n", needle);
 	while (parse->next)
 	{
+		// printf("comparing %s and %s...\n", parse->key, needle);
 		if (ft_strcmp(parse->key, needle) == 0)
 			break ;
 		parse = parse->next;
 	}
-	if (parse->next == NULL)
+	if (ft_strcmp(parse->key, needle) != 0 && parse->next == NULL)
 		return (NULL);
+	// printf("found %s key! p = %p\n", parse->key, parse);
 	return (parse);
 }
 

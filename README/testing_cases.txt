@@ -13,6 +13,7 @@ what if:
 	X ! YOU CANT UNSET PWD
 	- export "ok           ok" needs to be: "ok ok"
 	- export on its own
+	- export an existing key with a different value
 
 
 unset specifics:
@@ -38,3 +39,37 @@ in usage:		int chdir(const char *path);
 					(cd . will register as a new location)
 
 Check leaks.
+
+# ---------------------------------------------------------------------------- #
+
+cases:
+
+	ls | pwd | cat					pwd results prints
+	ls | pwd						pwd results prints
+	pwd | ls						pwd results prints
+
+globale? pour les var env? comment on les modifies sinon?
+builtins qui alterent/lisent les var. env:
+
+- UNSET
+- EXPORT
+- ENV
+- PWD
+- CD
+- EXIT (? needs to free them)
+
+although !!
+	export X=x | env				export doesn't do shit, env prints
+	export X=x | printenv X			export doesn't do shit, prints nothing
+	export X=x && printenv X		export works and prints X as expected
+
+so EXIT shoud be called inside the main process either way...
+what about UNSET and EXPORT?
+if they're called with a pipe, doesn't matter if they're called in a child, they don't need to work
+EXCEPT when they're alone.
+SO. the first command shoud be called in the main process BUT builtins work only if they're alone.
+
+I need to make sure the output of the builtins is the needed fd and not the standard one, so env won't print if it's not on its own.
+
+
+BTW penser a incrementer le SHLVL a chaque iteration

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+         #
+#    By: flplace <flplace@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 11:54:49 by flplace           #+#    #+#              #
-#    Updated: 2023/03/17 16:48:04 by mabimich         ###   ########.fr        #
+#    Updated: 2023/03/24 14:20:45 by flplace          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCS	=	builtin/echo.c \
 			lib/ft_calloc.c \
 			lib/ft_lstlast.c \
 			lib/ft_memset.c \
+			lib/ft_strcat.c \
 			lib/ft_strcmp.c\
 			lib/ft_strdup.c \
 			lib/ft_strlen.c\

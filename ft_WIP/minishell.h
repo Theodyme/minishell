@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/22 17:26:45 by flplace          ###   ########.fr       */
+/*   Updated: 2023/03/25 11:18:06 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,10 @@ typedef struct t_fn
 	t_bltin blt_fn;
 } t_fn;
 
+/* ----------------------------- title printing ----------------------------- */
+
+void	ft_print_title(void);
+
 /* ------------------------------ env building ------------------------------ */
 
 int ft_env_reader(char **envp, t_env **envt);
@@ -127,6 +131,7 @@ void ft_clear_env(t_env *envt);
 void 	*ft_calloc(size_t count, size_t size);
 void 	*ft_memset(void *b, int c, size_t len);
 void	*ft_memmove(void *dst, const void *src, size_t n);
+void	ft_strcat(char *dst, char *src);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strdup(const char *src);
 char	*ft_strndup(const char *src, size_t n);
@@ -148,23 +153,24 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 /* -------------------------------- builtins -------------------------------- */
 
-int			ft_bltin_tester(t_cmd **cmd);
+int		ft_bltin_tester(t_cmd **cmd);
 
-int ft_bltin_echo(t_cmd *cmd);
-int ft_bltin_cd(t_cmd *cmd);
-int ft_bltin_pwd(t_cmd *cmd);
-int ft_bltin_export(t_cmd *cmd);
-int ft_bltin_unset(t_cmd *cmd);
-int ft_bltin_env(t_cmd *cmd);
-int ft_bltin_exit(t_cmd *cmd);
+int		ft_bltin_echo(t_cmd *cmd);
+int		ft_bltin_cd(t_cmd *cmd);
+int		ft_bltin_pwd(t_cmd *cmd);
+int		ft_bltin_export(t_cmd *cmd);
+int		ft_bltin_unset(t_cmd *cmd);
+int		ft_bltin_env(t_cmd *cmd);
+int		ft_bltin_exit(t_cmd *cmd);
 
 /* ----------------------------- builtins utils ----------------------------- */
 
-int ft_array_cntr(char **array);
-t_env *ft_key_add(t_env **envt, char *key, char *value);
-t_env *ft_key_finder(t_env **envt, char *needle);
-int ft_key_freer(char *key, char *value);
-int ft_key_remove(t_env *rm);
+int		ft_array_cntr(char **array);
+t_env	*ft_key_add(t_env **envt, char *key, char *value);
+t_env	*ft_key_finder(t_env **envt, char *needle);
+int		ft_key_freer(char *key, char *value);
+int		ft_key_remove(t_env *rm);
+char	*ft_pathbuilder(char *path, char *cmdname);
 
 /* --------------------------------- EXPAND --------------------------------- */
 

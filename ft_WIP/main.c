@@ -13,6 +13,20 @@
 
 #include "minishell.h"
 
+void	ft_print_title(void)
+{
+	printf("______________________________________________________________\n\n");
+	printf("                 W e l c o m e   t o\n\n");
+	printf("'||    ||'  ||            ||         '||              '||  '||  \n");
+	printf(" |||  |||  ...  .. ...   ...   ....   || ..     ....   ||   ||  \n");
+	printf(" |'|..'||   ||   ||  ||   ||  ||. '   ||' ||  .|...||  ||   ||  \n");
+	printf(" | '|' ||   ||   ||  ||   ||  . '|..  ||  ||  ||       ||   ||  \n");
+	printf(".|. | .||. .||. .||. ||. .||. |'..|' .||. ||.  '|...' .||. .||. \n\n");
+	printf("                        m a b i m i c h    &&    f l p l a c e\n");
+	printf("______________________________________________________________\n\n");
+	return ;
+}
+
 int ft_bltin_tester(t_cmd **cmd)
 {
 	int			i;
@@ -61,6 +75,7 @@ int	main(int ac, char **av, char **envp)
 
 	t_token	*head;
 
+	ft_print_title();
 	if (ac != 1 && av)
 		return (write(2, "Error: Wrong number of arguments\n", 33), 1);
 	ft_env_reader(envp, &envt);
@@ -91,16 +106,6 @@ int	main(int ac, char **av, char **envp)
 			continue ;
 		ft_setting_env(envt, cmd);
 		tmp = cmd;
-		// while (tmp)
-		// {
-		// 	if (ft_bltin_tester(&tmp) == 1)
-		// 	{
-		// 		free(line);
-		// 		ft_free_lst_env(envt);
-		// 		break ;
-		// 	}
-		// 	tmp = tmp->next;
-		// }
 		if (ft_bltin_tester(&tmp) == 1)
 			{
 				free(line);
