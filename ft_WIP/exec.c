@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:28:34 by mabimich          #+#    #+#             */
-/*   Updated: 2023/03/23 19:43:11 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/27 21:35:30 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int open_files(t_cmd *cmd)
 	while (cmd && redir)
 	{
 		if (redir->type == REDIR_IN)
-			cmd->fd[1] = open(redir->file, O_RDONLY, 0644);
+			cmd->fd[1] = open(redir->file, O_RDONLY);
 		else if (redir->type == REDIR_OUT)
 			cmd->fd[0] = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		else if (redir->type == APPEND)
@@ -104,19 +104,7 @@ void open_pipes(t_cmd *cmd)
 	}
 	tmp->fd[1] = STDOUT_FILENO;
 }
-/*
-** Child : fonction exécutée par chaque processus enfant
-** @cmd : structure contenant les données du programme
-**
-** Cette fonction est exécutée par chaque processus enfant.
-** On duplique les descripteurs de fichiers pour le processus enfant avec ft_dup.
-** On ferme ensuite les descripteurs de fichiers et les pipes inutiles.
-** On sépare la commande en arguments avec ft_split.
-** On exécute la commande avec execve.
-** Si la commande n'est pas trouvée, elle affiche un message d'erreur.
-** Enfin, elle appelle la fonction dispatch_exit pour quitter le programme.
-** Le code de sortie est 127 si la commande n'est pas trouvée.
-*/
+
 
 int ft_envlist_to_array(t_cmd *cmd);
 
@@ -145,35 +133,53 @@ void close_pipes2(t_cmd *cmd, int i)
 	// fprintf(stderr, "end closing pipe\n");
 }
 
+/*
+** Child : fonction exécutée par chaque processus enfant
+** @cmd : structure contenant les données du programme
+**
+** Cette fonction est exécutée par chaque processus enfant.
+** On duplique les descripteurs de fichiers pour le processus enfant avec ft_dup.
+** On ferme ensuite les descripteurs de fichiers et les pipes inutiles.
+** On sépare la commande en arguments avec ft_split.
+** On exécute la commande avec execve.
+** Si la commande n'est pas trouvée, elle affiche un message d'erreur.
+** Enfin, elle appelle la fonction dispatch_exit pour quitter le programme.
+** Le code de sortie est 127 si la commande n'est pas trouvée.
+** Le code de sortie est 126 si la commande n'est pas exécutable.
+*/
+
 void child(t_cmd *cmd)
 {
 	char *path;
 
 	path = NULL;
 	ft_envlist_to_array(cmd);
-	// fprintf(stderr, "____OPEN FILES from %d\n", getpid());
 	open_files(cmd);
-	// fprintf(stderr, "cmd->name: %s, pid=%d, ppid=%d\n", cmd->name, getpid(), getppid());
 	ft_dup(cmd);
-	// fprintf(stderr, "cmd->fds:%d, %d\n", cmd->fd[0], cmd->fd[1]);
 	if (cmd->fd[0] == -1 || cmd->fd[1] == -1)
 		fprintf(stderr, "ERROR: cmd->fd[0]=%d, cmd->fd[1]=%d\n", cmd->fd[0], cmd->fd[1]);
 	close_pipes2(cmd, 42);
 	if (cmd->name)
 		path = get_path(cmd->name, cmd->envp);
-	if (path)
-		execve(path, cmd->argv, cmd->envp);
-	ft_msg("Command not found", cmd->name);
+	if (path && access(path, X_OK) == 0)
+			execve(path, cmd->argv, cmd->envp);
 	if (cmd->argv)
 		ft_free_tab_str(cmd->argv, -1);
+	else if (access(path, X_OK))
+	{
+		ft_msg(cmd->name, "command found but not executable");
+		dispatch_exit(cmd, 126);
+	}
+	ft_msg(cmd->name, "command not found");
 	dispatch_exit(cmd, 127);
 }
+
 
 void init_fd(t_cmd *cmd)
 {
 	if (!cmd->next)
 	{
-		open_files(cmd);
+	//	open_files(cmd);
 		return;
 	}
 	open_pipes(cmd);

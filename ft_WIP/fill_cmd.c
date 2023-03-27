@@ -23,9 +23,11 @@ int	ft_add_redir(t_redir *redir, t_token *token)
 
 int	ft_redir(t_token *token, t_cmd *cmd)
 {
+	fprintf(stderr, "_______________REDIR_______________\n");
+
 	if (token->type != REDIR_IN && token->type != REDIR_OUT && token->type != APPEND)
 		return (1);
-	else if (token->next)
+	else if (!token->next)
 		return (1);
 	else if (token->next->type != WORD)
 		return (1);
