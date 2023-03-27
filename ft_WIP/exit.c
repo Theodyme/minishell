@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/03/23 19:51:39 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/27 19:37:39 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_msg(char *s1, char *s2)
 	char	*tmp;
 	char	*out;
 
-	tmp = ft_3strjoin_with_free("Bash: ", s1, ": ", 0);
+	tmp = ft_3strjoin_with_free("bash: ", s1, ": ", 0);
 	if (!tmp)
 		return ;
 	out = ft_3strjoin_with_free(tmp, s2, "\n", 100);
@@ -114,9 +114,7 @@ void close_pipes2(t_cmd *cmd, int i);
 void	dispatch_exit(t_cmd *cmd, int code)
 {
 	int	i;
-	int	status;
 
-	status = 0;
 	i = -1;
 	if (code == 0)
 		code = 7;
@@ -146,7 +144,7 @@ void	dispatch_exit(t_cmd *cmd, int code)
 		//	fprintf(stderr, "...waiting for %s: %d\n", cmd->name, cmd->pid);
 			close_pipes2(cmd, 1);
 			if (cmd->pid != -1)
-				waitpid(cmd->pid, &status, 0);
+				waitpid(cmd->pid, &g_status, 0);
 			cmd = cmd->next;
 		}
 	}

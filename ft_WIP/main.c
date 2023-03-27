@@ -54,17 +54,18 @@ void	ft_setting_env(t_env *envt, t_cmd *cmd)
 
 void	print_status()
 {
-	if (status == 0)
+	if (g_status == 0)
 		printf("OK\n");
 	else
 		printf("KO\n");
-	printf("Status: %d\n", status);
+	printf("Status: %d\n", g_status);
 }
 
-int		status = 0;
+int		g_status = 0;
 
 int		main(int ac, char **av, char **envp)
 {
+	int 	debug = 0;
 	char	*line = NULL;
 	t_env	*envt = NULL;
 	t_cmd	*cmd = NULL;
@@ -72,12 +73,10 @@ int		main(int ac, char **av, char **envp)
 
 	t_token	*head;
 
-	int status = 0;
-
-	status++;
-	// print_status();
-	if (ac != 1 && av)
+	if (ac != 1 && ac != 2)// && av)  attention a remettre a 1
 		return (write(2, "Error: Wrong number of arguments\n", 33), 1);
+	if (ac == 2)
+		debug = atoi(av[1]); // a enlever
 	ft_env_reader(envp, &envt);
 	if (!envt)
 	{
@@ -102,24 +101,33 @@ int		main(int ac, char **av, char **envp)
 			write(2, "Error: Unmatched quote\n", 23);
 			continue ;
 		}
+		if (debug)
+		{
 		printf("Tokenization done\n");
 		ft_print_token(head);
+		}
 		if (!head)
 			return (write(2, "Error: Tokenization failed\n", 27), 1);
 		ft_expand(head, envt);
-		printf("Expansion done\n");
-		ft_print_token(head);
+		if (debug)
+		{
+			printf("Expansion done\n");
+			ft_print_token(head);
+		}
 		cmd = ft_parser(head, envt);
 		ft_setting_env(envt, cmd);
-		printf("Parsing done\n");
-		ft_print_cmd(cmd);
+		if (debug)
+		{
+			printf("Parsing done\n");
+			ft_print_cmd(cmd);
+		}
 		tmp = cmd;
 		while (tmp)
 		{
 			if (ft_bltin_tester(&tmp) == 1)
 			{
 				free(line);
-				ft_free_lst_env(envt);
+				//ft_free_lst_env(envt);
 				break ;
 			}
 			tmp = tmp->next;

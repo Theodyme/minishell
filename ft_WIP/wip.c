@@ -161,14 +161,13 @@ t_token *ft_tokenize(char *line)
 			tmp = ft_specialtoken1(&i, line + i, tmp);
 		else
 			tmp = ft_wordtoken(&i, line + i, tmp);
-		if (line[i])
-		{
-			tmp->next = ft_calloc(1, sizeof(t_token));
-			if (!tmp->next)
-				return (ft_free_lst_token(head), NULL);
-			tmp = tmp->next;
-		}
+		tmp->next = ft_calloc(1, sizeof(t_token));
+		if (!tmp->next)
+			return (ft_free_lst_token(head), NULL);
+		tmp = tmp->next;
 	}
+	tmp->type = EOL;
+	tmp->str = ft_strdup("newline");
 	return (head);
 }
 

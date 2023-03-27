@@ -34,20 +34,20 @@ int	ft_check_syntax(t_token *token)
 
 	tmp = token;
 	if (!tmp)
-		return (printf("syntax error\n"), 1);
+		return (printf("bash: syntax error\n"), 1);
 	if (tmp->type == PIPE)
-		return (printf("syntax error near unexpected token `%s'\n", tmp->str), 1);
+		return (printf("bash: syntax error near unexpected token `%s'\n", tmp->str), 1);
 	while (tmp)
 	{
 		if (tmp->type == REDIR_IN || tmp->type == REDIR_OUT || tmp->type == APPEND)
 		{
 			if (!tmp->next || tmp->next->type != WORD)
-				return (printf("syntax error near unexpected token `%s'\n", tmp->str), 1);
+				return (printf("bash: syntax error near unexpected token `%s'\n", tmp->next->str), 1);
 		}
 		else if (tmp->type == PIPE)
 		{
 			if (!tmp->next || tmp->next->type == PIPE)
-				return (printf("syntax error near unexpected token `%s'\n", tmp->str), 1);
+				return (printf("bash: syntax error near unexpected token `%s'\n", tmp->str), 1);
 		}
 		tmp = tmp->next;
 	}

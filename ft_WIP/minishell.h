@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/23 19:33:51 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/27 19:27:53 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define C_BLANK "\t\r\v\f\n "
 
 
-extern int status;
+extern int g_status;
 
 enum TOKEN_TYPE
 {
@@ -43,7 +43,8 @@ enum TOKEN_TYPE
 	APPEND,	   // >>
 	HEREDOC,   // <<
 	DELIMITER,
-	BLANK
+	BLANK,
+	EOL
 };
 
 /* -------------------------------- env type -------------------------------- */

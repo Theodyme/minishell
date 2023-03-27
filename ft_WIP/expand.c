@@ -114,7 +114,7 @@ char *fill_env(char *str, t_env *env)
 	if (!out && !(*str))
 		out = strdup("$");
 	if (!out && *str == '?')
-		out = ft_itoa(status);
+		out = ft_itoa(WEXITSTATUS(g_status));
 	else if (!out)
 		out = ft_getvalue(str, env);
 	free(dent);
