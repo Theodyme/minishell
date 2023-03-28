@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/25 11:18:06 by flplace          ###   ########.fr       */
+/*   Updated: 2023/03/28 16:14:47 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ t_env	*ft_key_finder(t_env **envt, char *needle);
 int		ft_key_freer(char *key, char *value);
 int		ft_key_remove(t_env *rm);
 char	*ft_pathbuilder(char *path, char *cmdname);
+int		ft_pwd_changer(t_cmd *cmd, char *path);
 
 /* --------------------------------- EXPAND --------------------------------- */
 
