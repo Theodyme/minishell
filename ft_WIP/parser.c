@@ -44,14 +44,14 @@ int	ft_check_syntax(t_token *token)
 		tmp->type == APPEND)
 		{
 			if (!tmp->next || tmp->next->type != WORD)
-				return (printf("bash: syntax error near unexpected token\
-				 `%s'\n", tmp->next->str), 1);
+				return (printf("bash: syntax error near unexpected token \
+`%s'\n", tmp->next->str), 1);
 		}
 		else if (tmp->type == PIPE)
 		{
 			if (!tmp->next || tmp->next->type == PIPE)
-				return (printf("bash: syntax error near unexpected token\
-				 `%s'\n", tmp->str), 1);
+				return (printf("bash: syntax error near unexpected token \
+`%s'\n", tmp->str), 1);
 		}
 		tmp = tmp->next;
 	}
@@ -120,7 +120,7 @@ t_cmd	*ft_parser(t_token *token, t_env *envt)
 	if (!cmd)
 		return (NULL);
 	if (ft_check_syntax(token))
-		return (NULL);
+		return (g_status = 2*256, NULL);
 	ft_token_to_cmd(token, cmd, envt);
 	ft_argslist_to_array(cmd);
 	return (cmd);

@@ -52,12 +52,24 @@ void	ft_setting_env(t_env *envt, t_cmd *cmd)
 	}
 }
 
+char	*return_status(void)
+{
+	char	*str;
+	char	*tmp;
+
+	tmp = ft_itoa(WEXITSTATUS(g_status));
+	str = ft_strjoin(tmp, "> ");
+	free(tmp);
+	return (str);
+}
+
 int		g_status = 0;
 
 int	main(int ac, char **av, char **envp)
 {
 	int 	debug = 0;
 	char	*line = NULL;
+	char*	status = NULL;
 	t_env	*envt = NULL;
 	t_cmd	*cmd = NULL;
 	t_cmd	*tmp = NULL;
@@ -76,7 +88,9 @@ int	main(int ac, char **av, char **envp)
 	}
 	while (true)
 	{
-		line = readline("$> ");
+		status = return_status();
+		line = readline(status);
+		free(status);
 		if (!line)
 			break ;
 		if (ft_strcmp(line, "exit") == 0)
