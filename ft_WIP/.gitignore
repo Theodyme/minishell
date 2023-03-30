@@ -5,3 +5,4 @@ minishell
 log
 *.supp
 .valgrindrc
+.nfs*

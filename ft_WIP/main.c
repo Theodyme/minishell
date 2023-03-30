@@ -52,18 +52,9 @@ void	ft_setting_env(t_env *envt, t_cmd *cmd)
 	}
 }
 
-void	print_status()
-{
-	if (g_status == 0)
-		printf("OK\n");
-	else
-		printf("KO\n");
-	printf("Status: %d\n", g_status);
-}
-
 int		g_status = 0;
 
-int		main(int ac, char **av, char **envp)
+int	main(int ac, char **av, char **envp)
 {
 	int 	debug = 0;
 	char	*line = NULL;
@@ -132,12 +123,9 @@ int		main(int ac, char **av, char **envp)
 			}
 			tmp = tmp->next;
 		}
-		// if (ft_exec(cmd) == 1)
-		//	continue ;
 		ft_exec(cmd);
 		ft_add_history(line);
 		ft_free_lst_token(head);
-		//write(1, "\n", 1);
 	}
 	return (0);
 }

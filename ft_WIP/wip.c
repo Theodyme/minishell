@@ -1,29 +1,29 @@
 #include "minishell.h"
 
-int ft_isblank(char c)
+int	ft_isblank(char c)
 {
 	if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r')
 		return (1);
 	return (0);
 }
 
-int ft_isspecial(char c)
+int	ft_isspecial(char c)
 {
 	if (c == '|' || c == '<' || c == '>')
 		return (1);
 	return (0);
 }
 
-int ft_isquote(char c)
+int	ft_isquote(char c)
 {
 	if (c == '\'' || c == '\"')
 		return (1);
 	return (0);
 }
 
-int ft_trim_blank(char *line)
+int	ft_trim_blank(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line[i] && ft_isblank(line[i]))
@@ -31,7 +31,7 @@ int ft_trim_blank(char *line)
 	return (i);
 }
 
-t_token *ft_specialtoken1(int *i, char *line, t_token *token)
+t_token	*ft_specialtoken1(int *i, char *line, t_token *token)
 {
 	*i += 1;
 	if (line[0] == '|')
@@ -55,7 +55,7 @@ t_token *ft_specialtoken1(int *i, char *line, t_token *token)
 	return (token);
 }
 
-t_token *ft_specialtoken2(int *i, char *line, t_token *token)
+t_token	*ft_specialtoken2(int *i, char *line, t_token *token)
 {
 	if (line[0] == '<' && line[1] && line[1] == '<')
 	{
@@ -73,7 +73,7 @@ t_token *ft_specialtoken2(int *i, char *line, t_token *token)
 	return (token);
 }
 
-int ft_wordlen(char *line)
+int	ft_wordlen(char *line)
 {
 	int i;
 
@@ -83,7 +83,7 @@ int ft_wordlen(char *line)
 	return (i);
 }
 
-int ft_spacelen(char *line)
+int	ft_spacelen(char *line)
 {
 	int i;
 
@@ -93,7 +93,7 @@ int ft_spacelen(char *line)
 	return (i);
 }
 
-void ft_free_lst_token(t_token *head)
+void	ft_free_lst_token(t_token *head)
 {
 	t_token *tmp;
 
@@ -106,7 +106,7 @@ void ft_free_lst_token(t_token *head)
 	}
 }
 
-t_token *ft_quotetoken(int *i, char *line, t_token *token)
+t_token	*ft_quotetoken(int *i, char *line, t_token *token)
 {
 	size_t	len;
 
@@ -120,7 +120,7 @@ t_token *ft_quotetoken(int *i, char *line, t_token *token)
 	return (token);
 }
 
-t_token *ft_wordtoken(int *i, char *line, t_token *token)
+t_token	*ft_wordtoken(int *i, char *line, t_token *token)
 {
 	size_t	len;
 
@@ -131,7 +131,7 @@ t_token *ft_wordtoken(int *i, char *line, t_token *token)
 	return (token);
 }
 
-t_token *ft_blanktoken(int *i, char *line, t_token *token)
+t_token	*ft_blanktoken(int *i, char *line, t_token *token)
 {
 	token->type = BLANK;
 	token->str = strdup(" ");
@@ -141,9 +141,9 @@ t_token *ft_blanktoken(int *i, char *line, t_token *token)
 
 t_token *ft_tokenize(char *line)
 {
-	t_token *head;
-	t_token *tmp;
-	int i;
+	t_token	*head;
+	t_token	*tmp;
+	int		i;
 
 	i = 0;
 	head = ft_calloc(1, sizeof(t_token));
@@ -170,4 +170,3 @@ t_token *ft_tokenize(char *line)
 	tmp->str = ft_strdup("newline");
 	return (head);
 }
-

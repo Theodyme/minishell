@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/03/27 19:37:39 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/30 18:06:47 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,28 +29,6 @@ void	ft_msg(char *s1, char *s2)
 	out = ft_3strjoin_with_free(tmp, s2, "\n", 100);
 	ft_putstr_fd(out, 2);
 	free(out);
-}
-
-/*
-** close_pipes : ferme les pipes
-** @data : structure de données
-** @e : le nombre de pipe à fermer (-1 pour fermer tous les pipes)
-*/
-
-void	close_pipes(t_cmd *cmd, int e)
-{
-	int	i;
-
-	i = 0;
-	while (cmd && i != e)
-	{
-		printf("close_pipes: cmd->fd[0] = %d, cmd->fd[1] = %d\n", cmd->fd[0], cmd->fd[1]);
-		close(cmd->fd[0]);
-		if (i++ != e)
-			close(cmd->fd[1]);
-		i++;
-		cmd = cmd->next;
-	}
 }
 
 /*
@@ -90,7 +68,9 @@ void	dispatch_exit2(t_cmd *cmd, int code)
 		exit(code);
 	if (code == 666)
 		exit(1);
-	//exit(WEXITSTATUS(status));
+	if (code == 21)
+		exit(0);
+	//exit(WEXITSTATUS(1));
 }
 
 /*
@@ -108,8 +88,6 @@ void	dispatch_exit2(t_cmd *cmd, int code)
 ** 127 : probleme lors de l'execution d'un processus fils
 ** On appelle dispatch_exit2 pour gerer les autres codes d'erreurs.
 */
-
-void close_pipes2(t_cmd *cmd, int i);
 
 void	dispatch_exit(t_cmd *cmd, int code)
 {
@@ -142,7 +120,7 @@ void	dispatch_exit(t_cmd *cmd, int code)
 		while (code == 777 && cmd && cmd->pid != -1)
 		{
 		//	fprintf(stderr, "...waiting for %s: %d\n", cmd->name, cmd->pid);
-			close_pipes2(cmd, 1);
+			close_pipes(cmd, 1);
 			if (cmd->pid != -1)
 				waitpid(cmd->pid, &g_status, 0);
 			cmd = cmd->next;

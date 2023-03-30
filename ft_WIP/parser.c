@@ -36,18 +36,22 @@ int	ft_check_syntax(t_token *token)
 	if (!tmp)
 		return (printf("bash: syntax error\n"), 1);
 	if (tmp->type == PIPE)
-		return (printf("bash: syntax error near unexpected token `%s'\n", tmp->str), 1);
+		return (printf("bash: syntax error near unexpected token `%s'\n"\
+		, tmp->str), 1);
 	while (tmp)
 	{
-		if (tmp->type == REDIR_IN || tmp->type == REDIR_OUT || tmp->type == APPEND)
+		if (tmp->type == REDIR_IN || tmp->type == REDIR_OUT || \
+		tmp->type == APPEND)
 		{
 			if (!tmp->next || tmp->next->type != WORD)
-				return (printf("bash: syntax error near unexpected token `%s'\n", tmp->next->str), 1);
+				return (printf("bash: syntax error near unexpected token\
+				 `%s'\n", tmp->next->str), 1);
 		}
 		else if (tmp->type == PIPE)
 		{
 			if (!tmp->next || tmp->next->type == PIPE)
-				return (printf("bash: syntax error near unexpected token `%s'\n", tmp->str), 1);
+				return (printf("bash: syntax error near unexpected token\
+				 `%s'\n", tmp->str), 1);
 		}
 		tmp = tmp->next;
 	}
@@ -83,12 +87,11 @@ int	ft_argslist_to_array(t_cmd *cmd)
 	return (0);
 }
 
-int ft_envlist_to_array(t_cmd *cmd)
+int	ft_envlist_to_array(t_cmd *cmd)
 {
 	t_env	*tmp;
 	int		i;
 
-	//printf("CHECK envt: %s\n", cmd->envt->key);
 	tmp = cmd->envt;
 	i = 0;
 	while (tmp && ++i)
@@ -106,21 +109,7 @@ int ft_envlist_to_array(t_cmd *cmd)
 		i++;
 		tmp = tmp->next;
 	}
-	//printf("print envp in envlist_to_array\n cmd->name %s ;cmd->envp[1]= %s\n", cmd->name, cmd->envp[1]);
 	return (0);
-}
-
-void ft_print_linked_list(t_env *head)
-{//inutile?
-	t_env	*tmp;
-
-	tmp = head;
-	while (tmp)
-	{
-		printf("key: %s\n", tmp->key);
-		printf("value: %s\n", tmp->value);
-		tmp = tmp->next;
-	}
 }
 
 t_cmd	*ft_parser(t_token *token, t_env *envt)
@@ -134,11 +123,5 @@ t_cmd	*ft_parser(t_token *token, t_env *envt)
 		return (NULL);
 	ft_token_to_cmd(token, cmd, envt);
 	ft_argslist_to_array(cmd);
-	
-	// printf("print envt\n");
-	// ft_print_linked_list(cmd->envt);
-	// printf("print envp\n");
-	// ft_print_array(cmd->envp);
-	//ft_print_cmd(cmd);
 	return (cmd);
 }
