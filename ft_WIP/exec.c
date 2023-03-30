@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:28:34 by mabimich          #+#    #+#             */
-/*   Updated: 2023/03/30 17:55:41 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/30 21:49:26 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,14 @@ void	close_pipes(t_cmd *cmd, int i)
 ** Enfin, elle appelle la fonction dispatch_exit pour quitter le programme.
 ** Le code de sortie est 127 si la commande n'est pas trouvée.
 ** Le code de sortie est 126 si la commande n'est pas exécutable.
+** Le code de sortie est 126 si la commande est un répertoire.
+** Le code de sortie est 21 si la commande est vide.
 */
 
 void	child(t_cmd *cmd)
 {
-	char	*path;
+	char		*path;
+	struct stat	st;
 
 	path = NULL;
 	ft_envlist_to_array(cmd);
@@ -117,15 +120,17 @@ void	child(t_cmd *cmd)
 	if (!cmd->name)
 		dispatch_exit(cmd, 21);
 	path = get_path(cmd->name, cmd->envp);
-	if (path && access(path, X_OK) == 0)
-		execve(path, cmd->argv, cmd->envp);
-	if (cmd->argv)
-		ft_free_tab_str(cmd->argv, -1);
-	else if (access(path, X_OK))
+	if (path && stat(path, &st) != -1 && (access(path, F_OK | X_OK) || S_ISDIR(st.st_mode)))
 	{
-		ft_msg(cmd->name, "command found but not executable");
+		if (S_ISDIR(st.st_mode))
+			ft_msg(cmd->name, "is a directory");
+		else
+			ft_msg(cmd->name, "command found but not executable");
 		dispatch_exit(cmd, 126);
 	}
+	execve(path, cmd->argv, cmd->envp);
+	if (cmd->argv)
+		ft_free_tab_str(cmd->argv, -1);
 	ft_msg(cmd->name, "command not found");
 	dispatch_exit(cmd, 127);
 }

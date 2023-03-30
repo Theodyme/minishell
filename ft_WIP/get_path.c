@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:21:19 by mabimich          #+#    #+#             */
-/*   Updated: 2023/03/30 17:14:56 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/03/30 20:46:46 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*verif_paths(char **paths, char *cmd)
 	out = NULL;
 	i = -1;
 	if (!paths)
-		return (printf("paths is NULL\n"), NULL);
+		return (printf("Bash: path is NULL\n"), NULL);
 	while (paths && paths[++i])
 	{
 		if (!access(paths[i], F_OK | X_OK) && !out)

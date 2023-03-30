@@ -215,7 +215,7 @@ int ft_expand(t_token *tkn, t_env *env)
 	tmp = tkn;
 	while (tmp)
 	{
-		if ((tmp->type == WORD || tmp->type) && ft_strchr(tmp->str, '$'))
+		if ((tmp->type == WORD || tmp->type == DQUOTE) && ft_strchr(tmp->str, '$'))
 		{
 			if (ft_expand_dollar(tmp, env))
 				return (1);

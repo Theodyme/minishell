@@ -41,7 +41,7 @@ int	ft_check_syntax(t_token *token)
 	while (tmp)
 	{
 		if (tmp->type == REDIR_IN || tmp->type == REDIR_OUT || \
-		tmp->type == APPEND)
+		tmp->type == APPEND || tmp->type == HEREDOC)
 		{
 			if (!tmp->next || tmp->next->type != WORD)
 				return (printf("bash: syntax error near unexpected token \
@@ -120,7 +120,7 @@ t_cmd	*ft_parser(t_token *token, t_env *envt)
 	if (!cmd)
 		return (NULL);
 	if (ft_check_syntax(token))
-		return (g_status = 2*256, NULL);
+		return (g_status = 2 * 256, NULL);
 	ft_token_to_cmd(token, cmd, envt);
 	ft_argslist_to_array(cmd);
 	return (cmd);

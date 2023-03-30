@@ -91,6 +91,7 @@ int	main(int ac, char **av, char **envp)
 		status = return_status();
 		line = readline(status);
 		free(status);
+		g_status = 0;
 		if (!line)
 			break ;
 		if (ft_strcmp(line, "exit") == 0)
@@ -103,7 +104,7 @@ int	main(int ac, char **av, char **envp)
 			head = ft_tokenize(line);
 		else
 		{
-			write(2, "Error: Unmatched quote\n", 23);
+			write(2, "Bash: Unmatched quote\n", 23);
 			continue ;
 		}
 		if (debug)
@@ -112,7 +113,7 @@ int	main(int ac, char **av, char **envp)
 		ft_print_token(head);
 		}
 		if (!head)
-			return (write(2, "Error: Tokenization failed\n", 27), 1);
+			return (write(2, "Bash: Tokenization failed\n", 27), 1);
 		ft_expand(head, envt);
 		if (debug)
 		{
