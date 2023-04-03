@@ -51,27 +51,5 @@ int	ft_quotelen(char *str)
 		if (str[i] && str[i] == c)
 			return (i + 1);
 	}
-	sleep(1);
 	return (-1);
 }
-
-void	ft_quote_to_words(t_token *lst)
-{
-	t_token	*tmp;
-	char	*str;
-	str = NULL;
-
-	tmp = lst;
-	while (tmp)
-	{
-		if (tmp->type == QUOTE)
-		{
-
-		}
-		if (tmp->type == DQUOTE)
-		{
-
-		}
-		tmp = tmp->next;
-	}
-} 

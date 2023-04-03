@@ -5,18 +5,24 @@ void	ft_print_array(char **array)
 	int	i;
 
 	i = 0;
+	printf("_PRINT ARRAY_\n");
 	while (array && array[i])
 	{
 		printf("array[%d]: %s\n", i, array[i]);
 		i++;
 	}
+	printf("\n");
 }
 
 void	ft_print_cmd(t_cmd *cmd)
 {
+	int		i;
 	t_redir	*tmp;
 
-	printf("_____PRINTING CMD______\n");
+	i = 0;
+	printf("_____PRINTING CMD______\n"); //check ici un truc //
+	// doesnt work	$cou | ls
+
 	while (cmd)
 	{
 		printf("name: %s\n", cmd->name);
@@ -26,9 +32,9 @@ void	ft_print_cmd(t_cmd *cmd)
 			printf("redirect type: %d --> file: %s\n", tmp->type, tmp->file);
 			tmp = tmp->next;
 		}
-		ft_print_array(cmd->args);
+		ft_print_array(cmd->argv);
 		cmd = cmd->next;
-		printf("_______________________\n");
+		printf("__________%d_____________\n\n", i++);
 	}
 }
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: flplace <flplace@student.42.fr>            +#+  +:+       +#+         #
+#    By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 11:54:49 by flplace           #+#    #+#              #
-#    Updated: 2023/03/24 14:20:45 by flplace          ###   ########.fr        #
+#    Updated: 2023/04/03 16:08:58 by mabimich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,12 @@ SRCS	=	builtin/echo.c \
 			lib/ft_free_tab_str.c \
 			lib/ft_strtrim.c \
 			lib/ft_substr.c \
+			lib/ft_putendl_fd.c \
+			lib/ft_putstr_fd.c \
+			lib/ft_strjoin_with_free.c \
+			lib/ft_pick.c \
+			lib/ft_split.c \
+			lib/free_tab_with_1blank.c\
 			env_cpy.c \
 			quote.c \
 			expand.c \
@@ -55,6 +61,9 @@ SRCS	=	builtin/echo.c \
 			fill_cmd.c \
 			wip.c \
 			ft_print_test.c \
+			get_path.c \
+			exec.c \
+			exit.c \
 			main.c
 OBJ		=	${SRCS:.c=.o}
 HEADER	=   minishell.h

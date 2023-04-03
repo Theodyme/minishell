@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:45:48 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/24 11:42:41 by flplace          ###   ########.fr       */
+/*   Updated: 2023/04/03 16:07:12 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,22 @@ t_env	*ft_key_finder(t_env **envt, char *needle)
 	if (ft_strcmp(parse->key, needle) != 0 && parse->next == NULL)
 		return (NULL);
 	// printf("found %s key! p = %p\n", parse->key, parse);
+	return (parse);
+}
+
+char	*ft_key_finder2(t_env **envt, char *needle)
+{
+	t_env	*parse;
+
+	parse = (*envt);
+	while (parse->next)
+	{
+		if (ft_strcmp(parse->key, needle) == 0)
+			break ;
+		parse = parse->next;
+	}
+	if (ft_strcmp(parse->key, needle) != 0 && parse->next == NULL)
+		return (NULL);
 	return (parse);
 }
 

@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   free_tab_with_1blank.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/09 15:41:16 by flplace           #+#    #+#             */
-/*   Updated: 2023/04/03 14:10:19 by mabimich         ###   ########.fr       */
+/*   Created: 2023/03/30 17:28:56 by mabimich          #+#    #+#             */
+/*   Updated: 2023/03/30 17:29:00 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		ft_bltin_pwd(t_cmd *cmd)
+void	free_tab_with_1blank(char **tab)
 {
-	t_env	*pwd;
+	size_t	i;
 
-	pwd = NULL;
-	pwd = ft_key_finder(&(cmd->envt), "PWD");
-	if (pwd == NULL)
-		return (1);
-	printf("%s\n", pwd->value);
-	return (0);
+	i = -1;
+	while (tab && tab[++i])
+		free(tab[i]);
+	while (tab && tab[++i])
+		free(tab[i]);
+	free(tab);
 }

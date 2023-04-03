@@ -1,9 +1,9 @@
 #include "minishell.h"
 
-t_token *ft_fill_expanded(t_token *tkn, char *str)
+t_token	*ft_fill_expanded(t_token *tkn, char *str)
 {
-	int i;
-	t_token *tmp;
+	int		i;
+	t_token	*tmp;
 
 	i = 0;
 	tmp = tkn;
@@ -23,11 +23,11 @@ t_token *ft_fill_expanded(t_token *tkn, char *str)
 	return (tkn);
 }
 
-char *ft_strtok_minishell(char *str, char *delim)
+char	*ft_strtok_minishell(char *str, char *delim)
 {
-	static char *save;
-	char *ptr;
-	char *tmp;
+	static char	*save;
+	char		*ptr;
+	char		*tmp;
 
 	if (str)
 		save = str;
@@ -37,7 +37,7 @@ char *ft_strtok_minishell(char *str, char *delim)
 	if (ft_is_in_charset(*ptr, delim))
 	{
 		ptr++;
-		if (*ptr && ft_is_in_charset(*ptr, "$?"))
+		if (*ptr && ft_is_in_charset(*ptr, "0123456789?$"))
 			ptr++;
 		else if (*ptr && ft_is_in_charset(*ptr, C_ALPHA) && ptr++)
 			while (*ptr && ft_is_in_charset(*ptr, C_ALPHANUM))
@@ -51,10 +51,10 @@ char *ft_strtok_minishell(char *str, char *delim)
 	return (tmp);
 }
 
-size_t ft_count_part(char *str)
+size_t	ft_count_part(char *str)
 {
-	size_t i;
-	size_t v;
+	size_t	i;
+	size_t	v;
 
 	i = 0;
 	v = 0;
@@ -66,7 +66,7 @@ size_t ft_count_part(char *str)
 		if (ft_is_in_charset(str[i], "$"))
 		{
 			i++;
-			if (str[i] && ft_is_in_charset(str[i], "$?"))
+			if (str[i] && ft_is_in_charset(str[i], "0123456789?$"))
 				i++;
 			else if (str[i] && ft_is_in_charset(str[i], C_ALPHA) && i++)
 				while (str[i] && ft_is_in_charset(str[i], C_ALPHANUM))
@@ -76,20 +76,19 @@ size_t ft_count_part(char *str)
 			while (str[i] && !ft_is_in_charset(str[i], "$"))
 				i++;
 	}
-	printf("\t--> v = %zu\n", v);
 	return (v);
 }
 
-char *ft_getvalue(char *key, t_env *env)
+char	*ft_getvalue(char *key, t_env *env)
 {
-	char *value;
+	char	*value;
 
 	while (env)
 	{
 		if (!ft_strcmp(key, env->key))
 		{
 			value = ft_strdup(env->value);
-			break;
+			break ;
 		}
 		env = env->next;
 	}
@@ -98,10 +97,10 @@ char *ft_getvalue(char *key, t_env *env)
 	return (value);
 }
 
-char *fill_env(char *str, t_env *env)
+char	*fill_env(char *str, t_env *env)
 {
-	char *dent;
-	char *out;
+	char	*dent;
+	char	*out;
 
 	dent = str;
 	out = NULL;
@@ -113,19 +112,19 @@ char *fill_env(char *str, t_env *env)
 	if (!out && !(*str))
 		out = strdup("$");
 	if (!out && *str == '?')
-		out = ft_itoa(7777777);
+		out = ft_itoa(WEXITSTATUS(g_status));
 	else if (!out)
 		out = ft_getvalue(str, env);
 	free(dent);
 	return (out);
 }
 
-int ft_expand_dollar(t_token *tkn, t_env *env)
+int	ft_expand_dollar(t_token *tkn, t_env *env)
 {
-	char **tab;
-	char *tmp_str;
-	size_t i;
-	size_t j;
+	char	**tab;
+	char	*tmp_str;
+	size_t	i;
+	size_t	j;
 
 	i = ft_count_part(tkn->str);
 	j = 0;
@@ -149,9 +148,9 @@ int ft_expand_dollar(t_token *tkn, t_env *env)
 	return (0);
 }
 
-void ft_quote_to_word(t_token *tkn)
+void	ft_quote_to_word(t_token *tkn)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	tmp = tkn;
 	while (tmp)
@@ -164,8 +163,8 @@ void ft_quote_to_word(t_token *tkn)
 
 void ft_merge_word(t_token *tkn)
 {
-	t_token *tmp;
-	t_token *save_next;
+	t_token	*tmp;
+	t_token	*save_next;
 
 	tmp = tkn;
 	while (tmp)
@@ -184,8 +183,8 @@ void ft_merge_word(t_token *tkn)
 
 void ft_remove_blank(t_token *tkn)
 {
-	t_token *tmp;
-	t_token *save_next;
+	t_token	*tmp;
+	t_token	*save_next;
 
 	tmp = tkn;
 	while (tmp)
@@ -207,25 +206,17 @@ void ft_remove_blank(t_token *tkn)
 /*
 ** ft_expand is the function that will expand the tokens
 ** it expands tokens of type WORD or DQUOTE in which there is a '$'
-** Function is general purpose will allow expansion of more things in more contexts
 */
 
 int ft_expand(t_token *tkn, t_env *env)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	tmp = tkn;
 	while (tmp)
 	{
-		if (tmp->type == WORD && ft_strchr(tmp->str, '$'))
+		if ((tmp->type == WORD || tmp->type == DQUOTE) && ft_strchr(tmp->str, '$'))
 		{
-			printf("WORD: %s\n", tmp->str);
-			if (ft_expand_dollar(tmp, env))
-				return (1);
-		} // merge au dessus et en dessous
-		else if (tmp->type == DQUOTE && ft_strchr(tmp->str, '$'))
-		{
-			printf("DQUOTE: %s\n", tmp->str);
 			if (ft_expand_dollar(tmp, env))
 				return (1);
 		}
@@ -234,7 +225,5 @@ int ft_expand(t_token *tkn, t_env *env)
 	ft_quote_to_word(tkn);
 	ft_merge_word(tkn);
 	ft_remove_blank(tkn);
-	printf("\n=====> ft_expand\n");
-	ft_print_token(tkn);
 	return (0);
 }

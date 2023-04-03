@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_pick.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/09 15:41:16 by flplace           #+#    #+#             */
-/*   Updated: 2023/04/03 14:10:19 by mabimich         ###   ########.fr       */
+/*   Created: 2022/07/17 19:54:27 by mabimich          #+#    #+#             */
+/*   Updated: 2023/03/17 21:21:40 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		ft_bltin_pwd(t_cmd *cmd)
+char	*ft_pick(char const *s, char c, size_t p)
 {
-	t_env	*pwd;
+	char	**in;
+	char	*out;
+	size_t	i;
 
-	pwd = NULL;
-	pwd = ft_key_finder(&(cmd->envt), "PWD");
-	if (pwd == NULL)
-		return (1);
-	printf("%s\n", pwd->value);
-	return (0);
+	if (!s || !c)
+		return (NULL);
+	i = 0;
+	in = ft_split(s, c);
+	out = ft_strdup(in[p]);
+	while (in[i])
+		free(in[i++]);
+	free(in);
+	return (out);
 }

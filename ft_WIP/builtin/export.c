@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:13:33 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/24 11:56:11 by flplace          ###   ########.fr       */
+/*   Updated: 2023/04/03 16:05:07 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@
 int		ft_bltin_export(t_cmd *cmd)
 {
 	t_env	*tmp;
-	t_env	*needle = NULL;
-	char	*key = NULL;
-	char	*value = NULL;
-
-	if (ft_array_cntr(cmd->args) != 1)
+	t_env	*needle;
+	char	*key;
+	char	*value;
+	
+	if (ft_array_cntr(cmd->argv) != 2)
 		return (1);
-	key = ft_split_key(cmd->args[0]);
-	value = ft_split_value(cmd->args[0]);
+	key = ft_split_key(cmd->argv[1]);
+	value = ft_split_value(cmd->argv[1]);
 	needle = ft_key_finder(&(cmd->envt), key);
 	// printf("needle = %p\n", ft_key_finder(&(cmd->envt), key));
 	// if (needle != NULL)

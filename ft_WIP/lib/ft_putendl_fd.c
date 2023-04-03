@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/09 15:41:16 by flplace           #+#    #+#             */
-/*   Updated: 2023/04/03 14:10:19 by mabimich         ###   ########.fr       */
+/*   Created: 2021/11/24 16:13:45 by mabimich          #+#    #+#             */
+/*   Updated: 2023/03/17 20:40:18 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		ft_bltin_pwd(t_cmd *cmd)
+void	ft_putendl_fd(char const *s, int fd)
 {
-	t_env	*pwd;
-
-	pwd = NULL;
-	pwd = ft_key_finder(&(cmd->envt), "PWD");
-	if (pwd == NULL)
-		return (1);
-	printf("%s\n", pwd->value);
-	return (0);
+	if (s && fd)
+	{
+		ft_putstr_fd((char *)s, fd);
+		write(fd, "\n", 1);
+	}
 }
