@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/04/03 14:49:48 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:53:40 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	dispatch_exit(t_cmd *cmd, int code)
 	// if (getpid())
 	// 	fprintf(stderr,"_cmd->pid = %d\n", getpid());
 	//printf address cmd:
-	fprintf(stderr,"__cmd = %s\n", cmd->name);
+	//fprintf(stderr,"__cmd = %s\n", cmd->name);
 	if (!(code % 111))
 	{
 		close_pipes(cmd);
