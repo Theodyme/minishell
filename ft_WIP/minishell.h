@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/30 20:51:13 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:35:23 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct s_cmd
 	pid_t			pid;
 	int				fd[2];
 	char			*name_file[2];
+	int				status;
 	struct s_cmd	*head;
 	struct s_cmd	*next;
 }	t_cmd;
@@ -220,7 +221,7 @@ int		ft_exec(t_cmd *cmd);
 
 void	dispatch_exit(t_cmd *cmd, int code);
 void	dispatch_exit2(t_cmd *cmd, int code);
-void	close_pipes(t_cmd *cmd, int i);
+void	close_pipes(t_cmd *cmd);
 
 /* ------------------------------ TO REORGANIZE ----------------------------- */
 

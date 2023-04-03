@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:54:46 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/15 15:57:06 by flplace          ###   ########.fr       */
+/*   Updated: 2023/04/03 14:00:02 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@
 
 int			ft_bltin_echo(t_cmd *cmd)
 {
-	(void)cmd;
-	return (1);
+	int		out;
+
+	out = cmd->next->fd[1];
+	ft_putendl_fd(cmd->argv[1], out);
+	g_status = 0;
+	return (0);
 }

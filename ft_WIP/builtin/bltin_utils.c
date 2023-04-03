@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:45:48 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/17 22:20:54 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/04/03 13:09:49 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		ft_array_cntr(char **array)
 	int i;
 
 	i = 0;
-	while (array)
+	while (array[i])
 		i++;
 	return (i);
 }

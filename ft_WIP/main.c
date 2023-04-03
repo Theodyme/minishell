@@ -13,6 +13,7 @@
 
 #include "minishell.h"
 
+
 int		ft_bltin_tester(t_cmd **cmd)
 {
 	int			i;
@@ -28,13 +29,17 @@ int		ft_bltin_tester(t_cmd **cmd)
 
 	i = 0;
 	if (!(*cmd)->name)
-		return (0);
-	while(bltin[i].call&& ft_strcmp(bltin[i].call, (*cmd)->name) != 0)
+		return (2);
+	while(bltin[i].call && ft_strcmp(bltin[i].call, (*cmd)->name) != 0)
 		i++;
+	(*cmd)->pid = 1;
 	if (ft_strcmp((*cmd)->name, "exit") == 0)
-		return (1);
+		return (2);
 	if (bltin[i].call)
-		bltin[i].blt_fn(*cmd);
+	{
+		(*cmd)->status = bltin[i].blt_fn(*cmd);
+		return (1);
+	}
 	return (0);
 }
 
@@ -72,7 +77,6 @@ int	main(int ac, char **av, char **envp)
 	char*	status = NULL;
 	t_env	*envt = NULL;
 	t_cmd	*cmd = NULL;
-	t_cmd	*tmp = NULL;
 
 	t_token	*head;
 
@@ -126,17 +130,6 @@ int	main(int ac, char **av, char **envp)
 		{
 			printf("Parsing done\n");
 			ft_print_cmd(cmd);
-		}
-		tmp = cmd;
-		while (tmp)
-		{
-			if (ft_bltin_tester(&tmp) == 1)
-			{
-				free(line);
-				//ft_free_lst_env(envt);
-				break ;
-			}
-			tmp = tmp->next;
 		}
 		ft_exec(cmd);
 		ft_add_history(line);

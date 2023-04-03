@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:28:34 by mabimich          #+#    #+#             */
-/*   Updated: 2023/03/30 21:49:26 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:49:34 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	open_pipes(t_cmd *cmd)
 
 int	ft_envlist_to_array(t_cmd *cmd);
 
-void	close_pipes(t_cmd *cmd, int i)
+void	close_pipes(t_cmd *cmd)
 {
 	t_cmd	*tmp;
 
@@ -84,7 +84,6 @@ void	close_pipes(t_cmd *cmd, int i)
 			close(tmp->fd[0]);
 		if (tmp->fd[1] != STDOUT_FILENO)
 			close (tmp->fd[1]);
-		i++;
 		tmp = tmp->next;
 	}
 }
@@ -116,7 +115,7 @@ void	child(t_cmd *cmd)
 	open_files(cmd);
 	dup2(cmd->fd[0], STDIN_FILENO);
 	dup2(cmd->fd[1], STDOUT_FILENO);
-	close_pipes(cmd, 42);
+	close_pipes(cmd);
 	if (!cmd->name)
 		dispatch_exit(cmd, 21);
 	path = get_path(cmd->name, cmd->envp);
@@ -138,6 +137,7 @@ void	child(t_cmd *cmd)
 int	ft_exec(t_cmd *cmd)
 {
 	t_cmd	*tmp;
+	int		out;
 
 	if (!cmd)
 		return (1);
@@ -145,13 +145,17 @@ int	ft_exec(t_cmd *cmd)
 	open_pipes(tmp);
 	while (tmp && tmp->pid)
 	{
-		tmp->pid = fork();
+		out = ft_bltin_tester(&tmp);
+		if (out == 2)
+			dispatch_exit(tmp, 9);
+		if (out == 0)
+			tmp->pid = fork();
 		if (tmp->pid == -1)
 			dispatch_exit(tmp, 8);
 		if (!tmp->pid)
 			child(tmp);
 		tmp = tmp->next;
 	}
-	dispatch_exit(cmd, 777);
+	dispatch_exit(cmd->head, 777);
 	return (0);
 }

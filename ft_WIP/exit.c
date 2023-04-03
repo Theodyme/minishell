@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/03/30 21:12:09 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:49:48 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	ft_msg(char *s1, char *s2)
 
 void	dispatch_exit2(t_cmd *cmd, int code)
 {
+
+	
 	// if (code > 6 && cmd->fd[1] != -1) //peut etre inversé
 	// 	close(cmd->fd[1]);
 	// if (code > 5 && cmd->fd[0] != -1)
@@ -113,16 +115,18 @@ void	dispatch_exit(t_cmd *cmd, int code)
 	// if (getpid())
 	// 	fprintf(stderr,"_cmd->pid = %d\n", getpid());
 	//printf address cmd:
-	//fprintf(stderr,"__cmd = %p\n", cmd);
+	fprintf(stderr,"__cmd = %s\n", cmd->name);
 	if (!(code % 111))
 	{
+		close_pipes(cmd);
 		//while (code == 777 && cmd && cmd->pid)
 		while (code == 777 && cmd && cmd->pid != -1)
 		{
 		//	fprintf(stderr, "...waiting for %s: %d\n", cmd->name, cmd->pid);
-			close_pipes(cmd, 1);
-			if (cmd->pid != -1)
+			if (cmd->pid != -1 && cmd->pid != 1)
 				waitpid(cmd->pid, &g_status, 0);
+			else if (cmd->pid == 1)
+				g_status = cmd->status;
 			cmd = cmd->next;
 		}
 	}
