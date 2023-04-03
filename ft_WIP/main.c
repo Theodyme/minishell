@@ -15,15 +15,15 @@
 
 void	ft_print_title(void)
 {
-	printf("______________________________________________________________\n\n");
+	printf("________________________________________________________________\n\n");
 	printf("                 W e l c o m e   t o\n\n");
-	printf("'||    ||'  ||            ||         '||              '||  '||  \n");
-	printf(" |||  |||  ...  .. ...   ...   ....   || ..     ....   ||   ||  \n");
-	printf(" |'|..'||   ||   ||  ||   ||  ||. '   ||' ||  .|...||  ||   ||  \n");
-	printf(" | '|' ||   ||   ||  ||   ||  . '|..  ||  ||  ||       ||   ||  \n");
-	printf(".|. | .||. .||. .||. ||. .||. |'..|' .||. ||.  '|...' .||. .||. \n\n");
-	printf("                        m a b i m i c h    &&    f l p l a c e\n");
-	printf("______________________________________________________________\n\n");
+	printf("\033[34m '||    ||'  ||            ||  \033[33m       '||              '||  '||  \033[0m\n");
+	printf("\033[34m  |||  |||  ...  .. ...   ...  \033[33m ....   || ..     ....   ||   ||  \033[0m\n");
+	printf("\033[34m  |'|..'||   ||   ||  ||   ||  \033[33m||. '   ||' ||  .|...||  ||   ||  \033[0m\n");
+	printf("\033[34m  | '|' ||   ||   ||  ||   ||  \033[33m. '|..  ||  ||  ||       ||   ||  \033[0m\n");
+	printf("\033[34m .|. | .||. .||. .||. ||. .||. \033[33m|'..|' .||. ||.  '|...' .||. .||. \033[0m\n\n");
+	printf("                        \033[33mm a b i m i c h \033[0m    &&    \033[34mf l p l a c e \033[0m\n");
+	printf("_________________________________________________________________\n\n");
 	return ;
 }
 
@@ -72,11 +72,16 @@ void	ft_setting_env(t_env *envt, t_cmd *cmd)
 
 char	*return_status(void)
 {
-	char	*str;
-	char	*tmp;
+	char	*str = NULL;
+	char	*out = NULL;
+	char	*tmp = NULL;
 
 	tmp = ft_itoa(WEXITSTATUS(g_status));
-	str = ft_strjoin(tmp, "> ");
+	if (ft_strcmp(tmp, "0") == 0)
+		out = ft_3strjoin_with_free("\033[32m", tmp, "\033[0m", 000);
+	else
+		out = ft_3strjoin_with_free("\033[31m", tmp, "\033[0m", 000);
+	str = ft_strjoin(out, " > ");
 	free(tmp);
 	return (str);
 }
