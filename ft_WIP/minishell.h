@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/04/03 16:03:01 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/04/03 16:27:06 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,6 @@ void	free_tab_with_1blank(char **tab);
 /* -------------------------------- builtins -------------------------------- */
 
 int		ft_bltin_tester(t_cmd **cmd);
-int		ft_bltin_tester(t_cmd **cmd);
 
 int		ft_bltin_echo(t_cmd *cmd);
 int		ft_bltin_cd(t_cmd *cmd);
@@ -210,10 +209,9 @@ t_token	*ft_tokenize(char *line);
 
 /* --------------------------------- PARSER --------------------------------- */
 
-void	ft_parser(t_token *token, t_cmd **cmd);
+t_cmd  *ft_parser(t_token *tkn, t_env *envt);
 int ft_check_syntax(t_token *tkn);
 int ft_is_redir(t_token *tkn);
-t_cmd	*ft_parser(t_token *tkn, t_env *envt);
 int		ft_check_syntax(t_token *tkn);
 int		ft_is_redir(t_token *tkn);
 

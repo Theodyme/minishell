@@ -112,11 +112,13 @@ int	ft_envlist_to_array(t_cmd *cmd)
 	return (0);
 }
 
-t_cmd	*ft_parser(t_token *token, t_env *envt)
+t_cmd  *ft_parser(t_token *token, t_env *envt)
 {
-	*cmd = ft_calloc(1, sizeof(t_cmd));
-	if (!*cmd)
-		return ;
+	t_cmd	*cmd;
+
+	cmd = ft_calloc(1, sizeof(t_cmd));
+	if (!cmd)
+		return (NULL);
 	if (ft_check_syntax(token))
 		return (g_status = 2 * 256, NULL);
 	ft_token_to_cmd(token, cmd, envt);

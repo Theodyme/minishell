@@ -31,7 +31,6 @@ int ft_bltin_tester(t_cmd **cmd)
 {
 	int			i;
 	const t_fn	bltin[8] = {
-	const t_fn	bltin[8] = {
 	{.call = "echo", .blt_fn = &ft_bltin_echo},
 	{.call = "cd", .blt_fn = &ft_bltin_cd},
 	{.call = "pwd", .blt_fn = &ft_bltin_pwd},
@@ -91,7 +90,6 @@ int	main(int ac, char **av, char **envp)
 	char*	status = NULL;
 	t_env	*envt = NULL;
 	t_cmd	*cmd = NULL;
-	t_cmd	*tmp = NULL;
 
 	t_token	*head;
 

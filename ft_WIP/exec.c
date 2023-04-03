@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:28:34 by mabimich          #+#    #+#             */
-/*   Updated: 2023/04/03 14:49:34 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/04/03 16:37:11 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,10 +146,10 @@ int	ft_exec(t_cmd *cmd)
 	while (tmp && tmp->pid)
 	{
 		out = ft_bltin_tester(&tmp);
-		if (out == 2)
-			dispatch_exit(tmp, 9);
 		if (out == 0)
 			tmp->pid = fork();
+		if (out == 2 && !tmp->head->next)
+			dispatch_exit(tmp, 9);
 		if (tmp->pid == -1)
 			dispatch_exit(tmp, 8);
 		if (!tmp->pid)

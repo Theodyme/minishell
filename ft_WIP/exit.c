@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/04/03 14:53:40 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/04/03 16:33:36 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	dispatch_exit2(t_cmd *cmd, int code)
 		exit(code);
 	if (code == 666)
 		exit(1);
-	if (code == 21)
+	if (code == 21 || code == 9)
 		exit(0);
 	//exit(WEXITSTATUS(1));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:41:12 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/28 17:38:35 by flplace          ###   ########.fr       */
+/*   Updated: 2023/04/03 16:12:23 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,17 +76,17 @@ int		ft_bltin_cd(t_cmd *cmd)
 	char	*path;
 	t_env	*pwd = NULL;
 
-	if ((ft_array_cntr(cmd->args) == 1) && (cmd->args[0][0] == '~'))
+	if ((ft_array_cntr(cmd->argv) == 1) && (cmd->argv[0][0] == '~'))
 	{
-		ft_home_finder(cmd, (cmd->args[0] + 1));
+		ft_home_finder(cmd, (cmd->argv[0] + 1));
 		return (1);
 	}
-	if (ft_array_cntr(cmd->args) != 1)
+	if (ft_array_cntr(cmd->argv) != 1)
 		return (1);
 	pwd = ft_key_finder(&cmd->envt, "PWD");
 	if (pwd == NULL)
 		return (1);
-	path = ft_pathbuilder(pwd->value, cmd->args[0]);
+	path = ft_pathbuilder(pwd->value, cmd->argv[0]);
 	if (chdir(path) == -1)
 	{
 		free(path);
