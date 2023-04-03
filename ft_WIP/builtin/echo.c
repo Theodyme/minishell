@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:54:46 by flplace           #+#    #+#             */
-/*   Updated: 2023/04/03 14:00:02 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:57:46 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ int			ft_bltin_echo(t_cmd *cmd)
 {
 	int		out;
 
-	out = cmd->next->fd[1];
+	out = STDOUT_FILENO;
+	if (cmd->next)
+		out = cmd->next->fd[1];
 	ft_putendl_fd(cmd->argv[1], out);
-	g_status = 0;
 	return (0);
 }
