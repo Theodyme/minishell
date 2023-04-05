@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:28:34 by mabimich          #+#    #+#             */
-/*   Updated: 2023/04/03 16:37:11 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/04/05 14:36:14 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,8 @@ void	child(t_cmd *cmd)
 			ft_msg(cmd->name, "command found but not executable");
 		dispatch_exit(cmd, 126);
 	}
-	execve(path, cmd->argv, cmd->envp);
+	if (path && cmd->argv && cmd->argv[0])
+		execve(path, cmd->argv, cmd->envp);
 	if (cmd->argv)
 		ft_free_tab_str(cmd->argv, -1);
 	ft_msg(cmd->name, "command not found");
