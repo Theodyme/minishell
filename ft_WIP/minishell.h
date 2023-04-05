@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/04/03 16:27:06 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/04/05 15:38:36 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ extern int	g_status;
 
 enum	e_TOKEN_TYPE
 {
-	WORD,
-	QUOTE,
-	DQUOTE,
-	PIPE,
-	REDIR_IN,
+	WORD, // 0
+	QUOTE, // 1
+	DQUOTE, // 2
+	PIPE, // 3
+	REDIR_IN, // pensez a check pipe a la fin de commande
 	REDIR_OUT,
 	APPEND,
 	HEREDOC,
@@ -60,7 +60,7 @@ typedef struct s_env
 	char *key;
 	char *value;
 	struct s_env *next;
-} t_env;
+}					t_env;
 
 /* ------------------------------- token type ------------------------------- 	*/
 /*
@@ -84,7 +84,7 @@ typedef struct s_redir
 
 typedef struct s_arg
 {
-	char			*str;
+	char			*str; // a verifier si encore utile
 	struct s_arg	*next;
 }					t_arg;
 

@@ -117,7 +117,7 @@ int	main(int ac, char **av, char **envp)
 		g_status = 0;
 		if (!line)
 			break ;
-		if (ft_count_quote(line) != -1)
+		if (ft_count_quote(line) != -1) // penser a add history
 			head = ft_tokenize(line);
 		else
 		{

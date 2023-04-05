@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/04/03 16:33:36 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/04/05 15:32:04 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void	dispatch_exit(t_cmd *cmd, int code)
 		{
 		//	fprintf(stderr, "...waiting for %s: %d\n", cmd->name, cmd->pid);
 			if (cmd->pid != -1 && cmd->pid != 1)
-				waitpid(cmd->pid, &g_status, 0);
+				waitpid(cmd->pid, &g_status, 0); // cehck qu on attend pas que le dernier, mais tous a partir du 0 et pensez a ce qu il se passe si on ctrl c pendant le process d attente des enfants
 			else if (cmd->pid == 1)
 				g_status = cmd->status;
 			cmd = cmd->next;
