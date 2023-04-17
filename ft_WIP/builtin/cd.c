@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:41:12 by flplace           #+#    #+#             */
-/*   Updated: 2023/04/03 16:54:15 by flplace          ###   ########.fr       */
+/*   Updated: 2023/04/17 17:14:20 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,29 +68,47 @@ int		ft_home_finder(t_cmd *cmd, char *username)
 	return (0);
 }
 
-int		ft_bltin_cd(t_cmd *cmd)
+int		ft_path_changer(t_cmd *cmd)
 {
 	char	*path;
 	t_env	*pwd = NULL;
 
-	if ((ft_array_cntr(cmd->argv) == 1) && (cmd->argv[0][0] == '~'))
-	{
-		ft_home_finder(cmd, (cmd->argv[0] + 1));
-		return (1);
-	}
-	if (ft_array_cntr(cmd->argv) != 1)
-		return (1);
 	pwd = ft_key_finder(&cmd->envt, "PWD");
 	if (pwd == NULL)
 		return (1);
-	path = ft_pathbuilder(pwd->value, cmd->argv[0]);
+	if (cmd->argv[1][0] != '/')
+		path = ft_pathbuilder(pwd->value, cmd->argv[1]);
+	else
+		path = ft_strdup(cmd->argv[1]);
 	if (chdir(path) == -1)
 	{
+		printf("bash: cd: %s: No such file or directory\n", cmd->argv[1]);
 		free(path);
 		return (1);
 	}
 	if (ft_pwd_changer(cmd, path) == 1)
 		return (1);
 	free(path);
+	return (0);
+}
+
+int		ft_bltin_cd(t_cmd *cmd)
+{
+	if (ft_array_cntr(cmd->argv) > 2)
+	{
+		printf("cd: too many arguments\n");
+		return (1);
+	}
+	if (ft_array_cntr(cmd->argv) == 1)
+	{
+		ft_path_changer
+	}
+	if ((ft_array_cntr(cmd->argv) == 2) && (cmd->argv[1][0] == '~'))
+	{
+		ft_home_finder(cmd, (cmd->argv[1] + 1));
+		return (1);
+	}
+	if (ft_path_changer(cmd) == 1)
+		return (1);
 	return (0);
 }

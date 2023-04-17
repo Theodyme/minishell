@@ -31,7 +31,7 @@ in usage:		int chdir(const char *path);
 
 	- cd 			switch to home
 	- cd .			stay there (but chdir nonetheless?)
-	- cd ~username	switch to username's home
+	x cd ~username	switch to username's home
 	- cd dir		switch to dir subdirectory (/user/tmp)
 	- cd /dir		switch to dir directory (/tmp)
 	- cd ..			switch up one directory
