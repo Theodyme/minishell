@@ -29,14 +29,15 @@ echo specifics:
 cd specifics:
 in usage:		int chdir(const char *path);
 
-	- cd 			switch to home
-	- cd .			stay there (but chdir nonetheless?)
-	x cd ~username	switch to username's home
-	- cd dir		switch to dir subdirectory (/user/tmp)
-	- cd /dir		switch to dir directory (/tmp)
-	- cd ..			switch up one directory
-	- cd -			switch to previous location
+	x cd 			switch to home
+	x cd .			stay there (but chdir nonetheless?)
+	x cd dir		switch to dir subdirectory (/user/tmp)
+	x cd /dir		switch to dir directory (/tmp)
+	x cd ..			switch up one directory
+	x cd -			switch to previous location
 					(cd . will register as a new location)
+
+NEEDS TO CHANGE PIPES ??
 
 Check leaks.
 

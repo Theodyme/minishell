@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/04/05 15:38:36 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/04/24 18:00:36 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,9 @@ t_env	*ft_key_finder(t_env **envt, char *needle);
 int		ft_key_freer(char *key, char *value);
 int		ft_key_remove(t_env *rm);
 char	*ft_pathbuilder(char *path, char *cmdname);
-int		ft_pwd_changer(t_cmd *cmd, char *path);
+int		ft_pwd_changer(t_cmd *cmd);
+int		ft_pwd_finder(t_cmd *cmd, char *arg);
+int		ft_path_changer(t_cmd *cmd);
 
 /* --------------------------------- EXPAND --------------------------------- */
 
@@ -210,8 +212,8 @@ t_token	*ft_tokenize(char *line);
 /* --------------------------------- PARSER --------------------------------- */
 
 t_cmd  *ft_parser(t_token *tkn, t_env *envt);
-int ft_check_syntax(t_token *tkn);
-int ft_is_redir(t_token *tkn);
+int 	ft_check_syntax(t_token *tkn);
+int 	ft_is_redir(t_token *tkn);
 int		ft_check_syntax(t_token *tkn);
 int		ft_is_redir(t_token *tkn);
 

@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:41:12 by flplace           #+#    #+#             */
-/*   Updated: 2023/04/17 17:14:20 by flplace          ###   ########.fr       */
+/*   Updated: 2023/04/24 17:58:05 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_pathbuilder(char *path, char *cmdname)
 	return (to_access);
 }
 
-int		ft_pwd_changer(t_cmd *cmd, char *path)
+int		ft_pwd_changer(t_cmd *cmd)
 {
 	t_env	*pwd = NULL;
 	t_env	*oldpwd = NULL;
@@ -39,32 +39,7 @@ int		ft_pwd_changer(t_cmd *cmd, char *path)
 	free(oldpwd->value);
 	oldpwd->value = ft_strdup(pwd->value);
 	free(pwd->value);
-	pwd->value = ft_strdup(path);
-	printf("old pwd = %s\n", oldpwd->value);
-	printf("current pwd = %s\n", pwd->value);
-	return (0);
-}
-
-int		ft_home_finder(t_cmd *cmd, char *username)
-{
-	t_env	*home;
-	int		userlen;
-	char	*path;
-	char	*to_access;
-	int		i;
-
-	i = 0;
-	home = ft_key_finder(&(cmd->envt), "HOME");
-	userlen = ft_strlen(ft_key_finder(&(cmd->envt), "USER")->value);
-	path = ft_strndup(home->value, (ft_strlen(home->value) - (userlen + 1)));
-	to_access = ft_pathbuilder(path, username);
-	if (chdir(to_access) == -1)
-	{
-		free(path);
-		free(to_access);
-		printf("error: couldn't find home.\n");
-		return (1);
-	}
+	pwd->value = ft_strdup(getcwd(NULL, 0));
 	return (0);
 }
 
@@ -76,7 +51,7 @@ int		ft_path_changer(t_cmd *cmd)
 	pwd = ft_key_finder(&cmd->envt, "PWD");
 	if (pwd == NULL)
 		return (1);
-	if (cmd->argv[1][0] != '/')
+	if (cmd->argv[1][0] != '/' && cmd->argv[1][0] != '.')
 		path = ft_pathbuilder(pwd->value, cmd->argv[1]);
 	else
 		path = ft_strdup(cmd->argv[1]);
@@ -86,29 +61,47 @@ int		ft_path_changer(t_cmd *cmd)
 		free(path);
 		return (1);
 	}
-	if (ft_pwd_changer(cmd, path) == 1)
+	if (ft_pwd_changer(cmd) == 1)
 		return (1);
 	free(path);
 	return (0);
 }
 
+int		ft_pwd_finder(t_cmd *cmd, char *arg)
+{
+	 t_env	*node = NULL;
+
+	node = ft_key_finder(&cmd->envt, arg);
+	if (node == NULL)
+		return (1);
+	if (chdir(node->value) == -1)
+	{
+		printf("bash: cd: couldn't find %s directory\n", arg);
+		return (1);
+	}
+	if (ft_pwd_changer(cmd) == 1)
+		return (1);
+	return (1);
+}
+
 int		ft_bltin_cd(t_cmd *cmd)
 {
-	if (ft_array_cntr(cmd->argv) > 2)
+	if (ft_array_cntr(cmd->argv) == 1) // IF CD IS ALONE
+	{
+		if (ft_pwd_finder(cmd, "HOME") == 1)
+			return (1);
+	}
+	else if (ft_array_cntr(cmd->argv) > 2) //TOO MANY ARGS
 	{
 		printf("cd: too many arguments\n");
 		return (1);
 	}
-	if (ft_array_cntr(cmd->argv) == 1)
+	else if (cmd->argv[1][0] == '-' && !(cmd->argv[1][1]))
 	{
-		ft_path_changer
+		if (ft_pwd_finder(cmd, "OLDPWD") == 1)
+			return (1);
 	}
-	if ((ft_array_cntr(cmd->argv) == 2) && (cmd->argv[1][0] == '~'))
-	{
-		ft_home_finder(cmd, (cmd->argv[1] + 1));
-		return (1);
-	}
-	if (ft_path_changer(cmd) == 1)
+	else if (ft_path_changer(cmd) == 1)
 		return (1);
 	return (0);
 }
