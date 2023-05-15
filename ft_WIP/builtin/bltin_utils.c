@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:45:48 by flplace           #+#    #+#             */
-/*   Updated: 2023/04/03 16:13:14 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/05/04 14:00:37 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ t_env		*ft_key_add(t_env **envt, char *key, char *value)
 		*envt = new;
 		return (new);
 	}
-	last = ft_envlast(*envt);
+	last = ft_envlast(*envt);	
 	last->next = new;
 	return (new);
 }

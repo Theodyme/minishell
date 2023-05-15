@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:54:46 by flplace           #+#    #+#             */
-/*   Updated: 2023/04/03 15:52:20 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/05/04 13:54:19 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,19 @@
 int			ft_bltin_echo(t_cmd *cmd)
 {
 	int stdout_copy;
-	
+	struct s_arg	*tmp;
+
 	stdout_copy = dup(STDOUT_FILENO);
 	dup2(cmd->fd[1], STDOUT_FILENO);
-	if (cmd->argv && cmd->argv[1])
-		ft_putendl_fd(cmd->argv[1], 1);
+	tmp = cmd->args_list->next;
+	while (cmd->args_list && tmp)
+	{
+		ft_putendl_fd(tmp->str, 1);
+		printf("should print : %s\n", tmp->str);
+		tmp = tmp->next;
+		printf("should print next : %s\n", tmp->str);
+	}
+	printf("getting out\n");
 	dup2(stdout_copy, STDOUT_FILENO);
     close(stdout_copy);
 	return (1);
