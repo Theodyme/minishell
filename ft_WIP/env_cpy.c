@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:58:45 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/13 17:41:00 by flplace          ###   ########.fr       */
+/*   Updated: 2023/05/23 14:55:27 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ char	*ft_split_key(char *str)
 {
 	char	*key;
 
-	key = ft_calloc(sizeof(char), ft_strclen(str, '=') + 1);
-	if (key == NULL)
-		return (NULL);
+	// key = ft_calloc(sizeof(char), ft_strclen(str, '=') + 1);
+	// if (key == NULL)
+	// 	return (NULL);
 	key = ft_strndup(str, ft_strclen(str, '='));
 	return (key);
 }
@@ -59,9 +59,9 @@ char	*ft_split_value(char *str)
 	char	*value;
 
 	str += ft_strclen(str, '=') + 1;
-	value = ft_calloc(sizeof(char), ft_strlen(str) + 1);
-	if (value == NULL)
-		return (NULL);
+	// value = ft_calloc(sizeof(char), ft_strlen(str) + 1);
+	// if (value == NULL)
+	// 	return (NULL);
 	value = ft_strdup(str);
 	return (value);
 }

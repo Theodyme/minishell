@@ -6,7 +6,7 @@ int	ft_add_redir(t_redir *redir, t_token *token)
 
 	tmp = redir;
 	if (tmp->file)
-	{	
+	{
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = ft_calloc(1, sizeof(t_redir));
@@ -67,14 +67,14 @@ int	ft_create_arg(t_arg **arg)
 
 int	ft_fill_cmd(t_cmd *cmd, t_token *tkn)
 {
-	while (tkn && tkn->type != PIPE && tkn->type != EOL) 
+	while (tkn && tkn->type != PIPE && tkn->type != EOL)
 	{
 		cmd->pid = -1;
 		if (tkn->type == WORD && !cmd->name)
 		{
 			cmd->name = ft_strdup(tkn->str);
 			if (!cmd->name)
-				return (1);
+				return (printf("Error: could'nt add command name\n"), 1);
 			cmd->args_list = ft_calloc(1, sizeof(t_arg));
 			if (!cmd->args_list)
 				return (printf("Error: ft_create_arg failed\n"), 1);
@@ -85,7 +85,7 @@ int	ft_fill_cmd(t_cmd *cmd, t_token *tkn)
 			return (printf("Error: ft_add_arg failed\n"), 1);
 		else if (!ft_redir(tkn, cmd))
 			tkn = tkn->next;
-		else if (tkn->type != EOL)
+		else if (tkn->type == EOL)
 			return (1);
 		tkn = tkn->next;
 	}

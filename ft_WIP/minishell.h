@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/04/24 18:00:36 by flplace          ###   ########.fr       */
+/*   Updated: 2023/05/23 17:25:51 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,7 @@ int		ft_wordlen(char *line);
 int		ft_wordlen_with_dollar(char *line);
 
 int		ft_getenv(char *key, t_env *env);
-t_token	*ft_tokenize(char *line);
+t_token	*ft_tokenize(const char *line);
 
 /* --------------------------------- PARSER --------------------------------- */
 
@@ -252,6 +252,9 @@ int		ft_quotelen(char *str);
 
 void	ft_free_lst_token(t_token *head);
 void	ft_free_lst_env(t_env *head);
+void	ft_free_cmd(t_cmd *cmd);
+void	ft_free_array(char **array);
+void	ft_free_args(t_cmd *cmd);
 
 // int 	ft_readlst(t_token *lst);
 
@@ -260,7 +263,6 @@ void	ft_free_lst_env(t_env *head);
 t_token	*ft_specialtoken2(int *i, char *line, t_token *token);
 
 int		ft_getenv(char *key, t_env *env);
-t_token	*ft_tokenize(char *line);
 
 /*				print test functions				*/
 
@@ -268,5 +270,6 @@ void	ft_print_token(t_token *head);
 void	ft_print_env(t_env *head);
 void	ft_print_array(char **array);
 void	ft_print_cmd(t_cmd *cmd);
+void	ft_print_cmdlist(t_arg *head);
 
 #endif

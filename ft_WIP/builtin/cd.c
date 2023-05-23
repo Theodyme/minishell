@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:41:12 by flplace           #+#    #+#             */
-/*   Updated: 2023/04/24 17:58:05 by flplace          ###   ########.fr       */
+/*   Updated: 2023/05/23 18:59:45 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		ft_pwd_changer(t_cmd *cmd)
 	free(oldpwd->value);
 	oldpwd->value = ft_strdup(pwd->value);
 	free(pwd->value);
-	pwd->value = ft_strdup(getcwd(NULL, 0));
+	pwd->value = getcwd(NULL, 0);
 	return (0);
 }
 

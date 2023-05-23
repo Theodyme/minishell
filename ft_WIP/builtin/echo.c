@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:54:46 by flplace           #+#    #+#             */
-/*   Updated: 2023/05/04 13:54:19 by flplace          ###   ########.fr       */
+/*   Updated: 2023/05/15 14:27:44 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 
 int			ft_bltin_echo(t_cmd *cmd)
 {
+	// (void)cmd;
+	// return (0);
 	int stdout_copy;
 	struct s_arg	*tmp;
 
@@ -31,11 +33,8 @@ int			ft_bltin_echo(t_cmd *cmd)
 	while (cmd->args_list && tmp)
 	{
 		ft_putendl_fd(tmp->str, 1);
-		printf("should print : %s\n", tmp->str);
 		tmp = tmp->next;
-		printf("should print next : %s\n", tmp->str);
 	}
-	printf("getting out\n");
 	dup2(stdout_copy, STDOUT_FILENO);
     close(stdout_copy);
 	return (1);

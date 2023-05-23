@@ -139,10 +139,11 @@ t_token	*ft_blanktoken(int *i, char *line, t_token *token)
 	return (token);
 }
 
-t_token *ft_tokenize(char *line)
+t_token *ft_tokenize(const char *line)
 {
 	t_token	*head;
 	t_token	*tmp;
+	char	*newline;
 	int		i;
 
 	i = 0;
@@ -150,23 +151,27 @@ t_token *ft_tokenize(char *line)
 	if (!head)
 		return (NULL);
 	tmp = head;
-	line = ft_strtrim(line, C_BLANK);
-	while (line[i])
+	newline = ft_strtrim(line, C_BLANK);
+	while (newline[i])
 	{
-		if (ft_isblank(line[i]))
-			tmp = ft_blanktoken(&i, line + i, tmp);
-		else if (line[i] == '\'' || line[i] == '\"')
-			tmp = ft_quotetoken(&i, line + i, tmp);
-		else if (line[i] && ft_isspecial(line[i]))
-			tmp = ft_specialtoken1(&i, line + i, tmp);
+		if (ft_isblank(newline[i]))
+			tmp = ft_blanktoken(&i, newline + i, tmp);
+		else if (newline[i] == '\'' || newline[i] == '\"')
+			tmp = ft_quotetoken(&i, newline + i, tmp);
+		else if (newline[i] && ft_isspecial(newline[i]))
+			tmp = ft_specialtoken1(&i, newline + i, tmp);
 		else
-			tmp = ft_wordtoken(&i, line + i, tmp);
+			tmp = ft_wordtoken(&i, newline + i, tmp);
 		tmp->next = ft_calloc(1, sizeof(t_token));
 		if (!tmp->next)
+		{
+			free(newline);
 			return (ft_free_lst_token(head), NULL);
+		}
 		tmp = tmp->next;
 	}
 	tmp->type = EOL;
 	tmp->str = ft_strdup("newline");
+	free(newline);
 	return (head);
 }

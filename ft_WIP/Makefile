@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+         #
+#    By: flplace <flplace@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 11:54:49 by flplace           #+#    #+#              #
-#    Updated: 2023/04/03 16:23:27 by mabimich         ###   ########.fr        #
+#    Updated: 2023/05/23 17:27:05 by flplace          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,7 @@ SRCS	=	builtin/echo.c \
 			get_path.c \
 			exec.c \
 			exit.c \
+			free.c \
 			main.c
 OBJ		=	${SRCS:.c=.o}
 HEADER	=   minishell.h

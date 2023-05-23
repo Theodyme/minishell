@@ -83,6 +83,7 @@ char	*return_status(void)
 	else
 		out = ft_3strjoin_with_free("\033[31m", tmp, "\033[0m", 000);
 	str = ft_strjoin(out, " > ");
+	free(out);
 	free(tmp);
 	return (str);
 }
@@ -148,6 +149,11 @@ int	main(int ac, char **av, char **envp)
 		ft_exec(cmd);
 		ft_add_history(line);
 		ft_free_lst_token(head);
+		if (cmd)
+			ft_free_cmd(cmd);
 	}
+	ft_free_lst_env(envt);
+	if (cmd)
+		ft_free_cmd(cmd);
 	return (0);
 }

@@ -61,3 +61,15 @@ void	ft_print_env(t_env *head)
 		tmp = tmp->next;
 	}
 }
+
+void	ft_print_cmdlist(t_arg *head)
+{
+	t_arg	*tmp;
+
+	tmp = head;
+	while (tmp->next)
+	{
+		printf("%s\n", tmp->str);
+		tmp = tmp->next;
+	}
+}
