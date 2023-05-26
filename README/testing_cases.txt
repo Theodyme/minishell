@@ -45,9 +45,9 @@ Check leaks.
 
 cases:
 
-	ls | pwd | cat					pwd results prints
-	ls | pwd						pwd results prints
-	pwd | ls						pwd results prints
+	ls | pwd | cat					pwd results print
+	ls | pwd						pwd results print
+	pwd | ls						pwd results do not print
 
 globale? pour les var env? comment on les modifies sinon?
 builtins qui alterent/lisent les var. env:

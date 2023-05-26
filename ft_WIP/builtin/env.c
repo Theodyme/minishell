@@ -6,17 +6,28 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:58:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/03/24 11:54:12 by flplace          ###   ########.fr       */
+/*   Updated: 2023/05/26 14:36:21 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+void	ft_print_keynvalue(t_env *parse)
+{
+	ft_putendl_fd(parse->key, 1);
+	ft_putendl_fd("=", 1);
+	ft_putendl_fd(parse->value, 1);
+	ft_putendl_fd("\n", 1);
+	return ;
+}
+
 int	ft_bltin_env(t_cmd *cmd)
 {
+	int stdout_copy;
 	t_env	*parse = NULL;
 
-	// printf("node %p, %s=%s, next %p\n", div->envt, div->envt->key, div->envt->value, div->envt->next);
+	stdout_copy = dup(STDOUT_FILENO);
+	dup2(cmd->fd[1], STDOUT_FILENO);
 	parse = cmd->envt;
 	if (parse == NULL)
 	{
@@ -25,10 +36,12 @@ int	ft_bltin_env(t_cmd *cmd)
 	}
 	while (parse->next)
 	{
-		printf("%s=%s\n", parse->key, parse->value);
+		ft_print_keynvalue(parse);
 		parse = parse->next;
 	}
 	if (parse)
-		printf("%s=%s\n", parse->key, parse->value);
+		ft_print_keynvalue(parse);
+	dup2(stdout_copy, STDOUT_FILENO);
+    close(stdout_copy);
 	return (0);
 }
