@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/05/23 17:25:51 by flplace          ###   ########.fr       */
+/*   Updated: 2023/05/26 16:33:19 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,6 +255,10 @@ void	ft_free_lst_env(t_env *head);
 void	ft_free_cmd(t_cmd *cmd);
 void	ft_free_array(char **array);
 void	ft_free_args(t_cmd *cmd);
+
+void	ft_free_n_exit(t_cmd *cmd, int code);
+
+int	open_files(t_cmd *cmd);
 
 // int 	ft_readlst(t_token *lst);
 

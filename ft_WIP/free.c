@@ -22,7 +22,8 @@ void	ft_free_args(t_cmd *cmd)
 	if (cmd->argv)
 	{
 		ft_free_array(cmd->argv);
-		free(cmd->argv);
+		if (cmd->argv)
+			free(cmd->argv);
 		cmd->argv = NULL;
 	}
 	ft_free_array(cmd->envp);
@@ -43,6 +44,7 @@ void	ft_free_cmd(t_cmd *cmd)
 	t_redir	*tmp;
 	t_redir	*node;
 	t_cmd	*ctmp;
+	t_cmd	*cnode;
 
 	ctmp = cmd;
 	while (ctmp)
@@ -57,8 +59,10 @@ void	ft_free_cmd(t_cmd *cmd)
 			free(node);
 		}
 		ft_free_args(ctmp);
+		cnode = ctmp;
 		ctmp = ctmp->next;
+		if (cnode)
+			free(cnode);
 	}
-	free(cmd);
 	return ;
 }

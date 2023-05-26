@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/04/05 15:32:04 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/05/26 17:51:14 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,26 @@
 ** @s2 : message d'erreur
 */
 
+void	ft_free_n_exit(t_cmd *cmd, int code)
+{
+	if (cmd->envt)
+		ft_free_lst_env(cmd->envt);
+	if (cmd && cmd->head)
+	{
+		cmd = cmd->head;
+		ft_free_cmd(cmd);
+	}
+	else if (cmd)
+		ft_free_cmd(cmd);
+	exit(code);
+}
+
 void	ft_msg(char *s1, char *s2)
-{	
+{
 	char	*tmp;
 	char	*out;
 
-	tmp = ft_3strjoin_with_free("bash: ", s1, ": ", 0);
+	tmp = ft_3strjoin_with_free("triton: ", s1, ": ", 0);
 	if (!tmp)
 		return ;
 	out = ft_3strjoin_with_free(tmp, s2, "\n", 100);
@@ -50,7 +64,7 @@ void	ft_msg(char *s1, char *s2)
 void	dispatch_exit2(t_cmd *cmd, int code)
 {
 
-	
+
 	// if (code > 6 && cmd->fd[1] != -1) //peut etre inversé
 	// 	close(cmd->fd[1]);
 	// if (code > 5 && cmd->fd[0] != -1)
@@ -62,16 +76,16 @@ void	dispatch_exit2(t_cmd *cmd, int code)
 	// if (code > 1)
 	// 	free(cmd);
 	// data = NULL;
-	cmd = NULL;
+	// cmd = NULL;
 	// close(0);
 	// close(1);
 	// close(2);
 	if (code == 126 || code == 127)
-		exit(code);
-	if (code == 666)
-		exit(1);
+		ft_free_n_exit(cmd, code);
+	if (code == 666 || code == 555)
+		ft_free_n_exit(cmd, 1);
 	if (code == 21 || code == 9)
-		exit(0);
+		ft_free_n_exit(cmd, 0);
 	//exit(WEXITSTATUS(1));
 }
 
@@ -131,8 +145,20 @@ void	dispatch_exit(t_cmd *cmd, int code)
 		}
 	}
 	if (code == 555)
+	{
+		close_pipes(cmd);
+		if (cmd->fd[1])
+			close(cmd->fd[1]);
 		ft_msg(strerror(errno), cmd->name_file[0]);
+		// ft_free_n_exit(cmd, 1);
+	}
 	if (code == 666)
+	{
+		close_pipes(cmd);
+		if (cmd->fd[0])
+			close(cmd->fd[0]);
 		ft_msg(strerror(errno), cmd->name_file[1]);
+		// ft_free_n_exit(cmd, 1);
+	}
 	dispatch_exit2(cmd, code);
 }

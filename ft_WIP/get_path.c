@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:21:19 by mabimich          #+#    #+#             */
-/*   Updated: 2023/03/30 20:46:46 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/05/26 17:51:14 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*verif_paths(char **paths, char *cmd)
 	out = NULL;
 	i = -1;
 	if (!paths)
-		return (printf("Bash: path is NULL\n"), NULL);
+		return (printf("triton: path is NULL\n"), NULL);
 	while (paths && paths[++i])
 	{
 		if (!access(paths[i], F_OK | X_OK) && !out)

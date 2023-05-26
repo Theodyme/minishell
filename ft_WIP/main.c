@@ -44,6 +44,7 @@ int ft_bltin_tester(t_cmd **cmd)
 	i = 0;
 	if (!(*cmd)->name)
 		return (2);
+	open_files(*cmd);
 	while(bltin[i].call && ft_strcmp(bltin[i].call, (*cmd)->name) != 0)
 		i++;
 	(*cmd)->pid = 1;
@@ -123,7 +124,7 @@ int	main(int ac, char **av, char **envp)
 			head = ft_tokenize(line);
 		else
 		{
-			write(2, "Bash: Unmatched quote\n", 23);
+			write(2, "triton: Unmatched quote\n", 23);
 			continue ;
 		}
 		if (debug)
@@ -132,7 +133,7 @@ int	main(int ac, char **av, char **envp)
 		ft_print_token(head);
 		}
 		if (!head)
-			return (write(2, "Bash: Tokenization failed\n", 27), 1);
+			return (write(2, "triton: Tokenization failed\n", 27), 1);
 		ft_expand(head, envt);
 		if (debug)
 		{
@@ -140,6 +141,7 @@ int	main(int ac, char **av, char **envp)
 			ft_print_token(head);
 		}
 		cmd = ft_parser(head, envt);
+		ft_free_lst_token(head);
 		ft_setting_env(envt, cmd);
 		if (debug)
 		{
@@ -148,7 +150,7 @@ int	main(int ac, char **av, char **envp)
 		}
 		ft_exec(cmd);
 		ft_add_history(line);
-		ft_free_lst_token(head);
+		// ft_free_lst_token(head);
 		if (cmd)
 			ft_free_cmd(cmd);
 	}
