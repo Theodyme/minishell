@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/05/26 17:51:14 by flplace          ###   ########.fr       */
+/*   Updated: 2023/05/30 17:32:53 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_msg(char *s1, char *s2)
 	char	*tmp;
 	char	*out;
 
-	tmp = ft_3strjoin_with_free("triton: ", s1, ": ", 0);
+	tmp = ft_3strjoin_with_free("\033[34mᴛʀɪᴛᴏɴ\033[0m: ", s1, ": ", 0);
 	if (!tmp)
 		return ;
 	out = ft_3strjoin_with_free(tmp, s2, "\n", 100);

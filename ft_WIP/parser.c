@@ -34,9 +34,9 @@ int	ft_check_syntax(t_token *token)
 
 	tmp = token;
 	if (!tmp)
-		return (printf("triton: syntax error\n"), 1);
+		return (printf("\033[34mᴛʀɪᴛᴏɴ\033[0m: syntax error\n"), 1);
 	if (tmp->type == PIPE)
-		return (printf("triton: syntax error near unexpected token `%s'\n"\
+		return (printf("\033[34mᴛʀɪᴛᴏɴ\033[0m: syntax error near unexpected token `%s'\n"\
 		, tmp->str), 1);
 	while (tmp)
 	{
@@ -44,13 +44,13 @@ int	ft_check_syntax(t_token *token)
 		tmp->type == APPEND || tmp->type == HEREDOC)
 		{
 			if (!tmp->next || tmp->next->type != WORD)
-				return (printf("triton: syntax error near unexpected token \
+				return (printf("\033[34mᴛʀɪᴛᴏɴ\033[0m: syntax error near unexpected token \
 `%s'\n", tmp->next->str), 1);
 		}
 		else if (tmp->type == PIPE)
 		{
 			if (!tmp->next || tmp->next->type == PIPE)
-				return (printf("triton: syntax error near unexpected token \
+				return (printf("\033[34mᴛʀɪᴛᴏɴ\033[0m: syntax error near unexpected token \
 `%s'\n", tmp->str), 1);
 		}
 		tmp = tmp->next;
