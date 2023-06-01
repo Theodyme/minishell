@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:28:34 by mabimich          #+#    #+#             */
-/*   Updated: 2023/05/26 16:59:26 by flplace          ###   ########.fr       */
+/*   Updated: 2023/06/01 18:02:00 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void	child(t_cmd *cmd)
 			ft_msg(cmd->name, "command found but not executable");
 		dispatch_exit(cmd, 126);
 	}
-	
+
 	if (path && cmd->argv && cmd->argv[0])
 		execve(path, cmd->argv, cmd->envp);
 	if (cmd->argv)
@@ -148,6 +148,8 @@ int	ft_exec(t_cmd *cmd)
 	while (tmp && tmp->pid)
 	{
 		out = ft_bltin_tester(&tmp);
+		if (out == 0)
+			out = ft_fun_builder(&tmp);
 		if (out == 0)
 			tmp->pid = fork();
 		if (out == 2 && !tmp->head->next)

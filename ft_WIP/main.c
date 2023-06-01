@@ -38,7 +38,7 @@ void	ft_print_title(void)
 int ft_bltin_tester(t_cmd **cmd)
 {
 	int			i;
-	const t_fn	bltin[8] = {
+	const t_fn	bltin[12] = {
 	{.call = "echo", .blt_fn = &ft_bltin_echo},
 	{.call = "cd", .blt_fn = &ft_bltin_cd},
 	{.call = "pwd", .blt_fn = &ft_bltin_pwd},

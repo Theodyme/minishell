@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/05/26 16:33:19 by flplace          ###   ########.fr       */
+/*   Updated: 2023/06/01 18:07:52 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,8 @@ char	*ft_pick(char const *s, char c, size_t p);
 char	**ft_split(char const *s, char c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	free_tab_with_1blank(char **tab);
+char	*ft_str_tolower(char *str);
+int		ft_tolower(int n);
 
 /* -------------------------------- builtins -------------------------------- */
 
@@ -177,13 +179,12 @@ int		ft_bltin_export(t_cmd *cmd);
 int		ft_bltin_unset(t_cmd *cmd);
 int		ft_bltin_env(t_cmd *cmd);
 int		ft_bltin_exit(t_cmd *cmd);
-int		ft_bltin_echo(t_cmd *cmd);
-int		ft_bltin_cd(t_cmd *cmd);
-int		ft_bltin_pwd(t_cmd *cmd);
-int		ft_bltin_export(t_cmd *cmd);
-int		ft_bltin_unset(t_cmd *cmd);
-int		ft_bltin_env(t_cmd *cmd);
-int		ft_bltin_exit(t_cmd *cmd);
+
+/* ------------------------------ fun builtins ------------------------------ */
+
+int		ft_fun_builder(t_cmd **cmd);
+
+int		ft_bltin_hello(t_cmd *cmd);
 
 /* ----------------------------- builtins utils ----------------------------- */
 

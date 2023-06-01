@@ -6,7 +6,7 @@
 #    By: flplace <flplace@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 11:54:49 by flplace           #+#    #+#              #
-#    Updated: 2023/05/23 17:27:05 by flplace          ###   ########.fr        #
+#    Updated: 2023/06/01 18:00:19 by flplace          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,8 @@ SRCS	=	builtin/echo.c \
 			builtin/env.c \
 			builtin/exit.c \
 			builtin/bltin_utils.c \
+			fun_builtin/hello.c \
+			fun_builtin/funbuilder.c \
 			lib/ft_calloc.c \
 			lib/ft_lstlast.c \
 			lib/ft_memset.c \
