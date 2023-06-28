@@ -23,9 +23,10 @@ char	*ft_str_tolower(char *str)
 int ft_fun_builder(t_cmd **cmd)
 {
 	int			i;
-	const t_fn	bltin[3] = {
+	const t_fn	bltin[4] = {
 	{.call = "hello", .blt_fn = &ft_bltin_hello},
 	{.call = "hi", .blt_fn = &ft_bltin_hello},
+	{.call = "where", .blt_fn = &ft_bltin_where},
 	};
 
 	i = 0;

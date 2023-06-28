@@ -96,6 +96,24 @@ char	*return_status(void)
 	return (str);
 }
 
+void	shlvl_inc(t_env *envt)
+{
+	t_env	*shell;
+	int		i;
+
+	shell = ft_key_finder(&envt, "SHLVL");
+	if (!shell)
+	{
+		write(2, "Error: Couldn't get shell lvl\n", 31);
+		return ;
+	}
+	i = ft_atoi(shell->value);
+	i++;
+	free(shell->value);
+	shell->value = ft_itoa(i);
+	return ;
+}
+
 int		g_status = 0;
 
 int	main(int ac, char **av, char **envp)
@@ -119,6 +137,7 @@ int	main(int ac, char **av, char **envp)
 		write(2, "Error: Couldn't get env variables\n", 34);
 		return 1;
 	}
+	shlvl_inc(envt);
 	while (true)
 	{
 		status = return_status();

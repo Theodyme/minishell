@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/06/01 18:07:52 by flplace          ###   ########.fr       */
+/*   Updated: 2023/06/28 10:51:00 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlen(const char *str);
 char	*ft_strchr(const char *s, int c);
+int		ft_strchr_end(const char *s, int c);
 size_t	ft_strclen(const char *str, char c);
 char	*ft_strcpy(char *dest, const char *src);
 int		ft_is_in_charset(const char c, const char *charset);
@@ -153,6 +154,9 @@ char	*ft_strjoin_tab(char **tab);
 char	*ft_strjoin_free(char *s1, char *s2);
 void	ft_free_tab_str(char **tab, int max);
 char	*ft_itoa(int n);
+int		ft_atoi(const char *str);
+int		ft_isspace(char c);
+int		ft_isdigit(int n);
 char	*ft_strtrim_free(char *s1, char const *set);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
@@ -184,7 +188,9 @@ int		ft_bltin_exit(t_cmd *cmd);
 
 int		ft_fun_builder(t_cmd **cmd);
 
+char    *ft_currfile(char *path);
 int		ft_bltin_hello(t_cmd *cmd);
+int		ft_bltin_where(t_cmd *cmd);
 
 /* ----------------------------- builtins utils ----------------------------- */
 

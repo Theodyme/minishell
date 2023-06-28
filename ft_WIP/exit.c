@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/05/30 17:32:53 by flplace          ###   ########.fr       */
+/*   Updated: 2023/06/28 09:37:08 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,6 @@ void	dispatch_exit2(t_cmd *cmd, int code)
 
 void	dispatch_exit(t_cmd *cmd, int code)
 {
-	int	i;
-
-	i = -1;
 	if (code == 0)
 		code = 7;
 	// if (code >= 10 && !(code % 10))

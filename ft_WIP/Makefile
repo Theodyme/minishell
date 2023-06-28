@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: flplace <flplace@student.42.fr>            +#+  +:+       +#+         #
+#    By: theophane <theophane@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 11:54:49 by flplace           #+#    #+#              #
-#    Updated: 2023/06/01 18:00:19 by flplace          ###   ########.fr        #
+#    Updated: 2023/06/28 10:49:28 by theophane        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRCS	=	builtin/echo.c \
 			builtin/exit.c \
 			builtin/bltin_utils.c \
 			fun_builtin/hello.c \
+			fun_builtin/where.c \
 			fun_builtin/funbuilder.c \
 			lib/ft_calloc.c \
 			lib/ft_lstlast.c \
@@ -40,7 +41,9 @@ SRCS	=	builtin/echo.c \
 			lib/ft_strcpy.c \
 			lib/ft_strlcpy.c \
 			lib/ft_strchr.c \
+			lib/ft_strchr_end.c \
 			lib/ft_itoa.c \
+			lib/ft_atoi.c \
 			lib/ft_strjoin.c \
 			lib/ft_strjoin_tab.c \
 			lib/ft_memmove.c \
