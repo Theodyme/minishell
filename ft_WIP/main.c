@@ -35,7 +35,7 @@ void	ft_print_title(void)
 	return ;
 }
 
-int ft_bltin_tester(t_cmd **cmd)
+int	ft_bltin_tester(t_cmd **cmd)
 {
 	int			i;
 	const t_fn	bltin[12] = {
@@ -52,7 +52,7 @@ int ft_bltin_tester(t_cmd **cmd)
 	if (!(*cmd)->name)
 		return (2);
 	open_files(*cmd);
-	while(bltin[i].call && ft_strcmp(bltin[i].call, (*cmd)->name) != 0)
+	while (bltin[i].call && ft_strcmp(bltin[i].call, (*cmd)->name) != 0)
 		i++;
 	(*cmd)->pid = 1;
 	if (ft_strcmp((*cmd)->name, "exit") == 0)
@@ -81,10 +81,12 @@ void	ft_setting_env(t_env *envt, t_cmd *cmd)
 
 char	*return_status(void)
 {
-	char	*str = NULL;
-	char	*out = NULL;
-	char	*tmp = NULL;
+	char	*str;
+	char	*out;
+	char	*tmp;
 
+	str = NULL;
+	out = NULL;
 	tmp = ft_itoa(WEXITSTATUS(g_status));
 	if (ft_strcmp(tmp, "0") == 0)
 		out = ft_3strjoin_with_free("\033[32m", tmp, "\033[0m", 000);

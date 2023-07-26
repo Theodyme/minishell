@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: theophane <theophane@student.42.fr>        +#+  +:+       +#+         #
+#    By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 11:54:49 by flplace           #+#    #+#              #
-#    Updated: 2023/06/28 10:49:28 by theophane        ###   ########.fr        #
+#    Updated: 2023/07/26 15:54:48 by mabimich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ SRCS	=	builtin/echo.c \
 			env_cpy.c \
 			quote.c \
 			expand.c \
+			expand_dollar_utils.c \
 			rl_gets.c \
 			parser.c \
 			fill_cmd.c \

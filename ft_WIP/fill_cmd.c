@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fill_cmd.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/26 15:54:00 by mabimich          #+#    #+#             */
+/*   Updated: 2023/07/26 15:54:01 by mabimich         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	ft_add_redir(t_redir *redir, t_token *token)
@@ -23,7 +35,8 @@ int	ft_add_redir(t_redir *redir, t_token *token)
 
 int	ft_redir(t_token *token, t_cmd *cmd)
 {
-	if (token->type != REDIR_IN && token->type != REDIR_OUT && token->type != APPEND)
+	if (token->type != REDIR_IN && token->type != REDIR_OUT
+		&& token->type != APPEND)
 		return (1);
 	else if (!token->next)
 		return (1);
