@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   wip.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/26 15:59:32 by mabimich          #+#    #+#             */
+/*   Updated: 2023/07/26 15:59:52 by mabimich         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	ft_isblank(char c)
 {
-	if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r')
+	if (c == ' ' || c == '\t' || c == '\n' || c == '\v'
+		|| c == '\f' || c == '\r')
 		return (1);
 	return (0);
 }
@@ -75,7 +88,7 @@ t_token	*ft_specialtoken2(int *i, char *line, t_token *token)
 
 int	ft_wordlen(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line[i] && !ft_isblank(line[i]) && !ft_isspecial(line[i]) && !ft_isquote(line[i]))
@@ -85,7 +98,7 @@ int	ft_wordlen(char *line)
 
 int	ft_spacelen(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line[i] && ft_isblank(line[i]))
@@ -95,7 +108,7 @@ int	ft_spacelen(char *line)
 
 void	ft_free_lst_token(t_token *head)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	while (head)
 	{

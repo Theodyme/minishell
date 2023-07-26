@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:35:18 by flplace           #+#    #+#             */
-/*   Updated: 2023/07/26 15:35:22 by flplace          ###   ########.fr       */
+/*   Updated: 2023/07/26 17:59:48 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ char	*verif_paths(char **paths, char *cmd)
 	out = NULL;
 	i = -1;
 	if (!paths)
-		return (printf("\033[34m\033[34mᴛʀɪᴛᴏɴ\033[0m\033[0m: path is NULL\n"), NULL);
+		return (printf("\033[34m\033[34mᴛʀɪᴛᴏɴ\033[0m\033[0m: path is NULL\n"),
+			NULL);
 	while (paths && paths[++i])
 	{
 		if (!access(paths[i], F_OK | X_OK) && !out)

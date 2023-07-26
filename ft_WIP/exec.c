@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:28:34 by mabimich          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/07/26 17:44:13 by flplace          ###   ########.fr       */
+=======
+/*   Updated: 2023/07/26 17:48:37 by mabimich         ###   ########.fr       */
+>>>>>>> refs/remotes/origin/master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +114,6 @@ void	child(t_cmd *cmd)
 	char		*path;
 	struct stat	st;
 
-	path = NULL;
 	ft_envlist_to_array(cmd);
 	open_files(cmd);
 	dup2(cmd->fd[0], STDIN_FILENO);
@@ -119,7 +122,8 @@ void	child(t_cmd *cmd)
 	if (!cmd->name)
 		dispatch_exit(cmd, 21);
 	path = get_path(cmd->name, cmd->envp);
-	if (path && stat(path, &st) != -1 && (access(path, F_OK | X_OK) || S_ISDIR(st.st_mode)))
+	if (path && stat(path, &st) != -1 && (access(path, F_OK | X_OK)
+			|| S_ISDIR(st.st_mode)))
 	{
 		if (S_ISDIR(st.st_mode))
 			ft_msg(cmd->name, "is a directory");
@@ -127,12 +131,16 @@ void	child(t_cmd *cmd)
 			ft_msg(cmd->name, "command found but not executable");
 		dispatch_exit(cmd, 126);
 	}
-
 	if (path && cmd->argv && cmd->argv[0])
 		execve(path, cmd->argv, cmd->envp);
+<<<<<<< HEAD
 	// if (cmd->argv)
 	// 	ft_free_tab_str(cmd->argv, -1);
+=======
+>>>>>>> refs/remotes/origin/master
 	ft_msg(cmd->name, "command not found");
+	// if (cmd->argv)
+	// 	ft_free_tab_str(cmd->argv, -1);
 	dispatch_exit(cmd, 127);
 }
 
@@ -147,6 +155,7 @@ int	ft_exec(t_cmd *cmd)
 	open_pipes(tmp);
 	while (tmp && tmp->pid)
 	{
+		// write(2, "______-------------------______\n", 33);
 		out = ft_bltin_tester(&tmp);
 		if (out == 0)
 			out = ft_fun_builder(&tmp);

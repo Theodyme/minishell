@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/06/28 10:51:00 by theophane        ###   ########.fr       */
+/*   Updated: 2023/07/26 16:08:31 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ int		ft_bltin_exit(t_cmd *cmd);
 
 int		ft_fun_builder(t_cmd **cmd);
 
-char    *ft_currfile(char *path);
+char	*ft_currfile(char *path);
 int		ft_bltin_hello(t_cmd *cmd);
 int		ft_bltin_where(t_cmd *cmd);
 
@@ -206,21 +206,25 @@ int		ft_path_changer(t_cmd *cmd);
 
 /* --------------------------------- EXPAND --------------------------------- */
 
-int		ft_trim_blank(char *line);
-
 int		ft_expand(t_token *tkn, t_env *env);
+void	ft_remove_blank_token(t_token *tkn);
+void	ft_merge_word(t_token *tkn);
+void	ft_quote_to_word(t_token *tkn);
+int		ft_expand_dollar(t_token *tkn, t_env *env);
 
-int		ft_wordlen(char *line);
-int		ft_wordlen_with_dollar(char *line);
+/* --------------------------- EXPAND_DOLLAR_UTILS -------------------------- */
 
-int		ft_getenv(char *key, t_env *env);
-t_token	*ft_tokenize(const char *line);
+char	*fill_env(char *str, t_env *env);
+char	*ft_getvalue(char *key, t_env *env);
+size_t	ft_count_part(char *str);
+char	*ft_strtok_minishell(char *str, char *delim);
+t_token	*ft_fill_expanded(t_token *tkn, char *str);
 
 /* --------------------------------- PARSER --------------------------------- */
 
-t_cmd  *ft_parser(t_token *tkn, t_env *envt);
-int 	ft_check_syntax(t_token *tkn);
-int 	ft_is_redir(t_token *tkn);
+t_cmd	*ft_parser(t_token *tkn, t_env *envt);
+int		ft_check_syntax(t_token *tkn);
+int		ft_is_redir(t_token *tkn);
 int		ft_check_syntax(t_token *tkn);
 int		ft_is_redir(t_token *tkn);
 
@@ -265,7 +269,14 @@ void	ft_free_args(t_cmd *cmd);
 
 void	ft_free_n_exit(t_cmd *cmd, int code);
 
-int	open_files(t_cmd *cmd);
+int		open_files(t_cmd *cmd);
+
+int		ft_wordlen(char *line);
+int		ft_wordlen_with_dollar(char *line);
+int		ft_getenv(char *key, t_env *env);
+t_token	*ft_tokenize(const char *line);
+
+int		ft_trim_blank(char *line);
 
 // int 	ft_readlst(t_token *lst);
 

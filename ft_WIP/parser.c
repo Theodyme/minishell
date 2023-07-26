@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/26 16:23:49 by mabimich          #+#    #+#             */
+/*   Updated: 2023/07/26 16:26:10 by mabimich         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	ft_token_to_cmd(t_token *head, t_cmd *cmd, t_env *envt)
@@ -36,8 +48,8 @@ int	ft_check_syntax(t_token *token)
 	if (!tmp)
 		return (printf("\033[34mᴛʀɪᴛᴏɴ\033[0m: syntax error\n"), 1);
 	if (tmp->type == PIPE)
-		return (printf("\033[34mᴛʀɪᴛᴏɴ\033[0m: syntax error near unexpected token `%s'\n"\
-		, tmp->str), 1);
+		return (printf("\033[34mᴛʀɪᴛᴏɴ\033[0m: syntax error near unexpected	token \
+`%s'\n", tmp->str), 1);
 	while (tmp)
 	{
 		if (tmp->type == REDIR_IN || tmp->type == REDIR_OUT || \
@@ -112,7 +124,7 @@ int	ft_envlist_to_array(t_cmd *cmd)
 	return (0);
 }
 
-t_cmd  *ft_parser(t_token *token, t_env *envt)
+t_cmd	*ft_parser(t_token *token, t_env *envt)
 {
 	t_cmd	*cmd;
 

@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
 /*   Updated: 2023/07/26 17:50:05 by flplace          ###   ########.fr       */
+=======
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
+/*   Updated: 2023/07/26 17:55:24 by mabimich         ###   ########.fr       */
+>>>>>>> refs/remotes/origin/master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +61,7 @@ void	ft_msg(char *s1, char *s2)
 ** Cette fonction libère la mémoire et quitte le programme.
 ** Elle est appelée par dispatch_exit.
 ** Elle gère les tout les codes et plus finement les codes d'erreurs suivants:
+** 9 : builtin exit
 ** 8 : probleme lors de la creation d'un fork
 ** 7 : probleme lors de la creation du premier pipe
 ** 3 : probleme lors de l'allocation du tableau de path
@@ -80,6 +88,8 @@ void	dispatch_exit2(t_cmd *cmd, int code)
 	// close(0);
 	// close(1);
 	// close(2);
+	if (code == 21)
+		write(2, "________NO_COMMAND________\n", 27);
 	if (code == 126 || code == 127)
 		ft_free_n_exit(cmd, code);
 	if (code == 666 || code == 555)
@@ -130,12 +140,10 @@ void	dispatch_exit(t_cmd *cmd, int code)
 	if (!(code % 111))
 	{
 		close_pipes(cmd);
-		//while (code == 777 && cmd && cmd->pid)
 		while (code == 777 && cmd && cmd->pid != -1)
 		{
-		//	fprintf(stderr, "...waiting for %s: %d\n", cmd->name, cmd->pid);
 			if (cmd->pid != -1 && cmd->pid != 1)
-				waitpid(cmd->pid, &g_status, 0); // cehck qu on attend pas que le dernier, mais tous a partir du 0 et pensez a ce qu il se passe si on ctrl c pendant le process d attente des enfants
+				waitpid(cmd->pid, &g_status, 0); // Il faut check qu'on attend pas que le dernier, mais tous a partir du 0 et pensez a ce qu il se passe si on ctrl c pendant le process d attente des enfants
 			else if (cmd->pid == 1)
 				g_status = cmd->status;
 			cmd = cmd->next;
