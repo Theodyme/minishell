@@ -6,29 +6,28 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:41:12 by flplace           #+#    #+#             */
-/*   Updated: 2023/05/30 17:32:53 by flplace          ###   ########.fr       */
+/*   Updated: 2023/07/26 15:48:30 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// 		int		ft_find_home()
-
 char	*ft_pathbuilder(char *path, char *cmdname)
 {
 	char	*to_access;
 
-	to_access = (char *)ft_calloc(sizeof(char), (ft_strlen(path) + ft_strlen(cmdname) + 2));
+	to_access = (char *)ft_calloc(sizeof(char), (ft_strlen(path)
+				+ ft_strlen(cmdname) + 2));
 	ft_strcat(to_access, path);
 	ft_strcat(to_access, "/");
 	ft_strcat(to_access, cmdname);
 	return (to_access);
 }
 
-int		ft_pwd_changer(t_cmd *cmd)
+int	ft_pwd_changer(t_cmd *cmd)
 {
-	t_env	*pwd = NULL;
-	t_env	*oldpwd = NULL;
+	t_env	*pwd;
+	t_env	*oldpwd;
 
 	oldpwd = ft_key_finder(&(cmd->envt), "OLDPWD");
 	if (oldpwd == NULL)
@@ -43,10 +42,10 @@ int		ft_pwd_changer(t_cmd *cmd)
 	return (0);
 }
 
-int		ft_path_changer(t_cmd *cmd)
+int	ft_path_changer(t_cmd *cmd)
 {
 	char	*path;
-	t_env	*pwd = NULL;
+	t_env	*pwd;
 
 	pwd = ft_key_finder(&cmd->envt, "PWD");
 	if (pwd == NULL)
@@ -57,7 +56,8 @@ int		ft_path_changer(t_cmd *cmd)
 		path = ft_strdup(cmd->argv[1]);
 	if (chdir(path) == -1)
 	{
-		printf("\033[34mᴛʀɪᴛᴏɴ\033[0m: cd: %s: No such file or directory\n", cmd->argv[1]);
+		printf("\033[34mᴛʀɪᴛᴏɴ\033[0m: cd: %s: No such file or directory\n",
+			cmd->argv[1]);
 		free(path);
 		return (1);
 	}
@@ -67,9 +67,9 @@ int		ft_path_changer(t_cmd *cmd)
 	return (0);
 }
 
-int		ft_pwd_finder(t_cmd *cmd, char *arg)
+int	ft_pwd_finder(t_cmd *cmd, char *arg)
 {
-	 t_env	*node = NULL;
+	t_env	*node;
 
 	node = ft_key_finder(&cmd->envt, arg);
 	if (node == NULL)
@@ -84,14 +84,14 @@ int		ft_pwd_finder(t_cmd *cmd, char *arg)
 	return (1);
 }
 
-int		ft_bltin_cd(t_cmd *cmd)
+int	ft_bltin_cd(t_cmd *cmd)
 {
-	if (ft_array_cntr(cmd->argv) == 1) // IF CD IS ALONE
+	if (ft_array_cntr(cmd->argv) == 1)
 	{
 		if (ft_pwd_finder(cmd, "HOME") == 1)
 			return (1);
 	}
-	else if (ft_array_cntr(cmd->argv) > 2) //TOO MANY ARGS
+	else if (ft_array_cntr(cmd->argv) > 2)
 	{
 		printf("cd: too many arguments\n");
 		return (1);

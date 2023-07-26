@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/06/28 09:37:08 by theophane        ###   ########.fr       */
+/*   Updated: 2023/07/26 17:50:05 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_msg(char *s1, char *s2)
 	char	*tmp;
 	char	*out;
 
-	tmp = ft_3strjoin_with_free("\033[34mᴛʀɪᴛᴏɴ\033[0m: ", s1, ": ", 0);
+	tmp = ft_3strjoin_with_free("\033[34mᴛʀɪᴛoɴ\033[0m: ", s1, ": ", 0);
 	if (!tmp)
 		return ;
 	out = ft_3strjoin_with_free(tmp, s2, "\n", 100);
