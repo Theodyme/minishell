@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/07/26 18:02:09 by flplace          ###   ########.fr       */
+/*   Updated: 2023/08/04 15:25:47 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 void	ft_free_n_exit(t_cmd *cmd, int code)
 {
 	if (cmd->envt)
-		ft_free_lst_env(cmd->envt);
+		ft_clear_env(cmd->envt);
 	if (cmd && cmd->head)
 	{
 		cmd = cmd->head;
