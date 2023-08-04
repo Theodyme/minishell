@@ -1,0 +1,33 @@
+ --------------------- void	ft_clear_env(t_env *envt) --------------------- 
+
+		free la double liste chainee de vars.
+		nv de facon recursive.
+
+
+ --------------------- char	*ft_split_key(char *str) --------------------- 
+
+ 		recupere toute la partie avant le signe = et la renvoie.
+ 		renvoie la valeur de key sous forme de string.
+        !! le resultat doit etre free ulterieurement
+
+
+ --------------------- char	*ft_split_value(char *str) --------------------
+
+		recupere toute la partie apres le signe = et la renvoie.
+		renvoie la valeur de value sous forme de string.
+        !! le resultat doit etre free ulterieurement
+
+
+ --------------------- t_env	*ft_lstadd_env(char *str) --------------------
+
+		cree un nouveau maillon de type env. et le complete avec les valeurs de
+		key et value.
+
+
+ ---------------------- t_env	*env_reader(char **env) ---------------------
+
+		parcourt avec i la variable env. pour chaque iteration, appelle la
+		creation d'un nouveau maillon contenant NAME et la liste VALUES.
+
+		renvoie un pointeur vers le premier maillon de la liste chainee
+		nouvellement creee.

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   funbuilder.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 17:55:44 by flplace           #+#    #+#             */
-/*   Updated: 2023/07/26 17:55:45 by flplace          ###   ########.fr       */
+/*   Updated: 2023/08/04 14:35:50 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_tolower(int n)
 
 char	*ft_str_tolower(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -32,7 +32,7 @@ char	*ft_str_tolower(char *str)
 	return (str);
 }
 
-int ft_fun_builder(t_cmd **cmd)
+int	ft_fun_builder(t_cmd **cmd)
 {
 	int			i;
 	const t_fn	bltin[4] = {
@@ -45,7 +45,8 @@ int ft_fun_builder(t_cmd **cmd)
 	if (!(*cmd)->name)
 		return (2);
 	open_files(*cmd);
-	while(bltin[i].call && ft_strcmp(bltin[i].call, ft_str_tolower((*cmd)->name)) != 0)
+	while (bltin[i].call
+		&& ft_strcmp(bltin[i].call, ft_str_tolower((*cmd)->name)) != 0)
 		i++;
 	(*cmd)->pid = 1;
 	if (ft_strcmp((*cmd)->name, "exit") == 0)

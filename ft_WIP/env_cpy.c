@@ -3,74 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   env_cpy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:58:45 by flplace           #+#    #+#             */
-/*   Updated: 2023/05/23 14:55:27 by flplace          ###   ########.fr       */
+/*   Updated: 2023/08/04 14:52:32 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* --------------------- void	ft_clear_env(t_env *envt) --------------------- */
-/*
-**		free la double liste chainee de vars.
-**		nv de facon recursive.
-*/
-
-void	ft_clear_env(t_env *envt)
-{
-	if (envt == NULL)
-		return ;
-	ft_clear_env(envt->next);
-	envt->key = NULL;
-	envt->value = NULL;
-	envt->next = NULL;
-	free(envt);
-	envt = NULL;
-	return ;
-}
-
-/* ---------------------- char	*ft_split_key(char *str) --------------------- */
-/*
-** 		recupere toute la partie avant le signe = et la renvoie.
-** 		renvoie la valeur de key sous forme de string.
-*/
-
 char	*ft_split_key(char *str)
 {
 	char	*key;
 
-	// key = ft_calloc(sizeof(char), ft_strclen(str, '=') + 1);
-	// if (key == NULL)
-	// 	return (NULL);
 	key = ft_strndup(str, ft_strclen(str, '='));
 	return (key);
 }
-
-/* --------------------- char	*ft_split_value(char *str) -------------------- */
-/*
-**		recupere toute la partie apres le signe = et la renvoie.
-**		renvoie la valeur de value sous forme de string.
-*/
 
 char	*ft_split_value(char *str)
 {
 	char	*value;
 
 	str += ft_strclen(str, '=') + 1;
-	// value = ft_calloc(sizeof(char), ft_strlen(str) + 1);
-	// if (value == NULL)
-	// 	return (NULL);
 	value = ft_strdup(str);
 	return (value);
 }
-
-/* --------------------- t_env	*ft_lstadd_env(char *str) -------------------- */
-/*
-**		cree un nouveau maillon de type env. et le complete avec les valeurs de
-**		key et value.
-*/
 
 t_env	*ft_lstadd_env(char *str, t_env **envt)
 {
@@ -93,21 +50,12 @@ t_env	*ft_lstadd_env(char *str, t_env **envt)
 	return (new);
 }
 
-/* ---------------------- t_env	*env_reader(char **env) --------------------- */
-/*
-**		parcourt avec i la variable env. pour chaque iteration, appelle la
-**		creation d'un nouveau maillon contenant NAME et la liste VALUES.
-**
-**		renvoie un pointeur vers le premier maillon de la liste chainee
-**		nouvellement creee.
-*/
-
 int	ft_env_reader(char **envp, t_env **envt)
 {
 	int		i;
 
 	i = 0;
-	while(envp[i])
+	while (envp[i])
 	{
 		ft_lstadd_env(envp[i], envt);
 		if (ft_envlast(*envt) == NULL)
@@ -115,18 +63,4 @@ int	ft_env_reader(char **envp, t_env **envt)
 		i++;
 	}
 	return (0);
-}
-
-void	ft_free_lst_env(t_env *head)
-{
-	t_env	*tmp;
-
-	while (head)
-	{
-		tmp = head;
-		head = head->next;
-		free(tmp->key);
-		free(tmp->value);
-		free(tmp);
-	}
 }

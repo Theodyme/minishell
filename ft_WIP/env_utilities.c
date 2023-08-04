@@ -1,19 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   env_utilities.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/24 16:13:45 by mabimich          #+#    #+#             */
-/*   Updated: 2023/08/04 14:36:44 by theophane        ###   ########.fr       */
+/*   Created: 2023/08/04 14:45:37 by theophane         #+#    #+#             */
+/*   Updated: 2023/08/04 15:05:06 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
-void	ft_putendl_fd(char const *s, int fd)
+void	ft_clear_env(t_env *envt)
 {
-	if (s && fd)
-		ft_putstr_fd((char *)s, fd);
+	if (envt == NULL)
+		return ;
+	ft_clear_env(envt->next);
+    free(envt->key);
+    free(envt->value);
+	envt->key = NULL;
+	envt->value = NULL;
+	envt->next = NULL;
+	free(envt);
+	envt = NULL;
+	return ;
 }

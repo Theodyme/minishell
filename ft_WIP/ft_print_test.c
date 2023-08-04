@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print_test.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/04 14:37:44 by theophane         #+#    #+#             */
+/*   Updated: 2023/08/04 14:38:49 by theophane        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	ft_print_array(char **array)
@@ -22,7 +34,6 @@ void	ft_print_cmd(t_cmd *cmd)
 	i = 0;
 	printf("_____PRINTING CMD______\n"); //check ici un truc //
 	// doesnt work	$cou | ls
-
 	while (cmd)
 	{
 		printf("name: %s\n", cmd->name);

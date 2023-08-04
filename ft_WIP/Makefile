@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+         #
+#    By: theophane <theophane@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 11:54:49 by flplace           #+#    #+#              #
-#    Updated: 2023/07/26 15:54:48 by mabimich         ###   ########.fr        #
+#    Updated: 2023/08/04 14:50:52 by theophane        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ SRCS	=	builtin/echo.c \
 			lib/free_tab_with_1blank.c\
 			lib/ft_strcat.c \
 			env_cpy.c \
+			env_utilities.c \
 			quote.c \
 			expand.c \
 			expand_dollar_utils.c \
