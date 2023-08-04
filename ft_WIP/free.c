@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/04 15:37:22 by theophane         #+#    #+#             */
+/*   Updated: 2023/08/04 15:37:57 by theophane        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	ft_free_array(char **array)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (array && array[i])
@@ -31,10 +43,10 @@ void	ft_free_args(t_cmd *cmd)
 	ft_free_array(cmd->name_file);
 	while (tmp)
 	{
-			free(tmp->str);
-			node = tmp;
-			tmp = tmp->next;
-			free(node);
+		free(tmp->str);
+		node = tmp;
+		tmp = tmp->next;
+		free(node);
 	}
 	return ;
 }

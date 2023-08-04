@@ -6,7 +6,7 @@
 /*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/04 15:30:33 by theophane        ###   ########.fr       */
+/*   Updated: 2023/08/04 15:36:06 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,13 @@
 # include <fcntl.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
-#include <sys/types.h>
-#include <dirent.h>
-
+# include <sys/types.h>
+# include <dirent.h>
 
 # define C_ALPHA "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_"
 # define C_ALPHANUM "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_\
 0123456789"
 # define C_BLANK "\t\r\v\f\n "
-
 # define HELLO_1 "\n⠀⠀⢠⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"
 # define HELLO_2 "⠀⠀⢸⠀\033[36m⢀⠀⠀⠀⠀⢀⠀⡀⠀⠀⠀⠀⠀\033[0m⠇\033[34m⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\033[0m\n"
 # define HELLO_3 "⠀⠀⢸⠀\033[36m⢸⢢⠀⡶⠀⢸⠀⠇⠀⠖⡄⠸⠀\033[0m⠇\033[34m⠀⠀⠀⣿⣷⣶⣤⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\033[0m\n"
@@ -41,7 +39,6 @@
 # define HELLO_7 "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\033[34m⠀⢤⣤⣤⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠁⠀⠀⠀⠀⠀⠀⠀\033[0m\n"
 # define HELLO_8 "\033[34m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⣀⣀⣀⢀⠀⢀⣀⡰⠃⠀⠀⠈⠉⠛⠿⠿⢿⢿⡿⠿⠛⠀⠀⠀⠀⠈⠉⠙⠛⠒⠶⠤⠤⠀⠀⠀\033[0m\n"
 # define HELLO_9 "\033[34m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠀⠀ ⠀⠈⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\033[0m\n\n"
-
 # define HEADER_1 "\033[34m_________________________________________________________________________\033[0m\n\n"
 # define HEADER_2 "        ᴡ ᴇ ʟ ᴄ ᴏ ᴍ ᴇ    ᴛ ᴏ \n\n"
 # define HEADER_3 "        \033[36m|''||''|               ||\033[34m   ⠁⠁⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠹           ⠲⣦⣄⠀\033[0m\n"
@@ -56,7 +53,6 @@
 # define HEADER_12 "        ᵇʸ   ᵐᵃᵇᶦᵐᶦᶜʰ\033[34m                             ⠈⠉⢹⣿⣿⡿⢿⣿⣿⣄⠀⠀⠀⠀⠀⠀⠀⠀\033[0m\n"
 # define HEADER_13 "        ᵃⁿᵈ  ᶠˡᵖˡᵃᶜᵉ\033[34m                                ⠘⣿⡟⠀⠀⠈⠛⠿⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\033[0m\n"
 # define HEADER_14 "\033[34m_________________________________________________________________________\033[0m\n\n"
-
 
 extern int	g_status;
 
@@ -83,12 +79,12 @@ enum	e_TOKEN_TYPE
 
 typedef struct s_env
 {
-	char *key;
-	char *value;
-	struct s_env *next;
+	char			*key;
+	char			*value;
+	struct s_env	*next;
 }					t_env;
 
-/* ------------------------------- token type ------------------------------- 	*/
+/* ------------------------------- token type ------------------------------- */
 /*
 ** 		type:	type de token, a distinguer pour le process global de tokenisation
 ** 		str:	contenu sous forme de string du token (commande, string a traiter, etc)
@@ -134,15 +130,15 @@ typedef struct s_cmd
 
 /* -------------- function prototype for the array of pointers -------------- */
 
-typedef int (*t_bltin)(t_cmd *cmd);
+typedef int	(*t_bltin)(t_cmd *cmd);
 
 /* -------------------- array of function pointers struct ------------------- */
 
 typedef struct t_fn
 {
-	char *call;
-	t_bltin blt_fn;
-} t_fn;
+	char	*call;
+	t_bltin	blt_fn;
+}			t_fn;
 
 /* ----------------------------- title printing ----------------------------- */
 
