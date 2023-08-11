@@ -6,23 +6,11 @@
 /*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:42:26 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/04 14:36:35 by theophane        ###   ########.fr       */
+/*   Updated: 2023/08/07 14:49:59 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	ft_isspace(char c)
-{
-	return ((c > 8 && c < 14) || c == 32);
-}
-
-int	ft_isdigit(int n)
-{
-	if (n >= 48 && n <= 57)
-		return (1);
-	return (0);
-}
 
 int	ft_atoi(const char *str)
 {

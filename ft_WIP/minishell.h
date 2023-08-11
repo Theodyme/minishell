@@ -6,7 +6,7 @@
 /*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/04 15:36:06 by theophane        ###   ########.fr       */
+/*   Updated: 2023/08/10 15:26:28 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,29 +30,6 @@
 # define C_ALPHANUM "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_\
 0123456789"
 # define C_BLANK "\t\r\v\f\n "
-# define HELLO_1 "\n⠀⠀⢠⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"
-# define HELLO_2 "⠀⠀⢸⠀\033[36m⢀⠀⠀⠀⠀⢀⠀⡀⠀⠀⠀⠀⠀\033[0m⠇\033[34m⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\033[0m\n"
-# define HELLO_3 "⠀⠀⢸⠀\033[36m⢸⢢⠀⡶⠀⢸⠀⠇⠀⠖⡄⠸⠀\033[0m⠇\033[34m⠀⠀⠀⣿⣷⣶⣤⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\033[0m\n"
-# define HELLO_4 "⠀⠀⢸⠀\033[36m⠈⠈⠀⠉⠀⠉⠀⠉⠀⠉⠀⠈\033[0m ⢀⣳⠀\033[34m⠀⣿⣿⣿⣿⣿⣿⣿⣿⣶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀\033[0m\n"
-# define HELLO_5 "⠀⠀⠘⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠇⠀ ⠀\033[34m⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣤⡀⣀⣀⣠⣤⣴⣾⣿⡟⠀⠀⠀⠀⠀⠀\033[0m\n"
-# define HELLO_6 "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\033[34m⠈⠻⢿⣿⣟⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠁⠀⠀⠀⠀⠀⠀\033[0m\n"
-# define HELLO_7 "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\033[34m⠀⢤⣤⣤⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠁⠀⠀⠀⠀⠀⠀⠀\033[0m\n"
-# define HELLO_8 "\033[34m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⣀⣀⣀⢀⠀⢀⣀⡰⠃⠀⠀⠈⠉⠛⠿⠿⢿⢿⡿⠿⠛⠀⠀⠀⠀⠈⠉⠙⠛⠒⠶⠤⠤⠀⠀⠀\033[0m\n"
-# define HELLO_9 "\033[34m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠀⠀ ⠀⠈⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\033[0m\n\n"
-# define HEADER_1 "\033[34m_________________________________________________________________________\033[0m\n\n"
-# define HEADER_2 "        ᴡ ᴇ ʟ ᴄ ᴏ ᴍ ᴇ    ᴛ ᴏ \n\n"
-# define HEADER_3 "        \033[36m|''||''|               ||\033[34m   ⠁⠁⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠹           ⠲⣦⣄⠀\033[0m\n"
-# define HEADER_4 "        \033[36m   ||            ''    ||\033[34m                  ⠘             ⠙⣷⣄⠀⠀\033[0m\n"
-# define HEADER_5 "        \033[36m   ||    '||''|  ||  ''||''  .|''|, `||''|,\033[34m               ⣿⣿⣦⠀\033[0m\n"
-# define HEADER_6 "        \033[36m   ||     ||     ||    ||    ||  ||  ||  ||\033[34m        ⢀    ⢀⣼⠿⠛⢻⣆\033[0m\n"
-# define HEADER_7 "        \033[36m  .||.   .||.   .||.   `|..' `|..|' .||  ||.\033[34m     ⢀⣴⡿       ⢀⣼⡿ \033[0m\n"
-# define HEADER_8 "\033[34m       ⡄                                               ⣠⣾⣿⣿⣇  ⢀⣀⣠⣶⣾⣿⣿⠃\033[0m\n"
-# define HEADER_9 "\033[34m       ⣆⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⡀⡀⡀      ⢀⣀⣀⣀⣠⣤⣤⣤⣶⣶⣶⣶⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠃⠀\033[0m\n"
-# define HEADER_10 "\033[34m                                        ⠈⠛⢿⣿⣿⣟⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⠀⠀⠀\033[0m\n"
-# define HEADER_11 "        ᵃ ᵐᶦⁿᶦˢʰᵉˡˡ ᵖʳᵒʲᵉᶜᵗ\033[34m                 ⠐⠺⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠟⠋⠉⠀⠀⠀⠀\033[0m\n"
-# define HEADER_12 "        ᵇʸ   ᵐᵃᵇᶦᵐᶦᶜʰ\033[34m                             ⠈⠉⢹⣿⣿⡿⢿⣿⣿⣄⠀⠀⠀⠀⠀⠀⠀⠀\033[0m\n"
-# define HEADER_13 "        ᵃⁿᵈ  ᶠˡᵖˡᵃᶜᵉ\033[34m                                ⠘⣿⡟⠀⠀⠈⠛⠿⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\033[0m\n"
-# define HEADER_14 "\033[34m_________________________________________________________________________\033[0m\n\n"
 
 extern int	g_status;
 
@@ -92,6 +69,7 @@ typedef struct s_env
 
 typedef struct s_token
 {
+	struct s_token		*prev;
 	enum e_TOKEN_TYPE	type;
 	char				*str;
 	struct s_token		*next;
@@ -178,7 +156,12 @@ void	ft_free_tab_str(char **tab, int max);
 char	*ft_itoa(int n);
 int		ft_atoi(const char *str);
 int		ft_isspace(char c);
+int		ft_isblank(char c);
+int		ft_isspecial(char c);
+int		ft_isquote(char c);
 int		ft_isdigit(int n);
+int		ft_wordlen(char *line);
+int		ft_spacelen(char *line);
 char	*ft_strtrim_free(char *s1, char const *set);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
@@ -210,7 +193,6 @@ int		ft_bltin_exit(t_cmd *cmd);
 
 int		ft_fun_builder(t_cmd **cmd);
 
-char	*ft_currfile(char *path);
 int		ft_bltin_hello(t_cmd *cmd);
 int		ft_bltin_where(t_cmd *cmd);
 
@@ -225,6 +207,14 @@ char	*ft_pathbuilder(char *path, char *cmdname);
 int		ft_pwd_changer(t_cmd *cmd);
 int		ft_pwd_finder(t_cmd *cmd, char *arg);
 int		ft_path_changer(t_cmd *cmd);
+char	*ft_currfile(char *path);
+
+/* -------------------------------- HEREDOC --------------------------------- */
+
+t_token	*is_heredoc(t_token *head);
+t_token	*is_delimiter(t_token *head);
+t_cmd   *find_heredoc_cmd(t_cmd *cmd, t_token *tkn);
+void    ft_heredoc_cat(char *line, t_token *head, t_cmd *cmd);
 
 /* --------------------------------- EXPAND --------------------------------- */
 
@@ -278,6 +268,8 @@ void	close_pipes(t_cmd *cmd);
 
 /* ------------------------------ TO REORGANIZE ----------------------------- */
 
+int		ft_argslist_to_array(t_cmd *cmd);
+
 void	ft_add_history(char *line);
 
 int		ft_count_quote(char *str);
@@ -292,7 +284,6 @@ void	ft_free_n_exit(t_cmd *cmd, int code);
 
 int		open_files(t_cmd *cmd);
 
-int		ft_wordlen(char *line);
 int		ft_wordlen_with_dollar(char *line);
 int		ft_getenv(char *key, t_env *env);
 t_token	*ft_tokenize(const char *line);

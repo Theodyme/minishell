@@ -6,7 +6,7 @@
 /*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:59:32 by mabimich          #+#    #+#             */
-/*   Updated: 2023/08/09 14:12:05 by theophane        ###   ########.fr       */
+/*   Updated: 2023/08/09 14:49:20 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,16 @@ t_token	*ft_specialtoken1(int *i, char *line, t_token *token)
 	return (token);
 }
 
+// void	ft_delimitertoken(int *i, char *line, t_token *token)
+// {
+// 	size_t	len;
+
+// 	token->type = DELIMITER;
+// 	len = ft_wordlen(line);
+// 	token->str = ft_strndup(line, len);
+// 	*i += len;
+// }
+
 t_token	*ft_specialtoken2(int *i, char *line, t_token *token)
 {
 	if (line[0] == '<' && line[1] && line[1] == '<')
@@ -53,6 +63,9 @@ t_token	*ft_specialtoken2(int *i, char *line, t_token *token)
 		token->type = HEREDOC;
 		token->str = ft_strdup("<<");
 		*i += 1;
+		// token->next = ft_calloc(1, sizeof(t_token));
+		// token = token->next;
+		// ft_delimitertoken(i, line, token);
 	}
 	else if (line[0] == '<')
 	{
@@ -95,7 +108,10 @@ t_token	*ft_wordtoken(int *i, char *line, t_token *token)
 {
 	size_t	len;
 
-	token->type = WORD;
+	if (token->prev->type == HEREDOC || token->prev->prev->type == HEREDOC)
+		token->type = DELIMITER;
+	else
+		token->type = WORD;
 	len = ft_wordlen(line);
 	token->str = ft_strndup(line, len);
 	*i += len;
@@ -119,6 +135,7 @@ t_token *ft_tokenize(const char *line)
 
 	i = 0;
 	head = ft_calloc(1, sizeof(t_token));
+	head->prev = head;
 	if (!head)
 		return (NULL);
 	tmp = head;
@@ -134,6 +151,7 @@ t_token *ft_tokenize(const char *line)
 		else
 			tmp = ft_wordtoken(&i, newline + i, tmp);
 		tmp->next = ft_calloc(1, sizeof(t_token));
+		tmp->next->prev = tmp;
 		if (!tmp->next)
 		{
 			free(newline);

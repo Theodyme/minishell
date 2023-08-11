@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:54:00 by mabimich          #+#    #+#             */
-/*   Updated: 2023/07/26 15:54:01 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/08/09 14:34:35 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,10 @@ int	ft_fill_cmd(t_cmd *cmd, t_token *tkn)
 			else if (ft_add_arg(cmd->args_list, tkn->str))
 				return (printf("Error: ft_add_arg failed\n"), 1);
 		}
+		// else if (tkn->type == HEREDOC && tkn->next && tkn->next->type == WORD)
+
+		// ////////////////////
+
 		else if (tkn->type == WORD && ft_add_arg(cmd->args_list, tkn->str))
 			return (printf("Error: ft_add_arg failed\n"), 1);
 		else if (!ft_redir(tkn, cmd))
