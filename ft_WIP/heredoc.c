@@ -6,7 +6,7 @@
 /*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 14:15:22 by theophane         #+#    #+#             */
-/*   Updated: 2023/08/13 18:46:21 by theophane        ###   ########.fr       */
+/*   Updated: 2023/08/13 21:51:59 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,33 +40,6 @@ t_token		*is_delimiter(t_token *head)
 	return (NULL);
 }
 
-char    *ft_create_fname(char *fname)
-{
-    int        i;
-    char    *tmp;
-    char    *tmp2;
-    char    *base_name;
-
-    i = -1;
-    if (fname && access(fname, F_OK))
-        return (ft_strdup(fname));
-    else
-        base_name = ft_strjoin(fname, "_");
-    while (++i >= 0 && fname && !(access(fname, F_OK)))
-    {
-        tmp = ft_itoa(i);
-        if (i > 0)
-            tmp2 = fname;
-        fname = ft_strjoin(base_name, tmp);
-        if (!fname)
-            return (NULL);
-        free(tmp);
-        free(tmp2);
-    }
-    free(base_name);
-    return (fname);
-}
-
 t_cmd   *find_heredoc_cmd(t_cmd *cmd, t_token *head)
 {
     t_token *tmp;
@@ -83,4 +56,44 @@ t_cmd   *find_heredoc_cmd(t_cmd *cmd, t_token *head)
     if (!tmp)
         return (NULL);
     return (ctmp);
+}
+
+void    ft_heredoc_cat(char *line, t_token *head, t_cmd *cmd)
+{
+    // t_cmd   *tmp;
+    t_arg   *tmp;
+    // int     i;
+
+/////////////////// print args_list
+    tmp = (find_heredoc_cmd(cmd, head))->args_list;
+    if (!tmp)
+    {
+        tmp = ft_calloc(1, sizeof(t_arg));
+        if (!tmp)
+        {
+            printf("Error: ft_create_arg failed\n");
+            return ;
+        }
+    }
+    else
+    {
+        while (tmp && tmp->str)
+            tmp = tmp->next;
+    }
+	if (ft_add_arg(tmp, line))
+		{
+            printf("Error: ft_add_arg failed\n");
+            return ;
+        }
+    printf("added : ''%s'' to the args list\n", tmp->str);
+    // if (!tmp->argv)
+	// 	tmp->argv = ft_calloc(1 + 1, sizeof(char *));
+    // while (tmp->argv[i] && tmp->argv[i][0])
+    // {
+    //     i++;
+    // }
+    // tmp->argv[i] = ft_strdup(line);
+    free(line);
+	line = NULL;
+    return ;
 }
