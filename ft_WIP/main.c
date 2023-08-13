@@ -14,20 +14,7 @@
 
 void	ft_print_title(void)
 {
-	printf(HEADER_1);
-	printf(HEADER_2);
-	printf(HEADER_3);
-	printf(HEADER_4);
-	printf(HEADER_5);
-	printf(HEADER_6);
-	printf(HEADER_7);
-	printf(HEADER_8);
-	printf(HEADER_9);
-	printf(HEADER_10);
-	printf(HEADER_11);
-	printf(HEADER_12);
-	printf(HEADER_13);
-	printf(HEADER_14);
+
 	return ;
 }
 
