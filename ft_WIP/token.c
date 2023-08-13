@@ -6,7 +6,7 @@
 /*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:59:32 by mabimich          #+#    #+#             */
-/*   Updated: 2023/08/09 14:12:05 by theophane        ###   ########.fr       */
+/*   Updated: 2023/08/13 18:26:09 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,23 @@ t_token	*ft_blanktoken(int *i, char *line, t_token *token)
 	token->str = strdup(" ");
 	*i += ft_spacelen(line);
 	return (token);
+}
+
+void	ft_delimiter_set(t_token *head)
+{
+	t_token	*tmp;
+
+	tmp = head;
+	while (tmp)
+	{
+		if (tmp->type == HEREDOC && tmp->next->type == WORD)
+		{
+			tmp->next->type = DELIMITER;
+			printf("checking delimiter\n");
+		}
+		tmp = tmp->next;
+	}
+	return ;
 }
 
 t_token *ft_tokenize(const char *line)

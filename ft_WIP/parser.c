@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:23:49 by mabimich          #+#    #+#             */
-/*   Updated: 2023/07/26 16:26:10 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/08/13 20:25:48 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,12 @@ int	ft_check_syntax(t_token *token)
 		if (tmp->type == REDIR_IN || tmp->type == REDIR_OUT || \
 		tmp->type == APPEND || tmp->type == HEREDOC)
 		{
-			if (!tmp->next || tmp->next->type != WORD)
-				return (printf("\033[34mᴛʀɪᴛᴏɴ\033[0m: syntax error near unexpected token \
+			if (!tmp->next || (tmp->next->type != WORD && tmp->next->type != DELIMITER))
+				{
+					printf("tmp->type = %d\ttmp->next->type = %d\n", tmp->type, tmp->next->type);
+					return (printf("\033[34mᴛʀɪᴛᴏɴ\033[0m: syntax error near unexpected token \
 `%s'\n", tmp->next->str), 1);
+				}
 		}
 		else if (tmp->type == PIPE)
 		{

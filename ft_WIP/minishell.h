@@ -6,7 +6,7 @@
 /*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/04 15:36:06 by theophane        ###   ########.fr       */
+/*   Updated: 2023/08/13 21:19:46 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <dirent.h>
+# include <limits.h>
 
 # define C_ALPHA "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_"
 # define C_ALPHANUM "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_\
@@ -55,6 +56,7 @@
 # define HEADER_14 "\033[34m_________________________________________________________________________\033[0m\n\n"
 
 extern int	g_status;
+
 
 enum	e_TOKEN_TYPE
 {
@@ -144,6 +146,11 @@ typedef struct t_fn
 
 void	ft_print_title(void);
 
+
+void    sig_init();
+void    sig_handler(int signum);
+void    sig_heredoc(int signum);
+
 /* ------------------------------ env building ------------------------------ */
 
 int		ft_env_reader(char **envp, t_env **envt);
@@ -178,7 +185,12 @@ void	ft_free_tab_str(char **tab, int max);
 char	*ft_itoa(int n);
 int		ft_atoi(const char *str);
 int		ft_isspace(char c);
+int		ft_isblank(char c);
+int		ft_isspecial(char c);
+int		ft_isquote(char c);
 int		ft_isdigit(int n);
+int		ft_wordlen(char *line);
+int		ft_spacelen(char *line);
 char	*ft_strtrim_free(char *s1, char const *set);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
@@ -226,6 +238,14 @@ int		ft_pwd_changer(t_cmd *cmd);
 int		ft_pwd_finder(t_cmd *cmd, char *arg);
 int		ft_path_changer(t_cmd *cmd);
 
+/* -------------------------------- HEREDOC --------------------------------- */
+
+t_token	*is_heredoc(t_token *head);
+t_token	*is_delimiter(t_token *head);
+void	ft_delimiter_set(t_token *head);
+t_cmd   *find_heredoc_cmd(t_cmd *cmd, t_token *tkn);
+void    ft_heredoc_cat(char *line, t_token *head, t_cmd *cmd);
+
 /* --------------------------------- EXPAND --------------------------------- */
 
 int		ft_expand(t_token *tkn, t_env *env);
@@ -245,8 +265,6 @@ t_token	*ft_fill_expanded(t_token *tkn, char *str);
 /* --------------------------------- PARSER --------------------------------- */
 
 t_cmd	*ft_parser(t_token *tkn, t_env *envt);
-int		ft_check_syntax(t_token *tkn);
-int		ft_is_redir(t_token *tkn);
 int		ft_check_syntax(t_token *tkn);
 int		ft_is_redir(t_token *tkn);
 
@@ -279,6 +297,8 @@ void	close_pipes(t_cmd *cmd);
 /* ------------------------------ TO REORGANIZE ----------------------------- */
 
 void	ft_add_history(char *line);
+
+int	ft_argslist_to_array(t_cmd *cmd);
 
 int		ft_count_quote(char *str);
 int		ft_quotelen(char *str);

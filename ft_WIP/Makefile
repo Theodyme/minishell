@@ -6,7 +6,7 @@
 #    By: theophane <theophane@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 11:54:49 by flplace           #+#    #+#              #
-#    Updated: 2023/08/04 14:50:52 by theophane        ###   ########.fr        #
+#    Updated: 2023/08/13 21:16:23 by theophane        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,8 @@ SRCS	=	builtin/echo.c \
 			lib/ft_split.c \
 			lib/free_tab_with_1blank.c\
 			lib/ft_strcat.c \
+			lib/ft_isit.c \
+			lib/ft_len_counter.c \
 			env_cpy.c \
 			env_utilities.c \
 			quote.c \
@@ -66,12 +68,14 @@ SRCS	=	builtin/echo.c \
 			rl_gets.c \
 			parser.c \
 			fill_cmd.c \
-			wip.c \
+			token.c \
 			ft_print_test.c \
 			get_path.c \
 			exec.c \
 			exit.c \
 			free.c \
+			signals.c \
+			heredoc.c \
 			main.c
 OBJ		=	${SRCS:.c=.o}
 HEADER	=   minishell.h
