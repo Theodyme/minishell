@@ -1,16 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.c                                            :+:      :+:    :+:   */
+/*   wip.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:59:32 by mabimich          #+#    #+#             */
-/*   Updated: 2023/08/13 21:52:03 by theophane        ###   ########.fr       */
+/*   Updated: 2023/07/26 15:59:52 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_isblank(char c)
+{
+	if (c == ' ' || c == '\t' || c == '\n' || c == '\v'
+		|| c == '\f' || c == '\r')
+		return (1);
+	return (0);
+}
+
+int	ft_isspecial(char c)
+{
+	if (c == '|' || c == '<' || c == '>')
+		return (1);
+	return (0);
+}
+
+int	ft_isquote(char c)
+{
+	if (c == '\'' || c == '\"')
+		return (1);
+	return (0);
+}
 
 int	ft_trim_blank(char *line)
 {
@@ -64,6 +86,26 @@ t_token	*ft_specialtoken2(int *i, char *line, t_token *token)
 	return (token);
 }
 
+int	ft_wordlen(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] && !ft_isblank(line[i]) && !ft_isspecial(line[i]) && !ft_isquote(line[i]))
+		i++;
+	return (i);
+}
+
+int	ft_spacelen(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] && ft_isblank(line[i]))
+		i++;
+	return (i);
+}
+
 void	ft_free_lst_token(t_token *head)
 {
 	t_token	*tmp;
@@ -108,23 +150,6 @@ t_token	*ft_blanktoken(int *i, char *line, t_token *token)
 	token->str = strdup(" ");
 	*i += ft_spacelen(line);
 	return (token);
-}
-
-void	ft_delimiter_set(t_token *head)
-{
-	t_token	*tmp;
-
-	tmp = head;
-	while (tmp)
-	{
-		if (tmp->type == HEREDOC && tmp->next->type == WORD)
-		{
-			tmp->next->type = DELIMITER;
-			printf("checking delimiter\n");
-		}
-		tmp = tmp->next;
-	}
-	return ;
 }
 
 t_token *ft_tokenize(const char *line)

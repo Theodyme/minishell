@@ -1,33 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_len_counter.c                                   :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/07 14:46:27 by theophane         #+#    #+#             */
-/*   Updated: 2023/08/13 12:37:38 by theophane        ###   ########.fr       */
+/*   Created: 2023/08/13 19:13:09 by theophane         #+#    #+#             */
+/*   Updated: 2023/08/13 21:52:06 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
-int	ft_wordlen(char *line)
+void    sig_handler(int signum)
 {
-	int	i;
-
-	i = 0;
-	while (line[i] && !ft_isblank(line[i]) && !ft_isspecial(line[i]) && !ft_isquote(line[i]))
-		i++;
-	return (i);
+    if (signum == SIGINT)
+    {
+        rl_replace_line("", 1);
+        rl_on_new_line();
+        rl_redisplay();
+    }
+    return ;
 }
 
-int	ft_spacelen(char *line)
+void    sig_init()
 {
-	int	i;
+    signal(SIGINT, sig_handler);
+    // signal(SIGQUIT, SIG_IGN);
+    return ;
+}
 
-	i = 0;
-	while (line[i] && ft_isblank(line[i]))
-		i++;
-	return (i);
+void    sig_heredoc(int signum)
+{
+    (void)signum;
+    return ;
 }

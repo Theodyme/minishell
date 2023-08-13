@@ -6,7 +6,7 @@
 #    By: theophane <theophane@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 11:54:49 by flplace           #+#    #+#              #
-#    Updated: 2023/08/10 14:46:27 by theophane        ###   ########.fr        #
+#    Updated: 2023/08/13 21:52:09 by theophane        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,6 @@ SRCS	=	builtin/echo.c \
 			builtin/unset.c \
 			builtin/env.c \
 			builtin/exit.c \
-			builtin/bltin_tester.c \
 			builtin/bltin_utils.c \
 			fun_builtin/hello.c \
 			fun_builtin/where.c \
@@ -45,8 +44,6 @@ SRCS	=	builtin/echo.c \
 			lib/ft_strchr_end.c \
 			lib/ft_itoa.c \
 			lib/ft_atoi.c \
-			lib/ft_len_counter.c \
-			lib/ft_isit.c \
 			lib/ft_strjoin.c \
 			lib/ft_strjoin_tab.c \
 			lib/ft_memmove.c \
@@ -61,6 +58,8 @@ SRCS	=	builtin/echo.c \
 			lib/ft_split.c \
 			lib/free_tab_with_1blank.c\
 			lib/ft_strcat.c \
+			lib/ft_isit.c \
+			lib/ft_len_counter.c \
 			env_cpy.c \
 			env_utilities.c \
 			quote.c \
@@ -68,7 +67,6 @@ SRCS	=	builtin/echo.c \
 			expand_dollar_utils.c \
 			rl_gets.c \
 			parser.c \
-			heredoc.c \
 			fill_cmd.c \
 			token.c \
 			ft_print_test.c \
@@ -76,6 +74,8 @@ SRCS	=	builtin/echo.c \
 			exec.c \
 			exit.c \
 			free.c \
+			signals.c \
+			heredoc.c \
 			main.c
 OBJ		=	${SRCS:.c=.o}
 HEADER	=   minishell.h

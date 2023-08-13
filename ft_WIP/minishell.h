@@ -6,7 +6,7 @@
 /*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/10 15:26:28 by theophane        ###   ########.fr       */
+/*   Updated: 2023/08/13 21:51:32 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <dirent.h>
+# include <limits.h>
 
 # define C_ALPHA "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_"
 # define C_ALPHANUM "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_\
@@ -32,6 +33,7 @@
 # define C_BLANK "\t\r\v\f\n "
 
 extern int	g_status;
+
 
 enum	e_TOKEN_TYPE
 {
@@ -69,7 +71,6 @@ typedef struct s_env
 
 typedef struct s_token
 {
-	struct s_token		*prev;
 	enum e_TOKEN_TYPE	type;
 	char				*str;
 	struct s_token		*next;
@@ -121,6 +122,11 @@ typedef struct t_fn
 /* ----------------------------- title printing ----------------------------- */
 
 void	ft_print_title(void);
+
+
+void    sig_init();
+void    sig_handler(int signum);
+void    sig_heredoc(int signum);
 
 /* ------------------------------ env building ------------------------------ */
 
@@ -193,6 +199,7 @@ int		ft_bltin_exit(t_cmd *cmd);
 
 int		ft_fun_builder(t_cmd **cmd);
 
+char	*ft_currfile(char *path);
 int		ft_bltin_hello(t_cmd *cmd);
 int		ft_bltin_where(t_cmd *cmd);
 
@@ -207,12 +214,12 @@ char	*ft_pathbuilder(char *path, char *cmdname);
 int		ft_pwd_changer(t_cmd *cmd);
 int		ft_pwd_finder(t_cmd *cmd, char *arg);
 int		ft_path_changer(t_cmd *cmd);
-char	*ft_currfile(char *path);
 
 /* -------------------------------- HEREDOC --------------------------------- */
 
 t_token	*is_heredoc(t_token *head);
 t_token	*is_delimiter(t_token *head);
+void	ft_delimiter_set(t_token *head);
 t_cmd   *find_heredoc_cmd(t_cmd *cmd, t_token *tkn);
 void    ft_heredoc_cat(char *line, t_token *head, t_cmd *cmd);
 
@@ -235,8 +242,6 @@ t_token	*ft_fill_expanded(t_token *tkn, char *str);
 /* --------------------------------- PARSER --------------------------------- */
 
 t_cmd	*ft_parser(t_token *tkn, t_env *envt);
-int		ft_check_syntax(t_token *tkn);
-int		ft_is_redir(t_token *tkn);
 int		ft_check_syntax(t_token *tkn);
 int		ft_is_redir(t_token *tkn);
 
@@ -268,9 +273,9 @@ void	close_pipes(t_cmd *cmd);
 
 /* ------------------------------ TO REORGANIZE ----------------------------- */
 
-int		ft_argslist_to_array(t_cmd *cmd);
-
 void	ft_add_history(char *line);
+
+int	ft_argslist_to_array(t_cmd *cmd);
 
 int		ft_count_quote(char *str);
 int		ft_quotelen(char *str);
@@ -284,6 +289,7 @@ void	ft_free_n_exit(t_cmd *cmd, int code);
 
 int		open_files(t_cmd *cmd);
 
+int		ft_wordlen(char *line);
 int		ft_wordlen_with_dollar(char *line);
 int		ft_getenv(char *key, t_env *env);
 t_token	*ft_tokenize(const char *line);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_dollar_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:42:18 by mabimich          #+#    #+#             */
-/*   Updated: 2023/08/09 14:42:28 by theophane        ###   ########.fr       */
+/*   Updated: 2023/07/26 15:58:06 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ t_token	*ft_fill_expanded(t_token *tkn, char *str)
 		tmp->str = ft_strndup(str + i, ft_wordlen(str + i));
 		i += ft_wordlen(str + i);
 		tmp->next = ft_calloc(1, sizeof(t_token));
-		tmp->next->prev = tmp;
 		if (!tmp->next)
 			return (NULL);
 		tmp = tmp->next;
