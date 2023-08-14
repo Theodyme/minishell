@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   where.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 17:55:53 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/04 14:32:39 by theophane        ###   ########.fr       */
+/*   Updated: 2023/08/14 18:18:52 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,23 @@ int	ft_bltin_where(t_cmd *cmd)
 
 	if (!cmd->args_list->next->str)
 	{
-		printf("\033[34mᴛʀɪᴛᴏɴ\033[0m: What do you mean?\n");
+		printf(TRITON "What do you mean?\n");
 		return (1);
 	}
 	tmp = cmd->args_list->next;
 	if (!tmp->next->str)
 	{
-		printf("\033[34mᴛʀɪᴛᴏɴ\033[0m: I don't get it.\n");
+		printf(TRITON "I don't get it.\n");
 		return (1);
 	}
 	pwd = ft_key_finder(&(cmd->envt), "PWD");
 	if (ft_strcmp(ft_str_tolower(tmp->str), "are") != 0
 		&& ft_strcmp(ft_str_tolower(tmp->next->str), "we?") != 0
 		&& ft_strcmp(ft_str_tolower(tmp->next->str), "we") != 0)
-		printf("\033[34mᴛʀɪᴛᴏɴ\033[0m: Who are you talking to?\n");
+		printf(TRITON "Who are you talking to?\n");
 	else
 	{
-		printf("\033[34mᴛʀɪᴛᴏɴ\033[0m: We're in the deep sea ! ");
+		printf(TRITON "We're in the deep sea ! ");
 		printf("Specifically in the %s Ocean.\n", ft_currfile(pwd->value));
 	}
 	return (0);

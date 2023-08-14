@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:28:34 by mabimich          #+#    #+#             */
-/*   Updated: 2023/07/26 18:03:39 by flplace          ###   ########.fr       */
+/*   Updated: 2023/08/14 17:17:47 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,10 +128,11 @@ void	child(t_cmd *cmd)
 		dispatch_exit(cmd, 126);
 	}
 	if (path && cmd->argv && cmd->argv[0])
+	{
+		sig_init(false);
 		execve(path, cmd->argv, cmd->envp);
+	}
 	ft_msg(cmd->name, "command not found");
-	// if (cmd->argv)
-	// 	ft_free_tab_str(cmd->argv, -1);
 	dispatch_exit(cmd, 127);
 }
 
@@ -146,7 +147,6 @@ int	ft_exec(t_cmd *cmd)
 	open_pipes(tmp);
 	while (tmp && tmp->pid)
 	{
-		// write(2, "______-------------------______\n", 33);
 		out = ft_bltin_tester(&tmp);
 		if (out == 0)
 			out = ft_fun_builder(&tmp);

@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:41:12 by flplace           #+#    #+#             */
-/*   Updated: 2023/07/26 15:48:30 by flplace          ###   ########.fr       */
+/*   Updated: 2023/08/14 18:18:52 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ft_path_changer(t_cmd *cmd)
 		path = ft_strdup(cmd->argv[1]);
 	if (chdir(path) == -1)
 	{
-		printf("\033[34mᴛʀɪᴛᴏɴ\033[0m: cd: %s: No such file or directory\n",
+		printf(TRITON "cd: %s: No such file or directory\n",
 			cmd->argv[1]);
 		free(path);
 		return (1);
@@ -76,7 +76,7 @@ int	ft_pwd_finder(t_cmd *cmd, char *arg)
 		return (1);
 	if (chdir(node->value) == -1)
 	{
-		printf("\033[34mᴛʀɪᴛᴏɴ\033[0m: cd: couldn't find %s directory\n", arg);
+		printf(TRITON "cd: couldn't find %s directory\n", arg);
 		return (1);
 	}
 	if (ft_pwd_changer(cmd) == 1)

@@ -1,4 +1,3 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -6,28 +5,48 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 13:45:17 by flplace           #+#    #+#             */
-/*   Updated: 2023/02/02 17:52:42 by flplace          ###   ########.fr       */
+/*   Created: 2023/08/14 16:49:22 by flplace           #+#    #+#             */
+/*   Updated: 2023/08/14 19:06:56 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
-void	ft_print_title(void)
+void	ft_print_title2(void)
 {
-	printf("\033[34m_________________________________________________________________________\033[0m\n\n");
+	printf(BL "                                       ");
+	printf(" ⠈⠛⢿⣿⣿⣟⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⠀⠀⠀" WH "\n");
+	printf("        ᵃ ᵐᶦⁿᶦˢʰᵉˡˡ ᵖʳᵒʲᵉᶜᵗ" BL "          ");
+	printf("       ⠐⠺⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠟⠋⠉⠀⠀⠀⠀" WH "\n");
+	printf("        ᵇʸ   ᵐᵃᵇᶦᵐᶦᶜʰ" BL "                 ");
+	printf("            ⠈⠉⢹⣿⣿⡿⢿⣿⣿⣄⠀⠀⠀⠀⠀⠀⠀⠀" WH "\n");
+	printf("        ᵃⁿᵈ  ᶠˡᵖˡᵃᶜᵉ" BL "                     ");
+	printf("           ⠘⣿⡟⠀⠀⠈⠛⠿⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀" WH "\n");
+	printf(BL "_____________________________________________");
+	printf("____________________________" WH "\n\n");
+	return ;
+}
+
+void	ft_print_title1(void)
+{
+	printf(BL "____________________________________");
+	printf("_____________________________________" WH "\n\n");
 	printf("        ᴡ ᴇ ʟ ᴄ ᴏ ᴍ ᴇ    ᴛ ᴏ \n\n");
-	printf("        \033[36m|''||''|               ||\033[34m   ⠁⠁⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠹           ⠲⣦⣄⠀\033[0m\n");
-	printf("        \033[36m   ||            ''    ||\033[34m                  ⠘             ⠙⣷⣄⠀⠀\033[0m\n");
-	printf("        \033[36m   ||    '||''|  ||  ''||''  .|''|, `||''|,\033[34m               ⣿⣿⣦⠀\033[0m\n");
-	printf("        \033[36m   ||     ||     ||    ||    ||  ||  ||  ||\033[34m        ⢀    ⢀⣼⠿⠛⢻⣆\033[0m\n");
-	printf("        \033[36m  .||.   .||.   .||.   `|..' `|..|' .||  ||.\033[34m     ⢀⣴⡿       ⢀⣼⡿ \033[0m\n");
-	printf("\033[34m       ⡄                                               ⣠⣾⣿⣿⣇  ⢀⣀⣠⣶⣾⣿⣿⠃\033[0m\n");
-	printf("\033[34m       ⣆⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⡀⡀⡀      ⢀⣀⣀⣀⣠⣤⣤⣤⣶⣶⣶⣶⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠃⠀\033[0m\n");
-	printf("\033[34m                                        ⠈⠛⢿⣿⣿⣟⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⠀⠀⠀\033[0m\n");
-	printf("        ᵃ ᵐᶦⁿᶦˢʰᵉˡˡ ᵖʳᵒʲᵉᶜᵗ\033[34m                 ⠐⠺⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠟⠋⠉⠀⠀⠀⠀\033[0m\n");
-	printf("        ᵇʸ   ᵐᵃᵇᶦᵐᶦᶜʰ\033[34m                             ⠈⠉⢹⣿⣿⡿⢿⣿⣿⣄⠀⠀⠀⠀⠀⠀⠀⠀\033[0m\n");
-	printf("        ᵃⁿᵈ  ᶠˡᵖˡᵃᶜᵉ\033[34m                                ⠘⣿⡟⠀⠀⠈⠛⠿⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\033[0m\n");
-	printf("\033[34m_________________________________________________________________________\033[0m\n\n");
+	printf("        " GR """|''||''|               ||");
+	printf(BL "   ⠁⠁⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠹           ⠲⣦⣄⠀" WH "\n");
+	printf("        " GR "   ||            ''    ||");
+	printf(BL "                  ⠘             ⠙⣷⣄⠀⠀" WH "\n");
+	printf("        " GR "   ||    '||''|  ||  ''||''  .|'");
+	printf("'|, `||''|," BL "               ⣿⣿⣦⠀" WH "\n");
+	printf("        " GR "   ||     ||     ||    ||    ");
+	printf("||  ||  ||  ||" BL "        ⢀    ⢀⣼⠿⠛⢻⣆" WH "\n");
+	printf("        " GR "  .||.   .||.   .||.   `|..' `");
+	printf("|..|' .||  ||." BL "     ⢀⣴⡿       ⢀⣼⡿ " WH "\n");
+	printf(BL "       ⡄                             ");
+	printf("                  ⣠⣾⣿⣿⣇  ⢀⣀⣠⣶⣾⣿⣿⠃" WH "\n");
+	printf(BL "       ⣆⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⡀⡀⡀  ");
+	printf("    ⢀⣀⣀⣀⣠⣤⣤⣤⣶⣶⣶⣶⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠃⠀" WH "\n");
+	ft_print_title2();
 	return ;
 }
 
@@ -35,10 +54,10 @@ void	ft_setting_env(t_env *envt, t_cmd *cmd)
 {
 	t_cmd	*tmp;
 
-	if(!envt)
+	if (!envt)
 		return ;
 	tmp = cmd;
-	while(tmp)
+	while (tmp)
 	{
 		tmp->envt = envt;
 		tmp = tmp->next;
@@ -86,16 +105,15 @@ int		g_status = 0;
 
 int	main(int ac, char **av, char **envp)
 {
-	int 	debug = 0;
+	int		debug = 0;
 	char	*line = NULL;
-	char*	status = NULL;
+	char	*status = NULL;
 	t_env	*envt = NULL;
 	t_cmd	*cmd = NULL;
-
 	t_token	*head;
 
-	ft_print_title();
-	sig_init();
+	ft_print_title1();
+	sig_init(true);
 	if (ac != 1 && ac != 2)// && av)  attention a remettre a 1
 		return (write(2, "Error: Wrong number of arguments\n", 33), 1);
 	if (ac == 2)
@@ -104,7 +122,7 @@ int	main(int ac, char **av, char **envp)
 	if (!envt)
 	{
 		write(2, "Error: Couldn't get env variables\n", 34);
-		return 1;
+		return (1);
 	}
 	shlvl_inc(envt);
 	while (true)
@@ -119,16 +137,16 @@ int	main(int ac, char **av, char **envp)
 			head = ft_tokenize(line);
 		else
 		{
-			write(2, "\033[34mᴛʀɪᴛᴏɴ\033[0m: Unmatched quote\n", 23);
+			write(2, "TRITONUnmatched quote\n", 23);
 			continue ;
 		}
 		if (debug)
 		{
-		printf("Tokenization done\n");
-		ft_print_token(head);
+			printf("Tokenization done\n");
+			ft_print_token(head);
 		}
 		if (!head)
-			return (write(2, "\033[34mᴛʀɪᴛᴏɴ\033[0m: Tokenization failed\n", 27), 1);
+			return (write(2, "TRITONTokenization failed\n", 27), 1);
 		ft_expand(head, envt);
 		if (debug)
 		{
@@ -220,7 +238,7 @@ int	main(int ac, char **av, char **envp)
 // 				head = ft_tokenize(line);
 // 			else
 // 			{
-// 				write(2, "\033[34mᴛʀɪᴛᴏɴ\033[0m: Unmatched quote\n", 23);
+// 				write(2, "TRITONUnmatched quote\n", 23);
 // 				continue ;
 // 			}
 // 			if (debug)
@@ -229,7 +247,7 @@ int	main(int ac, char **av, char **envp)
 // 				ft_print_token(head);
 // 			}
 // 			if (!head)
-// 				return (write(2, "\033[34mᴛʀɪᴛᴏɴ\033[0m: Tokenization failed\n", 27), 1);
+// 				return (write(2, "TRITONTokenization failed\n", 27), 1);
 // 			ft_expand(head, envt);
 // 			if (debug)
 // 			{

@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/14 16:28:02 by flplace          ###   ########.fr       */
+/*   Updated: 2023/08/14 18:58:09 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@
 # define C_ALPHANUM "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_\
 0123456789"
 # define C_BLANK "\t\r\v\f\n "
+# define GR "\033[36m"
+# define BL "\033[34m"
+# define WH "\033[0m"
+# define TRITON "BLᴛʀɪᴛoɴ\033[0m: "
 
 extern int	g_status;
 
@@ -130,7 +134,7 @@ typedef struct t_fn
 
 void	ft_print_title(void);
 
-void	sig_init(void);
+void	sig_init(int state);
 void	sig_handler(int signum);
 void	sig_heredoc(int signum);
 

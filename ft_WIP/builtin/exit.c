@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 18:07:52 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/14 15:49:34 by flplace          ###   ########.fr       */
+/*   Updated: 2023/08/14 18:18:52 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_bltin_exit(t_cmd *cmd)
 		ft_free_n_exit(cmd, 0);
 	if (tmp->next->str)
 	{
-		printf("\033[34mᴛʀɪᴛᴏɴ\033[0m: too many arguments.\n");
+		printf(TRITON "too many arguments.\n");
 		return (1);
 	}
 	if (ft_isoperand(tmp->str[i]) == 1)
@@ -55,6 +55,6 @@ int	ft_bltin_exit(t_cmd *cmd)
 		ft_free_n_exit(cmd, (ft_atoi(tmp->str)));
 	}
 	else
-		printf("\033[34mᴛʀɪᴛᴏɴ\033[0m: numeral argument needed.\n");
+		printf(TRITON "numeral argument needed.\n");
 	return (1);
 }
