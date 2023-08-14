@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/14 16:01:46 by flplace          ###   ########.fr       */
+/*   Updated: 2023/08/14 16:28:02 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,20 @@
 
 extern int	g_status;
 
+/*
+**	WORD = 0,
+**	QUOTE = 1,
+**	DQUOTE = 2,
+**	PIPE = 3,
+**	etc...
+*/
 
 enum	e_TOKEN_TYPE
 {
-	WORD, // 0
-	QUOTE, // 1
-	DQUOTE, // 2
-	PIPE, // 3
+	WORD,
+	QUOTE,
+	DQUOTE,
+	PIPE,
 	REDIR_IN, // pensez a check pipe a la fin de commande
 	REDIR_OUT,
 	APPEND,
@@ -123,10 +130,9 @@ typedef struct t_fn
 
 void	ft_print_title(void);
 
-
-void    sig_init();
-void    sig_handler(int signum);
-void    sig_heredoc(int signum);
+void	sig_init(void);
+void	sig_handler(int signum);
+void	sig_heredoc(int signum);
 
 /* ------------------------------ env building ------------------------------ */
 
@@ -215,16 +221,17 @@ int		ft_pwd_changer(t_cmd *cmd);
 int		ft_pwd_finder(t_cmd *cmd, char *arg);
 int		ft_path_changer(t_cmd *cmd);
 
-/* -------------------------------- HEREDOC --------------------------------- */
+/* -------------------------------- heredoc --------------------------------- */
 
 t_token	*is_heredoc(t_token *head);
 t_token	*is_delimiter(t_token *head);
 void	ft_delimiter_set(t_token *head);
-t_cmd   *find_heredoc_cmd(t_cmd *cmd, t_token *tkn);
-void    ft_heredoc_cat(char *line, t_token *head, t_cmd *cmd);
+t_cmd	*find_heredoc_cmd(t_cmd *cmd, t_token *tkn);
+void	ft_heredoc_cat(char *line, t_token *head, t_cmd *cmd);
 
 /* ------------------------------- TOKENIZE --------------------------------- */
 
+t_token	*ft_tokenize(const char *line);
 t_token	*ft_specialtoken1(int *i, char *line, t_token *token);
 t_token	*ft_specialtoken2(int *i, char *line, t_token *token);
 t_token	*ft_quotetoken(int *i, char *line, t_token *token);
@@ -246,6 +253,13 @@ char	*ft_getvalue(char *key, t_env *env);
 size_t	ft_count_part(char *str);
 char	*ft_strtok_minishell(char *str, char *delim);
 t_token	*ft_fill_expanded(t_token *tkn, char *str);
+
+/* ---------------------------------- FREE ---------------------------------- */
+
+void	ft_free_lst_token(t_token *head);
+void	ft_free_cmd(t_cmd *cmd);
+void	ft_free_array(char **array);
+void	ft_free_args(t_cmd *cmd);
 
 /* --------------------------------- PARSER --------------------------------- */
 
@@ -275,6 +289,7 @@ int		ft_exec(t_cmd *cmd);
 
 /* --------------------------------- EXIT --------------------------------- */
 
+void	ft_free_n_exit(t_cmd *cmd, int code);
 void	dispatch_exit(t_cmd *cmd, int code);
 void	dispatch_exit2(t_cmd *cmd, int code);
 void	close_pipes(t_cmd *cmd);
@@ -283,34 +298,20 @@ void	close_pipes(t_cmd *cmd);
 
 void	ft_add_history(char *line);
 
-int	ft_argslist_to_array(t_cmd *cmd);
+int		ft_argslist_to_array(t_cmd *cmd);
 
 int		ft_count_quote(char *str);
 int		ft_quotelen(char *str);
 
-void	ft_free_lst_token(t_token *head);
-void	ft_free_cmd(t_cmd *cmd);
-void	ft_free_array(char **array);
-void	ft_free_args(t_cmd *cmd);
-
-void	ft_free_n_exit(t_cmd *cmd, int code);
-
 int		open_files(t_cmd *cmd);
 
-int		ft_wordlen(char *line);
-int		ft_wordlen_with_dollar(char *line);
 int		ft_getenv(char *key, t_env *env);
-t_token	*ft_tokenize(const char *line);
 
 int		ft_trim_blank(char *line);
 
 // int 	ft_readlst(t_token *lst);
 
 /* -------------------------------------------------------------------------- */
-
-t_token	*ft_specialtoken2(int *i, char *line, t_token *token);
-
-int		ft_getenv(char *key, t_env *env);
 
 /*				print test functions				*/
 

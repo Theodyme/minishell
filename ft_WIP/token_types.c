@@ -6,12 +6,11 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:59:32 by mabimich          #+#    #+#             */
-/*   Updated: 2023/08/14 15:55:28 by flplace          ###   ########.fr       */
+/*   Updated: 2023/08/14 16:40:07 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 t_token	*ft_specialtoken1(int *i, char *line, t_token *token)
 {
