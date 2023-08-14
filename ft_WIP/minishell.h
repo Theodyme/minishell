@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/13 21:51:32 by theophane        ###   ########.fr       */
+/*   Updated: 2023/08/14 16:01:46 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,6 +222,14 @@ t_token	*is_delimiter(t_token *head);
 void	ft_delimiter_set(t_token *head);
 t_cmd   *find_heredoc_cmd(t_cmd *cmd, t_token *tkn);
 void    ft_heredoc_cat(char *line, t_token *head, t_cmd *cmd);
+
+/* ------------------------------- TOKENIZE --------------------------------- */
+
+t_token	*ft_specialtoken1(int *i, char *line, t_token *token);
+t_token	*ft_specialtoken2(int *i, char *line, t_token *token);
+t_token	*ft_quotetoken(int *i, char *line, t_token *token);
+t_token	*ft_wordtoken(int *i, char *line, t_token *token);
+t_token	*ft_blanktoken(int *i, char *line, t_token *token);
 
 /* --------------------------------- EXPAND --------------------------------- */
 

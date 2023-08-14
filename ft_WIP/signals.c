@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 19:13:09 by theophane         #+#    #+#             */
-/*   Updated: 2023/08/13 21:52:06 by theophane        ###   ########.fr       */
+/*   Updated: 2023/08/14 15:28:35 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void    sig_handler(int signum)
 {
     if (signum == SIGINT)
     {
+		write(STDOUT_FILENO, "\n", 1);
         rl_replace_line("", 1);
         rl_on_new_line();
         rl_redisplay();
@@ -26,7 +27,7 @@ void    sig_handler(int signum)
 void    sig_init()
 {
     signal(SIGINT, sig_handler);
-    // signal(SIGQUIT, SIG_IGN);
+    signal(SIGQUIT, SIG_IGN);
     return ;
 }
 

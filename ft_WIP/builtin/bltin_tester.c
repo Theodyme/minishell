@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:41:12 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/14 15:12:10 by flplace          ###   ########.fr       */
+/*   Updated: 2023/08/14 15:48:48 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ int	ft_bltin_tester(t_cmd **cmd)
 	while (bltin[i].call && ft_strcmp(bltin[i].call, (*cmd)->name) != 0)
 		i++;
 	(*cmd)->pid = 1;
-	// if (ft_strcmp((*cmd)->name, "exit") == 0)
-	// 	return (2);
 	if (bltin[i].call)
 	{
 		(*cmd)->status = bltin[i].blt_fn(*cmd);

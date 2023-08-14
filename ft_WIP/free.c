@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 15:37:22 by theophane         #+#    #+#             */
-/*   Updated: 2023/08/04 15:37:57 by theophane        ###   ########.fr       */
+/*   Updated: 2023/08/14 15:54:00 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,19 @@ void	ft_free_array(char **array)
 		i++;
 	}
 	return ;
+}
+
+void	ft_free_lst_token(t_token *head)
+{
+	t_token	*tmp;
+
+	while (head)
+	{
+		tmp = head;
+		head = head->next;
+		free(tmp->str);
+		free(tmp);
+	}
 }
 
 void	ft_free_args(t_cmd *cmd)

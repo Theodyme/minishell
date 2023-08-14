@@ -6,7 +6,7 @@
 #    By: flplace <flplace@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 11:54:49 by flplace           #+#    #+#              #
-#    Updated: 2023/08/14 15:12:29 by flplace          ###   ########.fr        #
+#    Updated: 2023/08/14 15:55:40 by flplace          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,7 @@ SRCS	=	builtin/echo.c \
 			parser.c \
 			fill_cmd.c \
 			token.c \
+			token_types.c \
 			ft_print_test.c \
 			get_path.c \
 			exec.c \

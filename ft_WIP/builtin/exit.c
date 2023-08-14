@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 18:07:52 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/14 15:24:14 by flplace          ###   ########.fr       */
+/*   Updated: 2023/08/14 15:49:34 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_is_only_num(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -33,10 +33,9 @@ int	ft_isoperand(char c)
 	return (0);
 }
 
-
 int	ft_bltin_exit(t_cmd *cmd)
 {
-	int i;
+	int		i;
 	t_arg	*tmp;
 
 	i = 0;
