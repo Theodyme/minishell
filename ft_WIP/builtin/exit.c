@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 18:07:52 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/13 21:50:43 by theophane        ###   ########.fr       */
+/*   Updated: 2023/08/14 15:24:14 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ int	ft_bltin_exit(t_cmd *cmd)
 
 	i = 0;
 	tmp = cmd->args_list->next;
-	if (!tmp)
+	if (!tmp->str)
 		ft_free_n_exit(cmd, 0);
-	if (tmp->next)
+	if (tmp->next->str)
 	{
 		printf("\033[34mᴛʀɪᴛᴏɴ\033[0m: too many arguments.\n");
 		return (1);

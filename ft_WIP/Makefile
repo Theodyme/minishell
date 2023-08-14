@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: theophane <theophane@student.42.fr>        +#+  +:+       +#+         #
+#    By: flplace <flplace@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 11:54:49 by flplace           #+#    #+#              #
-#    Updated: 2023/08/13 21:52:09 by theophane        ###   ########.fr        #
+#    Updated: 2023/08/14 15:12:29 by flplace          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRCS	=	builtin/echo.c \
 			builtin/env.c \
 			builtin/exit.c \
 			builtin/bltin_utils.c \
+			builtin/bltin_tester.c \
 			fun_builtin/hello.c \
 			fun_builtin/where.c \
 			fun_builtin/funbuilder.c \

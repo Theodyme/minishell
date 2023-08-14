@@ -14,38 +14,21 @@
 
 void	ft_print_title(void)
 {
-
+	printf("\033[34m_________________________________________________________________________\033[0m\n\n");
+	printf("        ᴡ ᴇ ʟ ᴄ ᴏ ᴍ ᴇ    ᴛ ᴏ \n\n");
+	printf("        \033[36m|''||''|               ||\033[34m   ⠁⠁⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠹           ⠲⣦⣄⠀\033[0m\n");
+	printf("        \033[36m   ||            ''    ||\033[34m                  ⠘             ⠙⣷⣄⠀⠀\033[0m\n");
+	printf("        \033[36m   ||    '||''|  ||  ''||''  .|''|, `||''|,\033[34m               ⣿⣿⣦⠀\033[0m\n");
+	printf("        \033[36m   ||     ||     ||    ||    ||  ||  ||  ||\033[34m        ⢀    ⢀⣼⠿⠛⢻⣆\033[0m\n");
+	printf("        \033[36m  .||.   .||.   .||.   `|..' `|..|' .||  ||.\033[34m     ⢀⣴⡿       ⢀⣼⡿ \033[0m\n");
+	printf("\033[34m       ⡄                                               ⣠⣾⣿⣿⣇  ⢀⣀⣠⣶⣾⣿⣿⠃\033[0m\n");
+	printf("\033[34m       ⣆⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⡀⡀⡀      ⢀⣀⣀⣀⣠⣤⣤⣤⣶⣶⣶⣶⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠃⠀\033[0m\n");
+	printf("\033[34m                                        ⠈⠛⢿⣿⣿⣟⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⠀⠀⠀\033[0m\n");
+	printf("        ᵃ ᵐᶦⁿᶦˢʰᵉˡˡ ᵖʳᵒʲᵉᶜᵗ\033[34m                 ⠐⠺⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠟⠋⠉⠀⠀⠀⠀\033[0m\n");
+	printf("        ᵇʸ   ᵐᵃᵇᶦᵐᶦᶜʰ\033[34m                             ⠈⠉⢹⣿⣿⡿⢿⣿⣿⣄⠀⠀⠀⠀⠀⠀⠀⠀\033[0m\n");
+	printf("        ᵃⁿᵈ  ᶠˡᵖˡᵃᶜᵉ\033[34m                                ⠘⣿⡟⠀⠀⠈⠛⠿⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\033[0m\n");
+	printf("\033[34m_________________________________________________________________________\033[0m\n\n");
 	return ;
-}
-
-int	ft_bltin_tester(t_cmd **cmd)
-{
-	int			i;
-	const t_fn	bltin[12] = {
-	{.call = "echo", .blt_fn = &ft_bltin_echo},
-	{.call = "cd", .blt_fn = &ft_bltin_cd},
-	{.call = "pwd", .blt_fn = &ft_bltin_pwd},
-	{.call = "export", .blt_fn = &ft_bltin_export},
-	{.call = "unset", .blt_fn = &ft_bltin_unset},
-	{.call = "env", .blt_fn = &ft_bltin_env},
-	{.call = "exit", .blt_fn = &ft_bltin_exit},
-	};
-
-	i = 0;
-	if (!(*cmd)->name)
-		return (2);
-	open_files(*cmd);
-	while (bltin[i].call && ft_strcmp(bltin[i].call, (*cmd)->name) != 0)
-		i++;
-	(*cmd)->pid = 1;
-	// if (ft_strcmp((*cmd)->name, "exit") == 0)
-	// 	return (2);
-	if (bltin[i].call)
-	{
-		(*cmd)->status = bltin[i].blt_fn(*cmd);
-		return (1);
-	}
-	return (0);
 }
 
 void	ft_setting_env(t_env *envt, t_cmd *cmd)
@@ -183,7 +166,7 @@ int	main(int ac, char **av, char **envp)
 // 	t_token	*head = NULL;
 
 // 	ft_print_title();
-	
+
 // 	///////////////////////////////////////////// TESTING ARGS
 
 // 	if (ac != 1 && ac != 2)// && av)  attention a remettre a 1
