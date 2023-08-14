@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 19:13:09 by theophane         #+#    #+#             */
-/*   Updated: 2023/08/14 17:14:34 by flplace          ###   ########.fr       */
+/*   Updated: 2023/08/14 19:34:35 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,22 @@ void	sig_handler(int signum)
 	return ;
 }
 
+void	sig_handler_child(int signum)
+{
+	if (signum == SIGINT)
+	{
+		rl_replace_line("", 0);
+		ft_putstr_fd("\n", 1);
+		g_status = 130;
+	}
+	else if (signum == SIGQUIT)
+	{
+		ft_putstr_fd(TRITON, 2);
+		ft_putstr_fd("Quit (core dumped)\n", 2);
+		g_status = 131;
+	}
+}
+
 void	sig_init(int state)
 {
 	if (state)
@@ -33,8 +49,8 @@ void	sig_init(int state)
 	}
 	else if (!state)
 	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
+		signal(SIGINT, sig_handler_child);
+		signal(SIGQUIT, sig_handler_child);
 	}
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/08/14 19:14:28 by flplace          ###   ########.fr       */
+/*   Updated: 2023/08/14 19:37:40 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,10 @@ void	dispatch_exit(t_cmd *cmd, int code)
 			if (cmd->pid != -1 && cmd->pid != 1)
 			{
 				waitpid(cmd->pid, &g_status, 0); // Il faut check qu'on attend pas que le dernier, mais tous a partir du 0 et pensez a ce qu il se passe si on ctrl c pendant le process d attente des enfants
-				sig_init(true);
+				if (WIFEXITED(g_status))
+					g_status = (unsigned char)(WEXITSTATUS(g_status));
+				else if (WIFSIGNALED(g_status))
+					g_status = (unsigned char)(128 + WTERMSIG(g_status));
 			}
 			else if (cmd->pid == 1)
 				g_status = cmd->status;
