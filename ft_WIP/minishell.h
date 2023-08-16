@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/16 16:26:38 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/08/16 18:41:29 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,6 +269,8 @@ void	ft_free_args(t_cmd *cmd);
 t_cmd	*ft_parser(t_token *tkn, t_env *envt);
 int		ft_check_syntax(t_token *tkn);
 int		ft_is_redir(t_token *tkn);
+int		ft_envlist_to_array(t_cmd *cmd);
+
 
 /* --------------------------------- FILL_CMD ------------------------------- */
 

@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:28:34 by mabimich          #+#    #+#             */
-/*   Updated: 2023/08/16 18:11:08 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/08/16 18:42:49 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ void	open_pipes(t_cmd *cmd)
 	}
 	tmp->fd[1] = STDOUT_FILENO;
 }
-
-int	ft_envlist_to_array(t_cmd *cmd);
 
 void	close_pipes(t_cmd *cmd)
 {

@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 15:37:22 by theophane         #+#    #+#             */
-/*   Updated: 2023/08/16 18:05:09 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/08/16 19:22:25 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,14 @@ void	ft_free_args(t_cmd *cmd)
 	tmp = cmd->args_list;
 	if (cmd->argv)
 	{
-		ft_free_array(cmd->argv);
-		if (cmd->argv)
-			free(cmd->argv);
+		ft_free_tab_str(cmd->argv, -1);
 		cmd->argv = NULL;
 	}
-	ft_free_array(cmd->envp);
-	cmd->envp = NULL;
+	if (cmd->envp)
+	{
+		ft_free_tab_str(cmd->envp, -1);
+		cmd->envp = NULL;
+	}
 	while (tmp)
 	{
 		free(tmp->str);
