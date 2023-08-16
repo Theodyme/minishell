@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:49:22 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/14 19:06:56 by flplace          ###   ########.fr       */
+/*   Updated: 2023/08/16 17:33:56 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ int	main(int ac, char **av, char **envp)
 		ft_add_history(line);
 		// ft_free_lst_token(head);
 		if (cmd)
-			ft_free_cmd(cmd);
+			ft_free_cmd(cmd);// ne semble pas supprimer pas envt de la commande
 	}
 	ft_clear_env(envt);
 	if (cmd)

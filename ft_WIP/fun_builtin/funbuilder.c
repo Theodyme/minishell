@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   funbuilder.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 17:55:44 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/04 14:35:50 by theophane        ###   ########.fr       */
+/*   Updated: 2023/08/16 17:27:59 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,10 @@ int	ft_fun_builder(t_cmd **cmd)
 	i = 0;
 	if (!(*cmd)->name)
 		return (2);
-	open_files(*cmd);
 	while (bltin[i].call
 		&& ft_strcmp(bltin[i].call, ft_str_tolower((*cmd)->name)) != 0)
 		i++;
 	(*cmd)->pid = 1;
-	if (ft_strcmp((*cmd)->name, "exit") == 0)
-		return (2);
 	if (bltin[i].call)
 	{
 		(*cmd)->status = bltin[i].blt_fn(*cmd);

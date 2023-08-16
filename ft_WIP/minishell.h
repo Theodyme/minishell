@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/14 18:58:09 by flplace          ###   ########.fr       */
+/*   Updated: 2023/08/16 16:26:38 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,15 +104,14 @@ typedef struct s_arg
 
 typedef struct s_cmd
 {
-	char			*name;
-	char			**argv;
-	struct s_arg	*args_list;
-	struct s_redir	*redir;
+	char			*name;//
+	char			**argv;//
+	struct s_arg	*args_list;//
+	struct s_redir	*redir;//
 	t_env			*envt;
-	char			**envp;
+	char			**envp;//
 	pid_t			pid;
 	int				fd[2];
-	char			*name_file[2];
 	int				status;
 	struct s_cmd	*head;
 	struct s_cmd	*next;

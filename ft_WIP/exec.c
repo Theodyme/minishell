@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:28:34 by mabimich          #+#    #+#             */
-/*   Updated: 2023/08/14 17:17:47 by flplace          ###   ########.fr       */
+/*   Updated: 2023/08/16 18:11:08 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,13 @@ int	open_files(t_cmd *cmd)
 			cmd->fd[1] = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		else if (redir->type == APPEND)
 			cmd->fd[1] = open(redir->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		if (cmd->fd[0] == -1 || cmd->fd[1] == -1)
+		{
+			ft_msg(redir->file, strerror(errno));
+			ft_free_n_exit(cmd->head, 1);
+		}
 		redir = redir->next;
 	}
-	if (cmd->fd[0] == -1)
-		dispatch_exit(cmd, 555);
-	else if (cmd->fd[1] == -1)
-		dispatch_exit(cmd, 666);
 	return (0);
 }
 

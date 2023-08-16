@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 15:37:22 by theophane         #+#    #+#             */
-/*   Updated: 2023/08/14 15:54:00 by flplace          ###   ########.fr       */
+/*   Updated: 2023/08/16 18:05:09 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	ft_free_args(t_cmd *cmd)
 	}
 	ft_free_array(cmd->envp);
 	cmd->envp = NULL;
-	ft_free_array(cmd->name_file);
 	while (tmp)
 	{
 		free(tmp->str);
