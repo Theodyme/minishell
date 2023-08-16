@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:23:49 by mabimich          #+#    #+#             */
-/*   Updated: 2023/08/14 18:18:57 by flplace          ###   ########.fr       */
+/*   Updated: 2023/08/16 18:28:09 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	ft_check_syntax(t_token *token)
 			if (!tmp->next || (tmp->next->type != WORD
 					&& tmp->next->type != DELIMITER))
 			{
-				printf("tmp->type = %d\ttmp->next->type = %d\n", tmp->type, tmp->next->type);
 				return (printf(TRITON "syntax error near unexpected token \
 `%s'\n", tmp->next->str), 1);
 			}
