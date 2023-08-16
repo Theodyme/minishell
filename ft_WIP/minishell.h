@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/16 18:41:29 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/08/16 20:51:22 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,7 +281,7 @@ int		ft_redir(t_token *token, t_cmd *cmd);
 int		ft_add_redir(t_redir *redir, t_token *token);
 
 /* --------------------------------- GET_PATH ------------------------------ */
-char	*verif_paths(char **paths, char *cmd);
+char	*verif_paths(char **paths);
 char	*get_path(char *cmd, char **envp);
 
 /* ---------------------------------  --------------------------------- */

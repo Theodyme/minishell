@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:28:34 by mabimich          #+#    #+#             */
-/*   Updated: 2023/08/16 18:42:49 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/08/16 20:58:01 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ void	child(t_cmd *cmd)
 			ft_msg(cmd->name, "is a directory");
 		else
 			ft_msg(cmd->name, "command found but not executable");
+		free(path);
 		dispatch_exit(cmd, 126);
 	}
 	if (path && cmd->argv && cmd->argv[0])

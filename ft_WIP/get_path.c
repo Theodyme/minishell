@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:35:18 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/14 18:20:10 by flplace          ###   ########.fr       */
+/*   Updated: 2023/08/16 20:51:41 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 ** Elle retourne le chemin valide, ou NULL si aucun chemin n'est valide.
 */
 
-char	*verif_paths(char **paths, char *cmd)
+char	*verif_paths(char **paths)
 {
 	int		i;
 	char	*out;
@@ -31,14 +31,12 @@ char	*verif_paths(char **paths, char *cmd)
 	if (!paths)
 		return (printf("BLBLᴛʀɪᴛᴏɴ\033[0m\033[0m: path is NULL\n"),
 			NULL);
-	while (paths && paths[++i])
+	while (!out && paths && paths[++i])
 	{
 		if (!access(paths[i], F_OK | X_OK) && !out)
 			out = ft_strdup(paths[i]);
 		free(paths[i]);
 	}
-	if (!out && !access(cmd, F_OK | X_OK))
-		out = ft_strdup(cmd);
 	if (paths)
 		free(paths);
 	return (out);
@@ -60,6 +58,8 @@ char	*get_path(char *cmd, char **envp)
 	char	*tmp;
 
 	i = -1;
+	if (!access(cmd, F_OK | X_OK))
+		return (ft_strdup(cmd));
 	while (envp && envp[++i])
 		if (!ft_strncmp(envp[i], "PATH=", 5))
 			break ;
@@ -77,5 +77,5 @@ char	*get_path(char *cmd, char **envp)
 		if (!paths[i])
 			free_tab_with_1blank(paths);
 	}
-	return (verif_paths(paths, cmd));
+	return (verif_paths(paths));
 }
