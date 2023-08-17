@@ -3,40 +3,69 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:54:46 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/16 19:48:31 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/08/17 08:58:05 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_bltin_echo(t_cmd *cmd)
+int	ft_has_nflag(char *str)
 {
-	int				stdout_copy;
-	struct s_arg	*tmp;
+	int	i;
 
-	if (!cmd->args_list->next->str)
+	i = 0;
+	if (str && str[i] && str[i] == '-')
 	{
-		write(1, "\n", 1);
+		i++;
+		if (str[i] && (str[i] == 'n'))
+		{
+			if (str[++i] != 'n')
+				return (2);
+			else
+			{
+				while (str[i] && str[i] == 'n')
+					i++;
+			}
+		}
+		if (str[i])
+			return (0);
 		return (1);
 	}
-	stdout_copy = dup(STDOUT_FILENO);
-	dup2(cmd->fd[1], STDOUT_FILENO);
+	return (0);
+}
+
+int	ft_bltin_echo(t_cmd *cmd)
+{
+	struct s_arg	*tmp;
+	int				i;
+	int				n;
+
+	n = 0;
+	if (!cmd->args_list->next->str)
+		return (write(1, "\n", 1), 2);
 	tmp = cmd->args_list->next;
-	if (ft_strcmp(tmp->str, "-n") == 0)
-		tmp = tmp->next;
 	while (cmd->args_list && tmp)
 	{
-		ft_putendl_fd((tmp->str), 1);
-		if (tmp->next && tmp->next->str)
-			ft_putendl_fd(" ", 1);
-		tmp = tmp->next;
+		i = ft_has_nflag(tmp->str);
+		if (i == 0)
+		{
+			while (tmp)
+			{
+				ft_putendl_fd((tmp->str), 1);
+				if (tmp->next && tmp->next->str)
+					ft_putendl_fd(" ", 1);
+				tmp = tmp->next;
+			}
+		}
+		else if (i == 2)
+			n = 1;
+		if (tmp)
+			tmp = tmp->next;
 	}
-	if (ft_strcmp(cmd->args_list->next->str, "-n") != 0)
+	if (n == 0)
 		write(1, "\n", 1);
-	dup2(stdout_copy, STDOUT_FILENO);
-	close(stdout_copy);
 	return (1);
 }

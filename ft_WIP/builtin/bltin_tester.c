@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_tester.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:41:12 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/16 17:27:26 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/08/17 08:58:28 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	ft_bltin_tester(t_cmd **cmd)
 {
 	int			i;
+	int			stdout_copy;
 	const t_fn	bltin[12] = {
 	{.call = "echo", .blt_fn = &ft_bltin_echo},
 	{.call = "cd", .blt_fn = &ft_bltin_cd},
@@ -33,7 +34,11 @@ int	ft_bltin_tester(t_cmd **cmd)
 	(*cmd)->pid = 1;
 	if (bltin[i].call)
 	{
+		stdout_copy = dup(STDOUT_FILENO);
+		dup2((*cmd)->fd[1], STDOUT_FILENO);
 		(*cmd)->status = bltin[i].blt_fn(*cmd);
+		dup2(stdout_copy, STDOUT_FILENO);
+		close(stdout_copy);
 		return (1);
 	}
 	return (0);

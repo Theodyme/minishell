@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:58:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/07/26 15:57:00 by flplace          ###   ########.fr       */
+/*   Updated: 2023/08/17 09:00:01 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,9 @@ void	ft_print_keynvalue(t_env *parse)
 
 int	ft_bltin_env(t_cmd *cmd)
 {
-	int		stdout_copy;
 	t_env	*parse;
 
 	parse = NULL;
-	stdout_copy = dup(STDOUT_FILENO);
-	dup2(cmd->fd[1], STDOUT_FILENO);
 	parse = cmd->envt;
 	if (parse == NULL)
 	{
@@ -42,7 +39,5 @@ int	ft_bltin_env(t_cmd *cmd)
 	}
 	if (parse)
 		ft_print_keynvalue(parse);
-	dup2(stdout_copy, STDOUT_FILENO);
-	close(stdout_copy);
 	return (0);
 }

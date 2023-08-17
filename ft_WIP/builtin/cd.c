@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:41:12 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/14 18:18:52 by flplace          ###   ########.fr       */
+/*   Updated: 2023/08/17 09:06:54 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ int	ft_pwd_finder(t_cmd *cmd, char *arg)
 
 int	ft_bltin_cd(t_cmd *cmd)
 {
+	if (cmd->next && cmd->next->name)
+		return (1);
 	if (ft_array_cntr(cmd->argv) == 1)
 	{
 		if (ft_pwd_finder(cmd, "HOME") == 1)

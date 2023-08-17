@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 18:07:52 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/14 18:18:52 by flplace          ###   ########.fr       */
+/*   Updated: 2023/08/17 09:04:32 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	ft_bltin_exit(t_cmd *cmd)
 	t_arg	*tmp;
 
 	i = 0;
+	if (cmd->head != cmd)
+		return (1);
 	tmp = cmd->args_list->next;
 	if (!tmp->str)
 		ft_free_n_exit(cmd, 0);
