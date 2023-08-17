@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:49:22 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/17 06:18:58 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/08/17 09:25:19 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*return_status(void)
 
 	str = NULL;
 	out = NULL;
-	tmp = ft_itoa(WEXITSTATUS(g_status));
+	tmp = ft_itoa(g_status);
 	if (ft_strcmp(tmp, "0") == 0)
 		out = ft_3strjoin_with_free("\033[32m", tmp, "\033[0m", 000);
 	else
@@ -113,7 +113,8 @@ int	main(int ac, char **av, char **envp)
 	t_token	*head;
 
 	ft_print_title1();
-	sig_init(true);
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, SIG_IGN);
 	if (ac != 1 && ac != 2)// && av)  attention a remettre a 1
 		return (write(2, "Error: Wrong number of arguments\n", 33), 1);
 	if (ac == 2)
@@ -125,12 +126,12 @@ int	main(int ac, char **av, char **envp)
 		return (1);
 	}
 	shlvl_inc(envt);
+	g_status = 0;
 	while (true)
 	{
 		status = return_status();
 		line = readline(status);
 		free(status);
-		g_status = 0;
 		if (!line)
 			break ;
 		if (ft_count_quote(line) != -1) // penser a add history
@@ -161,15 +162,18 @@ int	main(int ac, char **av, char **envp)
 			printf("Parsing done\n");
 			ft_print_cmd(cmd);
 		}
+		signal(SIGINT, SIG_IGN);
 		ft_exec(cmd);
+		//fprintf(stderr, "[%d]\n", g_status);
+		signal(SIGINT, sig_handler);
 		ft_add_history(line);
 		// ft_free_lst_token(head);
 		if (cmd)
-			ft_free_cmd(cmd);// ne semble pas supprimer pas envt de la commande
+			ft_free_cmd(&cmd);// ne semble pas supprimer pas envt de la commande
 	}
 	ft_clear_env(envt);
 	if (cmd)
-		ft_free_cmd(cmd);
+		ft_free_cmd(&cmd);
 	return (0);
 }
 

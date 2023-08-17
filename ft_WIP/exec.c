@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:28:34 by mabimich          #+#    #+#             */
-/*   Updated: 2023/08/17 05:49:27 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/08/17 09:05:17 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,8 @@ void	child(t_cmd *cmd)
 	}
 	if (path && cmd->argv && cmd->argv[0])
 	{
-		sig_init(false);
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		execve(path, cmd->argv, cmd->envp);
 	}
 	ft_msg(cmd->name, "command not found");
