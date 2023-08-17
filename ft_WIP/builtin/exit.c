@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 18:07:52 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/14 18:18:52 by flplace          ###   ########.fr       */
+/*   Updated: 2023/08/17 07:32:27 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	ft_bltin_exit(t_cmd *cmd)
 		i++;
 	if (ft_is_only_num(tmp->str + i) == 1)
 	{
-		printf("atoi: %d\n", ft_atoi(tmp->str));
 		ft_free_n_exit(cmd, (ft_atoi(tmp->str)));
 	}
 	else
