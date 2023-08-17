@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/17 05:44:37 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/08/17 09:23:01 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,7 +267,7 @@ t_token	*ft_fill_expanded(t_token *tkn, char *str);
 /* ---------------------------------- FREE ---------------------------------- */
 
 void	ft_free_lst_token(t_token *head);
-void	ft_free_cmd(t_cmd *cmd);
+void	ft_free_cmd(t_cmd **cmd);
 void	ft_free_array(char **array);
 void	ft_free_args(t_cmd *cmd);
 

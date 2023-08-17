@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/08/17 09:02:01 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/08/17 09:23:45 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	ft_free_n_exit(t_cmd *cmd, int code)
 	if (cmd && cmd->head)
 	{
 		cmd = cmd->head;
-		ft_free_cmd(cmd);
+		ft_free_cmd(&cmd);
 	}
 	else if (cmd)
-		ft_free_cmd(cmd);
+		ft_free_cmd(&cmd);
 	exit(code);
 }
 
