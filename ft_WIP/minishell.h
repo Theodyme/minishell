@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/16 20:51:22 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/08/17 05:44:37 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define C_ALPHANUM "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_\
 0123456789"
 # define C_BLANK "\t\r\v\f\n "
+# define NAME_TMP_FILE "/tmp/.tmp_heredoc"
 # define GR "\033[36m"
 # define BL "\033[34m"
 # define WH "\033[0m"
@@ -52,7 +53,7 @@ enum	e_TOKEN_TYPE
 	QUOTE,
 	DQUOTE,
 	PIPE,
-	REDIR_IN, // pensez a check pipe a la fin de commande
+	REDIR_IN, // penser a check pipe a la fin de commande
 	REDIR_OUT,
 	APPEND,
 	HEREDOC,
@@ -91,6 +92,8 @@ typedef struct s_redir
 {
 	enum e_TOKEN_TYPE	type;
 	char				*file;
+	int					fd_h_d;
+	char				*delimiter;
 	struct s_redir		*next;
 }						t_redir;
 
@@ -191,6 +194,9 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	free_tab_with_1blank(char **tab);
 char	*ft_str_tolower(char *str);
 int		ft_tolower(int n);
+char	*ft_create_fname(char *fname);
+char	*get_next_line(int fd);
+
 
 /* -------------------------------- builtins -------------------------------- */
 
@@ -230,7 +236,8 @@ t_token	*is_heredoc(t_token *head);
 t_token	*is_delimiter(t_token *head);
 void	ft_delimiter_set(t_token *head);
 t_cmd	*find_heredoc_cmd(t_cmd *cmd, t_token *tkn);
-void	ft_heredoc_cat(char *line, t_token *head, t_cmd *cmd);
+int		here_doc(t_redir *redir);
+void	init_heredoc(t_redir *redir);
 
 /* ------------------------------- TOKENIZE --------------------------------- */
 
@@ -270,7 +277,6 @@ t_cmd	*ft_parser(t_token *tkn, t_env *envt);
 int		ft_check_syntax(t_token *tkn);
 int		ft_is_redir(t_token *tkn);
 int		ft_envlist_to_array(t_cmd *cmd);
-
 
 /* --------------------------------- FILL_CMD ------------------------------- */
 

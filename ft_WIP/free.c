@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 15:37:22 by theophane         #+#    #+#             */
-/*   Updated: 2023/08/16 19:22:25 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/08/17 06:01:11 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,12 @@ void	ft_free_args(t_cmd *cmd)
 	return ;
 }
 
+void	free_heredoc(t_redir *rdr)
+{
+	unlink(rdr->file);
+	free(rdr->delimiter);
+}
+
 void	ft_free_cmd(t_cmd *cmd)
 {
 	t_redir	*tmp;
@@ -78,6 +84,8 @@ void	ft_free_cmd(t_cmd *cmd)
 		tmp = ctmp->redir;
 		while (tmp)
 		{
+			if (tmp->type && tmp->type == HEREDOC)
+				free_heredoc(tmp);
 			free(tmp->file);
 			node = tmp;
 			tmp = tmp->next;
@@ -86,8 +94,7 @@ void	ft_free_cmd(t_cmd *cmd)
 		ft_free_args(ctmp);
 		cnode = ctmp;
 		ctmp = ctmp->next;
-		if (cnode)
-			free(cnode);
+		free(cnode);
 	}
 	return ;
 }

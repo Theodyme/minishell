@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:54:00 by mabimich          #+#    #+#             */
-/*   Updated: 2023/07/26 15:54:01 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/08/17 05:31:27 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	ft_add_redir(t_redir *redir, t_token *token)
 	}
 	tmp->type = token->type;
 	tmp->file = ft_strdup(token->next->str);
+	if (tmp->type == HEREDOC)
+		init_heredoc(tmp);
 	if (!tmp->file)
 		return (free(tmp), 1);
 	return (0);
@@ -36,7 +38,7 @@ int	ft_add_redir(t_redir *redir, t_token *token)
 int	ft_redir(t_token *token, t_cmd *cmd)
 {
 	if (token->type != REDIR_IN && token->type != REDIR_OUT
-		&& token->type != APPEND)
+		&& token->type != APPEND && token->type != HEREDOC)
 		return (1);
 	else if (!token->next)
 		return (1);

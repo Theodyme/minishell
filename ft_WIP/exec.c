@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:28:34 by mabimich          #+#    #+#             */
-/*   Updated: 2023/08/16 20:58:01 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/08/17 05:49:27 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	open_files(t_cmd *cmd)
 	{
 		if (redir->type == REDIR_IN)
 			cmd->fd[0] = open(redir->file, O_RDONLY);
+		else if (redir->type == HEREDOC)
+			cmd->fd[0] = here_doc(redir);
 		else if (redir->type == REDIR_OUT)
 			cmd->fd[1] = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		else if (redir->type == APPEND)

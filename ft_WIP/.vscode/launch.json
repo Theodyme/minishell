@@ -1,13 +1,47 @@
 {
 	"configurations":
 	[
+		{
+			"name": "(gdb) Lancer",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceRoot}/minishell",
+			"args": [],
+			"stopAtEntry": false,
+			"cwd": "${fileDirname}",
+			"environment": [],
+			"externalConsole": false,
+			"MIMode": "gdb",
+			"setupCommands": [
+				// {
+				// 	"description": "Set follow-fork-mode to child",
+				// 	"text": "set follow-fork-mode child",
+				// 	"ignoreFailures": false
+				// },
+				{
+					"description": "Activer l'impression en mode Pretty pour gdb",
+					"text": "-enable-pretty-printing",
+					"ignoreFailures": true
+				},
+				{
+					"description": "Définir la version désassemblage sur Intel",
+					"text": "-gdb-set disassembly-flavor intel",
+					"ignoreFailures": true
+				}
+			]
+		},
 	{
 		"name": "(gdb) Attach",
 		"type": "cppdbg",
 		"request": "attach",
-		"program": "enter program name, for example ${workspaceFolder}/a.out",
+		"program": "${workspaceRoot}/minishell",
 		"MIMode": "gdb",
 		"setupCommands": [
+			{
+				"description": "Set follow-fork-mode to child",
+				"text": "set follow-fork-mode child",
+				"ignoreFailures": false
+			},
 			{
 				"description": "Enable pretty-printing for gdb",
 				"text": "-enable-pretty-printing",

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: flplace <flplace@student.42.fr>            +#+  +:+       +#+         #
+#    By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 11:54:49 by flplace           #+#    #+#              #
-#    Updated: 2023/08/14 15:55:40 by flplace          ###   ########.fr        #
+#    Updated: 2023/08/16 23:02:24 by mabimich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,8 @@ SRCS	=	builtin/echo.c \
 			lib/ft_strcat.c \
 			lib/ft_isit.c \
 			lib/ft_len_counter.c \
+			lib/ft_create_fname.c \
+			lib/get_next_line.c \
 			env_cpy.c \
 			env_utilities.c \
 			quote.c \
@@ -77,7 +79,7 @@ SRCS	=	builtin/echo.c \
 			exit.c \
 			free.c \
 			signals.c \
-			heredoc.c \
+			here_doc.c \
 			main.c
 OBJ		=	${SRCS:.c=.o}
 HEADER	=   minishell.h
