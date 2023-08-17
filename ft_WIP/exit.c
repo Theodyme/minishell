@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/08/17 05:08:13 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/08/17 09:02:01 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,23 @@ void	dispatch_exit2(t_cmd *cmd, int code)
 		ft_free_n_exit(cmd, 1);
 	if (code == 21 || code == 9)
 		ft_free_n_exit(cmd, 0);
-	//exit(WEXITSTATUS(1));
+		
+	int tmp = g_status;
+	if (WIFEXITED(tmp))
+		g_status = WEXITSTATUS(tmp);
+	else if (WIFSIGNALED(tmp))
+	{
+		g_status = 128 + WTERMSIG(tmp);
+		if (g_status == 130)
+		{
+			write(2, "\n", 1);
+			//g_g = 1;
+		}
+		if (g_status == 131)
+		{
+			write(2, "Quit (core dumped)\n", 19);
+		}
+	}
 }
 
 /*
