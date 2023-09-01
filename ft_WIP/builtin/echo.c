@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:54:46 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/17 08:58:05 by flplace          ###   ########.fr       */
+/*   Updated: 2023/09/01 16:58:35 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,8 @@ int	ft_has_nflag(char *str)
 	if (str && str[i] && str[i] == '-')
 	{
 		i++;
-		if (str[i] && (str[i] == 'n'))
-		{
-			if (str[++i] != 'n')
-				return (2);
-			else
-			{
-				while (str[i] && str[i] == 'n')
-					i++;
-			}
-		}
+		while (str[i] && (str[i] == 'n'))
+			i++;
 		if (str[i])
 			return (0);
 		return (1);
@@ -40,17 +32,15 @@ int	ft_has_nflag(char *str)
 int	ft_bltin_echo(t_cmd *cmd)
 {
 	struct s_arg	*tmp;
-	int				i;
-	int				n;
+	int				flag;
 
-	n = 0;
+	flag = 0;
 	if (!cmd->args_list->next->str)
-		return (write(1, "\n", 1), 2);
+		return (0);
 	tmp = cmd->args_list->next;
 	while (cmd->args_list && tmp)
 	{
-		i = ft_has_nflag(tmp->str);
-		if (i == 0)
+		if (ft_has_nflag(tmp->str) == 0)
 		{
 			while (tmp)
 			{
@@ -60,12 +50,13 @@ int	ft_bltin_echo(t_cmd *cmd)
 				tmp = tmp->next;
 			}
 		}
-		else if (i == 2)
-			n = 1;
-		if (tmp)
+		else if (ft_has_nflag(tmp->str) == 1)
+		{
+			flag++;
 			tmp = tmp->next;
+		}
 	}
-	if (n == 0)
+	if (flag == 0)
 		write(1, "\n", 1);
-	return (1);
+	return (0);
 }

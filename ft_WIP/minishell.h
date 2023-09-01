@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/17 09:23:01 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/09/01 13:58:48 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define GR "\033[36m"
 # define BL "\033[34m"
 # define WH "\033[0m"
-# define TRITON "BLᴛʀɪᴛoɴ\033[0m: "
+# define TRITON "\033[34mᴛʀɪᴛoɴ\033[0m: "
 
 extern int	g_status;
 
