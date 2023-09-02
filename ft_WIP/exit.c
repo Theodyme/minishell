@@ -6,17 +6,11 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/08/17 09:23:45 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/09/02 16:38:39 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-** ft_msg : affiche un message d'erreur
-** @s1 : message d'erreur
-** @s2 : message d'erreur
-*/
 
 void	ft_free_n_exit(t_cmd *cmd, int code)
 {
@@ -29,8 +23,17 @@ void	ft_free_n_exit(t_cmd *cmd, int code)
 	}
 	else if (cmd)
 		ft_free_cmd(&cmd);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	close(STDERR_FILENO);
 	exit(code);
 }
+
+/*
+** ft_msg : affiche un message d'erreur
+** @s1 : message d'erreur
+** @s2 : message d'erreur
+*/
 
 void	ft_msg(char *s1, char *s2)
 {
