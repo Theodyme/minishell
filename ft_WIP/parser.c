@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:23:49 by mabimich          #+#    #+#             */
-/*   Updated: 2023/09/07 16:05:56 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:39:17 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_check_syntax(t_token *token)
 	if (!tmp)
 		return (printf(TRITON "syntax error\n"), 1);
 	if (tmp->type == PIPE)
-		return (printf(TRITON "syntax error near unexpected	token \
+		return (printf(TRITON "syntax error near unexpected token \
 `%s'\n", tmp->str), 1);
 	while (tmp)
 	{
