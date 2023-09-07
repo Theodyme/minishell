@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:13:33 by flplace           #+#    #+#             */
-/*   Updated: 2023/09/07 13:25:19 by flplace          ###   ########.fr       */
+/*   Updated: 2023/09/07 16:09:28 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	ft_export_valid(t_arg *args)
 	{
 		while (tmp->str[i])
 		{
-			printf("pouet\n");
 			if (!ft_isalpha(tmp->str[i]) && tmp->str[i] != '=')
 			{
 				printf(TRITON "export: '%s': not a valid identifier\n",
