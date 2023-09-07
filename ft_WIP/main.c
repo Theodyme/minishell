@@ -6,13 +6,13 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:49:22 by flplace           #+#    #+#             */
-/*   Updated: 2023/09/04 18:59:22 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/09/07 16:45:12 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_print_title2(void)
+void ft_print_title2(void)
 {
 	printf(BL "                                       ");
 	printf(" ⠈⠛⢿⣿⣿⣟⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⠀⠀⠀" WH "\n");
@@ -24,15 +24,16 @@ void	ft_print_title2(void)
 	printf("           ⠘⣿⡟⠀⠀⠈⠛⠿⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀" WH "\n");
 	printf(BL "_____________________________________________");
 	printf("____________________________" WH "\n\n");
-	return ;
+	return;
 }
 
-void	ft_print_title1(void)
+void ft_print_title1(void)
 {
 	printf(BL "____________________________________");
 	printf("_____________________________________" WH "\n\n");
 	printf("        ᴡ ᴇ ʟ ᴄ ᴏ ᴍ ᴇ    ᴛ ᴏ \n\n");
-	printf("        " GR """|''||''|               ||");
+	printf("        " GR ""
+		   "|''||''|               ||");
 	printf(BL "   ⠁⠁⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠹           ⠲⣦⣄⠀" WH "\n");
 	printf("        " GR "   ||            ''    ||");
 	printf(BL "                  ⠘             ⠙⣷⣄⠀⠀" WH "\n");
@@ -47,15 +48,15 @@ void	ft_print_title1(void)
 	printf(BL "       ⣆⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⡀⡀⡀  ");
 	printf("    ⢀⣀⣀⣀⣠⣤⣤⣤⣶⣶⣶⣶⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠃⠀" WH "\n");
 	ft_print_title2();
-	return ;
+	return;
 }
 
-void	ft_setting_env(t_env *envt, t_cmd *cmd)
+void ft_setting_env(t_env *envt, t_cmd *cmd)
 {
-	t_cmd	*tmp;
+	t_cmd *tmp;
 
 	if (!envt)
-		return ;
+		return;
 	tmp = cmd;
 	while (tmp)
 	{
@@ -64,11 +65,11 @@ void	ft_setting_env(t_env *envt, t_cmd *cmd)
 	}
 }
 
-char	*return_status(void)
+char *return_status(void)
 {
-	char	*str;
-	char	*out;
-	char	*tmp;
+	char *str;
+	char *out;
+	char *tmp;
 
 	str = NULL;
 	out = NULL;
@@ -83,39 +84,39 @@ char	*return_status(void)
 	return (str);
 }
 
-void	shlvl_inc(t_env *envt)
+void shlvl_inc(t_env *envt)
 {
-	t_env	*shell;
-	int		i;
+	t_env *shell;
+	int i;
 
 	shell = ft_key_finder(&envt, "SHLVL");
 	if (!shell)
 	{
 		write(2, "Error: Couldn't get shell lvl\n", 31);
-		return ;
+		return;
 	}
 	i = ft_atoi(shell->value);
 	i++;
 	free(shell->value);
 	shell->value = ft_itoa(i);
-	return ;
+	return;
 }
 
-int		g_status = 0;
+int g_status = 0;
 
-int	main(int ac, char **av, char **envp)
+int main(int ac, char **av, char **envp)
 {
-	int		debug = 0;
-	char	*line = NULL;
-	char	*status = NULL;
-	t_env	*envt = NULL;
-	t_cmd	*cmd = NULL;
-	t_token	*head;
+	int debug = 0;
+	char *line = NULL;
+	char *status = NULL;
+	t_env *envt = NULL;
+	t_cmd *cmd = NULL;
+	t_token *head;
 
 	ft_print_title1();
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
-	if (ac != 1 && ac != 2)// && av)  attention a remettre a 1
+	if (ac != 1 && ac != 2) // && av)  attention a remettre a 1
 		return (write(2, "Error: Wrong number of arguments\n", 33), 1);
 	if (ac == 2)
 		debug = atoi(av[1]); // a enlever
@@ -133,14 +134,14 @@ int	main(int ac, char **av, char **envp)
 		line = readline(status);
 		free(status);
 		if (!line)
-			break ;
+			break;
 		if (ft_count_quote(line) != -1) // penser a add history
 			head = ft_tokenize(line);
 		else
 		{
 			g_status = 512;
 			write(2, "TRITONUnmatched quote\n", 23);
-			continue ;
+			continue;
 		}
 		if (debug)
 		{
@@ -165,13 +166,12 @@ int	main(int ac, char **av, char **envp)
 		}
 		signal(SIGINT, SIG_IGN);
 		ft_exec(cmd);
-		//fprintf(stderr, "[%d]\n", g_status);
+		// fprintf(stderr, "[%d]\n", g_status);
 		signal(SIGINT, sig_handler);
 		ft_add_history(line);
 		// ft_free_lst_token(head);
 		if (cmd)
-			ft_free_cmd(&cmd);// ne semble pas supprimer pas envt de la commande
-
+			ft_free_cmd(&cmd); // ne semble pas supprimer pas envt de la commande
 	}
 	ft_clear_env(envt);
 	if (cmd)

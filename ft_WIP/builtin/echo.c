@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:54:46 by flplace           #+#    #+#             */
-/*   Updated: 2023/09/01 16:58:35 by flplace          ###   ########.fr       */
+/*   Updated: 2023/09/07 15:39:15 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,18 @@ int	ft_has_nflag(char *str)
 	return (0);
 }
 
+void	ft_echo_print(t_arg **tmp)
+{
+	while (*tmp)
+	{
+		ft_putendl_fd(((*tmp)->str), 1);
+		if ((*tmp)->next && (*tmp)->next->str)
+			ft_putendl_fd(" ", 1);
+		*tmp = (*tmp)->next;
+	}
+	return ;
+}
+
 int	ft_bltin_echo(t_cmd *cmd)
 {
 	struct s_arg	*tmp;
@@ -41,16 +53,8 @@ int	ft_bltin_echo(t_cmd *cmd)
 	while (cmd->args_list && tmp)
 	{
 		if (ft_has_nflag(tmp->str) == 0)
-		{
-			while (tmp)
-			{
-				ft_putendl_fd((tmp->str), 1);
-				if (tmp->next && tmp->next->str)
-					ft_putendl_fd(" ", 1);
-				tmp = tmp->next;
-			}
-		}
-		else if (ft_has_nflag(tmp->str) == 1)
+			ft_echo_print(&tmp);
+		else
 		{
 			flag++;
 			tmp = tmp->next;
