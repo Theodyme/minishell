@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:23:49 by mabimich          #+#    #+#             */
-/*   Updated: 2023/09/02 17:03:01 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/09/07 16:05:56 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ t_cmd	*ft_parser(t_token *token, t_env *envt)
 	t_cmd	*cmd;
 
 	if (ft_check_syntax(token))
-		return (NULL);
+		return (g_status = 2, NULL);
 	cmd = ft_calloc(1, sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:49:22 by flplace           #+#    #+#             */
-/*   Updated: 2023/09/02 17:07:07 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/09/04 18:59:22 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ char	*return_status(void)
 	str = ft_strjoin(out, " > ");
 	free(out);
 	free(tmp);
-	g_status = 0;
 	return (str);
 }
 
@@ -139,7 +138,7 @@ int	main(int ac, char **av, char **envp)
 			head = ft_tokenize(line);
 		else
 		{
-			g_status = 2;
+			g_status = 512;
 			write(2, "TRITONUnmatched quote\n", 23);
 			continue ;
 		}
@@ -172,6 +171,7 @@ int	main(int ac, char **av, char **envp)
 		// ft_free_lst_token(head);
 		if (cmd)
 			ft_free_cmd(&cmd);// ne semble pas supprimer pas envt de la commande
+
 	}
 	ft_clear_env(envt);
 	if (cmd)

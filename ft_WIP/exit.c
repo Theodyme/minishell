@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/09/02 16:38:39 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/09/07 16:19:43 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,21 +94,25 @@ void	dispatch_exit2(t_cmd *cmd, int code)
 		ft_free_n_exit(cmd, 0);
 		
 	int tmp = g_status;
+	// printf("0) g_status = %d\n", g_status);
+	// printf("1) WINFEXITED = %d\n", WIFEXITED(tmp));
 	if (WIFEXITED(tmp))
 		g_status = WEXITSTATUS(tmp);
 	else if (WIFSIGNALED(tmp))
 	{
-		g_status = 128 + WTERMSIG(tmp);
+		// printf(".0) g_status = %d\n", g_status);
+		// printf(".1) WINFEXITED = %d\n", WIFEXITED(tmp));
+		// printf(".2) WEXITSTATUS = %d\n", WEXITSTATUS(tmp));
+		// printf(".3) WIFSIGNALED = %d\n", WIFSIGNALED(tmp));
+		g_status = WTERMSIG(tmp);
 		if (g_status == 130)
-		{
 			write(2, "\n", 1);
-			//g_g = 1;
-		}
 		if (g_status == 131)
-		{
 			write(2, "Quit (core dumped)\n", 19);
-		}
 	}
+	// printf("-0) g_status = %d\n", g_status);
+	// printf("-1) WINFEXITED = %d\n", WIFEXITED(tmp));
+	// printf("-2) WEXITSTATUS = %d\n", WEXITSTATUS(tmp));
 }
 
 /*
