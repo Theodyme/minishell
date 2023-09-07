@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/09/01 13:58:48 by flplace          ###   ########.fr       */
+/*   Updated: 2023/09/07 15:38:52 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,7 @@ char	*ft_strjoin_free(char *s1, char *s2);
 void	ft_free_tab_str(char **tab, int max);
 char	*ft_itoa(int n);
 int		ft_atoi(const char *str);
+int		ft_isalpha(int n);
 int		ft_isspace(char c);
 int		ft_isblank(char c);
 int		ft_isspecial(char c);
@@ -229,6 +230,9 @@ char	*ft_pathbuilder(char *path, char *cmdname);
 int		ft_pwd_changer(t_cmd *cmd);
 int		ft_pwd_finder(t_cmd *cmd, char *arg);
 int		ft_path_changer(t_cmd *cmd);
+int		ft_export_valid(t_arg *args);
+void	ft_echo_print(t_arg **tmp);
+int		ft_has_nflag(char *str);
 
 /* -------------------------------- heredoc --------------------------------- */
 

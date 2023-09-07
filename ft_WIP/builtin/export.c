@@ -6,11 +6,61 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:13:33 by flplace           #+#    #+#             */
-/*   Updated: 2023/07/26 16:00:21 by flplace          ###   ########.fr       */
+/*   Updated: 2023/09/07 13:25:19 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	ft_isalpha(int n)
+{
+	if ((n >= 'A' && n <= 'Z') || (n >= 'a' && n <= 'z'))
+		return (1);
+	return (0);
+}
+
+int	ft_is_equal(t_arg *args)
+{
+	if (args->str[0] == '=')
+	{
+		if (args->str[1] == '\0')
+		{
+			if (!args->next->str)
+			{
+				printf(TRITON "export: '=': not a valid identifier\n");
+				return (1);
+			}
+		}
+	}
+	return (0);
+}
+
+int	ft_export_valid(t_arg *args)
+{
+	int		i;
+	t_arg	*tmp;
+
+	tmp = args->next;
+	i = 0;
+	if (ft_is_equal(tmp) == 1)
+		return (0);
+	while (tmp && tmp->str)
+	{
+		while (tmp->str[i])
+		{
+			printf("pouet\n");
+			if (!ft_isalpha(tmp->str[i]) && tmp->str[i] != '=')
+			{
+				printf(TRITON "export: '%s': not a valid identifier\n",
+					tmp->str);
+				return (0);
+			}
+			i++;
+		}
+		tmp = tmp->next;
+	}
+	return (1);
+}
 
 int	ft_bltin_export(t_cmd *cmd)
 {
@@ -19,7 +69,7 @@ int	ft_bltin_export(t_cmd *cmd)
 	char	*key;
 	char	*value;
 
-	if (ft_array_cntr(cmd->argv) != 2)
+	if (ft_array_cntr(cmd->argv) != 2 || ft_export_valid(cmd->args_list) == 0)
 		return (1);
 	key = ft_split_key(cmd->argv[1]);
 	value = ft_split_value(cmd->argv[1]);
@@ -37,5 +87,5 @@ int	ft_bltin_export(t_cmd *cmd)
 		needle->value = ft_strdup(value);
 	}
 	ft_key_freer(key, value);
-	return (1);
+	return (0);
 }
