@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/09/07 16:19:43 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/09/11 16:22:49 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	ft_free_n_exit(t_cmd *cmd, int code)
 {
-	if (cmd->envt)
-		ft_clear_env(cmd->envt);
+	ft_clear_env(*cmd->envt);
 	if (cmd && cmd->head)
 	{
 		cmd = cmd->head;
@@ -92,7 +91,7 @@ void	dispatch_exit2(t_cmd *cmd, int code)
 		ft_free_n_exit(cmd, 1);
 	if (code == 21 || code == 9)
 		ft_free_n_exit(cmd, 0);
-		
+
 	int tmp = g_status;
 	// printf("0) g_status = %d\n", g_status);
 	// printf("1) WINFEXITED = %d\n", WIFEXITED(tmp));

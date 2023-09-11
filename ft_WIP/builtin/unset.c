@@ -3,40 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:05:59 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/13 21:52:18 by theophane        ###   ########.fr       */
+/*   Updated: 2023/09/11 17:20:50 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_bltin_unset(t_cmd *cmd)
+t_env	*ft_prev_finder(char *needle, t_env **envt)
+{
+	t_env	*parse;
+
+	parse = (*envt);
+	while (parse->next)
+	{
+		if (ft_strcmp(parse->next->key, needle) == 0)
+			break ;
+		parse = parse->next;
+	}
+	if (ft_strcmp(parse->key, needle) != 0 && parse->next == NULL)
+		return (NULL);
+	return (parse);
+}
+
+int		ft_unset_needle(char *needle, t_cmd *cmd)
 {
 	t_env	*prev;
-	t_env	*current;
-	char	*key;
+	t_env	*torm;
 
-	prev = NULL;
-	current = cmd->envt;
-	key = ft_strdup(cmd->argv[1]);
-	if (ft_strcmp(key, "PWD") == 0)
-		return (free(key), 1);
-	while (current)
+	if (ft_strcmp(needle, "PWD") == 0)
+		return (0);
+	if (ft_strcmp((*cmd->envt)->key, needle) == 0)
 	{
-		if (ft_strcmp(current->key, key) == 0)
-		{
-			if (prev)
-				prev->next = current->next;
-			else
-				cmd->envt = current->next;
-			ft_key_remove(current);
-			free(key);
-			return (0);
-		}
-		prev = current;
-		current = current->next;
+		torm = *(cmd->envt);
+		*(cmd->envt) = (*cmd->envt)->next;
 	}
-	return (free(key), 1);
+	else
+	{
+		prev = ft_prev_finder(needle, cmd->envt);
+		torm = prev->next;
+		prev->next = torm->next;
+	}
+	ft_key_remove(torm);
+	return (0);
+}
+
+int	ft_bltin_unset(t_cmd *cmd)
+{
+	t_arg	*args;
+
+	args = cmd->args_list->next;
+	while (args && args->str)
+	{
+		if (ft_unset_needle(args->str, cmd) == 1)
+			return (1);
+		args = args->next;
+	}
+	return (0);
 }

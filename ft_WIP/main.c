@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:49:22 by flplace           #+#    #+#             */
-/*   Updated: 2023/09/07 16:45:12 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/09/11 16:48:42 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void ft_setting_env(t_env *envt, t_cmd *cmd)
 	tmp = cmd;
 	while (tmp)
 	{
-		tmp->envt = envt;
+		*tmp->envt = envt;
 		tmp = tmp->next;
 	}
 }
@@ -156,7 +156,7 @@ int main(int ac, char **av, char **envp)
 			printf("\nExpansion done\n");
 			ft_print_token(head);
 		}
-		cmd = ft_parser(head, envt);
+		cmd = ft_parser(head, &envt);
 		ft_free_lst_token(head);
 		ft_setting_env(envt, cmd);
 		if (debug)
@@ -166,6 +166,7 @@ int main(int ac, char **av, char **envp)
 		}
 		signal(SIGINT, SIG_IGN);
 		ft_exec(cmd);
+		// envt = cmd->envt;
 		// fprintf(stderr, "[%d]\n", g_status);
 		signal(SIGINT, sig_handler);
 		ft_add_history(line);

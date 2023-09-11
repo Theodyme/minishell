@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 17:55:53 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/14 18:18:52 by flplace          ###   ########.fr       */
+/*   Updated: 2023/09/11 16:03:53 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_bltin_where(t_cmd *cmd)
 		printf(TRITON "I don't get it.\n");
 		return (1);
 	}
-	pwd = ft_key_finder(&(cmd->envt), "PWD");
+	pwd = ft_key_finder(cmd->envt, "PWD");
 	if (ft_strcmp(ft_str_tolower(tmp->str), "are") != 0
 		&& ft_strcmp(ft_str_tolower(tmp->next->str), "we?") != 0
 		&& ft_strcmp(ft_str_tolower(tmp->next->str), "we") != 0)

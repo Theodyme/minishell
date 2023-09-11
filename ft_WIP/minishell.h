@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/09/07 15:38:52 by flplace          ###   ########.fr       */
+/*   Updated: 2023/09/11 16:36:43 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ typedef struct s_cmd
 	char			**argv;//
 	struct s_arg	*args_list;//
 	struct s_redir	*redir;//
-	t_env			*envt;
+	t_env			**envt;
 	char			**envp;//
 	pid_t			pid;
 	int				fd[2];
@@ -277,7 +277,7 @@ void	ft_free_args(t_cmd *cmd);
 
 /* --------------------------------- PARSER --------------------------------- */
 
-t_cmd	*ft_parser(t_token *tkn, t_env *envt);
+t_cmd	*ft_parser(t_token *tkn, t_env **envt);
 int		ft_check_syntax(t_token *tkn);
 int		ft_is_redir(t_token *tkn);
 int		ft_envlist_to_array(t_cmd *cmd);

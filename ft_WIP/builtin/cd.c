@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:41:12 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/17 09:06:54 by flplace          ###   ########.fr       */
+/*   Updated: 2023/09/11 16:01:34 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ int	ft_pwd_changer(t_cmd *cmd)
 	t_env	*pwd;
 	t_env	*oldpwd;
 
-	oldpwd = ft_key_finder(&(cmd->envt), "OLDPWD");
+	oldpwd = ft_key_finder(cmd->envt, "OLDPWD");
 	if (oldpwd == NULL)
 		return (1);
-	pwd = ft_key_finder(&cmd->envt, "PWD");
+	pwd = ft_key_finder(cmd->envt, "PWD");
 	if (pwd == NULL)
 		return (1);
 	free(oldpwd->value);
@@ -47,7 +47,7 @@ int	ft_path_changer(t_cmd *cmd)
 	char	*path;
 	t_env	*pwd;
 
-	pwd = ft_key_finder(&cmd->envt, "PWD");
+	pwd = ft_key_finder(cmd->envt, "PWD");
 	if (pwd == NULL)
 		return (1);
 	if (cmd->argv[1][0] != '/' && cmd->argv[1][0] != '.')
@@ -71,7 +71,7 @@ int	ft_pwd_finder(t_cmd *cmd, char *arg)
 {
 	t_env	*node;
 
-	node = ft_key_finder(&cmd->envt, arg);
+	node = ft_key_finder(cmd->envt, arg);
 	if (node == NULL)
 		return (1);
 	if (chdir(node->value) == -1)

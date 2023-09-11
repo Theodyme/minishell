@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:23:49 by mabimich          #+#    #+#             */
-/*   Updated: 2023/09/07 17:39:17 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/09/11 16:23:46 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_token_to_cmd(t_token *head, t_cmd *cmd, t_env *envt)
+int	ft_token_to_cmd(t_token *head, t_cmd *cmd, t_env **envt)
 {
 	t_token	*tmp;
 	t_cmd	*head_cmd;
@@ -107,14 +107,14 @@ int	ft_envlist_to_array(t_cmd *cmd)
 	t_env	*tmp;
 	int		i;
 
-	tmp = cmd->envt;
+	tmp = *cmd->envt;
 	i = 0;
 	while (tmp && ++i)
 		tmp = tmp->next;
 	cmd->envp = ft_calloc(i + 1, sizeof(char *));
 	if (!cmd->envp)
 		return (1);
-	tmp = cmd->envt;
+	tmp = *cmd->envt;
 	i = 0;
 	while (tmp)
 	{
@@ -127,7 +127,7 @@ int	ft_envlist_to_array(t_cmd *cmd)
 	return (0);
 }
 
-t_cmd	*ft_parser(t_token *token, t_env *envt)
+t_cmd	*ft_parser(t_token *token, t_env **envt)
 {
 	t_cmd	*cmd;
 

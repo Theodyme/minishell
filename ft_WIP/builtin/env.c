@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:58:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/09/04 19:16:53 by flplace          ###   ########.fr       */
+/*   Updated: 2023/09/11 16:03:35 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_bltin_env(t_cmd *cmd)
 	t_env	*parse;
 
 	parse = NULL;
-	parse = cmd->envt;
+	parse = *cmd->envt;
 	if (parse == NULL)
 	{
 		printf("env error: nothing to print.\n");
