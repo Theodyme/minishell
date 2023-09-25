@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   funbuilder.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 17:55:44 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/16 17:27:59 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/09/25 15:19:56 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,11 @@ int	ft_fun_builder(t_cmd **cmd)
 
 	i = 0;
 	if (!(*cmd)->name)
-		return (2);
+	{
+		if (!(*cmd)->redir->type)
+			return (2);
+		return (0);
+	}
 	while (bltin[i].call
 		&& ft_strcmp(bltin[i].call, ft_str_tolower((*cmd)->name)) != 0)
 		i++;

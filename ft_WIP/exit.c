@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/09/11 16:22:49 by flplace          ###   ########.fr       */
+/*   Updated: 2023/09/25 15:27:08 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,10 @@ void	dispatch_exit2(t_cmd *cmd, int code)
 	// close(1);
 	// close(2);
 	if (code == 21)
-		write(2, "________NO_COMMAND________\n", 27);
+	{
+		close(cmd->fd[0]);
+		// write(2, "________NO_COMMAND________\n", 27);
+	}
 	if (code == 126 || code == 127)
 		ft_free_n_exit(cmd, code);
 	if (code == 666 || code == 555)

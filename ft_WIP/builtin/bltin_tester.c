@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_tester.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:41:12 by flplace           #+#    #+#             */
-/*   Updated: 2023/09/11 16:48:37 by flplace          ###   ########.fr       */
+/*   Updated: 2023/09/25 15:19:08 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,13 @@ int	ft_bltin_exec(t_cmd **cmd, const t_fn bltin[12], int i)
 {
 	int			stdout_copy;
 
-	if (bltin[i].call)
+	if ((*cmd)->name && bltin[i].call)
 	{
+		if (ft_strcmp(bltin[i].call, "exit") == 0)
+		{
+			(*cmd)->status = bltin[i].blt_fn(*cmd);
+			return (1);
+		}
 		stdout_copy = dup(STDOUT_FILENO);
 		dup2((*cmd)->fd[1], STDOUT_FILENO);
 		(*cmd)->status = bltin[i].blt_fn(*cmd);
@@ -43,7 +48,11 @@ int	ft_bltin_tester(t_cmd **cmd)
 
 	i = 0;
 	if (!(*cmd)->name)
-		return (2);
+	{
+		if (!(*cmd)->redir->type)
+			return (2);
+		return (0);
+	}
 	while (bltin[i].call && ft_strcmp(bltin[i].call, (*cmd)->name) != 0)
 		i++;
 	(*cmd)->pid = 1;

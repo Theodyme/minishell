@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/09/11 16:36:43 by flplace          ###   ########.fr       */
+/*   Updated: 2023/09/25 14:00:40 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ void	ft_print_title(void);
 
 void	sig_init(int state);
 void	sig_handler(int signum);
-void	sig_heredoc(int signum);
+void	sig_heredoc(int	signum);
 
 /* ------------------------------ env building ------------------------------ */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 19:13:09 by theophane         #+#    #+#             */
-/*   Updated: 2023/08/17 08:54:10 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/09/25 14:42:15 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,12 @@ void	sig_handler(int signum)
 	return ;
 }
 
-void	sig_heredoc(int signum)
+void	sig_heredoc(int	signum)
 {
+	
 	(void)signum;
+	write(STDOUT_FILENO, "\n", 1);
+	close(STDIN_FILENO);
+	g_status = 128;
 	return ;
 }

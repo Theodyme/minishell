@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:20:52 by mabimich          #+#    #+#             */
-/*   Updated: 2023/08/17 05:45:57 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/09/25 15:26:22 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,20 @@ int	here_doc(t_redir *redir)
 {
 	char	*ret;
 	int		len;
+	char	*joined_ret;
 
 	len = 1;
 	redir->fd_h_d = open(redir->file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	signal(SIGINT, sig_heredoc);
 	while (redir->fd_h_d != -1 && len != -1)
 	{
-		ret = get_next_line(STDIN_FILENO);
-		if (ret == NULL)
+		ret = readline("heredoc > ");
+		if (ret == NULL
+			|| !ft_strncmp(ret, redir->delimiter, ft_strlen(redir->delimiter)))
 			break ;
-		if (!ft_strncmp(ret, redir->delimiter, ft_strlen(redir->delimiter)))
-			break ;
-		len = write(redir->fd_h_d, ret, ft_strlen(ret));
+		joined_ret = ft_strjoin(ret, "\n");
+		len = write(redir->fd_h_d, joined_ret, ft_strlen(ret) + 1);
+		free(joined_ret);
 		free(ret);
 		ret = NULL;
 	}
