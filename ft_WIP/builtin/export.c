@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:13:33 by flplace           #+#    #+#             */
-/*   Updated: 2023/09/26 15:13:17 by flplace          ###   ########.fr       */
+/*   Updated: 2023/09/26 16:41:16 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	ft_bltin_export(t_cmd *cmd)
 	char	*key;
 	char	*value;
 
-	if (ft_args_cntr(cmd->args_list) != 3 || ft_export_valid(cmd->args_list) == 0)
+	if (ft_args_cntr(cmd->args_list) != 2 || ft_export_valid(cmd->args_list) == 0)
 		return (1);
 	key = ft_split_key(cmd->argv[1]);
 	value = ft_split_value(cmd->argv[1]);
