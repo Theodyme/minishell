@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/09/25 14:00:40 by theophane        ###   ########.fr       */
+/*   Updated: 2023/09/26 15:15:39 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,7 +221,7 @@ int		ft_bltin_where(t_cmd *cmd);
 
 /* ----------------------------- builtins utils ----------------------------- */
 
-int		ft_array_cntr(char **array);
+int		ft_args_cntr(t_arg *argslist);
 t_env	*ft_key_add(t_env **envt, char *key, char *value);
 t_env	*ft_key_finder(t_env **envt, char *needle);
 int		ft_key_freer(char *key, char *value);

@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:41:12 by flplace           #+#    #+#             */
-/*   Updated: 2023/09/11 16:01:34 by flplace          ###   ########.fr       */
+/*   Updated: 2023/09/26 15:06:38 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,10 @@ int	ft_pwd_finder(t_cmd *cmd, char *arg)
 		return (1);
 	if (chdir(node->value) == -1)
 	{
-		printf(TRITON "cd: couldn't find %s directory\n", arg);
+		if (ft_strcmp(arg, "HOME") == 0)
+				printf(TRITON "cd: HOME not set\n");
+		else
+				printf(TRITON "cd: couldn't find %s directory\n", arg);
 		return (1);
 	}
 	if (ft_pwd_changer(cmd) == 1)
@@ -88,12 +91,12 @@ int	ft_bltin_cd(t_cmd *cmd)
 {
 	if (cmd->next && cmd->next->name)
 		return (1);
-	if (ft_array_cntr(cmd->argv) == 1)
+	if (ft_args_cntr(cmd->args_list) == 1)
 	{
 		if (ft_pwd_finder(cmd, "HOME") == 1)
 			return (1);
 	}
-	else if (ft_array_cntr(cmd->argv) > 2)
+	else if (ft_args_cntr(cmd->args_list) > 2)
 	{
 		printf("cd: too many arguments\n");
 		return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 18:07:52 by flplace           #+#    #+#             */
-/*   Updated: 2023/09/25 14:34:14 by theophane        ###   ########.fr       */
+/*   Updated: 2023/09/26 15:14:17 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_bltin_exit(t_cmd *cmd)
 	t_arg	*tmp;
 
 	i = 0;
-	if (cmd->head != cmd)
+	if (cmd->head != cmd || (cmd->next && cmd->next->args_list->str))
 		return (1);
 	tmp = cmd->args_list->next;
 	if (!tmp->str)
