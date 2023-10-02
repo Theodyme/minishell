@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:13:33 by flplace           #+#    #+#             */
-/*   Updated: 2023/09/26 16:41:16 by flplace          ###   ########.fr       */
+/*   Updated: 2023/09/27 11:41:26 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,11 @@ int	ft_export_valid(t_arg *args)
 	{
 		while (tmp->str[i])
 		{
-			if (!ft_isalpha(tmp->str[i]) && tmp->str[i] != '=')
+			if (i = 1 && tmp->str[i] == '-')
+				printf(TRITON "export: '%s': invalid option\n",
+					tmp->str);
+				return (0);
+			if ((!ft_isalpha(tmp->str[i]) && !ft_is_in_charset(tmp->str[i], "123456789_=")) || (tmp->str[i] == '=' && tmp->str[i + 1] == '\0'))
 			{
 				printf(TRITON "export: '%s': not a valid identifier\n",
 					tmp->str);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:54:46 by flplace           #+#    #+#             */
-/*   Updated: 2023/09/07 15:39:15 by flplace          ###   ########.fr       */
+/*   Updated: 2023/09/27 11:20:06 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,10 @@ int	ft_bltin_echo(t_cmd *cmd)
 
 	flag = 0;
 	if (!cmd->args_list->next->str)
+	{
+		write(1, "\n", 1);
 		return (0);
+	}
 	tmp = cmd->args_list->next;
 	while (cmd->args_list && tmp)
 	{

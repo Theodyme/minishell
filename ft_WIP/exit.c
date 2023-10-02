@@ -6,7 +6,7 @@
 /*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/09/25 15:27:08 by theophane        ###   ########.fr       */
+/*   Updated: 2023/09/27 11:31:10 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,23 +95,7 @@ void	dispatch_exit2(t_cmd *cmd, int code)
 	if (code == 21 || code == 9)
 		ft_free_n_exit(cmd, 0);
 
-	int tmp = g_status;
-	// printf("0) g_status = %d\n", g_status);
-	// printf("1) WINFEXITED = %d\n", WIFEXITED(tmp));
-	if (WIFEXITED(tmp))
-		g_status = WEXITSTATUS(tmp);
-	else if (WIFSIGNALED(tmp))
-	{
-		// printf(".0) g_status = %d\n", g_status);
-		// printf(".1) WINFEXITED = %d\n", WIFEXITED(tmp));
-		// printf(".2) WEXITSTATUS = %d\n", WEXITSTATUS(tmp));
-		// printf(".3) WIFSIGNALED = %d\n", WIFSIGNALED(tmp));
-		g_status = WTERMSIG(tmp);
-		if (g_status == 130)
-			write(2, "\n", 1);
-		if (g_status == 131)
-			write(2, "Quit (core dumped)\n", 19);
-	}
+
 	// printf("-0) g_status = %d\n", g_status);
 	// printf("-1) WINFEXITED = %d\n", WIFEXITED(tmp));
 	// printf("-2) WEXITSTATUS = %d\n", WEXITSTATUS(tmp));
@@ -155,6 +139,7 @@ void	dispatch_exit(t_cmd *cmd, int code)
 	// 	fprintf(stderr,"_cmd->pid = %d\n", getpid());
 	//printf address cmd:
 	//fprintf(stderr,"__cmd = %s\n", cmd->name);
+	
 	if (!(code % 111))
 	{
 		close_pipes(cmd);
@@ -163,9 +148,29 @@ void	dispatch_exit(t_cmd *cmd, int code)
 			if (cmd->pid != -1 && cmd->pid != 1)
 				waitpid(cmd->pid, &g_status, 0); // pensez a ce qu il se passe si on ctrl c pendant le process d attente des enfants
 			else if (cmd->pid == 1)
+			{
 				g_status = cmd->status;
+				return ;
+			}
 			cmd = cmd->next;
 		}
+	}
+	int tmp = g_status;
+	// printf("0) g_status = %d\n", g_status);
+	// printf("1) WINFEXITED = %d\n", WIFEXITED(tmp));
+	if (WIFEXITED(tmp))
+		g_status = WEXITSTATUS(tmp);
+	else if (WIFSIGNALED(tmp))
+	{
+		// printf(".0) g_status = %d\n", g_status);
+		// printf(".1) WINFEXITED = %d\n", WIFEXITED(tmp));
+		// printf(".2) WEXITSTATUS = %d\n", WEXITSTATUS(tmp));
+		// printf(".3) WIFSIGNALED = %d\n", WIFSIGNALED(tmp));
+		g_status = 128 + WTERMSIG(tmp);
+		if (g_status == 130)
+			write(2, "\n", 1);
+		if (g_status == 131)
+			write(2, "Quit (core dumped)\n", 19);
 	}
 	dispatch_exit2(cmd, code);
 }
