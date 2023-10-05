@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_dollar_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: manuel <manuel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:42:18 by mabimich          #+#    #+#             */
-/*   Updated: 2023/09/04 18:54:39 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/05 17:32:23 by manuel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ char	*fill_env(char *str, t_env *env)
 	if (!out && !(*str))
 		out = strdup("$");
 	if (!out && *str == '?')
-		out = ft_itoa(WEXITSTATUS(g_status));
+		out = ft_itoa(g_status);
 	else if (!out)
 		out = ft_getvalue(str, env);
 	free(dent);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
+/*   By: manuel <manuel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:49:22 by flplace           #+#    #+#             */
-/*   Updated: 2023/09/25 14:17:12 by theophane        ###   ########.fr       */
+/*   Updated: 2023/10/05 17:38:10 by manuel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ int main(int ac, char **av, char **envp)
 			head = ft_tokenize(line);
 		else
 		{
-			g_status = 512;
+			g_status = 2;
 			write(2, "TRITONUnmatched quote\n", 23);
 			continue;
 		}
