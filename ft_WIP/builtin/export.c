@@ -6,7 +6,7 @@
 /*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:13:33 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/05 16:59:25 by theophane        ###   ########.fr       */
+/*   Updated: 2023/10/05 17:17:26 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	ft_export_valid(t_arg *args)
 	{
 		while (tmp->str[i])
 		{
-			if ((!ft_isalpha(tmp->str[i]) && !ft_is_in_charset(tmp->str[i], "123456789_=")) || (tmp->str[i] == '=' && tmp->str[i + 1] == '\0'))
+			if ((!ft_isalpha(tmp->str[i]) && !ft_is_in_charset(tmp->str[i], "0123456789_=")) || (tmp->str[i] == '=' && tmp->str[i + 1] == '\0'))
 			{
 				printf(TRITON "export: '%s': not a valid identifier\n",
 					tmp->str);
