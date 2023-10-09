@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/09/26 15:15:39 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/09 17:01:33 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,6 +233,8 @@ int		ft_path_changer(t_cmd *cmd);
 int		ft_export_valid(t_arg *args);
 void	ft_echo_print(t_arg **tmp);
 int		ft_has_nflag(char *str);
+int		ft_isalpha(int n);
+int		ft_is_equal(t_arg *args);
 
 /* -------------------------------- heredoc --------------------------------- */
 

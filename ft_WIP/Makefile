@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+         #
+#    By: flplace <flplace@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 11:54:49 by flplace           #+#    #+#              #
-#    Updated: 2023/08/16 23:02:24 by mabimich         ###   ########.fr        #
+#    Updated: 2023/10/09 17:00:45 by flplace          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS	=	builtin/echo.c \
 			builtin/cd.c \
 			builtin/pwd.c \
 			builtin/export.c \
+			builtin/export_utils.c \
 			builtin/unset.c \
 			builtin/env.c \
 			builtin/exit.c \

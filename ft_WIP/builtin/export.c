@@ -3,51 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:13:33 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/05 17:17:26 by theophane        ###   ########.fr       */
+/*   Updated: 2023/10/09 17:28:46 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	ft_isalpha(int n)
-{
-	if ((n >= 'A' && n <= 'Z') || (n >= 'a' && n <= 'z'))
-		return (1);
-	return (0);
-}
-
-int	ft_is_equal(t_arg *args)
-{
-	if (args->str[0] == '=')
-	{
-		if (args->str[1] == '\0')
-		{
-			if (!args->next->str)
-			{
-				printf(TRITON "export: '=': not a valid identifier\n");
-				return (1);
-			}
-		}
-	}
-	return (0);
-}
 
 int	ft_export_valid(t_arg *args)
 {
 	int		i;
 	t_arg	*tmp;
 	int		equal;
+	int		arg_cntr;
 
+	arg_cntr = ft_args_cntr(args) - 1;
 	tmp = args->next;
-	i = 0;
 	equal = 0;
 	if (ft_is_equal(tmp) == 1)
 		return (0);
 	while (tmp && tmp->str)
 	{
+		i = 0;
+		printf("checking %s\n", tmp->str);
 		while (tmp->str[i])
 		{
 			if ((!ft_isalpha(tmp->str[i]) && !ft_is_in_charset(tmp->str[i], "0123456789_=")) || (tmp->str[i] == '=' && tmp->str[i + 1] == '\0'))
@@ -57,12 +37,12 @@ int	ft_export_valid(t_arg *args)
 				return (0);
 			}
 			if (tmp->str[i] == '=')
-				equal = 1;
+				equal += 1;
 			i++;
 		}
 		tmp = tmp->next;
 	}
-	if (equal == 0)
+	if (equal != arg_cntr)
 		return (0);
 	return (1);
 }
@@ -80,7 +60,7 @@ int ft_export_flag(t_arg *args)
 
 int	ft_export_args(t_cmd *cmd)
 {
-	if (ft_args_cntr(cmd->args_list) != 2)
+	if (ft_args_cntr(cmd->args_list) == 1)
 		return (1);
 	if (ft_export_flag(cmd->args_list) == 1)
 		return (2);
@@ -89,19 +69,15 @@ int	ft_export_args(t_cmd *cmd)
 	return (0);
 }
 
-int	ft_bltin_export(t_cmd *cmd)
+int	ft_exporting(char *arg, t_cmd *cmd)
 {
 	t_env	*tmp;
-	t_env	*needle;
 	char	*key;
 	char	*value;
-	int		check;
+	t_env	*needle;
 
-	check = ft_export_args(cmd);
-	if (check)
-		return (check);
-	key = ft_split_key(cmd->argv[1]);
-	value = ft_split_value(cmd->argv[1]);
+	key = ft_split_key(arg);
+	value = ft_split_value(arg);
 	needle = ft_key_finder(cmd->envt, key);
 	if (!needle)
 	{
@@ -117,4 +93,25 @@ int	ft_bltin_export(t_cmd *cmd)
 	}
 	ft_key_freer(key, value);
 	return (0);
+}
+
+int	ft_bltin_export(t_cmd *cmd)
+{
+	int		check;
+	int		ret;
+	t_arg	*arg;
+
+	ret = 0;
+	check = ft_export_args(cmd);
+	if (check)
+	{
+		return (check);
+	}
+	arg = cmd->args_list->next;
+	while (arg && arg->str)
+	{
+		ret = ft_exporting(arg->str, cmd);
+		arg = arg->next;
+	}
+	return (ret);
 }
