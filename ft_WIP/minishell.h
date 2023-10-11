@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/09 17:01:33 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/11 15:18:19 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,10 +238,7 @@ int		ft_is_equal(t_arg *args);
 
 /* -------------------------------- heredoc --------------------------------- */
 
-t_token	*is_heredoc(t_token *head);
-t_token	*is_delimiter(t_token *head);
 void	ft_delimiter_set(t_token *head);
-t_cmd	*find_heredoc_cmd(t_cmd *cmd, t_token *tkn);
 int		here_doc(t_redir *redir);
 void	init_heredoc(t_redir *redir);
 
