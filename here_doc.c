@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:20:52 by mabimich          #+#    #+#             */
-/*   Updated: 2023/09/25 15:26:22 by theophane        ###   ########.fr       */
+/*   Updated: 2023/10/11 17:58:54 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ int	here_doc(t_redir *redir)
 		ret = readline("heredoc > ");
 		if (ret == NULL
 			|| !ft_strncmp(ret, redir->delimiter, ft_strlen(redir->delimiter)))
-			break ;
+		{
+			break ; // AJOUTER UNE CONDITION POUR CTRL D COMME EOF readline = NULL
+		}
 		joined_ret = ft_strjoin(ret, "\n");
 		len = write(redir->fd_h_d, joined_ret, ft_strlen(ret) + 1);
 		free(joined_ret);

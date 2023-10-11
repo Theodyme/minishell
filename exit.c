@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/11 17:44:33 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/11 18:35:18 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,5 +122,7 @@ void	dispatch_exit(t_cmd *cmd, int code)
 			cmd = cmd->next;
 		}
 	}
+	if (code == 130)
+		ft_free_n_exit(cmd, 130);
 	dispatch_exit2(cmd, code);
 }
