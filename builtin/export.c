@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:13:33 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/09 17:28:46 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/11 15:38:31 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	ft_export_valid(t_arg *args)
 	while (tmp && tmp->str)
 	{
 		i = 0;
-		printf("checking %s\n", tmp->str);
 		while (tmp->str[i])
 		{
 			if ((!ft_isalpha(tmp->str[i]) && !ft_is_in_charset(tmp->str[i], "0123456789_=")) || (tmp->str[i] == '=' && tmp->str[i + 1] == '\0'))
