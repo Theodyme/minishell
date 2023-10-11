@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:59:32 by mabimich          #+#    #+#             */
-/*   Updated: 2023/08/14 16:18:25 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/11 19:20:08 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,6 @@ int	ft_trim_blank(char *line)
 	while (line[i] && ft_isblank(line[i]))
 		i += 1;
 	return (i);
-}
-
-void	ft_delimiter_set(t_token *head)
-{
-	t_token	*tmp;
-
-	tmp = head;
-	while (tmp)
-	{
-		if (tmp->type == HEREDOC && tmp->next->type == WORD)
-		{
-			tmp->next->type = DELIMITER;
-			printf("checking delimiter\n");
-		}
-		tmp = tmp->next;
-	}
-	return ;
 }
 
 int	ft_token_attribution(char *newline, int *i, t_token **tmp)

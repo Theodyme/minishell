@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:23:49 by mabimich          #+#    #+#             */
-/*   Updated: 2023/09/11 16:23:46 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/11 19:52:47 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ int	ft_check_syntax(t_token *token)
 	if (!tmp)
 		return (printf(TRITON "syntax error\n"), 1);
 	if (tmp->type == PIPE)
-		return (printf(TRITON "syntax error near unexpected token \
-`%s'\n", tmp->str), 1);
+		return (printf(TRITON UNEXPECTED_TOKEN_ERR, tmp->str), 1);
 	while (tmp)
 	{
 		if (tmp->type == REDIR_IN || tmp->type == REDIR_OUT || \
@@ -57,17 +56,11 @@ int	ft_check_syntax(t_token *token)
 		{
 			if (!tmp->next || (tmp->next->type != WORD
 					&& tmp->next->type != DELIMITER))
-			{
-				return (printf(TRITON "syntax error near unexpected token \
-`%s'\n", tmp->next->str), 1);
-			}
+				return (printf(TRITON UNEXPECTED_TOKEN_ERR, tmp->next->str), 1);
 		}
 		else if (tmp->type == PIPE)
-		{
 			if (!tmp->next || tmp->next->type == PIPE)
-				return (printf(TRITON "syntax error near unexpected token \
-`%s'\n", tmp->str), 1);
-		}
+				return (printf(TRITON UNEXPECTED_TOKEN_ERR, tmp->str), 1);
 		tmp = tmp->next;
 	}
 	return (0);

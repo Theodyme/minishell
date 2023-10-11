@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 17:25:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/11 17:27:48 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/11 18:40:11 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	open_files(t_cmd *cmd)
 		}
 		redir = redir->next;
 	}
+	if (g_status == 131 || g_status == 130)
+		dispatch_exit(cmd, g_status);
 }
 
 void	open_pipes(t_cmd *cmd)

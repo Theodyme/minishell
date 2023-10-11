@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_cpy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:58:45 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/04 14:52:32 by theophane        ###   ########.fr       */
+/*   Updated: 2023/10/11 20:27:26 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	ft_env_reader(char **envp, t_env **envt)
 	int		i;
 
 	i = 0;
-	while (envp[i])
+	while (envp && envp[i])
 	{
 		ft_lstadd_env(envp[i], envt);
 		if (ft_envlast(*envt) == NULL)

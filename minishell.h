@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/11 18:33:10 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/11 19:20:14 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # define BL "\033[34m"
 # define WH "\033[0m"
 # define TRITON "\033[34mᴛʀɪᴛoɴ\033[0m: "
+# define UNEXPECTED_TOKEN_ERR "syntax error near unexpected token%s\n"
 
 extern int	g_status;
 
@@ -238,7 +239,6 @@ int		ft_is_equal(t_arg *args);
 
 /* -------------------------------- heredoc --------------------------------- */
 
-void	ft_delimiter_set(t_token *head);
 int		here_doc(t_redir *redir);
 void	init_heredoc(t_redir *redir);
 

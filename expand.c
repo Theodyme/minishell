@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:34:12 by mabimich          #+#    #+#             */
-/*   Updated: 2023/08/16 23:04:11 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/11 19:20:16 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,5 @@ int	ft_expand(t_token *tkn, t_env *env)
 	ft_quote_to_word(tkn);
 	ft_merge_word(tkn);
 	ft_remove_blank_token(tkn);
-	//ft_delimiter_set(tkn);
 	return (0);
 }

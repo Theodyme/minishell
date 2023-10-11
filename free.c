@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 15:37:22 by theophane         #+#    #+#             */
-/*   Updated: 2023/08/17 09:23:15 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/11 18:52:01 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,4 @@ void	ft_free_cmd(t_cmd **cmd)
 		free(cnode);
 	}
 	*cmd = NULL;
-	return ;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_test.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 14:37:44 by theophane         #+#    #+#             */
-/*   Updated: 2023/08/13 17:35:00 by theophane        ###   ########.fr       */
+/*   Updated: 2023/10/11 19:22:18 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ void	ft_print_cmd(t_cmd *cmd)
 	t_redir	*tmp;
 
 	i = 0;
-	printf("_____PRINTING CMD______\n"); //check ici un truc //
-	// doesnt work	$cou | ls
+	printf("_____PRINTING CMD______\n");
 	while (cmd)
 	{
 		printf("name: %s\n", cmd->name);
