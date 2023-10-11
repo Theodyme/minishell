@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/11 15:18:19 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/11 17:30:21 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,6 +300,14 @@ char	*ft_strtok_minishell(char *str, char *delim);
 /* --------------------------------- EXEC --------------------------------- */
 
 int		ft_exec(t_cmd *cmd);
+void	child(t_cmd *cmd);
+
+/* ------------------------------ INIT_CHILD ------------------------------ */
+
+void	init_child(t_cmd *cmd);
+void	open_files(t_cmd *cmd);
+void	open_pipes(t_cmd *cmd);
+void	close_pipes(t_cmd *cmd);
 
 /* --------------------------------- EXIT --------------------------------- */
 
@@ -317,7 +325,7 @@ int		ft_argslist_to_array(t_cmd *cmd);
 int		ft_count_quote(char *str);
 int		ft_quotelen(char *str);
 
-int		open_files(t_cmd *cmd);
+void	open_files(t_cmd *cmd);
 
 int		ft_getenv(char *key, t_env *env);
 

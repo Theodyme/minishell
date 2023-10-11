@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: flplace <flplace@student.42.fr>            +#+  +:+       +#+         #
+#    By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 11:54:49 by flplace           #+#    #+#              #
-#    Updated: 2023/10/09 17:00:45 by flplace          ###   ########.fr        #
+#    Updated: 2023/10/11 17:31:14 by mabimich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,6 +77,7 @@ SRCS	=	builtin/echo.c \
 			ft_print_test.c \
 			get_path.c \
 			exec.c \
+			init_child.c \
 			exit.c \
 			free.c \
 			signals.c \

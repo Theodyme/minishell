@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/11 16:51:03 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/11 17:44:33 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,19 @@ void	ft_msg(char *s1, char *s2)
 
 void	dispatch_exit2(t_cmd *cmd, int code)
 {
+	int	tmp;
+
+	tmp = g_status;
+	if (WIFEXITED(tmp))
+		g_status = WEXITSTATUS(tmp);
+	else if (WIFSIGNALED(tmp))
+	{
+		g_status = 128 + WTERMSIG(tmp);
+		if (g_status == 130)
+			write(2, "\n", 1);
+		if (g_status == 131)
+			write(2, "Quit (core dumped)\n", 19);
+	}
 	if (code == 21)
 		close(cmd->fd[0]);
 	if (code == 126 || code == 127)
@@ -85,8 +98,6 @@ void	dispatch_exit2(t_cmd *cmd, int code)
 ** Elle supprime le fichier temporaire du here_doc si il existe.
 ** Elle gere les codes d'erreurs suivants :
 ** i * 10 : Le pipe n°i n'a pas pu être créé, on ferme les pipes précédents
-** 555 : Le fichier d'entrée n'a pas pu être ouvert
-** 666 : Le fichier de sortie n'a pas pu être ouvert
 ** 777 : Aucun problème, on ferme tous les pipes et on attend les fils
 ** 127 : probleme lors de l'execution d'un processus fils
 ** On appelle dispatch_exit2 pour gerer les autres codes d'erreurs.
@@ -94,18 +105,15 @@ void	dispatch_exit2(t_cmd *cmd, int code)
 
 void	dispatch_exit(t_cmd *cmd, int code)
 {
-	printf("code = %d, pid = %d\n", code, cmd->pid);
-	if (code == 0)
-		code = 7;
-	if (!(code % 111))
+	if (code == 777)
 	{
 		close_pipes(cmd);
-		if (code == 777 && cmd && !cmd->name)
+		if (cmd && !cmd->name)
 			return ;
-		while (code == 777 && cmd && cmd->pid != -1)
+		while (cmd && cmd->pid != -1)
 		{
 			if (cmd->pid != -1 && cmd->pid != 1)
-				waitpid(cmd->pid, &g_status, 0); // pensez a ce qu il se passe si on ctrl c pendant le process d attente des enfants
+				waitpid(cmd->pid, &g_status, 0);
 			else if (cmd->pid == -1)
 			{
 				g_status = cmd->status;
@@ -113,20 +121,6 @@ void	dispatch_exit(t_cmd *cmd, int code)
 			}
 			cmd = cmd->next;
 		}
-	}
-	int tmp = g_status;
-	// printf("0) g_status = %d\n", g_status);
-	// printf("1) WINFEXITED = %d\n", WIFEXITED(tmp));
-	// printf("1) WIFSIGNALED = %d\n", WIFSIGNALED(tmp));
-	if (WIFEXITED(tmp))
-		g_status = WEXITSTATUS(tmp);
-	else if (WIFSIGNALED(tmp))
-	{
-		g_status = 128 + WTERMSIG(tmp);
-		if (g_status == 130)
-			write(2, "\n", 1);
-		if (g_status == 131)
-			write(2, "Quit (core dumped)\n", 19);
 	}
 	dispatch_exit2(cmd, code);
 }
