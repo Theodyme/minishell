@@ -1,8 +1,0 @@
-*.o
-.env
-a.out
-minishell
-log
-*.supp
-.valgrindrc
-.nfs*
