@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:28:34 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/11 16:50:21 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/11 17:45:50 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	open_files(t_cmd *cmd)
 		}
 		redir = redir->next;
 	}
+	if (g_status == 131 || g_status == 130)
+		dispatch_exit(cmd, g_status);
 	return (0);
 }
 
