@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:28:34 by mabimich          #+#    #+#             */
-/*   Updated: 2023/09/11 16:48:56 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/11 16:50:21 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,9 @@ int	ft_exec(t_cmd *cmd)
 		if (out == 0)
 			out = ft_fun_builder(&tmp);
 		if (out == 0)
+		{
 			tmp->pid = fork();
+		}
 		if (out == 2 && !tmp->head->next)
 			dispatch_exit(tmp, 9);
 		if (tmp->pid == -1)

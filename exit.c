@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/09/27 11:31:10 by theophane        ###   ########.fr       */
+/*   Updated: 2023/10/11 16:51:03 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,39 +66,14 @@ void	ft_msg(char *s1, char *s2)
 
 void	dispatch_exit2(t_cmd *cmd, int code)
 {
-
-
-	// if (code > 6 && cmd->fd[1] != -1) //peut etre inversé
-	// 	close(cmd->fd[1]);
-	// if (code > 5 && cmd->fd[0] != -1)
-	// 	close(cmd->fd[0]);
-	// if (code > 3)
-	// 	ft_free_tab_str(data->path, data->n_child);
-	// if (code > 2)
-	// 	free(cmd->pid);
-	// if (code > 1)
-	// 	free(cmd);
-	// data = NULL;
-	// cmd = NULL;
-	// close(0);
-	// close(1);
-	// close(2);
 	if (code == 21)
-	{
 		close(cmd->fd[0]);
-		// write(2, "________NO_COMMAND________\n", 27);
-	}
 	if (code == 126 || code == 127)
 		ft_free_n_exit(cmd, code);
 	if (code == 666 || code == 555)
 		ft_free_n_exit(cmd, 1);
 	if (code == 21 || code == 9)
 		ft_free_n_exit(cmd, 0);
-
-
-	// printf("-0) g_status = %d\n", g_status);
-	// printf("-1) WINFEXITED = %d\n", WIFEXITED(tmp));
-	// printf("-2) WEXITSTATUS = %d\n", WEXITSTATUS(tmp));
 }
 
 /*
@@ -119,35 +94,19 @@ void	dispatch_exit2(t_cmd *cmd, int code)
 
 void	dispatch_exit(t_cmd *cmd, int code)
 {
+	printf("code = %d, pid = %d\n", code, cmd->pid);
 	if (code == 0)
 		code = 7;
-	// if (code >= 10 && !(code % 10))
-	// 	close_pipes2(cmd, 0);
-	// if (cmd->hd_file && waitpid(cmd->pid, NULL, 0))
-	// 	unlink(cmd->hd_file);
-	// if (data->hd_file)
-	// 	free(data->hd_file);
-	// if (code == 777)
-	// 	sleep(20);
-	// fprintf(stderr,"_DISPATCH_EXIT_\n");
-	// fprintf(stderr,"_code = %d\n", code);
-	// if (cmd && cmd->name)
-	// 	fprintf(stderr,"_cmd->pid = %s\n", cmd->name);
-	// else
-	// 	fprintf(stderr,"NO_NAME\n");
-	// if (getpid())
-	// 	fprintf(stderr,"_cmd->pid = %d\n", getpid());
-	//printf address cmd:
-	//fprintf(stderr,"__cmd = %s\n", cmd->name);
-	
 	if (!(code % 111))
 	{
 		close_pipes(cmd);
+		if (code == 777 && cmd && !cmd->name)
+			return ;
 		while (code == 777 && cmd && cmd->pid != -1)
 		{
 			if (cmd->pid != -1 && cmd->pid != 1)
 				waitpid(cmd->pid, &g_status, 0); // pensez a ce qu il se passe si on ctrl c pendant le process d attente des enfants
-			else if (cmd->pid == 1)
+			else if (cmd->pid == -1)
 			{
 				g_status = cmd->status;
 				return ;
@@ -158,14 +117,11 @@ void	dispatch_exit(t_cmd *cmd, int code)
 	int tmp = g_status;
 	// printf("0) g_status = %d\n", g_status);
 	// printf("1) WINFEXITED = %d\n", WIFEXITED(tmp));
+	// printf("1) WIFSIGNALED = %d\n", WIFSIGNALED(tmp));
 	if (WIFEXITED(tmp))
 		g_status = WEXITSTATUS(tmp);
 	else if (WIFSIGNALED(tmp))
 	{
-		// printf(".0) g_status = %d\n", g_status);
-		// printf(".1) WINFEXITED = %d\n", WIFEXITED(tmp));
-		// printf(".2) WEXITSTATUS = %d\n", WEXITSTATUS(tmp));
-		// printf(".3) WIFSIGNALED = %d\n", WIFSIGNALED(tmp));
 		g_status = 128 + WTERMSIG(tmp);
 		if (g_status == 130)
 			write(2, "\n", 1);
