@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 18:07:52 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/10 13:21:34 by theophane        ###   ########.fr       */
+/*   Updated: 2023/10/16 16:35:43 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,7 @@ int	ft_bltin_exit(t_cmd *cmd)
 	if (ft_isoperand(tmp->str[i]) == 1)
 		i++;
 	if (ft_is_only_num(tmp->str + i) == 1)
-	{
 		ft_free_n_exit(cmd, (ft_atoi(tmp->str)));
-	}
 	else
 	{
 		printf(TRITON "numeric argument needed.\n");

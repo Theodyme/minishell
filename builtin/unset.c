@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:05:59 by flplace           #+#    #+#             */
-/*   Updated: 2023/09/11 17:20:50 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/16 16:35:16 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_env	*ft_prev_finder(char *needle, t_env **envt)
 	return (parse);
 }
 
-int		ft_unset_needle(char *needle, t_cmd *cmd)
+int	ft_unset_needle(char *needle, t_cmd *cmd)
 {
 	t_env	*prev;
 	t_env	*torm;

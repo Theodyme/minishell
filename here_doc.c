@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:20:52 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/11 17:58:54 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/16 17:14:05 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ int	here_doc(t_redir *redir)
 		if (ret == NULL
 			|| !ft_strncmp(ret, redir->delimiter, ft_strlen(redir->delimiter)))
 		{
+			if (ret == NULL)
+				printf(TRITON "warning: here-document delimited by end-of-file (wanted `%s')\n", redir->delimiter);
+
 			break ; // AJOUTER UNE CONDITION POUR CTRL D COMME EOF readline = NULL
 		}
 		joined_ret = ft_strjoin(ret, "\n");
@@ -58,3 +61,36 @@ int	here_doc(t_redir *redir)
 	open(redir->file, O_RDONLY);
 	return (redir->fd_h_d);
 }
+
+// int	here_doc(t_redir *redir)
+// {
+// 	char	*ret;
+// 	int		len;
+// 	char	*joined_ret;
+
+// 	len = 1;
+// 	redir->fd_h_d = open(redir->file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+// 	signal(SIGINT, sig_heredoc);
+// 	while (redir->fd_h_d != -1 && len != -1)
+// 	{
+// 		ret = readline("heredoc > ");
+// 		printf("ret = '%s'", ret);
+// 		if (ret == NULL
+// 			|| !ft_strncmp(ret, redir->delimiter, ft_strlen(redir->delimiter)))
+// 		{
+// 			if (ret == NULL)
+// 				printf(TRITON "warning: here-document at line 1 delimited by end-of-file (wanted `%s')", redir->delimiter);
+// 			break ; // AJOUTER UNE CONDITION POUR CTRL D COMME EOF readline = NULL
+// 		}
+// 		joined_ret = ft_strjoin(ret, "\n");
+// 		len = write(redir->fd_h_d, joined_ret, ft_strlen(ret) + 1);
+// 		free(joined_ret);
+// 		free(ret);
+// 		ret = NULL;
+// 	}
+// 	if (ret)
+// 		free(ret);
+// 	close(redir->fd_h_d);
+// 	open(redir->file, O_RDONLY);
+// 	return (redir->fd_h_d);
+// }

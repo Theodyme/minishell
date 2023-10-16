@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:41:12 by flplace           #+#    #+#             */
-/*   Updated: 2023/09/26 15:06:38 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/16 16:36:53 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ int	ft_pwd_finder(t_cmd *cmd, char *arg)
 	if (chdir(node->value) == -1)
 	{
 		if (ft_strcmp(arg, "HOME") == 0)
-				printf(TRITON "cd: HOME not set\n");
+			printf(TRITON "cd: HOME not set\n");
 		else
-				printf(TRITON "cd: couldn't find %s directory\n", arg);
+			printf(TRITON "cd: couldn't find %s directory\n", arg);
 		return (1);
 	}
 	if (ft_pwd_changer(cmd) == 1)

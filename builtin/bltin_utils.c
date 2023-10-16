@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:45:48 by flplace           #+#    #+#             */
-/*   Updated: 2023/09/26 15:04:50 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/16 16:36:05 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	ft_key_freer(char *key, char *value)
 	return (0);
 }
 
-int    ft_args_cntr(t_arg *argslist)
+int	ft_args_cntr(t_arg *argslist)
 {
-	int	i;
+	int		i;
 	t_arg	*tmp;
 
 	i = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/11 19:20:14 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/16 16:56:09 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ enum	e_TOKEN_TYPE
 	QUOTE,
 	DQUOTE,
 	PIPE,
-	REDIR_IN, // penser a check pipe a la fin de commande
+	REDIR_IN,
 	REDIR_OUT,
 	APPEND,
 	HEREDOC,
@@ -100,7 +100,7 @@ typedef struct s_redir
 
 typedef struct s_arg
 {
-	char			*str; // a verifier si encore utile
+	char			*str;
 	struct s_arg	*next;
 }					t_arg;
 
@@ -108,12 +108,12 @@ typedef struct s_arg
 
 typedef struct s_cmd
 {
-	char			*name;//
-	char			**argv;//
-	struct s_arg	*args_list;//
-	struct s_redir	*redir;//
+	char			*name;
+	char			**argv;
+	struct s_arg	*args_list;
+	struct s_redir	*redir;
 	t_env			**envt;
-	char			**envp;//
+	char			**envp;
 	pid_t			pid;
 	int				fd[2];
 	int				status;
@@ -139,7 +139,7 @@ void	ft_print_title(void);
 
 void	sig_init(int state);
 void	sig_handler(int signum);
-void	sig_heredoc(int	signum);
+void	sig_heredoc(int signum);
 
 /* ------------------------------ env building ------------------------------ */
 
@@ -198,7 +198,6 @@ char	*ft_str_tolower(char *str);
 int		ft_tolower(int n);
 char	*ft_create_fname(char *fname);
 char	*get_next_line(int fd);
-
 
 /* -------------------------------- builtins -------------------------------- */
 
