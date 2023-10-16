@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 19:13:09 by theophane         #+#    #+#             */
-/*   Updated: 2023/10/16 17:16:14 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/16 18:00:47 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	sig_handler(int signum)
 		rl_replace_line("", 1);
 		rl_on_new_line();
 		rl_redisplay();
+		// exit(130);
 	}
 	return ;
 }

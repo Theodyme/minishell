@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/16 16:56:09 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/16 17:39:15 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@
 # define BL "\033[34m"
 # define WH "\033[0m"
 # define TRITON "\033[34mᴛʀɪᴛoɴ\033[0m: "
-# define UNEXPECTED_TOKEN_ERR "syntax error near unexpected token%s\n"
+# define UNEXPECTED_TOKEN_ERR "syntax error near unexpected token %s\n"
+# define EOF_IN_HD "warning: here-document delimited by EOF or SIGINT (wanted `%s')\n"
 
 extern int	g_status;
 
