@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_child.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 17:25:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/11 18:40:11 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/17 16:00:21 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	open_files(t_cmd *cmd)
 
 	tmp = cmd;
 	redir = tmp->redir;
+	if (g_status == 130)
+		g_status = 0;
 	while (cmd && redir)
 	{
 		if (redir->type == REDIR_IN)
