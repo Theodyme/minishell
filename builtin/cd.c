@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:41:12 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/16 16:36:53 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/18 15:40:13 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,16 @@ int	ft_pwd_finder(t_cmd *cmd, char *arg)
 	t_env	*node;
 
 	node = ft_key_finder(cmd->envt, arg);
-	if (node == NULL)
+	if (!(node) && (ft_strcmp(arg, "HOME") != 0))
 		return (1);
+	else if (!(node) && (ft_strcmp(arg, "HOME") == 0))
+	{
+			printf(TRITON "cd: HOME not set\n");
+			return (1);
+	}
 	if (chdir(node->value) == -1)
 	{
-		if (ft_strcmp(arg, "HOME") == 0)
-			printf(TRITON "cd: HOME not set\n");
-		else
-			printf(TRITON "cd: couldn't find %s directory\n", arg);
+		printf(TRITON "cd: couldn't find %s directory\n", arg);
 		return (1);
 	}
 	if (ft_pwd_changer(cmd) == 1)

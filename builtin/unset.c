@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:05:59 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/16 16:35:16 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/18 15:47:14 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,11 @@ int	ft_unset_needle(char *needle, t_cmd *cmd)
 int	ft_bltin_unset(t_cmd *cmd)
 {
 	t_arg	*args;
+	t_env	*env;
 
+	env = *(cmd->envt);
+	if (!(env->key))
+		return (1);
 	args = cmd->args_list->next;
 	while (args && args->str)
 	{

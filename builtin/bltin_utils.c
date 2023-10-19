@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:45:48 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/16 16:36:05 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/18 15:31:15 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ t_env	*ft_key_finder(t_env **envt, char *needle)
 	t_env	*parse;
 
 	parse = (*envt);
+	if (!parse)
+		return (NULL);
 	while (parse->next)
 	{
 		if (ft_strcmp(parse->key, needle) == 0)
