@@ -6,11 +6,24 @@
 /*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:13:33 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/20 10:59:44 by theophane        ###   ########.fr       */
+/*   Updated: 2023/10/20 11:39:15 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	ft_char_valid(char *str, int i)
+{
+	if ((!ft_isalpha(str[i])
+			&& !ft_is_in_charset(str[i], "0123456789_="))
+		|| (str[i] == '=' && str[i + 1] == '\0'))
+	{
+		printf(TRITON "export: '%s': not a valid identifier\n",
+			str);
+		return (0);
+	}
+	return (1) ;
+}
 
 int	ft_export_valid(t_arg *args)
 {
@@ -27,14 +40,8 @@ int	ft_export_valid(t_arg *args)
 		i = 0;
 		while (tmp->str[i])
 		{
-			if ((!ft_isalpha(tmp->str[i])
-					&& !ft_is_in_charset(tmp->str[i], "0123456789_="))
-				|| (tmp->str[i] == '=' && tmp->str[i + 1] == '\0'))
-			{
-				printf(TRITON "export: '%s': not a valid identifier\n",
-					tmp->str);
+			if (ft_char_valid(tmp->str, i) == 0)
 				return (0);
-			}
 			if (tmp->str[i] == '=')
 				equal += 1;
 			i++;
@@ -46,23 +53,27 @@ int	ft_export_valid(t_arg *args)
 	return (1);
 }
 
-int	ft_export_flag(t_arg *args)
-{
-	if (args->next->str[0] == '-')
-	{
-		printf(TRITON "export: '%s': invalid option\n",
-			args->next->str);
-		return (1);
-	}
-	return (0);
-}
+// int	ft_export_flag(t_arg *args)
+// {
+// 	if (args->next->str[0] == '-')
+// 	{
+// 		printf(TRITON "export: '%s': invalid option\n",
+// 			args->next->str);
+// 		return (1);
+// 	}
+// 	return (0);
+// }
 
 int	ft_export_args(t_cmd *cmd)
 {
 	if (ft_args_cntr(cmd->args_list) == 1)
 		return (1);
-	if (ft_export_flag(cmd->args_list) == 1)
-		return (2);
+	if (cmd->args_list->next->str[0] == '-')
+	{
+		printf(TRITON "export: '%s': invalid option\n",
+			cmd->args_list->next->str);
+		return (1);
+	}
 	if (ft_is_equal(cmd->args_list->next) == 1)
 		return (1);
 	if (ft_export_valid(cmd->args_list) == 0)
