@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_child.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 17:25:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/17 16:00:21 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/20 10:57:14 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,9 @@
 
 void	open_files(t_cmd *cmd)
 {
-	t_cmd	*tmp;
 	t_redir	*redir;
 
-	tmp = cmd;
-	redir = tmp->redir;
+	redir = cmd->redir;
 	if (g_status == 130)
 		g_status = 0;
 	while (cmd && redir)

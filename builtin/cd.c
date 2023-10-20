@@ -6,7 +6,7 @@
 /*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:41:12 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/18 15:40:13 by theophane        ###   ########.fr       */
+/*   Updated: 2023/10/20 10:57:44 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ int	ft_pwd_changer(t_cmd *cmd)
 	t_env	*oldpwd;
 
 	oldpwd = ft_key_finder(cmd->envt, "OLDPWD");
-	if (oldpwd == NULL)
-		return (1);
 	pwd = ft_key_finder(cmd->envt, "PWD");
 	if (pwd == NULL)
 		return (1);
+	if (oldpwd == NULL)
+		oldpwd = ft_key_add(cmd->envt, "OLDPWD", pwd->value);
 	free(oldpwd->value);
 	oldpwd->value = ft_strdup(pwd->value);
 	free(pwd->value);
@@ -49,7 +49,9 @@ int	ft_path_changer(t_cmd *cmd)
 
 	pwd = ft_key_finder(cmd->envt, "PWD");
 	if (pwd == NULL)
+	{
 		return (1);
+	}
 	if (cmd->argv[1][0] != '/' && cmd->argv[1][0] != '.')
 		path = ft_pathbuilder(pwd->value, cmd->argv[1]);
 	else
@@ -76,8 +78,8 @@ int	ft_pwd_finder(t_cmd *cmd, char *arg)
 		return (1);
 	else if (!(node) && (ft_strcmp(arg, "HOME") == 0))
 	{
-			printf(TRITON "cd: HOME not set\n");
-			return (1);
+		printf(TRITON "cd: HOME not set\n");
+		return (1);
 	}
 	if (chdir(node->value) == -1)
 	{

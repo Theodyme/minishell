@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:13:33 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/16 16:37:23 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/20 10:59:44 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,13 @@ int	ft_export_valid(t_arg *args)
 	arg_cntr = ft_args_cntr(args) - 1;
 	tmp = args->next;
 	equal = 0;
-	if (ft_is_equal(tmp) == 1)
-		return (0);
 	while (tmp && tmp->str)
 	{
 		i = 0;
 		while (tmp->str[i])
 		{
 			if ((!ft_isalpha(tmp->str[i])
-				&& !ft_is_in_charset(tmp->str[i], "0123456789_="))
+					&& !ft_is_in_charset(tmp->str[i], "0123456789_="))
 				|| (tmp->str[i] == '=' && tmp->str[i + 1] == '\0'))
 			{
 				printf(TRITON "export: '%s': not a valid identifier\n",
@@ -48,7 +46,7 @@ int	ft_export_valid(t_arg *args)
 	return (1);
 }
 
-int ft_export_flag(t_arg *args)
+int	ft_export_flag(t_arg *args)
 {
 	if (args->next->str[0] == '-')
 	{
@@ -65,6 +63,8 @@ int	ft_export_args(t_cmd *cmd)
 		return (1);
 	if (ft_export_flag(cmd->args_list) == 1)
 		return (2);
+	if (ft_is_equal(cmd->args_list->next) == 1)
+		return (1);
 	if (ft_export_valid(cmd->args_list) == 0)
 		return (1);
 	return (0);
