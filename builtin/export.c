@@ -6,7 +6,7 @@
 /*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:13:33 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/20 11:39:15 by theophane        ###   ########.fr       */
+/*   Updated: 2023/10/20 11:42:29 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_char_valid(char *str, int i)
 			str);
 		return (0);
 	}
-	return (1) ;
+	return (1);
 }
 
 int	ft_export_valid(t_arg *args)
@@ -52,17 +52,6 @@ int	ft_export_valid(t_arg *args)
 		return (0);
 	return (1);
 }
-
-// int	ft_export_flag(t_arg *args)
-// {
-// 	if (args->next->str[0] == '-')
-// 	{
-// 		printf(TRITON "export: '%s': invalid option\n",
-// 			args->next->str);
-// 		return (1);
-// 	}
-// 	return (0);
-// }
 
 int	ft_export_args(t_cmd *cmd)
 {
