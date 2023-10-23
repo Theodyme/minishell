@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:13:33 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/23 15:50:10 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/23 16:08:44 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_char_valid(t_arg *tmp)
 	while (tmp->str[i])
 	{
 		if (((i == 0 && tmp->str[i] == '=')) || (!ft_isalpha(tmp->str[i])
-				&& !ft_is_in_charset(tmp->str[i], "0123456789_="))
+				&& !ft_is_in_charset(tmp->str[i], "0123456789_=/"))
 			|| (tmp->str[i] == '=' && tmp->str[i + 1] == '\0'))
 			return (0);
 		else if (tmp->str[i] == '=')
