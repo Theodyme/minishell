@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 15:41:16 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/23 16:06:25 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/23 16:12:26 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_bltin_pwd(t_cmd *cmd)
 {
 	t_env	*pwd;
-	char	*path;
+	// char	*path;
 
 	pwd = NULL;
 	if (cmd->args_list->next && cmd->args_list->next->str
@@ -32,9 +32,8 @@ int	ft_bltin_pwd(t_cmd *cmd)
 	pwd = ft_key_finder(cmd->envt, "PWD");
 	if (pwd == NULL || !pwd->value)
 	{
-		path = getcwd(NULL, 0);
-		pwd = ft_key_add(cmd->envt, "PWD", path);
-		free(path);
+		ft_putendl_fd(getcwd(NULL, 0), cmd->fd[1]);
+		return (0);
 	}
 	ft_putendl_fd(pwd->value, cmd->fd[1]);
 	ft_putendl_fd("\n", cmd->fd[1]);
