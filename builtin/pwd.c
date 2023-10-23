@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 15:41:16 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/23 16:18:47 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/23 16:19:45 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	ft_bltin_pwd(t_cmd *cmd)
 {
 	t_env	*pwd;
-	// char	*path;
 
 	pwd = NULL;
 	if (cmd->args_list->next && cmd->args_list->next->str
