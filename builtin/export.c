@@ -6,50 +6,63 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:13:33 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/23 14:56:40 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/23 15:50:10 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_char_valid(char *str, int i)
+int	ft_char_valid(t_arg *tmp)
 {
-	if (((i == 0 && str[i] == '=')) || (!ft_isalpha(str[i])
-			&& !ft_is_in_charset(str[i], "0123456789_="))
-		|| (str[i] == '=' && str[i + 1] == '\0'))
+	int equal;
+	int i;
+
+	equal = 0;
+	i = 0;
+	while (tmp->str[i])
 	{
-		printf(TRITON "export: '%s': not a valid identifier\n",
-			str);
-		return (0);
+		if (((i == 0 && tmp->str[i] == '=')) || (!ft_isalpha(tmp->str[i])
+				&& !ft_is_in_charset(tmp->str[i], "0123456789_="))
+			|| (tmp->str[i] == '=' && tmp->str[i + 1] == '\0'))
+			return (0);
+		else if (tmp->str[i] == '=')
+			equal += 1;
+		i++;
 	}
-	return (1);
+	return (equal);
 }
 
 int	ft_export_valid(t_arg *args)
 {
-	int		i;
 	t_arg	*tmp;
-	int		equal;
-	int		arg_cntr;
+	int		is_ok;
+	int		args_cntr;
 
-	arg_cntr = ft_args_cntr(args) - 1;
+	args_cntr = ft_args_cntr(args);
 	tmp = args->next;
-	equal = 0;
+	is_ok = 0;
 	while (tmp && tmp->str)
 	{
-		i = 0;
-		while (tmp->str[i])
-		{
-			if (ft_char_valid(tmp->str, i) == 0)
-				return (0);
-			if (tmp->str[i] == '=')
-				equal += 1;
-			i++;
-		}
+		if (ft_char_valid(tmp) == 1)
+			is_ok++;
 		tmp = tmp->next;
 	}
-	if (equal != arg_cntr)
-		return (0);
+	if (is_ok == args_cntr)
+		return (1);
+	tmp = args->next;
+	while (tmp && tmp->str)
+	{
+		if (ft_char_valid(tmp) != 1)
+		{
+			if (is_ok == 0)
+				printf(TRITON "export: '%s': not a valid identifier\n", tmp->str);
+			args->next = tmp->next;
+			free(tmp->str);
+			free(tmp);
+		}
+		args = args->next;
+		tmp = args->next;
+	}
 	return (1);
 }
 
