@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:13:33 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/23 16:17:58 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/23 17:10:36 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	ft_char_valid(t_arg *tmp)
 {
-	int equal;
-	int i;
+	int	equal;
+	int	i;
 
 	equal = 0;
 	i = 0;
@@ -32,14 +32,14 @@ int	ft_char_valid(t_arg *tmp)
 	return (equal);
 }
 
-int	ft_export_valid(t_arg *args)
+int	ft_export_valid(t_cmd *cmd)
 {
 	t_arg	*tmp;
 	int		is_ok;
 	int		args_cntr;
 
-	args_cntr = ft_args_cntr(args);
-	tmp = args->next;
+	args_cntr = ft_args_cntr(cmd->args_list);
+	tmp = cmd->args_list->next;
 	is_ok = 0;
 	while (tmp && tmp->str)
 	{
@@ -49,20 +49,7 @@ int	ft_export_valid(t_arg *args)
 	}
 	if (is_ok == args_cntr)
 		return (1);
-	tmp = args->next;
-	while (tmp && tmp->str)
-	{
-		if (ft_char_valid(tmp) != 1)
-		{
-			if (is_ok == 0)
-				printf(TRITON "export: '%s': not a valid identifier\n", tmp->str);
-			args->next = tmp->next;
-			free(tmp->str);
-			free(tmp);
-		}
-		args = args->next;
-		tmp = args->next;
-	}
+	ft_loop_export(cmd, is_ok);
 	return (1);
 }
 
@@ -78,7 +65,7 @@ int	ft_export_args(t_cmd *cmd)
 	}
 	if (ft_is_equal(cmd->args_list->next) == 1)
 		return (1);
-	if (ft_export_valid(cmd->args_list) == 0)
+	if (ft_export_valid(cmd) == 0)
 		return (1);
 	return (0);
 }

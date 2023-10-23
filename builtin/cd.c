@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:41:12 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/20 10:57:44 by theophane        ###   ########.fr       */
+/*   Updated: 2023/10/23 16:51:40 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ char	*ft_pathbuilder(char *path, char *cmdname)
 	ft_strcat(to_access, path);
 	ft_strcat(to_access, "/");
 	ft_strcat(to_access, cmdname);
+	free(path);
 	return (to_access);
 }
 
@@ -48,12 +49,8 @@ int	ft_path_changer(t_cmd *cmd)
 	t_env	*pwd;
 
 	pwd = ft_key_finder(cmd->envt, "PWD");
-	if (pwd == NULL)
-	{
-		return (1);
-	}
 	if (cmd->argv[1][0] != '/' && cmd->argv[1][0] != '.')
-		path = ft_pathbuilder(pwd->value, cmd->argv[1]);
+		path = ft_pathbuilder(getcwd(NULL, 0), cmd->argv[1]);
 	else
 		path = ft_strdup(cmd->argv[1]);
 	if (chdir(path) == -1)
@@ -64,7 +61,7 @@ int	ft_path_changer(t_cmd *cmd)
 		return (1);
 	}
 	if (ft_pwd_changer(cmd) == 1)
-		return (1);
+		return (0);
 	free(path);
 	return (0);
 }
@@ -95,10 +92,11 @@ int	ft_bltin_cd(t_cmd *cmd)
 {
 	if (cmd->next && cmd->next->name)
 		return (1);
-	if (ft_args_cntr(cmd->args_list) == 1)
+	if (ft_args_cntr(cmd->args_list) == 1 || (cmd->args_list->next
+			&& ft_strcmp(cmd->args_list->next->str, "") == 0))
 	{
 		if (ft_pwd_finder(cmd, "HOME") == 1)
-			return (1);
+			return (0);
 	}
 	else if (ft_args_cntr(cmd->args_list) > 2)
 	{

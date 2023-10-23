@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/23 13:28:14 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/23 17:08:40 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,11 +231,13 @@ char	*ft_pathbuilder(char *path, char *cmdname);
 int		ft_pwd_changer(t_cmd *cmd);
 int		ft_pwd_finder(t_cmd *cmd, char *arg);
 int		ft_path_changer(t_cmd *cmd);
-int		ft_export_valid(t_arg *args);
+int		ft_export_valid(t_cmd *cmd);
 void	ft_echo_print(t_arg **tmp);
 int		ft_has_nflag(char *str);
 int		ft_isalpha(int n);
 int		ft_is_equal(t_arg *args);
+void	ft_loop_export(t_cmd *cmd, int is_ok);
+int		ft_char_valid(t_arg *tmp);
 
 /* -------------------------------- heredoc --------------------------------- */
 
