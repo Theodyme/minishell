@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/20 10:58:34 by theophane        ###   ########.fr       */
+/*   Updated: 2023/10/23 13:28:14 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -330,6 +330,8 @@ void	open_files(t_cmd *cmd);
 int		ft_getenv(char *key, t_env *env);
 
 int		ft_trim_blank(char *line);
+
+char	*return_status(void);
 
 // int 	ft_readlst(t_token *lst);
 
