@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:49:22 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/23 13:31:42 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/23 14:47:20 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ int	main_debug(int ac, char **envp)
 	while (true)
 	{
 		status = return_status();
-		line = readline(status);
 		free(status);
 		if (!line)
 			break ;
@@ -183,6 +182,7 @@ int	main(int ac, char **av, char **envp)
 	{
 		status = return_status();
 		line = readline(status);
+		if SIGINT redipslay
 		free(status);
 		if (!line)
 			break ;

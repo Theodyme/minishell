@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:23:49 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/23 12:34:44 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/23 14:27:04 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_token_to_cmd(t_token *head, t_cmd *cmd, t_env **envt)
 			tmp = tmp->next;
 		cmd->envt = envt;
 		cmd->head = head_cmd;
-		cmd->status = 0;
+		cmd->status = -1;
 		ft_fill_cmd(cmd, tmp);
 		while (tmp->next && tmp->type != PIPE)
 			tmp = tmp->next;
