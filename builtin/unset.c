@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:05:59 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/18 15:47:14 by theophane        ###   ########.fr       */
+/*   Updated: 2023/10/23 15:54:50 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ int	ft_unset_needle(char *needle, t_cmd *cmd)
 	t_env	*prev;
 	t_env	*torm;
 
-	if (ft_strcmp(needle, "PWD") == 0)
-		return (0);
 	if (ft_strcmp((*cmd->envt)->key, needle) == 0)
 	{
 		torm = *(cmd->envt);
@@ -43,6 +41,8 @@ int	ft_unset_needle(char *needle, t_cmd *cmd)
 	else
 	{
 		prev = ft_prev_finder(needle, cmd->envt);
+		if (!prev)
+			return (0);
 		torm = prev->next;
 		prev->next = torm->next;
 	}
