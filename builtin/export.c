@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:13:33 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/23 17:10:36 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/23 17:40:22 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	ft_exporting(char *arg, t_cmd *cmd)
 	if (needle != NULL && (ft_strcmp(needle->value, value) != 0))
 	{
 		free(needle->value);
-		needle->value = ft_strdup(value);
+		needle->value = ft_strtrim(value, C_BLANK);
 	}
 	ft_key_freer(key, value);
 	return (0);
