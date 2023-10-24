@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:34:12 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/24 18:39:49 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/24 22:49:56 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,39 +96,97 @@ void	ft_remove_blank_token(t_token *tkn)
 	}
 }
 
+// int	ft_split_wordtoken(t_token *tkn)
+// {
+// 	t_token	*save_next;
+// 	char	*save;
+// 	int		i;
+
+// 	i = 0;
+// 	// export YO="  	a   bc 	 def  	gh   "
+// 	while (tkn)
+// 	{
+// 		if (tkn->type == WORD && ft_strchrset(tkn->str, C_BLANK))
+// 		{
+// 			save = tkn->str;
+// 			save_next = tkn->next;
+// 			i = ft_strsetlen(save, C_BLANK) + 1;
+// 			tkn->str = ft_strndup(save, ft_strsetlen(save, C_BLANK));
+// 			if (!tkn->str)
+// 				return (1);
+// 			while (save && save[i])
+// 			{	
+// 				tkn->next = ft_calloc(1, sizeof(t_token));
+// 				if (!tkn->next)
+// 					return (1);
+// 				tkn = tkn->next;
+// 				tkn->str = ft_strdup(" ");
+// 				if (!tkn->str)
+// 					return (1);
+// 				tkn->type = BLANK;
+// 				tkn->next = ft_calloc(1, sizeof(t_token));
+// 				if (!tkn->next)
+// 					return (1);
+// 				tkn = tkn->next;
+// 				tkn->str = ft_strndup(&save[i], ft_strsetlen(&save[i], C_BLANK));
+// 				i += ft_strsetlen(&save[i], C_BLANK) + 1;
+// 			}
+// 			free(save);
+// 			tkn->next = save_next;
+// 		}
+// 		tkn = tkn->next;
+// 	}
+// 	return (0);
+// }
+
+int	ft_create_two_tkn_for_split_wtkn(t_token *tkn, char *str, int *i)
+{
+	t_token	*save_next;
+
+	save_next = tkn->next;
+	tkn->next = ft_calloc(1, sizeof(t_token));
+	if (!tkn->next)
+		return (1);
+	tkn = tkn->next;
+	tkn->str = ft_strdup(" ");
+	if (!tkn->str)
+		return (1);
+	tkn->type = BLANK;
+	tkn->next = ft_calloc(1, sizeof(t_token));
+	if (!tkn->next)
+		return (1);
+	tkn = tkn->next;
+	tkn->str = ft_strndup(&str[*i], ft_strsetlen(&str[*i], C_BLANK));
+	tkn->next = save_next;
+	*i += ft_strsetlen(&str[*i], C_BLANK) + 1;
+	return (0);
+}
+
 int	ft_split_wordtoken(t_token *tkn)
 {
-	t_token	*tmp;
 	t_token	*save_next;
-	char	*to_free;
 	char	*save;
+	int		i;
 
-	to_free = NULL;
-	tmp = tkn;
-	while (tmp)
-	{
-		if (tmp->type == WORD && ft_strchrset(tmp->str, C_BLANK))
-		{
-			save = tmp->str;
-			save_next = tmp->next;
-			tmp->str = ft_strtok_minishell(save, C_BLANK);
-			while (ft_strchrset(save, C_BLANK))
-			{	
-				tmp->next = ft_calloc(1, sizeof(t_token));
-				if (!tmp->next)
-					return (1);
-				tmp = tmp->next;
-				tmp->str = ft_strtok_minishell(NULL, C_BLANK);
-				if (!tmp->str)
-					break ;
-				if (ft_is_in_charset(*tmp->str, C_BLANK))
-					tmp->type = BLANK;
-			}
-			free(save);
-			tmp->next = save_next;
-		}
-		tmp = tmp->next;
+	if (!tkn)
+		return (1);
+	if (tkn->type != WORD || !ft_strchrset(tkn->str, C_BLANK))
+		return (0);
+	save = tkn->str;
+	save_next = tkn->next;
+	i = ft_strsetlen(save, C_BLANK) + 1;
+	tkn->str = ft_strndup(save, ft_strsetlen(save, C_BLANK));
+	if (!tkn->str)
+		return (1);
+	while (save && save[i])
+	{	
+		if (ft_create_two_tkn_for_split_wtkn(tkn, save, &i))
+			return (1);
+		if (tkn->next->next)
+			tkn = tkn->next->next;
 	}
+	free(save);
+	tkn->next = save_next;
 	return (0);
 }
 
@@ -149,19 +207,17 @@ int	ft_expand(t_token *tkn, t_env *env)
 		{
 			if (ft_expand_dollar(tmp, env))
 				return (1);
+			// printf("==============\n");
+			// ft_print_token(tkn);
+			// printf("==============\n");
+			if (ft_split_wordtoken(tmp))
+				return (1);
 		}
 		tmp = tmp->next;
 	}
-//	fprintf(stderr, "_____________________expand:\n");
-//	ft_print_token(tkn);
-	ft_split_wordtoken(tkn);
-//	fprintf(stderr, "=====================expand:\n");
-//	ft_print_token(tkn);
-//	fprintf(stderr, "_____________________STOP PRINT expand:\n");
+	//ft_print_token(tkn);
 	ft_quote_to_word(tkn);
 	ft_merge_word(tkn);
 	ft_remove_blank_token(tkn);
-	ft_print_token(tkn);
-//	fprintf(stderr, "FINAL_________STOP PRINT expand:\n");
 	return (0);
 }

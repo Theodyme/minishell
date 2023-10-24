@@ -6,7 +6,7 @@
 #    By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 11:54:49 by flplace           #+#    #+#              #
-#    Updated: 2023/10/24 15:16:58 by mabimich         ###   ########.fr        #
+#    Updated: 2023/10/24 20:55:09 by mabimich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ SRCS	=	builtin/echo.c \
 			lib/ft_memset.c \
 			lib/ft_strcmp.c\
 			lib/ft_strdup.c \
-			lib/ft_strlen.c\
+			lib/ft_strlen.c \
 			lib/ft_strcpy.c \
 			lib/ft_strlcpy.c \
 			lib/ft_strchr.c \

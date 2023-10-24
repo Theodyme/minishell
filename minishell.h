@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/24 19:26:03 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/24 22:53:20 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define BL "\033[34m"
 # define WH "\033[0m"
 # define TRITON "\033[34mᴛʀɪᴛoɴ\033[0m: "
-# define UNEXPECTED_TOKEN_ERR "syntax error near unexpected token %s\n"
+# define UNEXPECTED_TOKEN_ERR "syntax error near unexpected token `%s'\n"
 # define EOF_IN_HD "warning: here-doc delimited by EOF or SIGINT (wanted `%s')\n"
 # define DIR_ERR "error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n"
 
@@ -169,6 +169,8 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_strchrset(const char *s, char *c);
 int		ft_strchr_end(const char *s, int c);
 size_t	ft_strclen(const char *str, char c);
+size_t	ft_strsetlen(const char *str, char *set);
+size_t	ft_strnosetlen(const char *str, char *set);
 char	*ft_strcpy(char *dest, const char *src);
 int		ft_is_in_charset(const char c, const char *charset);
 char	*ft_strjoin(char const *s1, char const *s2);
@@ -335,7 +337,6 @@ int		ft_trim_blank(char *line);
 char	*return_status(void);
 
 int		ft_split_wordtoken(t_token *tkn);
-
 
 // int 	ft_readlst(t_token *lst);
 
