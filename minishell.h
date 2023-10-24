@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/23 17:08:40 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/24 18:00:42 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlen(const char *str);
 char	*ft_strchr(const char *s, int c);
+char	*ft_strchrset(const char *s, char *c);
 int		ft_strchr_end(const char *s, int c);
 size_t	ft_strclen(const char *str, char c);
 char	*ft_strcpy(char *dest, const char *src);
@@ -297,10 +298,6 @@ char	*get_path(char *cmd, char **envp);
 
 /* ---------------------------------  --------------------------------- */
 
-char	*ft_strtok_minishell(char *str, char *delim);
-
-/* --------------------------------- EXEC --------------------------------- */
-
 int		ft_exec(t_cmd *cmd);
 void	child(t_cmd *cmd);
 
@@ -334,6 +331,9 @@ int		ft_getenv(char *key, t_env *env);
 int		ft_trim_blank(char *line);
 
 char	*return_status(void);
+
+int		ft_split_wordtoken(t_token *tkn);
+
 
 // int 	ft_readlst(t_token *lst);
 

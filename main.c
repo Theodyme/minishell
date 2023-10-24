@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:49:22 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/23 14:49:36 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/24 14:07:32 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	env_i_setup(t_env **envt)
 	return ;
 }
 
-int	main_debug(int ac, char **envp)
+int	main_debug(char **envp)
 {
 	char	*line = NULL;
 	char	*status = NULL;
@@ -112,8 +112,6 @@ int	main_debug(int ac, char **envp)
 	ft_print_title1();
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
-	if (ac != 1 && ac != 2)
-		return (write(2, "Error: Wrong number of arguments\n", 33), 1);
 	ft_env_reader(envp, &envt);
 	if (!envt)
 	{
@@ -125,6 +123,7 @@ int	main_debug(int ac, char **envp)
 	while (true)
 	{
 		status = return_status();
+		line = readline(status);
 		free(status);
 		if (!line)
 			break ;
@@ -157,7 +156,7 @@ int	main_debug(int ac, char **envp)
 	ft_clear_env(envt);
 	if (cmd)
 		ft_free_cmd(&cmd);
-	return (0);
+	exit(0);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -170,7 +169,7 @@ int	main(int ac, char **av, char **envp)
 
 	(void)av;
 	if (ac == 2)
-		main_debug(ac, envp);
+		main_debug(envp);
 	ft_print_title1();
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);

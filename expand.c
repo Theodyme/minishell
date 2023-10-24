@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:34:12 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/11 19:20:16 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:39:49 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,42 @@ void	ft_remove_blank_token(t_token *tkn)
 	}
 }
 
+int	ft_split_wordtoken(t_token *tkn)
+{
+	t_token	*tmp;
+	t_token	*save_next;
+	char	*to_free;
+	char	*save;
+
+	to_free = NULL;
+	tmp = tkn;
+	while (tmp)
+	{
+		if (tmp->type == WORD && ft_strchrset(tmp->str, C_BLANK))
+		{
+			save = tmp->str;
+			save_next = tmp->next;
+			tmp->str = ft_strtok_minishell(save, C_BLANK);
+			while (ft_strchrset(save, C_BLANK))
+			{	
+				tmp->next = ft_calloc(1, sizeof(t_token));
+				if (!tmp->next)
+					return (1);
+				tmp = tmp->next;
+				tmp->str = ft_strtok_minishell(NULL, C_BLANK);
+				if (!tmp->str)
+					break ;
+				if (ft_is_in_charset(*tmp->str, C_BLANK))
+					tmp->type = BLANK;
+			}
+			free(save);
+			tmp->next = save_next;
+		}
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
 /*
 ** ft_expand is the function that will expand the tokens
 ** it expands tokens of type WORD or DQUOTE in which there is a '$'
@@ -116,8 +152,16 @@ int	ft_expand(t_token *tkn, t_env *env)
 		}
 		tmp = tmp->next;
 	}
+//	fprintf(stderr, "_____________________expand:\n");
+//	ft_print_token(tkn);
+	ft_split_wordtoken(tkn);
+//	fprintf(stderr, "=====================expand:\n");
+//	ft_print_token(tkn);
+//	fprintf(stderr, "_____________________STOP PRINT expand:\n");
 	ft_quote_to_word(tkn);
 	ft_merge_word(tkn);
 	ft_remove_blank_token(tkn);
+	ft_print_token(tkn);
+//	fprintf(stderr, "FINAL_________STOP PRINT expand:\n");
 	return (0);
 }
