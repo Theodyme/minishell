@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/23 17:08:40 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/24 15:51:27 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define TRITON "\033[34mᴛʀɪᴛoɴ\033[0m: "
 # define UNEXPECTED_TOKEN_ERR "syntax error near unexpected token %s\n"
 # define EOF_IN_HD "warning: here-doc delimited by EOF or SIGINT (wanted `%s')\n"
+# define DIR_ERR "error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n"
 
 extern int	g_status;
 

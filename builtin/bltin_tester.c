@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:41:12 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/23 14:25:51 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/24 16:00:49 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	ft_bltin_exec(t_cmd **cmd, const t_fn bltin[12], int i)
 		if (ft_strcmp(bltin[i].call, "exit") == 0)
 		{
 			(*cmd)->status = bltin[i].blt_fn(*cmd);
+			close((*cmd)->fd[0]);
+			close((*cmd)->fd[1]);
 			return (1);
 		}
 		open_files(*cmd);
