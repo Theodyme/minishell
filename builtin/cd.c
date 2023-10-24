@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:41:12 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/23 16:51:40 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/24 17:31:02 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,19 @@ int	ft_pwd_changer(t_cmd *cmd)
 
 	oldpwd = ft_key_finder(cmd->envt, "OLDPWD");
 	pwd = ft_key_finder(cmd->envt, "PWD");
-	if (pwd == NULL)
-		return (1);
 	if (oldpwd == NULL)
 		oldpwd = ft_key_add(cmd->envt, "OLDPWD", pwd->value);
 	free(oldpwd->value);
-	oldpwd->value = ft_strdup(pwd->value);
-	free(pwd->value);
+	if (pwd == NULL)
+	{
+		oldpwd->value = ft_strdup(" ");
+		pwd = ft_key_add(cmd->envt, "PWD", "tmp");
+	}
+	else
+	{
+		oldpwd->value = ft_strdup(pwd->value);
+		free(pwd->value);
+	}
 	pwd->value = getcwd(NULL, 0);
 	return (0);
 }

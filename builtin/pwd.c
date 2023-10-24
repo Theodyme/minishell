@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 15:41:16 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/23 16:19:45 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/24 15:57:46 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 int	ft_bltin_pwd(t_cmd *cmd)
 {
-	t_env	*pwd;
+	char *tofree;
 
-	pwd = NULL;
 	if (cmd->args_list->next && cmd->args_list->next->str
 		&& cmd->args_list->next->str[0] == '-')
 	{
@@ -28,14 +27,14 @@ int	ft_bltin_pwd(t_cmd *cmd)
 		printf(TRITON "pwd: %s: invalid option\n", cmd->args_list->next->str);
 		return (2);
 	}
-	pwd = ft_key_finder(cmd->envt, "PWD");
-	if (pwd == NULL || !pwd->value)
+	tofree = getcwd(NULL, 0);
+	if (tofree == NULL)
 	{
-		ft_putendl_fd(getcwd(NULL, 0), cmd->fd[1]);
-		ft_putendl_fd("\n", cmd->fd[1]);
-		return (0);
+		printf(TRITON DIR_ERR);
+		return (1);
 	}
-	ft_putendl_fd(pwd->value, cmd->fd[1]);
+	ft_putendl_fd(tofree, cmd->fd[1]);
 	ft_putendl_fd("\n", cmd->fd[1]);
+	free(tofree);
 	return (0);
 }

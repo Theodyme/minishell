@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/24 18:00:42 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/24 19:26:03 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define TRITON "\033[34mᴛʀɪᴛoɴ\033[0m: "
 # define UNEXPECTED_TOKEN_ERR "syntax error near unexpected token %s\n"
 # define EOF_IN_HD "warning: here-doc delimited by EOF or SIGINT (wanted `%s')\n"
+# define DIR_ERR "error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n"
 
 extern int	g_status;
 
@@ -237,7 +238,8 @@ void	ft_echo_print(t_arg **tmp);
 int		ft_has_nflag(char *str);
 int		ft_isalpha(int n);
 int		ft_is_equal(t_arg *args);
-void	ft_loop_export(t_cmd *cmd, int is_ok);
+char	*trim_to_export(char *value);
+int		ft_loop_export(t_cmd *cmd, int is_ok);
 int		ft_char_valid(t_arg *tmp);
 
 /* -------------------------------- heredoc --------------------------------- */

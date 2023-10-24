@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:41:12 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/23 14:25:51 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/24 18:47:13 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	ft_bltin_exec(t_cmd **cmd, const t_fn bltin[12], int i)
 		open_files(*cmd);
 		stdout_copy = dup(STDOUT_FILENO);
 		dup2((*cmd)->fd[1], STDOUT_FILENO);
-		(*cmd)->status = bltin[i].blt_fn(*cmd);
+		(g_status) = bltin[i].blt_fn(*cmd);
+		(*cmd)->status = g_status;
 		close((*cmd)->fd[1]);
 		dup2(stdout_copy, STDOUT_FILENO);
 		close(stdout_copy);
