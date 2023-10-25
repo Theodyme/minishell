@@ -6,34 +6,34 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:42:18 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/24 21:10:21 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/25 16:39:34 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token	*ft_fill_expanded(t_token *tkn, char *str)
-{
-	int		i;
-	t_token	*tmp;
+// t_token	*ft_fill_expanded(t_token *tkn, char *str)
+// {
+// 	int		i;
+// 	t_token	*tmp;
 
-	i = 0;
-	tmp = tkn;
-	free(tkn->str);
-	while (str[i])
-	{
-		i += ft_trim_blank(str + i);
-		tmp->type = WORD;
-		tmp->str = ft_strndup(str + i, ft_wordlen(str + i));
-		i += ft_wordlen(str + i);
-		tmp->next = ft_calloc(1, sizeof(t_token));
-		if (!tmp->next)
-			return (NULL);
-		tmp = tmp->next;
-	}
-	tmp->next = tkn->next;
-	return (tkn);
-}
+// 	i = 0;
+// 	tmp = tkn;
+// 	free(tkn->str);
+// 	while (str[i])
+// 	{
+// 		i += ft_trim_blank(str + i);
+// 		tmp->type = WORD;
+// 		tmp->str = ft_strndup(str + i, ft_wordlen(str + i));
+// 		i += ft_wordlen(str + i);
+// 		tmp->next = ft_calloc(1, sizeof(t_token));
+// 		if (!tmp->next)
+// 			return (NULL);
+// 		tmp = tmp->next;
+// 	}
+// 	tmp->next = tkn->next;
+// 	return (tkn);
+// }
 
 char	*ft_strtok_minishell(char *str, char *delim)
 {

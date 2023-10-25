@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:49:22 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/24 19:31:43 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/25 18:35:47 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,11 +113,6 @@ int	main_debug(char **envp)
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
 	ft_env_reader(envp, &envt);
-	if (!envt)
-	{
-		write(2, "Error: Couldn't get env variables\n", 34);
-		return (1);
-	}
 	env_i_setup(&envt);
 	g_status = 0;
 	while (true)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:13:33 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/24 19:18:55 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/25 19:32:28 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	ft_export_args(t_cmd *cmd)
 		return (1);
 	if (cmd->args_list->next->str[0] == '-')
 	{
-		printf(TRITON "export: '%s': invalid option\n",
+		printf(TRITON "export: `%s': invalid option\n",
 			cmd->args_list->next->str);
 		return (1);
 	}
@@ -83,10 +83,11 @@ int	ft_exporting(char *arg, t_cmd *cmd)
 	needle = ft_key_finder(cmd->envt, key);
 	if (!needle)
 	{
-		tmp = ft_key_add(cmd->envt, key, trim_to_export(value));
+		value = trim_to_export_free(value);
+		tmp = ft_key_add(cmd->envt, key, value);
 		if (tmp && ft_strcmp(tmp->key, key) == 0
 			&& ft_strcmp(tmp->value, value) == 0)
-			return (ft_key_freer(key, value));
+			return (ft_key_freer(key, value), 0);
 	}
 	if (needle != NULL && (ft_strcmp(needle->value, value) != 0))
 	{
@@ -95,8 +96,7 @@ int	ft_exporting(char *arg, t_cmd *cmd)
 		if (!needle->value)
 			return (ft_key_remove(needle), 1);
 	}
-	ft_key_freer(key, value);
-	return (0);
+	return (ft_key_freer(key, value), 0);
 }
 
 int	ft_bltin_export(t_cmd *cmd)

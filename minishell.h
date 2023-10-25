@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/24 22:53:20 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/25 19:29:47 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,6 +241,7 @@ int		ft_has_nflag(char *str);
 int		ft_isalpha(int n);
 int		ft_is_equal(t_arg *args);
 char	*trim_to_export(char *value);
+char	*trim_to_export_free(char *value);
 int		ft_loop_export(t_cmd *cmd, int is_ok);
 int		ft_char_valid(t_arg *tmp);
 
