@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:34:12 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/25 16:52:12 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/25 22:46:06 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ int	ft_expand_dollar(t_token *tkn, t_env *env)
 	tab = ft_calloc(i + 1, sizeof(char *));
 	tmp_str = tkn->str;
 	tab[j] = ft_strtok_minishell(tmp_str, "$");
-	tab[j] = fill_env(tab[j], env);
+	tab[j] = fill_env(tab[j], env, tkn->type);
 	if (!tab[j])
 		return (free(tab), 1);
 	while (++j < i)
 	{
 		tab[j] = ft_strtok_minishell(NULL, "$");
-		tab[j] = fill_env(tab[j], env);
+		tab[j] = fill_env(tab[j], env, tkn->type);
 		if ((i > j + 1) && !tab[j])
 			return (ft_free_tab_str(tab, j), 1);
 	}
@@ -115,6 +115,7 @@ int	ft_create_two_tkn_for_split_wtkn(t_token *tkn, char *str, int *i)
 	tkn = tkn->next;
 	tkn->str = ft_strndup(&str[*i], ft_strsetlen(&str[*i], C_BLANK));
 	tkn->next = save_next;
+	tkn->type = QUOTE;
 	*i += ft_strsetlen(&str[*i], C_BLANK) + 1;
 	return (0);
 }
@@ -135,7 +136,7 @@ int	ft_split_wordtoken(t_token *tkn)
 	tkn->str = ft_strndup(save, ft_strsetlen(save, C_BLANK));
 	if (!tkn->str)
 		return (1);
-	while (save && save[i])
+	while (save && save[i - 1])
 	{	
 		if (ft_create_two_tkn_for_split_wtkn(tkn, save, &i))
 			return (1);

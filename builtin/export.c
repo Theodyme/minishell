@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:13:33 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/25 19:32:28 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/25 22:12:09 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	ft_export_args(t_cmd *cmd)
 	{
 		printf(TRITON "export: `%s': invalid option\n",
 			cmd->args_list->next->str);
-		return (1);
+		return (2);
 	}
 	if (ft_is_equal(cmd->args_list->next) == 0)
 		return (1);
@@ -83,7 +83,6 @@ int	ft_exporting(char *arg, t_cmd *cmd)
 	needle = ft_key_finder(cmd->envt, key);
 	if (!needle)
 	{
-		value = trim_to_export_free(value);
 		tmp = ft_key_add(cmd->envt, key, value);
 		if (tmp && ft_strcmp(tmp->key, key) == 0
 			&& ft_strcmp(tmp->value, value) == 0)
@@ -92,9 +91,11 @@ int	ft_exporting(char *arg, t_cmd *cmd)
 	if (needle != NULL && (ft_strcmp(needle->value, value) != 0))
 	{
 		free(needle->value);
-		needle->value = trim_to_export(value);
+		needle->value = value;
 		if (!needle->value)
 			return (ft_key_remove(needle), 1);
+		free(key);
+		return (0);
 	}
 	return (ft_key_freer(key, value), 0);
 }

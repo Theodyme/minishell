@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:45:48 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/25 19:29:32 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/25 22:55:55 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_is_equal(t_arg *args)
 		{
 			if (!args->next->str)
 			{
-				printf(TRITON "export: '=': not a valid identifier\n");
+				printf(TRITON "export: `=': not a valid identifier\n");
 				return (0);
 			}
 		}
@@ -105,7 +105,7 @@ int	ft_loop_export(t_cmd *cmd, int is_ok)
 		if (ft_char_valid(tmp) != 1)
 		{
 			if (is_ok == 0)
-				printf(TRITON "export: '%s': not a valid identifier\n",
+				printf(TRITON "export: `%s': not a valid identifier\n",
 					tmp->str);
 			prev->next = tmp->next;
 			free(tmp->str);

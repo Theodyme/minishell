@@ -6,34 +6,11 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:42:18 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/25 16:39:34 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/25 22:06:50 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// t_token	*ft_fill_expanded(t_token *tkn, char *str)
-// {
-// 	int		i;
-// 	t_token	*tmp;
-
-// 	i = 0;
-// 	tmp = tkn;
-// 	free(tkn->str);
-// 	while (str[i])
-// 	{
-// 		i += ft_trim_blank(str + i);
-// 		tmp->type = WORD;
-// 		tmp->str = ft_strndup(str + i, ft_wordlen(str + i));
-// 		i += ft_wordlen(str + i);
-// 		tmp->next = ft_calloc(1, sizeof(t_token));
-// 		if (!tmp->next)
-// 			return (NULL);
-// 		tmp = tmp->next;
-// 	}
-// 	tmp->next = tkn->next;
-// 	return (tkn);
-// }
 
 char	*ft_strtok_minishell(char *str, char *delim)
 {
@@ -91,7 +68,7 @@ size_t	ft_count_part(char *str)
 	return (v);
 }
 
-char	*ft_getvalue(char *key, t_env *env)
+char	*ft_getvalue(char *key, t_env *env, int type)
 {
 	char	*value;
 
@@ -99,7 +76,10 @@ char	*ft_getvalue(char *key, t_env *env)
 	{
 		if (!ft_strcmp(key, env->key))
 		{
-			value = ft_strdup(env->value);
+			if (type == WORD)
+				value = trim_to_export(env->value);
+			else if (type == DQUOTE)
+				value = ft_strdup(env->value);
 			break ;
 		}
 		env = env->next;
@@ -109,7 +89,7 @@ char	*ft_getvalue(char *key, t_env *env)
 	return (value);
 }
 
-char	*fill_env(char *str, t_env *env)
+char	*fill_env(char *str, t_env *env, int type)
 {
 	char	*dent;
 	char	*out;
@@ -126,7 +106,7 @@ char	*fill_env(char *str, t_env *env)
 	if (!out && *str == '?')
 		out = ft_itoa(g_status);
 	else if (!out)
-		out = ft_getvalue(str, env);
+		out = ft_getvalue(str, env, type);
 	free(dent);
 	return (out);
 }

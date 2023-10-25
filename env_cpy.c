@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_cpy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:58:45 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/23 16:37:56 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/25 21:26:24 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,10 @@ char	*ft_split_key(char *str)
 
 char	*ft_split_value(char *str)
 {
-	char	*rawvalue;
 	char	*value;
 
 	str += ft_strclen(str, '=') + 1;
-	rawvalue = ft_strdup(str);
-	value = ft_strtrim_free(rawvalue, C_BLANK);
+	value = ft_strdup(str);
 	return (value);
 }
 

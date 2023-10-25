@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/25 19:29:47 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/25 21:41:18 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,8 +269,8 @@ int		ft_expand_dollar(t_token *tkn, t_env *env);
 
 /* --------------------------- EXPAND_DOLLAR_UTILS -------------------------- */
 
-char	*fill_env(char *str, t_env *env);
-char	*ft_getvalue(char *key, t_env *env);
+char	*fill_env(char *str, t_env *env, int type);
+char	*ft_getvalue(char *key, t_env *env, int type);
 size_t	ft_count_part(char *str);
 char	*ft_strtok_minishell(char *str, char *delim);
 t_token	*ft_fill_expanded(t_token *tkn, char *str);
