@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:49:22 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/25 18:35:47 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/27 17:20:18 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,5 +202,8 @@ int	main(int ac, char **av, char **envp)
 	ft_clear_env(envt);
 	if (cmd)
 		ft_free_cmd(&cmd);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	close(STDERR_FILENO);
 	return (0);
 }
