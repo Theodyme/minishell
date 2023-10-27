@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:28:34 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/24 18:41:30 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/27 22:31:14 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	ft_exec(t_cmd *cmd)
 	open_pipes(tmp);
 	while (tmp && tmp->pid)
 	{
+	//	out = 0;
 		out = ft_bltin_tester(&tmp);
 		if (out == 0)
 			out = ft_fun_builder(&tmp);
@@ -76,7 +77,7 @@ int	ft_exec(t_cmd *cmd)
 			tmp->pid = fork();
 		if (out == 2 && !tmp->head->next)
 			dispatch_exit(tmp, 9);
-		if (tmp->pid == -1)
+		if (tmp->pid == -1 && out != 1 && out != 2)
 			dispatch_exit(tmp, 8);
 		if (!tmp->pid)
 			child(tmp);

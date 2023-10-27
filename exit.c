@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/24 22:56:46 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/27 22:30:44 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,6 @@ void	dispatch_exit2(t_cmd *cmd, int code)
 
 void	dispatch_exit(t_cmd *cmd, int code)
 {
-	if (cmd && cmd->status != -1)
-	{
-		g_status = cmd->status;
-		return ;
-	}
 	if (code == 777)
 	{
 		close_pipes(cmd);
@@ -119,11 +114,6 @@ void	dispatch_exit(t_cmd *cmd, int code)
 		{
 			if (cmd->pid != -1 && cmd->pid != 1)
 				waitpid(cmd->pid, &g_status, 0);
-			else if (cmd->pid == -1)
-			{
-				g_status = cmd->status;
-				return ;
-			}
 			cmd = cmd->next;
 		}
 	}

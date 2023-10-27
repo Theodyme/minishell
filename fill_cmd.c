@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:54:00 by mabimich          #+#    #+#             */
-/*   Updated: 2023/08/17 05:31:27 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/27 20:13:18 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	ft_fill_cmd(t_cmd *cmd, t_token *tkn)
 {
 	while (tkn && tkn->type != PIPE && tkn->type != EOL)
 	{
-		cmd->pid = -1;
+		cmd->pid = 1;
 		if (tkn->type == WORD && !cmd->name)
 		{
 			cmd->name = ft_strdup(tkn->str);
