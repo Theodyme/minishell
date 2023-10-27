@@ -6,13 +6,13 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/27 22:30:44 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/28 00:21:29 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_free_n_exit(t_cmd *cmd, int code)
+void ft_free_n_exit(t_cmd *cmd, int code)
 {
 	ft_clear_env(*cmd->envt);
 	if (cmd && cmd->head)
@@ -34,14 +34,14 @@ void	ft_free_n_exit(t_cmd *cmd, int code)
 ** @s2 : message d'erreur
 */
 
-void	ft_msg(char *s1, char *s2)
+void ft_msg(char *s1, char *s2)
 {
-	char	*tmp;
-	char	*out;
+	char *tmp;
+	char *out;
 
 	tmp = ft_3strjoin_with_free(TRITON, s1, ": ", 0);
 	if (!tmp)
-		return ;
+		return;
 	out = ft_3strjoin_with_free(tmp, s2, "\n", 100);
 	ft_putstr_fd(out, 2);
 	free(out);
@@ -64,9 +64,9 @@ void	ft_msg(char *s1, char *s2)
 ** 1 : probleme lors de l'allocation de la structure de données
 */
 
-void	dispatch_exit2(t_cmd *cmd, int code)
+void dispatch_exit2(t_cmd *cmd, int code)
 {
-	int	tmp;
+	int tmp;
 
 	tmp = g_status;
 	if (WIFEXITED(tmp))
@@ -103,13 +103,18 @@ void	dispatch_exit2(t_cmd *cmd, int code)
 ** On appelle dispatch_exit2 pour gerer les autres codes d'erreurs.
 */
 
-void	dispatch_exit(t_cmd *cmd, int code)
+void dispatch_exit(t_cmd *cmd, int code)
 {
+	if (cmd->status != -1 && !cmd->pid)
+	{
+		close_pipes(cmd);
+		ft_free_n_exit(cmd, cmd->status);
+	}
 	if (code == 777)
 	{
 		close_pipes(cmd);
 		if (cmd && !cmd->name)
-			return ;
+			return;
 		while (cmd && cmd->pid != -1)
 		{
 			if (cmd->pid != -1 && cmd->pid != 1)
@@ -118,6 +123,6 @@ void	dispatch_exit(t_cmd *cmd, int code)
 		}
 	}
 	if (code == 130)
-		ft_free_n_exit(cmd, 130);
+		ft_free_n_exit(cmd, code);
 	dispatch_exit2(cmd, code);
 }

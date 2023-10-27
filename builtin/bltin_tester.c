@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:41:12 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/27 22:30:05 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/28 01:04:09 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int ft_bltin_tester(t_cmd **cmd)
 	i = 0;
 	if (!(*cmd)->name)
 	{
-		if (!(*cmd)->redir->type)
+		if (!(*cmd)->redir || ((*cmd)->redir && !(*cmd)->redir->type))
 			return (2);
 		return (0);
 	}
