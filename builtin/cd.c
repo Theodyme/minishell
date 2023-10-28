@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:41:12 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/24 17:31:02 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/28 17:55:29 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,7 @@ int	ft_pwd_changer(t_cmd *cmd)
 int	ft_path_changer(t_cmd *cmd)
 {
 	char	*path;
-	t_env	*pwd;
 
-	pwd = ft_key_finder(cmd->envt, "PWD");
 	if (cmd->argv[1][0] != '/' && cmd->argv[1][0] != '.')
 		path = ft_pathbuilder(getcwd(NULL, 0), cmd->argv[1]);
 	else

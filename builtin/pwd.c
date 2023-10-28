@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 15:41:16 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/24 15:57:46 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/28 17:55:19 by theophane        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ int	ft_bltin_pwd(t_cmd *cmd)
 		printf(TRITON DIR_ERR);
 		return (1);
 	}
-	ft_putendl_fd(tofree, cmd->fd[1]);
-	ft_putendl_fd("\n", cmd->fd[1]);
+	printf("%s\n", tofree);
 	free(tofree);
 	return (0);
 }
