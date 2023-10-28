@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/25 21:41:18 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/28 22:59:26 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,13 @@ typedef struct s_arg
 	struct s_arg	*next;
 }					t_arg;
 
+/* Déclaration anticipée de t_cmd */
+typedef struct s_cmd t_cmd;
+
+/* -------------- function prototype for the array of pointers -------------- */
+
+typedef int	(*t_bltin)(t_cmd *cmd);
+
 /* -------------------------- command division type ------------------------- */
 
 typedef struct s_cmd
@@ -118,18 +125,17 @@ typedef struct s_cmd
 	char			**envp;
 	pid_t			pid;
 	int				fd[2];
+	t_bltin			bltn;
 	int				status;
 	struct s_cmd	*head;
 	struct s_cmd	*next;
 }	t_cmd;
 
-/* -------------- function prototype for the array of pointers -------------- */
 
-typedef int	(*t_bltin)(t_cmd *cmd);
 
 /* -------------------- array of function pointers struct ------------------- */
 
-typedef struct t_fn
+typedef struct s_fn
 {
 	char	*call;
 	t_bltin	blt_fn;
@@ -206,7 +212,9 @@ char	*get_next_line(int fd);
 
 /* -------------------------------- builtins -------------------------------- */
 
-int		ft_bltin_tester(t_cmd **cmd);
+t_bltin	ft_bltin_tester(t_cmd **cmd);
+int		ft_bltin_exec(t_cmd **cmd);
+
 
 int		ft_bltin_echo(t_cmd *cmd);
 int		ft_bltin_cd(t_cmd *cmd);

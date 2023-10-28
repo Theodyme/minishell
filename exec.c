@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:28:34 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/28 00:21:22 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/28 23:52:05 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void child(t_cmd *cmd)
 
 	if (!cmd->name)
 		dispatch_exit(cmd, 21);
-	init_child(cmd);
 	path = get_path(cmd->name, cmd->envp);
 	if (path && stat(path, &st) != -1 && (access(path, F_OK | X_OK) || S_ISDIR(st.st_mode)))
 	{
@@ -60,38 +59,32 @@ void child(t_cmd *cmd)
 int ft_exec(t_cmd *cmd)
 {
 	t_cmd *tmp;
-	int out = 0;
+//	int out = 0;
 
 	if (!cmd)
 		return (1);
 	tmp = cmd;
-	if (tmp && !tmp->next)
-	{
-		out = ft_bltin_tester(&tmp);
-		out += ft_fun_builder(&tmp);
-		if (out)
-			return 0;
-	}
 	open_pipes(tmp);
+	if (tmp && !tmp->next && tmp->bltn)
+	{
+		ft_bltin_exec(&tmp);// voir si il faut dispatch exit
+		tmp = tmp->next;
+	}
 	while (tmp && tmp->pid)
 	{
-		if (out == 0)
+		tmp->pid = fork();
+		if(!tmp->pid)
 		{
-			tmp->pid = fork();
+			init_child(cmd);
+			// if (out == 2 && !tmp->head->next)
+			// 	dispatch_exit(tmp, 9);
+			// if (tmp->pid == -1 && out != 1 && out != 2)
+			// 	dispatch_exit(tmp, 8);
+			if (cmd->bltn)
+				ft_bltin_exec(&tmp);
+			else
+				child(tmp);
 		}
-		if (out == 2 && !tmp->head->next)
-			dispatch_exit(tmp, 9);
-		if (tmp->pid == -1 && out != 1 && out != 2)
-			dispatch_exit(tmp, 8);
-		if (!tmp->pid)
-		{
-			out = ft_bltin_tester(&tmp);
-			out += ft_fun_builder(&tmp);
-			if (out != 0)
-				dispatch_exit(tmp, tmp->status);
-		}
-		if (!tmp->pid)
-			child(tmp);
 		tmp = tmp->next;
 	}
 	dispatch_exit(cmd->head, 777);

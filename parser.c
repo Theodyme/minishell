@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:23:49 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/24 20:35:30 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/28 19:55:30 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_token_to_cmd(t_token *head, t_cmd *cmd, t_env **envt)
 			tmp = tmp->next;
 		cmd->envt = envt;
 		cmd->head = head_cmd;
-		cmd->status = -1;
+		//cmd->status = -1;
 		ft_fill_cmd(cmd, tmp);
 		while (tmp->next && tmp->type != PIPE)
 			tmp = tmp->next;

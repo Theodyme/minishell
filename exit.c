@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/28 00:21:29 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/28 23:35:55 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void dispatch_exit2(t_cmd *cmd, int code)
 
 void dispatch_exit(t_cmd *cmd, int code)
 {
-	if (cmd->status != -1 && !cmd->pid)
+	if (cmd->bltn && !cmd->pid)
 	{
 		close_pipes(cmd);
 		ft_free_n_exit(cmd, cmd->status);

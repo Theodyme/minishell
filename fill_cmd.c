@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:54:00 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/27 20:13:18 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/28 22:57:21 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,16 @@ int	ft_fill_cmd(t_cmd *cmd, t_token *tkn)
 		cmd->pid = 1;
 		if (tkn->type == WORD && !cmd->name)
 		{
+			printf("|%s|\n", tkn->str);
 			cmd->name = ft_strdup(tkn->str);
 			if (!cmd->name)
-				return (printf("Error: could'nt add command name\n"), 1);
+				return (printf("Error: couldn't add command name\n"), 1);
 			cmd->args_list = ft_calloc(1, sizeof(t_arg));
 			if (!cmd->args_list)
 				return (printf("Error: ft_create_arg failed\n"), 1);
 			else if (ft_add_arg(cmd->args_list, tkn->str))
 				return (printf("Error: ft_add_arg failed\n"), 1);
+			ft_bltin_tester(&cmd); 
 		}
 		else if (tkn->type == WORD && ft_add_arg(cmd->args_list, tkn->str))
 			return (printf("Error: ft_add_arg failed\n"), 1);
