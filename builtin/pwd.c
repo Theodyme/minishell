@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 15:41:16 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/28 17:55:19 by theophane        ###   ########.fr       */
+/*   Updated: 2023/10/29 14:05:27 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_bltin_pwd(t_cmd *cmd)
 {
-	char *tofree;
+	char	*tofree;
 
 	if (cmd->args_list->next && cmd->args_list->next->str
 		&& cmd->args_list->next->str[0] == '-')

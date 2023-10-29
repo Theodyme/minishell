@@ -6,51 +6,13 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:49:22 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/27 17:20:18 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/29 14:04:07 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_status = 0;
-
-void	ft_print_title2(void)
-{
-	printf(BL "                                       ");
-	printf(" ⠈⠛⢿⣿⣿⣟⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⠀⠀⠀" WH "\n");
-	printf("        ᵃ ᵐᶦⁿᶦˢʰᵉˡˡ ᵖʳᵒʲᵉᶜᵗ" BL "          ");
-	printf("       ⠐⠺⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠟⠋⠉⠀⠀⠀⠀" WH "\n");
-	printf("        ᵇʸ   ᵐᵃᵇᶦᵐᶦᶜʰ" BL "                 ");
-	printf("            ⠈⠉⢹⣿⣿⡿⢿⣿⣿⣄⠀⠀⠀⠀⠀⠀⠀⠀" WH "\n");
-	printf("        ᵃⁿᵈ  ᶠˡᵖˡᵃᶜᵉ" BL "                     ");
-	printf("           ⠘⣿⡟⠀⠀⠈⠛⠿⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀" WH "\n");
-	printf(BL "_____________________________________________");
-	printf("____________________________" WH "\n\n");
-	return ;
-}
-
-void	ft_print_title1(void)
-{
-	printf(BL "____________________________________");
-	printf("_____________________________________" WH "\n\n");
-	printf("        ᴡ ᴇ ʟ ᴄ ᴏ ᴍ ᴇ    ᴛ ᴏ \n\n");
-	printf("        " GR "|''||''|               ||");
-	printf(BL "   ⠁⠁⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠹           ⠲⣦⣄⠀" WH "\n");
-	printf("        " GR "   ||            ''    ||");
-	printf(BL "                  ⠘             ⠙⣷⣄⠀⠀" WH "\n");
-	printf("        " GR "   ||    '||''|  ||  ''||''  .|'");
-	printf("'|, `||''|," BL "               ⣿⣿⣦⠀" WH "\n");
-	printf("        " GR "   ||     ||     ||    ||    ");
-	printf("||  ||  ||  ||" BL "        ⢀    ⢀⣼⠿⠛⢻⣆" WH "\n");
-	printf("        " GR "  .||.   .||.   .||.   `|..' `");
-	printf("|..|' .||  ||." BL "     ⢀⣴⡿       ⢀⣼⡿ " WH "\n");
-	printf(BL "       ⡄                             ");
-	printf("                  ⣠⣾⣿⣿⣇  ⢀⣀⣠⣶⣾⣿⣿⠃" WH "\n");
-	printf(BL "       ⣆⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⡀⡀⡀  ");
-	printf("    ⢀⣀⣀⣀⣠⣤⣤⣤⣶⣶⣶⣶⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠃⠀" WH "\n");
-	ft_print_title2();
-	return ;
-}
 
 char	*return_status(void)
 {
@@ -101,77 +63,33 @@ void	env_i_setup(t_env **envt)
 	return ;
 }
 
-int	main_debug(char **envp)
+int	cmd_setup(char *line, t_token **head, t_cmd **cmd, t_env **envt)
 {
-	char	*line = NULL;
-	char	*status = NULL;
-	t_env	*envt = NULL;
-	t_cmd	*cmd = NULL;
-	t_token	*head;
-
-	ft_print_title1();
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, SIG_IGN);
-	ft_env_reader(envp, &envt);
-	env_i_setup(&envt);
-	g_status = 0;
-	while (true)
+	if (ft_count_quote(line) != -1)
+	*head = ft_tokenize(line);
+	else
 	{
-		status = return_status();
-		line = readline(status);
-		free(status);
-		if (!line)
-			break ;
-		if (ft_count_quote(line) != -1)
-			head = ft_tokenize(line);
-		else
-		{
-			g_status = 2;
-			write(2, "TRITONUnmatched quote\n", 23);
-			continue ;
-		}
-		printf("Tokenization done\n");
-		ft_print_token(head);
-		if (!head)
-			return (write(2, "TRITONTokenization failed\n", 27), 1);
-		ft_expand(head, envt);
-		printf("\nExpansion done\n");
-		ft_print_token(head);
-		cmd = ft_parser(head, &envt);
-		ft_free_lst_token(head);
-		printf("Parsing done\n");
-		ft_print_cmd(cmd);
-		signal(SIGINT, SIG_IGN);
-		ft_exec(cmd);
-		signal(SIGINT, sig_handler);
-		ft_add_history(line);
-		if (cmd)
-			ft_free_cmd(&cmd);
+		g_status = 2;
+		printf(TRITON "Unmatched quote\n");
+		return (1);
 	}
-	ft_clear_env(envt);
-	if (cmd)
-		ft_free_cmd(&cmd);
-	exit(0);
+	if (!*head)
+	{
+		(printf(TRITON "Tokenization failed\n"));
+		return (3);
+	}
+	ft_expand(*head, *envt);
+	*cmd = ft_parser(*head, envt);
+	return (0);
 }
 
-int	main(int ac, char **av, char **envp)
+void	main_routine(char *status, t_env *envt, t_token *head, t_cmd *cmd)
 {
-	char	*line = NULL;
-	char	*status = NULL;
-	t_env	*envt = NULL;
-	t_cmd	*cmd = NULL;
-	t_token	*head;
+	char	*line;
+	int		flag;
 
-	(void)av;
-	if (ac == 2)
-		main_debug(envp);
-	ft_print_title1();
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, SIG_IGN);
-	if (ac != 1)
-		return (write(2, "Error: Wrong number of arguments\n", 33), 1);
-	ft_env_reader(envp, &envt);
-	env_i_setup(&envt);
+	line = NULL;
+	flag = 0;
 	while (true)
 	{
 		status = return_status();
@@ -179,18 +97,11 @@ int	main(int ac, char **av, char **envp)
 		free(status);
 		if (!line)
 			break ;
-		if (ft_count_quote(line) != -1)
-			head = ft_tokenize(line);
-		else
-		{
-			g_status = 2;
-			printf(TRITON "Unmatched quote\n");
+		flag = cmd_setup(line, &head, &cmd, &envt);
+		if (flag == 1)
 			continue ;
-		}
-		if (!head)
-			return (printf(TRITON "Tokenization failed\n"), 1);
-		ft_expand(head, envt);
-		cmd = ft_parser(head, &envt);
+		else if (flag == 2)
+			return ;
 		ft_free_lst_token(head);
 		signal(SIGINT, SIG_IGN);
 		ft_exec(cmd);
@@ -199,6 +110,10 @@ int	main(int ac, char **av, char **envp)
 		if (cmd)
 			ft_free_cmd(&cmd);
 	}
+}
+
+int	clear_and_exit(t_cmd *cmd, t_env *envt)
+{
 	ft_clear_env(envt);
 	if (cmd)
 		ft_free_cmd(&cmd);
@@ -206,4 +121,29 @@ int	main(int ac, char **av, char **envp)
 	close(STDOUT_FILENO);
 	close(STDERR_FILENO);
 	return (0);
+}
+
+int	main(int ac, char **av, char **envp)
+{
+	char	*status;
+	t_env	*envt;
+	t_cmd	*cmd;
+	t_token	*head;
+
+	(void)av;
+	if (ac == 2)
+		main_debug(envp);
+	status = NULL;
+	envt = NULL;
+	cmd = NULL;
+	head = NULL;
+	ft_print_title1();
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, SIG_IGN);
+	if (ac != 1)
+		return (write(2, "Error: Wrong number of arguments\n", 33), 1);
+	ft_env_reader(envp, &envt);
+	env_i_setup(&envt);
+	main_routine(status, envt, head, cmd);
+	return (clear_and_exit(cmd, envt));
 }

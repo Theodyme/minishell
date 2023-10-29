@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:05:59 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/27 17:10:10 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/29 14:05:42 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ int	ft_bltin_unset(t_cmd *cmd)
 
 	if (cmd->args_list->next->str && cmd->args_list->next->str[0] == '-')
 	{
-		printf(TRITON "unset: '%s': invalid option\n", cmd->args_list->next->str);
+		printf(TRITON "unset: '%s': invalid option\n",
+			cmd->args_list->next->str);
 		return (2);
 	}
 	env = *(cmd->envt);

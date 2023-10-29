@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/28 22:59:26 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/29 14:04:59 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -346,6 +346,9 @@ int		ft_trim_blank(char *line);
 char	*return_status(void);
 
 int		ft_split_wordtoken(t_token *tkn);
+int		main_debug(char **envp);
+void	ft_print_title2(void);
+void	ft_print_title1(void);
 
 // int 	ft_readlst(t_token *lst);
 
