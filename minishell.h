@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/29 17:17:57 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/30 00:10:09 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,10 @@
 # define TRITON "\033[34mᴛʀɪᴛoɴ\033[0m: "
 # define UNEXPECTED_TOKEN_ERR "syntax error near unexpected token `%s'\n"
 # define EOF_IN_HD "warning: here-doc delimited by EOF or SIGINT (wanted `%s')\n"
-# define DIR_ERR "error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n"
+# define DIR_ERR "error retrieving current directory: getcwd: cannot access \
+parent directories: No such file or directory\n"
 
-extern int	g_status;
+extern int				g_status;
 
 /*
 **	WORD = 0,
@@ -107,15 +108,15 @@ typedef struct s_arg
 }					t_arg;
 
 /* Déclaration anticipée de t_cmd */
-typedef struct s_cmd t_cmd;
+typedef struct s_cmd	t_cmd;
 
 /* -------------- function prototype for the array of pointers -------------- */
 
-typedef int	(*t_bltin)(t_cmd *cmd);
+typedef int				(*t_bltin)(t_cmd *cmd);
 
 /* -------------------------- command division type ------------------------- */
 
-typedef struct s_cmd
+struct s_cmd
 {
 	char			*name;
 	char			**argv;
@@ -127,11 +128,9 @@ typedef struct s_cmd
 	int				fd[2];
 	t_bltin			bltn;
 	int				status;
-	struct s_cmd	*head;
-	struct s_cmd	*next;
-}	t_cmd;
-
-
+	t_cmd			*head;
+	t_cmd			*next;
+};
 
 /* -------------------- array of function pointers struct ------------------- */
 
@@ -144,7 +143,6 @@ typedef struct s_fn
 /* ----------------------------- title printing ----------------------------- */
 
 void	ft_print_title(void);
-
 void	sig_init(int state);
 void	sig_handler(int signum);
 void	sig_heredoc(int signum);
@@ -214,8 +212,6 @@ char	*get_next_line(int fd);
 
 t_bltin	ft_bltin_tester(t_cmd **cmd);
 int		ft_bltin_exec(t_cmd **cmd);
-
-
 int		ft_bltin_echo(t_cmd *cmd);
 int		ft_bltin_cd(t_cmd *cmd);
 int		ft_bltin_pwd(t_cmd *cmd);
@@ -301,7 +297,7 @@ int		ft_envlist_to_array(t_cmd *cmd);
 
 int		ft_fill_cmd(t_cmd *cmd, t_token *tkn);
 int		ft_create_arg(t_arg **arg);
-t_arg		*ft_add_arg(t_arg **arg, char *str);
+t_arg	*ft_add_arg(t_arg **arg, char *str);
 int		ft_redir(t_token *token, t_cmd *cmd);
 int		ft_add_redir(t_redir *redir, t_token *token);
 
@@ -352,10 +348,7 @@ void	ft_print_title1(void);
 
 void	env_i_setup(t_env **envt);
 
-// int 	ft_readlst(t_token *lst);
-
 /* -------------------------------------------------------------------------- */
-
 /*				print test functions				*/
 
 void	ft_print_token(t_token *head);

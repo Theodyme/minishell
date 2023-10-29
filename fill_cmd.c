@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   fill_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:54:00 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/29 17:36:57 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/29 23:49:17 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ft_add_redir(t_redir *redir, t_token *token)
+int	ft_add_redir(t_redir *redir, t_token *token)
 {
-	t_redir *tmp;
+	t_redir	*tmp;
 
 	tmp = redir;
 	if (tmp->file)
@@ -35,9 +35,10 @@ int ft_add_redir(t_redir *redir, t_token *token)
 	return (0);
 }
 
-int ft_redir(t_token *token, t_cmd *cmd)
+int	ft_redir(t_token *token, t_cmd *cmd)
 {
-	if (token->type != REDIR_IN && token->type != REDIR_OUT && token->type != APPEND && token->type != HEREDOC)
+	if (token->type != REDIR_IN && token->type != REDIR_OUT \
+		&& token->type != APPEND && token->type != HEREDOC)
 		return (1);
 	else if (!token->next)
 		return (1);
@@ -54,7 +55,7 @@ int ft_redir(t_token *token, t_cmd *cmd)
 	return (0);
 }
 
-t_arg *ft_add_arg(t_arg **arg, char *str)
+t_arg	*ft_add_arg(t_arg **arg, char *str)
 {
 	t_arg	*new;
 	t_arg	*last;
@@ -78,7 +79,7 @@ t_arg *ft_add_arg(t_arg **arg, char *str)
 	return (new);
 }
 
-int ft_create_arg(t_arg **arg)
+int	ft_create_arg(t_arg **arg)
 {
 	if (!(*arg))
 		*arg = ft_calloc(1, sizeof(t_arg));
@@ -87,7 +88,7 @@ int ft_create_arg(t_arg **arg)
 	return (0);
 }
 
-int ft_fill_cmd(t_cmd *cmd, t_token *tkn)
+int	ft_fill_cmd(t_cmd *cmd, t_token *tkn)
 {
 	while (tkn && tkn->type != PIPE && tkn->type != EOL)
 	{
@@ -101,7 +102,8 @@ int ft_fill_cmd(t_cmd *cmd, t_token *tkn)
 				return (printf("Error: ft_add_arg failed\n"), 1);
 			ft_bltin_tester(&cmd);
 		}
-		else if (tkn->type == WORD && ft_add_arg(&(cmd->args_list), tkn->str) == NULL)
+		else if (tkn->type == WORD \
+			&& ft_add_arg(&(cmd->args_list), tkn->str) == NULL)
 			return (printf("Error: ft_add_arg failed\n"), 1);
 		else if (!ft_redir(tkn, cmd))
 			tkn = tkn->next;

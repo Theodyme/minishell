@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:54:46 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/29 17:50:18 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/29 23:57:19 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int ft_has_nflag(char *str)
+int	ft_has_nflag(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (str && str[i] && str[i] == '-')
@@ -29,7 +29,7 @@ int ft_has_nflag(char *str)
 	return (0);
 }
 
-void ft_echo_print(t_arg *tmp)
+void	ft_echo_print(t_arg *tmp)
 {
 	while (tmp)
 	{
@@ -38,13 +38,13 @@ void ft_echo_print(t_arg *tmp)
 			write(1, " ", 1);
 		tmp = tmp->next;
 	}
-	return;
+	return ;
 }
 
-int ft_bltin_echo(t_cmd *cmd)
+int	ft_bltin_echo(t_cmd *cmd)
 {
-	struct s_arg *tmp;
-	int flag;
+	struct s_arg	*tmp;
+	int				flag;
 
 	flag = 0;
 	if (!cmd->args_list->next)

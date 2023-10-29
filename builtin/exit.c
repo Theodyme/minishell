@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 18:07:52 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/29 22:46:21 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/30 00:25:57 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int ft_is_only_num(char *str)
+int	ft_is_only_num(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -26,21 +26,21 @@ int ft_is_only_num(char *str)
 	return (1);
 }
 
-int ft_isoperand(char c)
+int	ft_isoperand(char c)
 {
 	if (c == '-' || c == '+')
 		return (1);
 	return (0);
 }
 
-int ft_bltin_exit(t_cmd *cmd)
+int	ft_bltin_exit(t_cmd *cmd)
 {
-	int i;
-	t_arg *tmp;
+	int		i;
+	t_arg	*tmp;
 
 	i = 0;
-	if (cmd->head != cmd || (cmd->next))
-		return (0);
+	// if (cmd->head != cmd || (cmd->next))
+	// 	return (0);
 	if (!cmd->args_list->next)
 		ft_free_n_exit(cmd, 0);
 	tmp = cmd->args_list->next;
@@ -52,10 +52,7 @@ int ft_bltin_exit(t_cmd *cmd)
 	if (ft_isoperand(tmp->str[i]) == 1)
 		i++;
 	if (ft_is_only_num(tmp->str + i) == 1)
-	{
-		// g_status = ft_atoi(tmp->str);
 		ft_free_n_exit(cmd, (ft_atoi(tmp->str)));
-	}
 	else
 	{
 		printf(TRITON "numeric argument needed.\n");
