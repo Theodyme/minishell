@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:54:46 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/29 16:26:44 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/29 17:45:23 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void ft_echo_print(t_arg *tmp)
 {
 	while (tmp)
 	{
-		printf("%s", tmp->str);
+		write(1, tmp->str, ft_strlen(tmp->str));
 		if (tmp->next && tmp->next->str)
-			printf(" ");
+			write(1, " ", 1);
 		tmp = tmp->next;
 	}
 	return;
