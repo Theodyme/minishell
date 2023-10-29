@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:54:46 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/29 16:06:35 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/29 16:26:44 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int ft_has_nflag(char *str)
 
 void ft_echo_print(t_arg *tmp)
 {
-	tmp = tmp->next;
 	while (tmp)
 	{
 		printf("%s", tmp->str);

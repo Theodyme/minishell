@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:28:34 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/29 14:45:32 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/29 16:25:16 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void child(t_cmd *cmd)
 int ft_exec(t_cmd *cmd)
 {
 	t_cmd *tmp;
-	//	int out = 0;
 
 	if (!cmd)
 		return (1);
@@ -76,10 +75,6 @@ int ft_exec(t_cmd *cmd)
 		if (!tmp->pid)
 		{
 			init_child(tmp);
-			// if (out == 2 && !tmp->head->next)
-			// 	dispatch_exit(tmp, 9);
-			// if (tmp->pid == -1 && out != 1 && out != 2)
-			// 	dispatch_exit(tmp, 8);
 			if (tmp->bltn)
 				ft_bltin_exec(&tmp); // voir si il faut dispatch exit
 			else
