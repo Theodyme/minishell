@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/29 16:03:58 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/29 17:17:57 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -301,7 +301,7 @@ int		ft_envlist_to_array(t_cmd *cmd);
 
 int		ft_fill_cmd(t_cmd *cmd, t_token *tkn);
 int		ft_create_arg(t_arg **arg);
-int		ft_add_arg(t_arg *arg, char *str);
+t_arg		*ft_add_arg(t_arg **arg, char *str);
 int		ft_redir(t_token *token, t_cmd *cmd);
 int		ft_add_redir(t_redir *redir, t_token *token);
 

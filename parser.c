@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:23:49 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/29 14:12:42 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/29 17:37:34 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	ft_argslist_to_array(t_cmd *cmd)
 	{
 		tmp = cmd->args_list;
 		i = 0;
-		while (tmp && tmp->next && ++i)
+		while (tmp && ++i)
 			tmp = tmp->next;
 		cmd->argv = ft_calloc(i + 1, sizeof(char *));
 		if (!cmd->argv)

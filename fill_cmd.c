@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:54:00 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/29 16:49:12 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/29 17:36:57 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,43 +54,28 @@ int ft_redir(t_token *token, t_cmd *cmd)
 	return (0);
 }
 
-int ft_add_arg(t_arg *arg, char *str)
+t_arg *ft_add_arg(t_arg **arg, char *str)
 {
-	t_arg *tmp;
+	t_arg	*new;
+	t_arg	*last;
 
-	tmp = NULL;
-	if (arg)
+	new = ft_calloc(1, sizeof(t_arg));
+	if (new == NULL)
+		return (NULL);
+	new->str = ft_strdup(str);
+	if (new->str == NULL)
+		return (free(new), NULL);
+	new->next = NULL;
+	if (!(*arg))
 	{
-		arg->str = ft_strdup(str);
-		if (!arg->str)
-			return (free(arg), 1);
-		else
-			return (0);
+		*arg = new;
+		return (new);
 	}
-	tmp = ft_calloc(1, sizeof(t_arg));
-	if (!tmp)
-		return (1);
-	tmp->str = ft_strdup(str);
-	if (!tmp->str)
-		return (free(tmp), 1);
-	while (arg->next)
-		arg = arg->next;
-	arg->next = NULL;
-
-		// tmp = arg;
-		// while (tmp->next)
-		// 	tmp = tmp->next;
-		// tmp->next = ft_calloc(1, sizeof(t_arg));
-		// if (!tmp->next)
-		// 	return (1);
-		// tmp->next->str = ft_strdup(str);
-		// if (!tmp->next->str)
-		// {
-		// 	free(tmp->next);
-		// 	tmp->next = NULL;
-		// 	return (1);
-		// }
-		return (0);
+	last = *arg;
+	while (last->next)
+		last = last->next;
+	last->next = new;
+	return (new);
 }
 
 int ft_create_arg(t_arg **arg)
@@ -112,14 +97,11 @@ int ft_fill_cmd(t_cmd *cmd, t_token *tkn)
 			cmd->name = ft_strdup(tkn->str);
 			if (!cmd->name)
 				return (printf("Error: couldn't add command name\n"), 1);
-			cmd->args_list = ft_calloc(1, sizeof(t_arg));
-			if (!cmd->args_list)
-				return (printf("Error: ft_create_arg failed\n"), 1);
-			if (ft_add_arg(cmd->args_list, tkn->str))
+			if (ft_add_arg(&(cmd->args_list), tkn->str) == NULL)
 				return (printf("Error: ft_add_arg failed\n"), 1);
 			ft_bltin_tester(&cmd);
 		}
-		else if (tkn->type == WORD && ft_add_arg(cmd->args_list, tkn->str))
+		else if (tkn->type == WORD && ft_add_arg(&(cmd->args_list), tkn->str) == NULL)
 			return (printf("Error: ft_add_arg failed\n"), 1);
 		else if (!ft_redir(tkn, cmd))
 			tkn = tkn->next;
