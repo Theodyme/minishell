@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:13:33 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/25 22:12:09 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/29 18:37:25 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	ft_export_valid(t_cmd *cmd)
 	}
 	if (is_ok != 0 && is_ok == args_cntr)
 		return (1);
-	if (ft_loop_export(cmd, is_ok) == 1)
+	if (ft_loop_export(cmd, is_ok) == 0)
 		return (0);
 	return (1);
 }
