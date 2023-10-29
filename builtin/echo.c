@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:54:46 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/29 17:45:23 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/29 17:50:18 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int ft_bltin_echo(t_cmd *cmd)
 	int flag;
 
 	flag = 0;
-	if (!cmd->args_list->next->str)
+	if (!cmd->args_list->next)
 	{
 		write(1, "\n", 1);
 		return (0);

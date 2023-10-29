@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 15:41:16 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/29 14:05:27 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/29 18:09:16 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 int	ft_bltin_pwd(t_cmd *cmd)
 {
 	char	*tofree;
+	t_arg	*arg;
 
-	if (cmd->args_list->next && cmd->args_list->next->str
-		&& cmd->args_list->next->str[0] == '-')
+	arg = cmd->args_list->next;
+	if (arg && arg->str && arg->str[0] == '-')
 	{
-		if (cmd->args_list->next->str[1] == '-' && cmd->args_list->next->str[3])
+		if (arg->str[1] && arg->str[1] == '-')
 		{
 			printf(TRITON "pwd: --: invalid option\n");
 			return (2);
