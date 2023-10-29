@@ -6,7 +6,7 @@
 #    By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 11:54:49 by flplace           #+#    #+#              #
-#    Updated: 2023/10/24 20:55:09 by mabimich         ###   ########.fr        #
+#    Updated: 2023/10/29 14:59:17 by mabimich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,6 +83,8 @@ SRCS	=	builtin/echo.c \
 			free.c \
 			signals.c \
 			here_doc.c \
+			debug.c \
+			print_hder.c \
 			main.c
 OBJ		=	${SRCS:.c=.o}
 HEADER	=   minishell.h

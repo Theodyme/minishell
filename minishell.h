@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/29 14:04:59 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/29 16:03:58 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,7 +244,7 @@ int		ft_pwd_changer(t_cmd *cmd);
 int		ft_pwd_finder(t_cmd *cmd, char *arg);
 int		ft_path_changer(t_cmd *cmd);
 int		ft_export_valid(t_cmd *cmd);
-void	ft_echo_print(t_arg **tmp);
+void	ft_echo_print(t_arg *tmp);
 int		ft_has_nflag(char *str);
 int		ft_isalpha(int n);
 int		ft_is_equal(t_arg *args);
@@ -349,6 +349,8 @@ int		ft_split_wordtoken(t_token *tkn);
 int		main_debug(char **envp);
 void	ft_print_title2(void);
 void	ft_print_title1(void);
+
+void	env_i_setup(t_env **envt);
 
 // int 	ft_readlst(t_token *lst);
 

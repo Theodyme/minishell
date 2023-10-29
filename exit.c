@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/29 14:12:04 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/29 15:06:35 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ void dispatch_exit(t_cmd *cmd, int code)
 {
 	if (cmd->bltn && !cmd->pid)
 	{
-		close_pipes(cmd);
 		ft_free_n_exit(cmd, code);
 	}
 	if (code == 777)

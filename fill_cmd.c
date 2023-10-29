@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:54:00 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/29 14:07:41 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/29 16:09:16 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,13 @@ int	ft_add_arg(t_arg *arg, char *str)
 	tmp->next = ft_calloc(1, sizeof(t_arg));
 	if (!tmp->next)
 		return (1);
-	tmp->str = ft_strdup(str);
-	if (!tmp->str)
-		return (free(tmp->next), 1);
+	tmp->next->str = ft_strdup(str);
+	if (!tmp->next->str)
+	{
+		free(tmp->next);
+		tmp->next = NULL;
+		return (1);
+	}
 	return (0);
 }
 
@@ -87,7 +91,6 @@ int	ft_fill_cmd(t_cmd *cmd, t_token *tkn)
 		cmd->pid = 1;
 		if (tkn->type == WORD && !cmd->name)
 		{
-			printf("|%s|\n", tkn->str);
 			cmd->name = ft_strdup(tkn->str);
 			if (!cmd->name)
 				return (printf("Error: couldn't add command name\n"), 1);
