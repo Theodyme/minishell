@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:13:33 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/29 18:37:25 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/29 20:45:19 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,10 @@ int	ft_export_valid(t_cmd *cmd)
 			is_ok++;
 		tmp = tmp->next;
 	}
-	if (is_ok != 0 && is_ok == args_cntr)
+	if (is_ok == args_cntr)
 		return (1);
-	if (ft_loop_export(cmd, is_ok) == 0)
+	ft_loop_export(cmd, is_ok);
+	if (is_ok == 0)
 		return (0);
 	return (1);
 }

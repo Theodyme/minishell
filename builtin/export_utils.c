@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:45:48 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/29 14:06:16 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/29 20:43:31 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	ft_loop_export(t_cmd *cmd, int is_ok)
 
 	tmp = cmd->args_list->next;
 	prev = cmd->args_list;
-	while (tmp && tmp->str)
+	while (tmp)
 	{
 		if (ft_char_valid(tmp) != 1)
 		{
@@ -111,8 +111,6 @@ int	ft_loop_export(t_cmd *cmd, int is_ok)
 			free(tmp->str);
 			free(tmp);
 			tmp = prev->next;
-			if (is_ok == 0 && tmp && !tmp->str)
-				return (1);
 		}
 		else
 		{
