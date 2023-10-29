@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/29 18:46:04 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/29 22:46:57 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void ft_free_n_exit(t_cmd *cmd, int code)
 {
+	printf("code = %d\n", code);
 	ft_clear_env(*cmd->envt);
 	if (cmd && cmd->head)
 	{

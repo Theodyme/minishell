@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:28:34 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/29 18:46:23 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/29 22:19:04 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,31 +29,67 @@
 ** Le code de sortie est 21 si la commande est vide.
 */
 
+// void	errno_handle(t_cmd *cmd, char *path)
+// {
+// 	struct stat st;
+
+// 	if ((path && stat(path, &st) != -1 && (access(path, F_OK | X_OK) == -1 || S_ISDIR(st.st_mode))))
+// 	{
+// 		if (S_ISDIR(st.st_mode))
+// 			ft_msg(cmd->name, strerror(errno));
+// 		// else if (errno == EACCES)
+// 		// 	ft_msg(cmd->name, strerror(errno));
+// 		else
+// 			ft_msg(cmd->name, strerror(errno));
+// 		if (path)
+// 			free(path);
+// 		dispatch_exit(cmd, 126);
+// 	}
+// }
+
+// void child(t_cmd *cmd)
+// {
+// 	char *path;
+
+// 	if (!cmd->name)
+// 		dispatch_exit(cmd, 21);
+// 	path = get_path(cmd->name, cmd->envp);
+// 	errno_handle(cmd, path);
+// 	if (path && cmd->argv && cmd->argv[0])
+// 	{
+// 		signal(SIGINT, sig_handler);
+// 		signal(SIGQUIT, SIG_DFL);
+// 		execve(path, cmd->argv, cmd->envp);
+// 	}
+// 	ft_msg(cmd->name, "command not found");
+// 	dispatch_exit(cmd, 127);
+// }
+
 void child(t_cmd *cmd)
 {
-	char *path;
-	struct stat st;
+    char *path;
+    struct stat st;
 
-	if (!cmd->name)
-		dispatch_exit(cmd, 21);
-	path = get_path(cmd->name, cmd->envp);
-	if (path && stat(path, &st) != -1 && (access(path, F_OK | X_OK) || S_ISDIR(st.st_mode)))
-	{
-		if (S_ISDIR(st.st_mode))
-			ft_msg(cmd->name, "is a directory");
-		else
-			ft_msg(cmd->name, "command found but not executable");
-		free(path);
-		dispatch_exit(cmd, 126);
-	}
-	if (path && cmd->argv && cmd->argv[0])
-	{
-		signal(SIGINT, sig_handler);
-		signal(SIGQUIT, SIG_DFL);
-		execve(path, cmd->argv, cmd->envp);
-	}
-	ft_msg(cmd->name, "command not found");
-	dispatch_exit(cmd, 127);
+    if (!cmd->name)
+        dispatch_exit(cmd, 21);
+    path = get_path(cmd->name, cmd->envp);
+    if (path && stat(path, &st) != -1 && (access(path, F_OK | X_OK) || S_ISDIR(st.st_mode)))
+    {
+        if (S_ISDIR(st.st_mode))
+            ft_msg(cmd->name, "is a directory");
+        else
+            ft_msg(cmd->name, "command found but not executable");
+        free(path);
+        dispatch_exit(cmd, 126);
+    }
+    if (path && cmd->argv && cmd->argv[0])
+    {
+        signal(SIGINT, sig_handler);
+        signal(SIGQUIT, SIG_DFL);
+        execve(path, cmd->argv, cmd->envp);
+    }
+    ft_msg(cmd->name, "command not found");
+    dispatch_exit(cmd, 127);
 }
 
 int ft_exec(t_cmd *cmd)

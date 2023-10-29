@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 18:07:52 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/29 16:59:07 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/29 22:46:21 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ int ft_bltin_exit(t_cmd *cmd)
 	if (ft_isoperand(tmp->str[i]) == 1)
 		i++;
 	if (ft_is_only_num(tmp->str + i) == 1)
+	{
+		// g_status = ft_atoi(tmp->str);
 		ft_free_n_exit(cmd, (ft_atoi(tmp->str)));
+	}
 	else
 	{
 		printf(TRITON "numeric argument needed.\n");
