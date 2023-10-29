@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:28:34 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/29 16:25:16 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/29 18:03:20 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int ft_exec(t_cmd *cmd)
 	open_pipes(tmp);
 	if (tmp && !tmp->next && tmp->bltn)
 	{
-		ft_bltin_exec(&tmp); // voir si il faut dispatch exit
+		g_status = ft_bltin_exec(&tmp); // voir si il faut dispatch exit
 		tmp = tmp->next;
 	}
 	while (tmp && tmp->pid)

@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:41:12 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/29 15:28:39 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/29 18:02:13 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int ft_bltin_exec(t_cmd **cmd)
 	// int stdin_cpy = 0;
 	int i;
 
-	i = 0;
+	i = -1;
 	if (!(*cmd)->name)
 		dispatch_exit((*cmd), 21);
 	// if ((*cmd)->name)
