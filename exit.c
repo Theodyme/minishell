@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/30 21:22:45 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/30 21:31:26 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void	dispatch_exit(t_cmd *cmd, int code)
 	if (code == 777)
 	{
 		close_pipes(cmd);
-		if (cmd && !cmd->name && cmd->redir->type != HEREDOC)
+		if (cmd && !cmd->name && cmd->redir && cmd->redir->type != HEREDOC)
 			return ;
 		while (cmd && cmd->pid != -1)
 		{
