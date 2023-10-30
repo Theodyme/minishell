@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_child.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 17:25:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/30 19:49:59 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/30 20:39:12 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	open_files(t_cmd *cmd)
 	t_redir	*redir;
 
 	redir = cmd->redir;
-	if (g_status == 130) //? mettre dans un truc plus general?
+	if (g_status == 130 || g_status == 131)
 		g_status = 0;
 	while (cmd && redir)
 	{
