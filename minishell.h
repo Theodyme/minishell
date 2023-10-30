@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/30 20:33:21 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/30 21:06:45 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ char	*ft_split_value(char *str);
 char	*ft_split_key(char *str);
 t_env	*ft_envlast(t_env *lst);
 void	ft_clear_env(t_env *envt);
+void	shlvl_inc(t_env **envt);
 void	ft_setting_env(t_env *envt, t_cmd *cmd);
 
 /* -------------------------------- lib utils ------------------------------- */
