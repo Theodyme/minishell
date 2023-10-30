@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:13:33 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/30 20:10:02 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/30 21:06:39 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,11 @@ int	ft_exporting(char *arg, t_cmd *cmd)
 			return (ft_key_freer(key, value), 0);
 	}
 	if ((needle && !needle->value)
-		|| (needle && (ft_strcmp(needle->value, value) != 0)))
+		|| (needle && (ft_strcmp_export(needle->value, value) != 0)))
 	{
 		free(needle->value);
 		needle->value = value;
-		if (!needle->value)
+		if (!needle->value && value)
 			return (ft_key_remove(needle), 1);
 		return (free(key), 0);
 	}

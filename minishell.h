@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/30 20:33:21 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/30 21:04:47 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -349,6 +349,7 @@ void	ft_print_title1(void);
 int		ft_strcmp_export(const char *s1, const char *s2);
 
 void	env_i_setup(t_env **envt);
+void	shlvl_inc(t_env **envt);
 
 /* -------------------------------------------------------------------------- */
 /*				print test functions				*/
