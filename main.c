@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:49:22 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/30 21:01:03 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/30 22:04:13 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,6 @@ int	main(int ac, char **av, char **envp)
 	t_token	*head;
 
 	(void)av;
-	if (ac == 2)
-		main_debug(envp);
 	status = NULL;
 	envt = NULL;
 	cmd = NULL;
