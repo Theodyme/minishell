@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:28:34 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/30 19:52:41 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/30 20:53:00 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ void	child(t_cmd *cmd)
 	}
 	if (path && cmd->argv && cmd->argv[0])
 	{
-		signal(SIGINT, sig_handler);
+		signal(SIGINT, SIG_DFL);
+		signal(SIGTSTP, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		execve(path, cmd->argv, cmd->envp);
 	}
