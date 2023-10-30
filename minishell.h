@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/30 20:09:55 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/30 20:24:23 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <sys/types.h>
 # include <dirent.h>
 # include <limits.h>
+# include <signal.h>
 
 # define C_ALPHA "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_"
 # define C_ALPHANUM "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_\
@@ -211,6 +212,7 @@ char	*get_next_line(int fd);
 /* -------------------------------- builtins -------------------------------- */
 
 t_bltin	ft_bltin_tester(t_cmd **cmd);
+int		ft_single_bltin_exec(t_cmd **cmd);
 int		ft_bltin_exec(t_cmd **cmd);
 int		ft_bltin_echo(t_cmd *cmd);
 int		ft_bltin_cd(t_cmd *cmd);
