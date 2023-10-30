@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 17:55:51 by flplace           #+#    #+#             */
-/*   Updated: 2023/08/14 18:59:25 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/30 17:28:09 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_bltin_hello(t_cmd *cmd)
 {
 	struct s_arg	*tmp;
 
-	if (!cmd->args_list->next->str)
+	if (!cmd->args_list->next)
 	{
 		printf(TRITON "Who are you talking to?\n");
 		return (1);

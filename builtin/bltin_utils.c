@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:45:48 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/24 18:57:30 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/30 19:45:18 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 int	ft_key_freer(char *key, char *value)
 {
-	free(key);
-	free(value);
+	if (key)
+		free(key);
+	if (value)
+		free(value);
 	return (0);
 }
 
@@ -72,9 +74,9 @@ t_env	*ft_key_add(t_env **envt, char *key, char *value)
 	if (new == NULL)
 		return (NULL);
 	new->key = ft_strdup(key);
-	new->value = ft_strdup(value);
-	if (value == NULL)
-		new->value = ft_strdup("");
+	new->value = NULL;
+	if (value)
+		new->value = ft_strdup(value);
 	new->next = NULL;
 	if (!(*envt))
 	{

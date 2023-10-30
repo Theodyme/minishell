@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:13:33 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/29 20:45:19 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/30 20:10:02 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,17 @@
 
 int	ft_char_valid(t_arg *tmp)
 {
-	int	equal;
 	int	i;
 
-	equal = 0;
 	i = 0;
 	while (tmp->str[i])
 	{
-		if (((i == 0 && tmp->str[i] == '=')) || (!ft_isalpha(tmp->str[i])
-				&& !ft_is_in_charset(tmp->str[i], "0123456789_=") && equal == 0)
-			|| (tmp->str[i] == '=' && tmp->str[i + 1] == '\0'))
+		if ((!ft_isalpha(tmp->str[i])
+			&& !ft_is_in_charset(tmp->str[i], "0123456789_=")))
 			return (0);
-		else if (tmp->str[i] == '=')
-			equal += 1;
 		i++;
 	}
-	return (equal);
+	return (1);
 }
 
 int	ft_export_valid(t_cmd *cmd)
@@ -86,17 +81,17 @@ int	ft_exporting(char *arg, t_cmd *cmd)
 	{
 		tmp = ft_key_add(cmd->envt, key, value);
 		if (tmp && ft_strcmp(tmp->key, key) == 0
-			&& ft_strcmp(tmp->value, value) == 0)
+			&& ft_strcmp_export(tmp->value, value) == 0)
 			return (ft_key_freer(key, value), 0);
 	}
-	if (needle != NULL && (ft_strcmp(needle->value, value) != 0))
+	if ((needle && !needle->value)
+		|| (needle && (ft_strcmp(needle->value, value) != 0)))
 	{
 		free(needle->value);
 		needle->value = value;
 		if (!needle->value)
 			return (ft_key_remove(needle), 1);
-		free(key);
-		return (0);
+		return (free(key), 0);
 	}
 	return (ft_key_freer(key, value), 0);
 }

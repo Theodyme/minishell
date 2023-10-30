@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_cpy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:58:45 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/25 21:26:24 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/30 20:01:38 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ char	*ft_split_key(char *str)
 {
 	char	*key;
 
+	if (ft_strchr(str, '=') == NULL)
+		return (ft_strdup(str));
 	key = ft_strndup(str, ft_strclen(str, '='));
 	return (key);
 }
@@ -24,6 +26,8 @@ char	*ft_split_value(char *str)
 {
 	char	*value;
 
+	if(ft_strchr(str, '=') == NULL)
+		return (NULL);
 	str += ft_strclen(str, '=') + 1;
 	value = ft_strdup(str);
 	return (value);

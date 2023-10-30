@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 15:37:22 by theophane         #+#    #+#             */
-/*   Updated: 2023/10/29 17:30:32 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/30 19:32:47 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ void	ft_free_args(t_cmd *cmd)
 	}
 	while (tmp)
 	{
-		free(tmp->str);
+		if (tmp->str)
+			free(tmp->str);
 		node = tmp;
 		tmp = tmp->next;
 		free(node);

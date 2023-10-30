@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 17:55:53 by flplace           #+#    #+#             */
-/*   Updated: 2023/09/11 16:03:53 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/30 17:32:48 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ int	ft_bltin_where(t_cmd *cmd)
 	struct s_arg	*tmp;
 	struct s_env	*pwd;
 
-	if (!cmd->args_list->next->str)
+	if (!cmd->args_list->next)
 	{
 		printf(TRITON "What do you mean?\n");
 		return (1);
 	}
 	tmp = cmd->args_list->next;
-	if (!tmp->next->str)
+	if (!tmp->next)
 	{
 		printf(TRITON "I don't get it.\n");
 		return (1);

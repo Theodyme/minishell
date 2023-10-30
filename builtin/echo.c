@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:54:46 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/29 23:57:19 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/30 17:16:07 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,6 @@ int	ft_has_nflag(char *str)
 	return (0);
 }
 
-void	ft_echo_print(t_arg *tmp)
-{
-	while (tmp)
-	{
-		write(1, tmp->str, ft_strlen(tmp->str));
-		if (tmp->next && tmp->next->str)
-			write(1, " ", 1);
-		tmp = tmp->next;
-	}
-	return ;
-}
-
 int	ft_bltin_echo(t_cmd *cmd)
 {
 	struct s_arg	*tmp;
@@ -56,7 +44,11 @@ int	ft_bltin_echo(t_cmd *cmd)
 	while (cmd->args_list && tmp)
 	{
 		if (ft_has_nflag(tmp->str) == 0)
-			ft_echo_print(tmp);
+		{
+			write(1, tmp->str, ft_strlen(tmp->str));
+			if (tmp->next && tmp->next->str)
+				write(1, " ", 1);
+		}
 		else
 			flag++;
 		tmp = tmp->next;
