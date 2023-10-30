@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:49:22 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/29 23:49:31 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/30 20:37:49 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,6 @@ void	shlvl_inc(t_env **envt)
 	i++;
 	free(shell->value);
 	shell->value = ft_itoa(i);
-	return ;
-}
-
-void	env_i_setup(t_env **envt)
-{
-	char	*pwd;
-
-	pwd = getcwd(NULL, 0);
-	if (!(*envt))
-		ft_key_add(envt, "PWD", pwd);
-	free(pwd);
-	shlvl_inc(envt);
 	return ;
 }
 
@@ -110,17 +98,6 @@ void	main_routine(char *status, t_env *envt, t_token *head, t_cmd *cmd)
 		if (cmd)
 			ft_free_cmd(&cmd);
 	}
-}
-
-int	clear_and_exit(t_cmd *cmd, t_env *envt)
-{
-	ft_clear_env(envt);
-	if (cmd)
-		ft_free_cmd(&cmd);
-	close(STDIN_FILENO);
-	close(STDOUT_FILENO);
-	close(STDERR_FILENO);
-	return (0);
 }
 
 int	main(int ac, char **av, char **envp)

@@ -6,11 +6,22 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/30 19:53:18 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/30 20:28:18 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	clear_and_exit(t_cmd *cmd, t_env *envt)
+{
+	ft_clear_env(envt);
+	if (cmd)
+		ft_free_cmd(&cmd);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	close(STDERR_FILENO);
+	return (0);
+}
 
 void	ft_free_n_exit(t_cmd *cmd, int code)
 {

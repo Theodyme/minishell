@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utilities.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theophane <theophane@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 14:45:37 by theophane         #+#    #+#             */
-/*   Updated: 2023/08/04 15:39:30 by theophane        ###   ########.fr       */
+/*   Updated: 2023/10/30 20:31:41 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,17 @@ void	ft_clear_env(t_env *envt)
 	envt->next = NULL;
 	free(envt);
 	envt = NULL;
+	return ;
+}
+
+void	env_i_setup(t_env **envt)
+{
+	char	*pwd;
+
+	pwd = getcwd(NULL, 0);
+	if (!(*envt))
+		ft_key_add(envt, "PWD", pwd);
+	free(pwd);
+	shlvl_inc(envt);
 	return ;
 }

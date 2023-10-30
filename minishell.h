@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/30 20:24:23 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/30 20:33:21 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -321,6 +321,7 @@ void	close_pipes(t_cmd *cmd);
 
 /* --------------------------------- EXIT --------------------------------- */
 
+int		clear_and_exit(t_cmd *cmd, t_env *envt);
 void	ft_free_n_exit(t_cmd *cmd, int code);
 void	dispatch_exit(t_cmd *cmd, int code);
 void	dispatch_exit2(t_cmd *cmd, int code);
@@ -334,8 +335,6 @@ int		ft_argslist_to_array(t_cmd *cmd);
 
 int		ft_count_quote(char *str);
 int		ft_quotelen(char *str);
-
-void	open_files(t_cmd *cmd);
 
 int		ft_getenv(char *key, t_env *env);
 
