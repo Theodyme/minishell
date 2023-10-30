@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/30 21:31:26 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/30 21:32:40 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,6 @@ void	dispatch_exit2(t_cmd *cmd, int code)
 		if (g_status == 131)
 			write(2, "Quit (core dumped)\n", 19);
 	}
-	// if (code == 21)
-	// 	close(cmd->fd[0]);
 	if (code == 126 || code == 127)
 	{
 		close_pipes(cmd);

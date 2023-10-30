@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:13:33 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/30 21:06:39 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/30 21:38:22 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_char_valid(t_arg *tmp)
 	while (tmp->str[i])
 	{
 		if ((!ft_isalpha(tmp->str[i])
-			&& !ft_is_in_charset(tmp->str[i], "0123456789_=")))
+				&& !ft_is_in_charset(tmp->str[i], "0123456789_=")))
 			return (0);
 		i++;
 	}
