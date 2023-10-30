@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 17:25:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/27 22:59:32 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/30 19:49:59 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	open_files(t_cmd *cmd)
 	t_redir	*redir;
 
 	redir = cmd->redir;
-	if (g_status == 130)
+	if (g_status == 130) //? mettre dans un truc plus general?
 		g_status = 0;
 	while (cmd && redir)
 	{
@@ -78,14 +78,12 @@ void	close_pipes(t_cmd *cmd)
 	t_cmd	*tmp;
 
 	tmp = cmd->head;
-	if (!tmp->next)
-		return ;
 	while (tmp)
 	{
 		if (tmp->fd[0] != STDIN_FILENO)
 			close(tmp->fd[0]);
 		if (tmp->fd[1] != STDOUT_FILENO)
-			close (tmp->fd[1]);
+			close(tmp->fd[1]);
 		tmp = tmp->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/29 23:48:06 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/30 19:53:18 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_free_n_exit(t_cmd *cmd, int code)
 {
-	printf("code = %d\n", code);// a supprimer
 	ft_clear_env(*cmd->envt);
 	if (cmd && cmd->head)
 	{
@@ -83,7 +82,10 @@ void	dispatch_exit2(t_cmd *cmd, int code)
 	if (code == 21)
 		close(cmd->fd[0]);
 	if (code == 126 || code == 127)
+	{
+		close_pipes(cmd);
 		ft_free_n_exit(cmd, code);
+	}
 	if (code == 666 || code == 555)
 		ft_free_n_exit(cmd, 1);
 	if (code == 21 || code == 9)

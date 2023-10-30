@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:41:12 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/29 23:46:32 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/30 19:50:45 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,35 @@ int	ft_bltin_exec(t_cmd **cmd)
 {
 	int	i;
 
-	i = -1;
-	if (!(*cmd)->name)
-		dispatch_exit((*cmd), 21);
 	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, SIG_DFL);
+	signal(SIGQUIT, SIG_IGN);
 	i = (*cmd)->bltn(*cmd);
-	if ((*cmd) && (*cmd)->head->next)
-		dispatch_exit((*cmd), i);
+	dispatch_exit((*cmd), i);
+	return (i);
+}
+
+int	ft_single_bltin_exec(t_cmd **cmd)
+{
+	int	i;
+	int	save_in;
+	int	save_out;
+
+	open_files(*cmd);
+	if (ft_strcmp((*cmd)->name, "exit") == 0)
+		dispatch_exit(*cmd, (*cmd)->bltn(*cmd)); //mettre les 4 lignes dans le bltin exit
+	save_in = dup(STDIN_FILENO);
+	save_out = dup(STDOUT_FILENO);
+	dup2((*cmd)->fd[0], STDIN_FILENO);
+	dup2((*cmd)->fd[1], STDOUT_FILENO);
+	close((*cmd)->fd[0]);
+	close((*cmd)->fd[1]);
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, SIG_IGN);
+	i = (*cmd)->bltn(*cmd);
+	dup2(save_in, STDIN_FILENO);
+	dup2(save_out, STDOUT_FILENO);
+	close(save_in);
+	close(save_out);
 	return (i);
 }
 
@@ -53,14 +74,14 @@ t_bltin	ft_bltin_tester(t_cmd **cmd)
 
 	tab_bltin = call_tab_bltin();
 	i = 0;
-	if (!(*cmd)->name) // ?
+	if (!(*cmd)->name)
 	{
 		if (!(*cmd)->redir || ((*cmd)->redir && !(*cmd)->redir->type))
 			return (0);
 	}
-	while (tab_bltin[i].call && ft_strcmp(tab_bltin[i].call, (*cmd)->name) != 0 \
-		&& i <= 6)
-		i++;
+	// while (tab_bltin[i].call && ft_strcmp(tab_bltin[i].call, (*cmd)->name) != 0 \
+	// 	&& i <= 6)
+	// 	i++;
 	while (tab_bltin[i].call && ft_strcmp(tab_bltin[i].call, (*cmd)->name) != 0)
 		i++;
 	(*cmd)->bltn = tab_bltin[i].blt_fn;

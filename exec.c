@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:28:34 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/29 23:58:02 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/30 19:52:41 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,12 @@ int	ft_exec(t_cmd *cmd)
 	if (!cmd)
 		return (1);
 	tmp = cmd;
-	open_pipes(tmp);
 	if (tmp && !tmp->next && tmp->bltn)
 	{
-		g_status = ft_bltin_exec(&tmp); // voir si il faut dispatch exit
-		tmp = tmp->next;
+		g_status = ft_single_bltin_exec(&tmp);
+		return (dispatch_exit(cmd->head, 777), 0);
 	}
+	open_pipes(tmp);
 	while (tmp && tmp->pid)
 	{
 		tmp->pid = fork();
@@ -119,5 +119,5 @@ int	ft_exec(t_cmd *cmd)
 		}
 		tmp = tmp->next;
 	}
-	return (dispatch_exit(cmd->head, 777), (0));
+	return (dispatch_exit(cmd->head, 777), 0);
 }
