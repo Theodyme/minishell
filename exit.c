@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/30 20:28:18 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/30 21:22:45 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ void	dispatch_exit2(t_cmd *cmd, int code)
 		if (g_status == 131)
 			write(2, "Quit (core dumped)\n", 19);
 	}
-	if (code == 21)
-		close(cmd->fd[0]);
+	// if (code == 21)
+	// 	close(cmd->fd[0]);
 	if (code == 126 || code == 127)
 	{
 		close_pipes(cmd);
@@ -100,7 +100,10 @@ void	dispatch_exit2(t_cmd *cmd, int code)
 	if (code == 666 || code == 555)
 		ft_free_n_exit(cmd, 1);
 	if (code == 21 || code == 9)
+	{
+		close_pipes(cmd);
 		ft_free_n_exit(cmd, 0);
+	}
 }
 
 /*
@@ -126,7 +129,7 @@ void	dispatch_exit(t_cmd *cmd, int code)
 	if (code == 777)
 	{
 		close_pipes(cmd);
-		if (cmd && !cmd->name)
+		if (cmd && !cmd->name && cmd->redir->type != HEREDOC)
 			return ;
 		while (cmd && cmd->pid != -1)
 		{
