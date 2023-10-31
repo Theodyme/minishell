@@ -6,7 +6,7 @@
 #    By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 11:54:49 by flplace           #+#    #+#              #
-#    Updated: 2023/10/31 09:05:19 by mabimich         ###   ########.fr        #
+#    Updated: 2023/10/31 09:27:04 by mabimich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -98,7 +98,7 @@ CFLAGS	=	-Wall -Wextra -Werror
 # RULES
 
 %.o:	%.c
-	@${CC} ${CFLAGS} -c -g $< -o $@
+	@${CC} ${CFLAGS} -c $< -o $@
 	@echo "$(BLUE)Compiling $<...$(END_COLOR)"
 
 $(NAME):	${OBJ} Makefile
