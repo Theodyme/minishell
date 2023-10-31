@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 17:25:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/31 03:02:24 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/31 09:04:21 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,31 @@
 
 void	close_protection(t_cmd *cmd, t_redir *redir, int *tmp)
 {
-	if (tmp[0] && tmp[0] > 0)
+	if (tmp[0] > 0)
 	{
 		ft_close_fd(cmd->fd[0]);
 		cmd->fd[0] = tmp[0];
 	}
-	else if (tmp[1] && tmp[1] > 0)
+	else if (tmp[1] > 0)
 	{
 		ft_close_fd(cmd->fd[1]);
 		cmd->fd[1] = tmp[1];
 	}
-	if (cmd->fd[0] == -1 || cmd->fd[1] == -1)
+	if (redir->type != HEREDOC && (cmd->fd[0] == -1 || cmd->fd[1] == -1))
 	{
 		ft_msg(redir->file, strerror(errno));
 		close_pipes(cmd);
-		ft_free_n_exit(cmd->head, 1);
+		if (!(cmd->bltn && (!cmd->head->next)))
+			ft_free_n_exit(cmd, 1);
 	}
+}
+
+void	init_fd(t_cmd *cmd)
+{
+	if (cmd->fd[0] == STDIN_FILENO)
+		cmd->fd[0] = dup(STDIN_FILENO);
+	if (cmd->fd[1] == STDOUT_FILENO)
+		cmd->fd[1] = dup(STDOUT_FILENO);
 }
 
 void	open_files(t_cmd *cmd)
@@ -48,6 +57,7 @@ void	open_files(t_cmd *cmd)
 
 	tmp[0] = -2;
 	tmp[1] = -2;
+	init_fd(cmd);
 	redir = cmd->redir;
 	if (g_status == 130 || g_status == 131)
 		g_status = 0;
@@ -66,45 +76,6 @@ void	open_files(t_cmd *cmd)
 	}
 	if (g_status == 130 || g_status == 131)
 		dispatch_exit(cmd, g_status);
-}
-
-void	open_pipes(t_cmd *cmd)
-{
-	t_cmd	*tmp;
-
-	tmp = cmd;
-	tmp->fd[0] = STDIN_FILENO;
-	tmp->fd[1] = STDOUT_FILENO;
-	if (!tmp->next)
-		return ;
-	tmp = tmp->next;
-	while (tmp)
-	{
-		pipe(tmp->fd);
-		tmp = tmp->next;
-	}
-	tmp = cmd;
-	while (tmp->next)
-	{
-		tmp->fd[1] = tmp->next->fd[1];
-		tmp = tmp->next;
-	}
-	tmp->fd[1] = STDOUT_FILENO;
-}
-
-void	close_pipes(t_cmd *cmd)
-{
-	t_cmd	*tmp;
-
-	tmp = cmd->head;
-	while (tmp)
-	{
-		if (tmp->fd[0] != STDIN_FILENO && tmp->fd[0] != -1)
-			ft_close_fd(tmp->fd[0]);
-		if (tmp->fd[1] != STDOUT_FILENO && tmp->fd[1] != -1)
-			ft_close_fd(tmp->fd[1]);
-		tmp = tmp->next;
-	}
 }
 
 void	init_child(t_cmd *cmd)

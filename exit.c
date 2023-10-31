@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:57:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/31 04:12:52 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/31 08:20:55 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ void	dispatch_exit(t_cmd *cmd, int code)
 	if (code == 777)
 	{
 		close_pipes(cmd);
-		// if (cmd && !cmd->name && cmd->redir && cmd->redir->type != HEREDOC)
 		if (cmd && !cmd->name && !cmd->redir)
 			return ;
 		while (cmd && cmd->pid != -1)
