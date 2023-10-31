@@ -6,7 +6,7 @@
 #    By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 11:54:49 by flplace           #+#    #+#              #
-#    Updated: 2023/10/30 22:07:08 by mabimich         ###   ########.fr        #
+#    Updated: 2023/10/31 02:35:05 by mabimich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,7 @@ SRCS	=	builtin/echo.c \
 			lib/ft_len_counter.c \
 			lib/ft_create_fname.c \
 			lib/get_next_line.c \
+			lib/ft_close_fd.c \
 			env_cpy.c \
 			env_utilities.c \
 			quote.c \

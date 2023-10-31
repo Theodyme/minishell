@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 17:25:43 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/31 01:05:17 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/31 03:02:24 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@
 
 void	close_protection(t_cmd *cmd, t_redir *redir, int *tmp)
 {
-	if (tmp[0])
+	if (tmp[0] && tmp[0] > 0)
 	{
-		close(cmd->fd[0]);
+		ft_close_fd(cmd->fd[0]);
 		cmd->fd[0] = tmp[0];
 	}
-	else if (tmp[1])
+	else if (tmp[1] && tmp[1] > 0)
 	{
-		close(cmd->fd[1]);
+		ft_close_fd(cmd->fd[1]);
 		cmd->fd[1] = tmp[1];
 	}
 	if (cmd->fd[0] == -1 || cmd->fd[1] == -1)
@@ -46,8 +46,8 @@ void	open_files(t_cmd *cmd)
 	t_redir	*redir;
 	int		tmp[2];
 
-	tmp[0] = 0;
-	tmp[1] = 0;
+	tmp[0] = -2;
+	tmp[1] = -2;
 	redir = cmd->redir;
 	if (g_status == 130 || g_status == 131)
 		g_status = 0;
@@ -100,9 +100,9 @@ void	close_pipes(t_cmd *cmd)
 	while (tmp)
 	{
 		if (tmp->fd[0] != STDIN_FILENO && tmp->fd[0] != -1)
-			close(tmp->fd[0]);
+			ft_close_fd(tmp->fd[0]);
 		if (tmp->fd[1] != STDOUT_FILENO && tmp->fd[1] != -1)
-			close (tmp->fd[1]);
+			ft_close_fd(tmp->fd[1]);
 		tmp = tmp->next;
 	}
 }

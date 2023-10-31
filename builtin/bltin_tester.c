@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:41:12 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/31 00:52:08 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/31 03:19:21 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ int	ft_single_bltin_exec(t_cmd **cmd)
 	save_out = dup(STDOUT_FILENO);
 	dup2((*cmd)->fd[0], STDIN_FILENO);
 	dup2((*cmd)->fd[1], STDOUT_FILENO);
-	close((*cmd)->fd[0]);
-	close((*cmd)->fd[1]);
+	ft_close_fd((*cmd)->fd[0]);
+	ft_close_fd((*cmd)->fd[1]);
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
 	i = (*cmd)->bltn(*cmd);
 	dup2(save_in, STDIN_FILENO);
 	dup2(save_out, STDOUT_FILENO);
-	close(save_in);
-	close(save_out);
+	ft_close_fd(save_in);
+	ft_close_fd(save_out);
 	return (i);
 }
 
@@ -61,8 +61,7 @@ static const t_fn	*call_tab_bltin(void)
 	{.call = "hello", .blt_fn = &ft_bltin_hello},
 	{.call = "hi", .blt_fn = &ft_bltin_hello},
 	{.call = "where", .blt_fn = &ft_bltin_where},
-	{0, 0}
-	};
+	{0, 0}};
 
 	return (tab_bltin);
 }

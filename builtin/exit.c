@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 18:07:52 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/30 20:27:59 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/31 02:34:50 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int	ft_bltin_exit(t_cmd *cmd)
 	t_arg	*tmp;
 
 	i = 0;
-	close(cmd->fd[0]);
-	close(cmd->fd[1]);
+	ft_close_fd(cmd->fd[0]);
+	ft_close_fd(cmd->fd[1]);
 	if (!cmd->args_list->next)
 		ft_free_n_exit(cmd, 0);
 	tmp = cmd->args_list->next;

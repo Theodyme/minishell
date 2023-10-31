@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:23:49 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/29 17:37:34 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/31 03:26:18 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ int	ft_check_syntax(t_token *token)
 	while (tmp)
 	{
 		if (tmp->type == REDIR_IN || tmp->type == REDIR_OUT || \
-		tmp->type == APPEND || tmp->type == HEREDOC)
+			tmp->type == APPEND || tmp->type == HEREDOC)
 		{
-			if (!tmp->next || (tmp->next->type != WORD
-					&& tmp->next->type != DELIMITER))
+			if (!tmp->next || (tmp->next->type != WORD && \
+			tmp->next->type != DELIMITER))
 				return (printf(TRITON UNEXPECTED_TOKEN_ERR, tmp->next->str), 1);
 		}
 		else if (tmp->type == PIPE)

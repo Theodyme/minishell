@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:10:32 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/30 21:29:18 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/31 03:10:56 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ extern int				g_status;
 **	etc...
 */
 
-enum	e_TOKEN_TYPE
+enum e_TOKEN_TYPE
 {
 	WORD,
 	QUOTE,
@@ -209,6 +209,7 @@ char	*ft_str_tolower(char *str);
 int		ft_tolower(int n);
 char	*ft_create_fname(char *fname);
 char	*get_next_line(int fd);
+void	ft_close_fd(int fd);
 
 /* -------------------------------- builtins -------------------------------- */
 

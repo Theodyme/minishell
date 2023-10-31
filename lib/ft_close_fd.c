@@ -1,37 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   ft_close_fd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/13 19:13:09 by theophane         #+#    #+#             */
-/*   Updated: 2023/10/31 02:34:50 by mabimich         ###   ########.fr       */
+/*   Created: 2023/10/31 03:26:37 by mabimich          #+#    #+#             */
+/*   Updated: 2023/10/31 03:26:41 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void	sig_handler(int signum)
+void	ft_close_fd(int fd)
 {
-	if (signum == SIGINT)
-	{
-		g_status = 130;
-		write(STDOUT_FILENO, "\n", 1);
-		rl_replace_line("", 1);
-		rl_on_new_line();
-		rl_redisplay();
-	}
-	return ;
-}
-
-void	sig_heredoc(int signum)
-{
-	if (signum == SIGINT)
-	{
-		write(STDOUT_FILENO, "\n", 1);
-		ft_close_fd(STDIN_FILENO);
-		g_status = 130;
-	}
-	return ;
+	if (fd >= 0)
+		close(fd);
 }

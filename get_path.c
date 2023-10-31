@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:35:18 by flplace           #+#    #+#             */
-/*   Updated: 2023/10/29 21:13:05 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/31 02:45:42 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*verif_paths(char **paths)
 	out = NULL;
 	i = -1;
 	if (!paths)
-		return (printf("BLBLᴛʀɪᴛᴏɴ\033[0m\033[0m: path is NULL\n"),
+		return (printf(TRITON "path is NULL\n"),
 			NULL);
 	while (!out && paths && paths[++i])
 	{

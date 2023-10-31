@@ -6,7 +6,7 @@
 /*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:54:00 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/29 23:49:17 by mabimich         ###   ########.fr       */
+/*   Updated: 2023/10/31 03:15:06 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ int	ft_create_arg(t_arg **arg)
 
 int	ft_fill_cmd(t_cmd *cmd, t_token *tkn)
 {
+	cmd->fd[0] = -2;
+	cmd->fd[1] = -2;
 	while (tkn && tkn->type != PIPE && tkn->type != EOL)
 	{
 		cmd->pid = 1;

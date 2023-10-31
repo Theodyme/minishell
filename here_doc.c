@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabimich <mabimich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 19:20:52 by mabimich          #+#    #+#             */
-/*   Updated: 2023/10/16 18:33:00 by flplace          ###   ########.fr       */
+/*   Updated: 2023/10/31 02:34:50 by mabimich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,6 @@ int	here_doc(t_redir *redir)
 	}
 	if (ret)
 		free(ret);
-	close(redir->fd_h_d);
+	ft_close_fd(redir->fd_h_d);
 	return (open(redir->file, O_RDONLY), redir->fd_h_d);
 }
